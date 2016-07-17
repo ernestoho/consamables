@@ -19,6 +19,7 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
 		final DBIFactory factory = new DBIFactory();
 		final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "postgresql");
 		final GroupDAO dao = jdbi.onDemand(GroupDAO.class);
+
 		environment.jersey().register(new OrdersResource(dao));
 	}
 

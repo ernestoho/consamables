@@ -1,15 +1,33 @@
 package consamables.jdbi.models;
 
 import java.sql.Timestamp;
+import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Group 
 {
-
+	@NotNull
+	@JsonProperty
 	private int groupId;
+
+	@NotNull
+	@JsonProperty
 	private int restaurantId;
+
+	@NotNull
+	@JsonProperty
 	private Timestamp startTime;
+
+	@NotNull
+	@JsonProperty
 	private int duration;
+
+	@NotNull
+	@JsonProperty
 	private int minPeople;
+
+	@NotNull
+	@JsonProperty
 	private String phase;
 	
 	public Group() { }
@@ -36,43 +54,53 @@ public class Group
 		this.groupId = groupId;
 	}
 
-	public int getRestaurantId() {
+	public int getRestaurantId()
+	{
 		return restaurantId;
 	}
 
-	public void setRestaurantId(int restaurantId) {
+	public void setRestaurantId(int restaurantId)
+	{
 		this.restaurantId = restaurantId;
 	}
 
-	public Timestamp getStartTime() {
+	public Timestamp getStartTime()
+	{
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Timestamp startTime)
+	{
 		this.startTime = startTime;
 	}
 
-	public int getDuration() {
+	public int getDuration()
+	{
 		return duration;
 	}
 
-	public void setDuration(int duration) {
+	public void setDuration(int duration)
+	{
 		this.duration = duration;
 	}
 
-	public int getMinPeople() {
+	public int getMinPeople()
+	{
 		return minPeople;
 	}
 
-	public void setMinPeople(int minPeople) {
+	public void setMinPeople(int minPeople)
+	{
 		this.minPeople = minPeople;
 	}
 
-	public String getPhase() {
+	public String getPhase()
+	{
 		return phase;
 	}
 
-	public void setPhase(String phase) {
+	public void setPhase(String phase)
+	{
 		this.phase = phase;
 	}
 }
