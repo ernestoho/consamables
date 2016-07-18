@@ -8,11 +8,11 @@ public class Item
 {
 	@NotNull
 	@JsonProperty
-	private int itemId;
+	private Integer itemId;
 	
 	@NotNull
 	@JsonProperty
-	private int restaurantId;
+	private Integer restaurantId;
 	
 	@NotNull
 	@JsonProperty
@@ -27,7 +27,7 @@ public class Item
 	
 	public Item() { }
 
-	public Item(int itemId, int restaurantId, String name, String description, BigDecimal price)
+	public Item(Integer itemId, Integer restaurantId, String name, String description, BigDecimal price)
 	{
 		this.itemId = itemId;
 		this.restaurantId = restaurantId;
@@ -36,22 +36,22 @@ public class Item
 		this.price = price;
 	}
 
-	public int getItemId()
+	public Integer getItemId()
 	{
 		return itemId;
 	}
 
-	public void setItemId(int itemId)
+	public void setItemId(Integer itemId)
 	{
 		this.itemId = itemId;
 	}
 
-	public int getRestaurantId()
+	public Integer getRestaurantId()
 	{
 		return restaurantId;
 	}
 
-	public void setRestaurantId(int restaurantId)
+	public void setRestaurantId(Integer restaurantId)
 	{
 		this.restaurantId = restaurantId;
 	}

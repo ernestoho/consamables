@@ -7,23 +7,23 @@ public class Order
 {
 	@NotNull
 	@JsonProperty
-	private int orderId;
+	private Integer orderId;
 	
 	@NotNull
 	@JsonProperty
-	private int groupId;
+	private Integer groupId;
 	
 	@NotNull
 	@JsonProperty
-	private int userId;
+	private Integer userId;
 	
 	@NotNull
 	@JsonProperty
-	private int itemId;
+	private Integer itemId;
 	
 	public Order() { }
 	
-	public Order(int orderId, int groupId, int userId, int itemId)
+	public Order(Integer orderId, Integer groupId, Integer userId, Integer itemId)
 	{
 		this.orderId = orderId;
 		this.groupId = groupId;
@@ -31,42 +31,42 @@ public class Order
 		this.itemId = itemId;
 	}
 
-	public int getOrderId()
+	public Integer getOrderId()
 	{
 		return orderId;
 	}
 
-	public void setOrderId(int orderId)
+	public void setOrderId(Integer orderId)
 	{
 		this.orderId = orderId;
 	}
 
-	public int getGroupId()
+	public Integer getGroupId()
 	{
 		return groupId;
 	}
 
-	public void setGroupId(int groupId)
+	public void setGroupId(Integer groupId)
 	{
 		this.groupId = groupId;
 	}
 
-	public int getUserId()
+	public Integer getUserId()
 	{
 		return userId;
 	}
 
-	public void setUserId(int userId)
+	public void setUserId(Integer userId)
 	{
 		this.userId = userId;
 	}
 
-	public int getItemId()
+	public Integer getItemId()
 	{
 		return itemId;
 	}
 
-	public void setItemId(int itemId)
+	public void setItemId(Integer itemId)
 	{
 		this.itemId = itemId;
 	}

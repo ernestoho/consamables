@@ -7,51 +7,36 @@ public class Vote
 {
 	@NotNull
 	@JsonProperty
-	private int voteId;
+	private Integer userId;
 	
 	@NotNull
 	@JsonProperty
-	private int userId;
-	
-	@NotNull
-	@JsonProperty
-	private int groupId;
+	private Integer groupId;
 
 	public Vote() { }
 	
-	public Vote(int voteId, int userId, int groupId)
+	public Vote(Integer userId, Integer groupId)
 	{
-		this.voteId = voteId;
 		this.userId = userId;
 		this.groupId = groupId;
 	}
 
-	public int getVoteId()
-	{
-		return voteId;
-	}
-
-	public void setVoteId(int voteId)
-	{
-		this.voteId = voteId;
-	}
-
-	public int getUserId()
+	public Integer getUserId()
 	{
 		return userId;
 	}
 
-	public void setUserId(int userId)
+	public void setUserId(Integer userId)
 	{
 		this.userId = userId;
 	}
 
-	public int getGroupId()
+	public Integer getGroupId()
 	{
 		return groupId;
 	}
 
-	public void setGroupId(int groupId)
+	public void setGroupId(Integer groupId)
 	{
 		this.groupId = groupId;
 	}

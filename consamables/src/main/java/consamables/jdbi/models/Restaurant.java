@@ -7,7 +7,7 @@ public class Restaurant
 {
 	@NotNull
 	@JsonProperty
-	private int restaurantId;
+	private Integer restaurantId;
 	
 	@NotNull
 	@JsonProperty
@@ -27,7 +27,7 @@ public class Restaurant
 	
 	public Restaurant() { }
 
-	public Restaurant(int restaurantId, String name, String location, String hours, String url)
+	public Restaurant(Integer restaurantId, String name, String location, String hours, String url)
 	{
 		this.restaurantId = restaurantId;
 		this.name = name;
@@ -36,12 +36,12 @@ public class Restaurant
 		this.url = url;
 	}
 
-	public int getRestaurantId()
+	public Integer getRestaurantId()
 	{
 		return restaurantId;
 	}
 
-	public void setRestaurantId(int restaurantId)
+	public void setRestaurantId(Integer restaurantId)
 	{
 		this.restaurantId = restaurantId;
 	}

@@ -8,11 +8,11 @@ public class Group
 {
 	@NotNull
 	@JsonProperty
-	private int groupId;
+	private Integer groupId;
 
 	@NotNull
 	@JsonProperty
-	private int restaurantId;
+	private Integer restaurantId;
 
 	@NotNull
 	@JsonProperty
@@ -20,11 +20,11 @@ public class Group
 
 	@NotNull
 	@JsonProperty
-	private int duration;
+	private Integer duration;
 
 	@NotNull
 	@JsonProperty
-	private int minPeople;
+	private Integer minPeople;
 
 	@NotNull
 	@JsonProperty
@@ -32,9 +32,9 @@ public class Group
 	
 	public Group() { }
 	
-	public Group(int groupId, int restaurantId,
-					 Timestamp startTime, int duration,
-					 int minPeople, String phase)
+	public Group(Integer groupId, Integer restaurantId,
+					 Timestamp startTime, Integer duration,
+					 Integer minPeople, String phase)
 	{
 		this.groupId = groupId;
 		this.restaurantId = restaurantId;
@@ -44,22 +44,22 @@ public class Group
 		this.phase = phase;
 	}
 	
-	public int getgroupId()
+	public Integer getgroupId()
 	{
 		return groupId;
 	}
 	
-	public void setgroupId(int groupId)
+	public void setgroupId(Integer groupId)
 	{
 		this.groupId = groupId;
 	}
 
-	public int getRestaurantId()
+	public Integer getRestaurantId()
 	{
 		return restaurantId;
 	}
 
-	public void setRestaurantId(int restaurantId)
+	public void setRestaurantId(Integer restaurantId)
 	{
 		this.restaurantId = restaurantId;
 	}
@@ -74,22 +74,22 @@ public class Group
 		this.startTime = startTime;
 	}
 
-	public int getDuration()
+	public Integer getDuration()
 	{
 		return duration;
 	}
 
-	public void setDuration(int duration)
+	public void setDuration(Integer duration)
 	{
 		this.duration = duration;
 	}
 
-	public int getMinPeople()
+	public Integer getMinPeople()
 	{
 		return minPeople;
 	}
 
-	public void setMinPeople(int minPeople)
+	public void setMinPeople(Integer minPeople)
 	{
 		this.minPeople = minPeople;
 	}

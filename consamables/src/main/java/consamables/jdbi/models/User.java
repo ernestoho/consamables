@@ -7,7 +7,7 @@ public class User
 {
 	@NotNull
 	@JsonProperty
-	private int userId;
+	private Integer userId;
 	
 	@NotNull
 	@JsonProperty
@@ -23,7 +23,7 @@ public class User
 	
 	public User() { }
 	
-	public User(int userId, String email, String passwordHash, String passwordSalt)
+	public User(Integer userId, String email, String passwordHash, String passwordSalt)
 	{
 		this.userId = userId;
 		this.email = email;
@@ -31,11 +31,11 @@ public class User
 		this.passwordSalt = passwordSalt;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
