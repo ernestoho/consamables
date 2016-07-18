@@ -6,14 +6,14 @@ CREATE DATABASE consamables
 
 \c consamables sam;
 
-CREATE TABLE consumer
+CREATE TABLE "user"
 (
-	consumer_id serial NOT NULL,
+	user_id serial NOT NULL,
 	email text NOT NULL,
 	password_hash text NOT NULL,
 	password_salt text NOT NULL,
-	CONSTRAINT consumer_pk
-		PRIMARY KEY (consumer_id)
+	CONSTRAINT user_pk
+		PRIMARY KEY (user_id)
 );
 
 CREATE TABLE restaurant
@@ -41,61 +41,61 @@ CREATE TABLE item
 		REFERENCES restaurant (restaurant_id)
 );
 
-CREATE TABLE food_group
+CREATE TABLE "group"
 (
-	food_group_id serial NOT NULL,
+	group_id serial NOT NULL,
 	restaurant_id int NOT NULL,
 	start_time timestamp with time zone,
 	duration int,
 	min_people int,
 	phase text,
-	CONSTRAINT food_group_pk
-		PRIMARY KEY (food_group_id),
-	CONSTRAINT food_group_restaurant_id_fk
+	CONSTRAINT group_pk
+		PRIMARY KEY (group_id),
+	CONSTRAINT group_restaurant_id_fk
 		FOREIGN KEY (restaurant_id)
 		REFERENCES restaurant (restaurant_id)
 );
 
-CREATE TABLE food_order
+CREATE TABLE "order"
 (
-	food_order_id serial NOT NULL,
-	food_group_id int NOT NULL,
-	consumer_id int NOT NULL,
+	order_id serial NOT NULL,
+	group_id int NOT NULL,
+	user_id int NOT NULL,
 	item_id int NOT NULL,
-	CONSTRAINT food_order_pk
-		PRIMARY KEY (food_order_id),
-	CONSTRAINT food_order_food_group_id_fk
-		FOREIGN KEY (food_group_id)
-		REFERENCES food_group (food_group_id),
-	CONSTRAINT food_order_consumer_id_fk
-		FOREIGN KEY (consumer_id)
-		REFERENCES consumer (consumer_id),
-	CONSTRAINT food_order_item_id_fk
+	CONSTRAINT order_pk
+		PRIMARY KEY (order_id),
+	CONSTRAINT order_group_id_fk
+		FOREIGN KEY (group_id)
+		REFERENCES "group" (group_id),
+	CONSTRAINT order_user_id_fk
+		FOREIGN KEY (user_id)
+		REFERENCES "user" (user_id),
+	CONSTRAINT order_item_id_fk
 		FOREIGN KEY (item_id)
 		REFERENCES item (item_id)
 );
 
-CREATE TABLE food_order_data
+CREATE TABLE order_data
 (
-	food_order_id int NOT NULL,
+	order_id int NOT NULL,
 	data json,
-	CONSTRAINT food_order_data_pk
-		PRIMARY KEY (food_order_id),
-	CONSTRAINT food_order_data_fk
-		FOREIGN KEY (food_order_id)
-		REFERENCES food_order (food_order_id)
+	CONSTRAINT order_data_pk
+		PRIMARY KEY (order_id),
+	CONSTRAINT order_data_fk
+		FOREIGN KEY (order_id)
+		REFERENCES "order" (order_id)
 );
 
 CREATE TABLE vote
 (
-	consumer_id int NOT NULL,
-	food_group_id int NOT NULL,
+	user_id int NOT NULL,
+	group_id int NOT NULL,
 	CONSTRAINT vote_pk
-		PRIMARY KEY (consumer_id, food_group_id),
-	CONSTRAINT vote_consumer_id_fk
-		FOREIGN KEY (consumer_id)
-		REFERENCES consumer (consumer_id),
-	CONSTRAINT vote_food_group_id_fk
-		FOREIGN KEY (food_group_id)
-		REFERENCES food_group (food_group_id)
+		PRIMARY KEY (user_id, group_id),
+	CONSTRAINT vote_user_id_fk
+		FOREIGN KEY (user_id)
+		REFERENCES "user" (user_id),
+	CONSTRAINT vote_group_id_fk
+		FOREIGN KEY (group_id)
+		REFERENCES "group" (group_id)
 );

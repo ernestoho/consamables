@@ -1,24 +1,24 @@
-package consamables.jdbi;
+package consamables.jdbi.models;
 
 import java.sql.Timestamp;
 
-public class FoodGroup 
+public class Group 
 {
 
-	private int foodGroupId;
+	private int groupId;
 	private int restaurantId;
 	private Timestamp startTime;
 	private int duration;
 	private int minPeople;
 	private String phase;
 	
-	public FoodGroup() { }
+	public Group() { }
 	
-	public FoodGroup(int foodGroupId, int restaurantId,
+	public Group(int groupId, int restaurantId,
 					 Timestamp startTime, int duration,
 					 int minPeople, String phase)
 	{
-		this.foodGroupId = foodGroupId;
+		this.groupId = groupId;
 		this.restaurantId = restaurantId;
 		this.startTime = startTime;
 		this.duration = duration;
@@ -26,14 +26,14 @@ public class FoodGroup
 		this.phase = phase;
 	}
 	
-	public int getfoodGroupId()
+	public int getgroupId()
 	{
-		return foodGroupId;
+		return groupId;
 	}
 	
-	public void setfoodGroupId(int foodGroupId)
+	public void setgroupId(int groupId)
 	{
-		this.foodGroupId = foodGroupId;
+		this.groupId = groupId;
 	}
 
 	public int getRestaurantId() {
