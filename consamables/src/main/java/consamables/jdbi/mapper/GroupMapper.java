@@ -8,10 +8,10 @@ import consamables.jdbi.models.Group;
 
 public class GroupMapper implements ResultSetMapper<Group>
 {
-	public Group map(int index, ResultSet r, StatementContext ctx) throws SQLException
-	{
-		return new Group(r.getInt("group_id"), r.getInt("restaurant_id"),
-					 	 r.getTimestamp("start_time"), r.getInt("duration"),
-						 r.getInt("min_people"), r.getString("phase"));
-	}
+    public Group map(int index, ResultSet r, StatementContext ctx) throws SQLException
+    {
+        return new Group(r.getInt("group_id"), r.getInt("restaurant_id"),
+                         r.getTimestamp("start_time"), r.getInt("duration"),
+                         r.getInt("min_people"), r.getString("phase"));
+    }
 }

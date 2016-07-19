@@ -8,8 +8,8 @@ import consamables.jdbi.models.Vote;
 
 public class VoteMapper implements ResultSetMapper<Vote>
 {
-	public Vote map(int index, ResultSet r, StatementContext ctx) throws SQLException
-	{
-		return new Vote(r.getInt("user_id"), r.getInt("group_id"));
-	}
+    public Vote map(int index, ResultSet r, StatementContext ctx) throws SQLException
+    {
+        return new Vote(r.getInt("user_id"), r.getInt("group_id"));
+    }
 }

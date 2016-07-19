@@ -12,26 +12,26 @@ import consamables.resources.OrdersResource;
 public class ConsamablesApplication extends Application<ConsamablesConfiguration>
 {
 
-	@Override
-	public void run(ConsamablesConfiguration config,
-					Environment environment) throws ClassNotFoundException
-	{
-		final DBIFactory factory = new DBIFactory();
-		final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "postgresql");
-		final GroupDAO dao = jdbi.onDemand(GroupDAO.class);
+    @Override
+    public void run(ConsamablesConfiguration config,
+                    Environment environment) throws ClassNotFoundException
+    {
+        final DBIFactory factory = new DBIFactory();
+        final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "postgresql");
+        final GroupDAO dao = jdbi.onDemand(GroupDAO.class);
 
-		environment.jersey().register(new OrdersResource(dao));
-	}
+        environment.jersey().register(new OrdersResource(dao));
+    }
 
-	@Override
-	public void initialize(Bootstrap<ConsamablesConfiguration> bootstrap)
-	{
-		// nothing to do yet
-	}
+    @Override
+    public void initialize(Bootstrap<ConsamablesConfiguration> bootstrap)
+    {
+        // nothing to do yet
+    }
 
-	public static void main(String[] args) throws Exception
-	{
-		new ConsamablesApplication().run(args);
-	}
+    public static void main(String[] args) throws Exception
+    {
+        new ConsamablesApplication().run(args);
+    }
 
 }

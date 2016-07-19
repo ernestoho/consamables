@@ -12,14 +12,14 @@ import consamables.jdbi.GroupDAO;
 public class OrdersResource
 {
 
-	public OrdersResource(GroupDAO dao)
-	{
-		
-	}
-	
-	@GET
-	public Group getGroups()
-	{
-		return new Group();
-	}
+    public OrdersResource(GroupDAO dao)
+    {
+        
+    }
+    
+    @GET
+    public Group getGroups()
+    {
+        return new Group();
+    }
 }
