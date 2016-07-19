@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Order
 {
-    @NotNull
     @JsonProperty
     private Integer orderId;
     

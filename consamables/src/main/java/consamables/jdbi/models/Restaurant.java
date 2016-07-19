@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Restaurant
 {
-    @NotNull
     @JsonProperty
     private Integer restaurantId;
     

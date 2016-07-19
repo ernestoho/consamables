@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User
 {
-    @NotNull
     @JsonProperty
     private Integer userId;
     

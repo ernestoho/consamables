@@ -6,8 +6,8 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.jdbi.DBIFactory;
 import org.skife.jdbi.v2.DBI;
 import consamables.ConsamablesConfiguration;
-import consamables.jdbi.GroupDAO;
-import consamables.resources.OrdersResource;
+import consamables.jdbi.RestaurantDAO;
+import consamables.resources.RestaurantResource;
 
 public class ConsamablesApplication extends Application<ConsamablesConfiguration>
 {
@@ -18,9 +18,9 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
     {
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "postgresql");
-        final GroupDAO dao = jdbi.onDemand(GroupDAO.class);
+        final RestaurantDAO restaurantDAO = jdbi.onDemand(RestaurantDAO.class);
 
-        environment.jersey().register(new OrdersResource(dao));
+        environment.jersey().register(new RestaurantResource(restaurantDAO));
     }
 
     @Override

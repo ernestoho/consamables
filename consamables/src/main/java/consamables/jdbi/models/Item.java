@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Item
 {
-    @NotNull
     @JsonProperty
     private Integer itemId;
     

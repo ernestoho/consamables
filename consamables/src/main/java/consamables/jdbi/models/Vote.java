@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Vote
 {
-    @NotNull
     @JsonProperty
     private Integer userId;
     

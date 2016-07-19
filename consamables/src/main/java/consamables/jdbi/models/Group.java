@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Group 
 {
-    @NotNull
     @JsonProperty
     private Integer groupId;
 
