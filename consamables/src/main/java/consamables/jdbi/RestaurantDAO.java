@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import consamables.jdbi.mapper.RestaurantMapper;
-import consamables.jdbi.models.Restaurant;
+import consamables.api.Restaurant;
 
 @RegisterMapper(RestaurantMapper.class)
 public interface RestaurantDAO

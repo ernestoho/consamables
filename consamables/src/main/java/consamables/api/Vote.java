@@ -1,4 +1,4 @@
-package consamables.jdbi.models;
+package consamables.api;
 
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;

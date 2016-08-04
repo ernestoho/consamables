@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import consamables.jdbi.mapper.GroupMapper;
-import consamables.jdbi.models.Group;
+import consamables.api.Group;
 
 @RegisterMapper(GroupMapper.class)
 public interface GroupDAO

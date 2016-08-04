@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import consamables.jdbi.mapper.OrderMapper;
-import consamables.jdbi.models.Order;
+import consamables.api.Order;
 
 @RegisterMapper(OrderMapper.class)
 public interface OrderDAO

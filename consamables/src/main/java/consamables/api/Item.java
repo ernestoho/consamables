@@ -1,4 +1,4 @@
-package consamables.jdbi.models;
+package consamables.api;
 
 import java.math.BigDecimal;
 import javax.validation.constraints.NotNull;

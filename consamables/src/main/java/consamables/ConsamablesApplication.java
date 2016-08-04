@@ -1,6 +1,7 @@
 package consamables;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.jdbi.DBIFactory;
@@ -26,7 +27,7 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
     @Override
     public void initialize(Bootstrap<ConsamablesConfiguration> bootstrap)
     {
-        // nothing to do yet
+        bootstrap.addBundle(new AssetsBundle("/assets/", "/assets/"));
     }
 
     public static void main(String[] args) throws Exception

@@ -1,4 +1,4 @@
-package consamables.jdbi.models;
+package consamables.api;
 
 import java.sql.Timestamp;
 import javax.validation.constraints.NotNull;

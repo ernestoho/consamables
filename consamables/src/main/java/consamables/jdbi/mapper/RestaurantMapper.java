@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
-import consamables.jdbi.models.Restaurant;
+import consamables.api.Restaurant;
 
 public class RestaurantMapper implements ResultSetMapper<Restaurant>
 {

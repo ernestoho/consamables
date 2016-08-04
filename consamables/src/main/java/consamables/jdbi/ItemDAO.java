@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import consamables.jdbi.mapper.ItemMapper;
-import consamables.jdbi.models.Item;
+import consamables.api.Item;
 
 @RegisterMapper(ItemMapper.class)
 public interface ItemDAO
