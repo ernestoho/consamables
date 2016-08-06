@@ -1,2 +1,7 @@
 /target/
+/Users/
 config.yml
+dependency-reduced-pom.xml
+schema.sql
+.project
+/webapp/node_modules
