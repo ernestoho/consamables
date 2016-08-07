@@ -27,7 +27,7 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
     @Override
     public void initialize(Bootstrap<ConsamablesConfiguration> bootstrap)
     {
-        bootstrap.addBundle(new AssetsBundle("/static/", "/static/"));
+        bootstrap.addBundle(new AssetsBundle("/build/", "/static/"));
     }
 
     public static void main(String[] args) throws Exception

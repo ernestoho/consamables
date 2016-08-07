@@ -61,7 +61,7 @@
               <addClasspath>true</addClasspath>
             </manifest>
             <manifestEntries>
-              <Class-Path>../static/</Class-Path>
+              <Class-Path>../webapp/</Class-Path>
             </manifestEntries>
           </archive>
         </configuration>

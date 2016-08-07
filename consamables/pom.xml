@@ -94,7 +94,7 @@
 					<addClasspath>true</addClasspath>
 				</manifest>
 				<manifestEntries>
-					<Class-Path>../assets/</Class-Path>
+					<Class-Path>../webapp/</Class-Path>
 				</manifestEntries>
 			</archive>
 		</configuration>

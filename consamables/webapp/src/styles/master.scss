@@ -1,0 +1,15 @@
+@import 'reset';
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+$lato: 'Lato', sans-serif;
+
+html {
+	body {
+		#container {
+			font-family: $lato;
+			font-size: 100%;
+			background-color: #F0F0F0;
+			white-space: nowrap;
+		}
+	}
+}

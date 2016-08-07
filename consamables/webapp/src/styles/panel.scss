@@ -1,0 +1,26 @@
+.panel-base {
+	display: inline-block;
+	height: 97.5vh;
+	width: 31.8vw;
+	background-color: white;
+	box-shadow: 0 0.2vh 0.5vw #E0E0E0;
+	border: 0.2vh #E8E8E8 solid;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+}
+
+.panel-side {
+	@extend .panel-base;
+	margin-left: 1vw;
+	margin-right: 1vw;
+}
+
+.panel-center {
+	@extend .panel-base;
+}
+
+.panel-header {
+	font-weight: bold;
+	margin: 2vh;
+	text-align: center;
+}
