@@ -4,5 +4,6 @@ config.yml
 dependency-reduced-pom.xml
 schema.sql
 .project
+.settings
 /webapp/node_modules/
 /webapp/build/
