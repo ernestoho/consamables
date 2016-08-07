@@ -1,5 +1,6 @@
 @import 'reset';
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+@import 'colors';
+@import url(https://fonts.googleapis.com/css?family=Lato:400,400i,700);
 
 $lato: 'Lato', sans-serif;
 
@@ -7,9 +8,28 @@ html {
 	body {
 		#container {
 			font-family: $lato;
+			color: #484848;
 			font-size: 100%;
-			background-color: #F0F0F0;
+			background-color: $background-color;
 			white-space: nowrap;
 		}
 	}
+}
+
+.button {
+	margin: 1vmin;
+	font-family: $lato;
+	font-weight: bold;
+	color: $background-color;
+	background-color: $title-color;
+	text-decoration: none;
+	cursor: pointer;
+	border: 1px solid;
+	border-color: $title-color;
+	border-radius: 2px;
+	transition-duration: 0.2s;
+}
+
+.button:hover {
+	background-color: $hover-color;
 }

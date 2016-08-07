@@ -1,0 +1,23 @@
+@mixin vertical-container {
+	display: inline-block;
+	vertical-align: top;
+	width: 32vw;
+	height: 98vh;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+}
+
+.column-side {
+	@include vertical-container;
+	margin-left: 1vw;
+	margin-right: 1vw;
+}
+
+
+.column-left, .column-right {
+	@extend .column-side;
+}
+
+.column-center {
+	@include vertical-container;
+}

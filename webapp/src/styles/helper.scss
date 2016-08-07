@@ -1,0 +1,52 @@
+@import 'panel-measurements';
+@import 'colors';
+
+.left-helper, .right-helper {
+	display: inline-block;
+	position: relative;
+	width: 50%;
+	height: 100%;
+	font-size: 140%;
+	font-weight: bold;
+}
+
+.helper-text {
+	position: absolute;
+	top: 2vh;
+	padding: 5%;
+	text-shadow: 0 0.2vh 0.5vmin $text-shadow;
+}
+
+.helper {
+	margin-top: $margin;
+	height: $total-height - $title-height - $your-order-height - $margin;
+	white-space: nowrap;
+
+	.left-helper {
+		.helper-text {
+			transform: rotate(90deg);
+			transform-origin: left bottom;
+			left: 0;
+		}
+	}
+
+	.right-helper {
+		.helper-text {
+			transform: rotate(-90deg);
+			transform-origin: right bottom;
+			right: 0;
+		}
+	}
+}
+
+.left-arrow {
+	float: left;
+	margin-top: 5%;
+	margin-left: 5%;
+}
+
+.right-arrow {
+	float: right;
+	margin-top: 5%;
+	margin-right: 5%;
+}
