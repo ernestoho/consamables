@@ -1,7 +1,12 @@
 package consamables.api;
 
+import java.io.IOException;
+
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Restaurant
 {
@@ -14,11 +19,11 @@ public class Restaurant
     
     @NotNull
     @JsonProperty
-    private String location;
+    private JsonNode location;
     
     @NotNull
     @JsonProperty
-    private String hours;
+    private JsonNode hours;
     
     @NotNull
     @JsonProperty
@@ -26,12 +31,13 @@ public class Restaurant
     
     public Restaurant() { }
 
-    public Restaurant(Integer restaurantId, String name, String location, String hours, String url)
+    public Restaurant(Integer restaurantId, String name, String location, String hours, String url) throws JsonProcessingException, IOException
     {
         this.restaurantId = restaurantId;
         this.name = name;
-        this.location = location;
-        this.hours = hours;
+        ObjectMapper mapper = new ObjectMapper();
+        this.location = mapper.readTree(location);
+        this.hours = mapper.readTree(hours);
         this.url = url;
     }
 
@@ -55,24 +61,26 @@ public class Restaurant
         this.name = name;
     }
 
-    public String getLocation()
+    public JsonNode getLocation()
     {
         return location;
     }
 
-    public void setLocation(String location)
+    public void setLocation(String location) throws JsonProcessingException, IOException
     {
-        this.location = location;
+        ObjectMapper mapper = new ObjectMapper();
+        this.location = mapper.readTree(location);
     }
 
-    public String getHours()
+    public JsonNode getHours()
     {
         return hours;
     }
 
-    public void setHours(String hours)
+    public void setHours(String hours) throws JsonProcessingException, IOException
     {
-        this.hours = hours;
+        ObjectMapper mapper = new ObjectMapper();
+        this.hours = mapper.readTree(hours);
     }
 
     public String getUrl()

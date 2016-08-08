@@ -1,12 +1,13 @@
 import '../styles/panel.scss'
 
 import React from 'react';
+import RestaurantBox from './RestaurantBox'
 
 class CurrentOrderPanel extends React.Component {
 	render() {
 		return (
 				<div className="current-order-panel">
-					<PanelHeader name="Current Orders"></PanelHeader>
+					<PanelHeader name="Active Orders"></PanelHeader>
 				</div>
 		);
 	}
@@ -33,10 +34,26 @@ class YourOrderPanel extends React.Component {
 }
 
 class RestaurantPanel extends React.Component {
+	constructor() {
+		super();
+		this.state = { restaurants: [] };
+	}
+
+	componentDidMount() {
+		fetch('/api/restaurants').then((response) => {
+			response.json().then((json) => {
+				this.setState({ restaurants: json });
+			});
+		});
+	}
+
 	render() {
 		return (
 			<div className="restaurant-panel">
 				<PanelHeader name="Restaurants Nearby"></PanelHeader>
+				{this.state.restaurants.map((result) => 
+					<RestaurantBox key={result.restaurantId} {...result}></RestaurantBox>
+				)}
 			</div>
 		)
 	}

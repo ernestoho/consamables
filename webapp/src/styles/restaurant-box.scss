@@ -1,0 +1,38 @@
+@import 'colors';
+
+.restaurant-box {
+	font-size: 0.8em;
+	width: 90%;
+	height: 7em;
+	border-bottom: 1px solid $title-color;
+	margin: auto;
+	margin-top: 1em;
+
+	.restaurant-name, .restaurant-url, .restaurant-address {
+		text-align: center;
+		margin-bottom: 0.25em;
+	}
+
+	.restaurant-name {
+		font-weight: bold;
+		color: $title-color;
+	}
+
+	.restaurant-url {
+		font-style: italic;
+		color: $title-color;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
+	.restaurant-url:hover {
+		color: $hover-color;
+	}
+
+	.restaurant-toolbar {
+		height: 1.5em;
+		margin: auto;
+		margin-top: 0.25em;
+		margin-bottom: 0.25em;
+	}
+}

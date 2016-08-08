@@ -2,7 +2,7 @@
 /Users/
 config.yml
 dependency-reduced-pom.xml
-schema.sql
+/sql/
 .project
 .settings
 /webapp/node_modules/

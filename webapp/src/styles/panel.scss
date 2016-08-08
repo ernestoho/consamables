@@ -6,6 +6,7 @@
 	box-shadow: 0 0.2vh 0.5vmin #E0E0E0;
 	border: 0.2vh #E8E8E8 solid;
 	height: $height;
+	overflow: auto;
 }
 
 .current-order-panel {
@@ -28,7 +29,7 @@
 .credentials-panel {
 	@include panel($total-height - $restaurant-height - $margin);
 	margin-top: $margin;
-	font-size: 80%;
+	font-size: 0.8em;
 
 	.signed-in {
 		text-align: center;
