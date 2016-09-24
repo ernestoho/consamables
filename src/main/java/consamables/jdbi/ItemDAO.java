@@ -10,8 +10,7 @@ import consamables.jdbi.mapper.ItemMapper;
 import consamables.api.Item;
 
 @RegisterMapper(ItemMapper.class)
-public interface ItemDAO
-{
+public interface ItemDAO {
     @SqlQuery("SELECT * FROM item")
     List<Item> getAll();
     

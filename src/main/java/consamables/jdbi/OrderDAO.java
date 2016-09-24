@@ -10,8 +10,7 @@ import consamables.jdbi.mapper.OrderMapper;
 import consamables.api.Order;
 
 @RegisterMapper(OrderMapper.class)
-public interface OrderDAO
-{        
+public interface OrderDAO {        
     @SqlQuery("SELECT * FROM \"order\"")
     List<Order> getAll();
     

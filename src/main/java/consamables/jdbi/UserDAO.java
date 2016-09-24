@@ -11,8 +11,7 @@ import consamables.jdbi.mapper.UserMapper;
 import consamables.api.User;
 
 @RegisterMapper(UserMapper.class)
-public interface UserDAO
-{
+public interface UserDAO {
     @SqlQuery("SELECT * FROM \"user\"")
     List<User> getAll();
 

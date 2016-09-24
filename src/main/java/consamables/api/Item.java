@@ -4,8 +4,7 @@ import java.math.BigDecimal;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Item
-{
+public class Item {
     @JsonProperty
     private Integer itemId;
     
@@ -26,8 +25,7 @@ public class Item
     
     public Item() { }
 
-    public Item(Integer itemId, Integer restaurantId, String name, String description, BigDecimal price)
-    {
+    public Item(Integer itemId, Integer restaurantId, String name, String description, BigDecimal price) {
         this.itemId = itemId;
         this.restaurantId = restaurantId;
         this.name = name;
@@ -35,53 +33,43 @@ public class Item
         this.price = price;
     }
 
-    public Integer getItemId()
-    {
+    public Integer getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId)
-    {
+    public void setItemId(Integer itemId) {
         this.itemId = itemId;
     }
 
-    public Integer getRestaurantId()
-    {
+    public Integer getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(Integer restaurantId)
-    {
+    public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public BigDecimal getPrice()
-    {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price)
-    {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

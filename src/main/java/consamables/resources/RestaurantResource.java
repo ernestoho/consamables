@@ -12,24 +12,20 @@ import consamables.jdbi.RestaurantDAO;
 
 @Path("/restaurants")
 @Produces({MediaType.APPLICATION_JSON})
-public class RestaurantResource
-{
+public class RestaurantResource {
     RestaurantDAO dao;
     
-    public RestaurantResource(RestaurantDAO dao)
-    {
+    public RestaurantResource(RestaurantDAO dao) {
         this.dao = dao;
     }
     
     @GET
-    public List<Restaurant> getRestaurants()
-    {
+    public List<Restaurant> getRestaurants() {
         return dao.getAll();
     }
-    
+
     @POST
-    public void add(@Valid Restaurant restaurant)
-    {
+    public void add(@Valid Restaurant restaurant) {
         dao.addRestaurant(restaurant);
     }
 }

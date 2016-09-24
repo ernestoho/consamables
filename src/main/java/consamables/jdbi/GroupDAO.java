@@ -10,8 +10,7 @@ import consamables.jdbi.mapper.GroupMapper;
 import consamables.api.Group;
 
 @RegisterMapper(GroupMapper.class)
-public interface GroupDAO
-{
+public interface GroupDAO {
     @SqlQuery("SELECT * FROM \"group\"")
     List<Group> getAll();
 

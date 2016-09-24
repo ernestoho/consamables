@@ -4,8 +4,7 @@ import java.sql.Timestamp;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Group 
-{
+public class Group {
     @JsonProperty
     private Integer groupId;
 
@@ -33,8 +32,7 @@ public class Group
     
     public Group(Integer groupId, Integer restaurantId,
                      Timestamp startTime, Integer duration,
-                     Integer minPeople, String phase)
-    {
+                     Integer minPeople, String phase) {
         this.groupId = groupId;
         this.restaurantId = restaurantId;
         this.startTime = startTime;
@@ -43,63 +41,51 @@ public class Group
         this.phase = phase;
     }
     
-    public Integer getgroupId()
-    {
+    public Integer getgroupId() {
         return groupId;
     }
     
-    public void setgroupId(Integer groupId)
-    {
+    public void setgroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
-    public Integer getRestaurantId()
-    {
+    public Integer getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(Integer restaurantId)
-    {
+    public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
     }
 
-    public Timestamp getStartTime()
-    {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime)
-    {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
-    public Integer getDuration()
-    {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration)
-    {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
-    public Integer getMinPeople()
-    {
+    public Integer getMinPeople() {
         return minPeople;
     }
 
-    public void setMinPeople(Integer minPeople)
-    {
+    public void setMinPeople(Integer minPeople) {
         this.minPeople = minPeople;
     }
 
-    public String getPhase()
-    {
+    public String getPhase() {
         return phase;
     }
 
-    public void setPhase(String phase)
-    {
+    public void setPhase(String phase) {
         this.phase = phase;
     }
 }

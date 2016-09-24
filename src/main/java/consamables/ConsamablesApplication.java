@@ -10,13 +10,11 @@ import consamables.ConsamablesConfiguration;
 import consamables.jdbi.RestaurantDAO;
 import consamables.resources.RestaurantResource;
 
-public class ConsamablesApplication extends Application<ConsamablesConfiguration>
-{
+public class ConsamablesApplication extends Application<ConsamablesConfiguration> {
 
     @Override
-    public void run(ConsamablesConfiguration config,
-                    Environment environment) throws ClassNotFoundException
-    {
+    public void run(ConsamablesConfiguration config, Environment environment)
+    		throws ClassNotFoundException {
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "postgresql");
         final RestaurantDAO restaurantDAO = jdbi.onDemand(RestaurantDAO.class);
@@ -25,14 +23,11 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
     }
 
     @Override
-    public void initialize(Bootstrap<ConsamablesConfiguration> bootstrap)
-    {
+    public void initialize(Bootstrap<ConsamablesConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/build/", "/static/"));
     }
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         new ConsamablesApplication().run(args);
     }
-
 }

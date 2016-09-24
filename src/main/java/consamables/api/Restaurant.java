@@ -8,8 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Restaurant
-{
+public class Restaurant {
     @JsonProperty
     private Integer restaurantId;
     
@@ -31,8 +30,8 @@ public class Restaurant
     
     public Restaurant() { }
 
-    public Restaurant(Integer restaurantId, String name, String location, String hours, String url) throws JsonProcessingException, IOException
-    {
+    public Restaurant(Integer restaurantId, String name, String location, String hours, String url)
+    		throws JsonProcessingException, IOException {
         this.restaurantId = restaurantId;
         this.name = name;
         ObjectMapper mapper = new ObjectMapper();
@@ -41,55 +40,45 @@ public class Restaurant
         this.url = url;
     }
 
-    public Integer getRestaurantId()
-    {
+    public Integer getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(Integer restaurantId)
-    {
+    public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public JsonNode getLocation()
-    {
+    public JsonNode getLocation() {
         return location;
     }
 
-    public void setLocation(String location) throws JsonProcessingException, IOException
-    {
+    public void setLocation(String location) throws JsonProcessingException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         this.location = mapper.readTree(location);
     }
 
-    public JsonNode getHours()
-    {
+    public JsonNode getHours() {
         return hours;
     }
 
-    public void setHours(String hours) throws JsonProcessingException, IOException
-    {
+    public void setHours(String hours) throws JsonProcessingException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         this.hours = mapper.readTree(hours);
     }
 
-    public String getUrl()
-    {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url)
-    {
+    public void setUrl(String url) {
         this.url = url;
     }
 }

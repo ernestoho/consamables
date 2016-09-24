@@ -7,8 +7,7 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import consamables.api.Vote;
 
-public interface VoteDAO
-{
+public interface VoteDAO {
     @SqlQuery("SELECT * FROM vote")
     List<Vote> getAll();
 

@@ -7,10 +7,8 @@ import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 import consamables.api.Restaurant;
 
-public class RestaurantMapper implements ResultSetMapper<Restaurant>
-{
-    public Restaurant map(int index, ResultSet r, StatementContext ctx) throws SQLException
-    {
+public class RestaurantMapper implements ResultSetMapper<Restaurant> {
+    public Restaurant map(int index, ResultSet r, StatementContext ctx) throws SQLException {
         try {
             return new Restaurant(r.getInt("restaurant_id"), r.getString("name"),
                                   r.getString("location"), r.getString("hours"),

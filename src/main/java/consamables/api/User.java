@@ -3,8 +3,7 @@ package consamables.api;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class User
-{
+public class User {
     @JsonProperty
     private Integer userId;
     
@@ -22,8 +21,7 @@ public class User
     
     public User() { }
     
-    public User(Integer userId, String email, String passwordHash, String passwordSalt)
-    {
+    public User(Integer userId, String email, String passwordHash, String passwordSalt) {
         this.userId = userId;
         this.email = email;
         this.passwordHash = passwordHash;

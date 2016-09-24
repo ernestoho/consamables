@@ -10,8 +10,7 @@ import consamables.jdbi.mapper.RestaurantMapper;
 import consamables.api.Restaurant;
 
 @RegisterMapper(RestaurantMapper.class)
-public interface RestaurantDAO
-{
+public interface RestaurantDAO {
     @SqlQuery("SELECT * FROM restaurant")
     List<Restaurant> getAll();
     
