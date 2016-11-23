@@ -23,10 +23,9 @@ var config = {
     module: {
         loaders: [
             {
-                test: /\.jsx?/,
+                test: /\.jsx?$/,
                 include: APP_DIR,
                 loaders: [
-                    'react-hot',
                     'babel'
                 ]
             },
@@ -40,6 +39,15 @@ var config = {
                     'sass?outputStyle=expanded'
                 ]
             }
+        ]
+    },
+    resolve: {
+        extensions: [
+            '',
+            '.webpack.js',
+            '.js',
+            '.jsx',
+            '.scss'
         ]
     },
     postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],

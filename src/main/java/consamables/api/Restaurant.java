@@ -3,12 +3,13 @@ package consamables.api;
 import java.io.IOException;
 
 import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Restaurant {
+
     @JsonProperty
     private Integer restaurantId;
     
@@ -30,13 +31,17 @@ public class Restaurant {
     
     public Restaurant() { }
 
-    public Restaurant(Integer restaurantId, String name, String location, String hours, String url)
+    public Restaurant(Integer restaurantId, String name, JsonNode location, JsonNode hours, String url)
     		throws JsonProcessingException, IOException {
+    	this(name, location, hours, url);
         this.restaurantId = restaurantId;
+    }
+
+    public Restaurant(String name, JsonNode location, JsonNode hours, String url)
+    		throws JsonProcessingException, IOException {
         this.name = name;
-        ObjectMapper mapper = new ObjectMapper();
-        this.location = mapper.readTree(location);
-        this.hours = mapper.readTree(hours);
+        this.location = location;
+        this.hours = hours;
         this.url = url;
     }
 
@@ -59,19 +64,17 @@ public class Restaurant {
     public JsonNode getLocation() {
         return location;
     }
-
-    public void setLocation(String location) throws JsonProcessingException, IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        this.location = mapper.readTree(location);
+    
+    public void setLocation(JsonNode location) {
+    	this.location = location;
     }
 
     public JsonNode getHours() {
         return hours;
     }
 
-    public void setHours(String hours) throws JsonProcessingException, IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        this.hours = mapper.readTree(hours);
+    public void setHours(JsonNode hours) {
+    	this.hours = hours;
     }
 
     public String getUrl() {
