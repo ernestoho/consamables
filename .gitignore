@@ -1,9 +1,1 @@
-/target/
-/Users/
-config.yml
-dependency-reduced-pom.xml
 /sql/
-.project
-.settings
-/webapp/node_modules/
-/webapp/build/
