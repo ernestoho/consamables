@@ -11,7 +11,9 @@ html {
 			color: #484848;
 			font-size: 100%;
 			background-color: $background-color;
-			white-space: nowrap;
+			padding: 0 22em;
+			min-width: 18em;
+			overflow: hidden;
 		}
 	}
 }

@@ -1,40 +1,47 @@
 @import 'panel-measurements';
 @import 'colors';
 
-@mixin panel($height) {
+@mixin panel {
 	background-color: white;
-	box-shadow: 0 0.2vh 0.5vmin #E0E0E0;
-	border: 0.2vh #E8E8E8 solid;
-	height: $height;
+	box-shadow: 0 0.1em 0.2em #E0E0E0;
+	box-sizing: border-box;
+	border: 0.1em #E8E8E8 solid;
 	overflow: auto;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	margin-bottom: 1vh;
 }
 
 .current-order-panel {
-	@include panel($current-order-height);
+	@include panel;
+	height: 48.5vh;
+	margin-top: 1vh;
 }
 
 .pending-order-panel {
-	@include panel($total-height - $current-order-height - $margin);
-	margin-top: $margin;
+	@include panel;
+	height: 48.5vh;
 }
 
 .your-order-panel {
-	@include panel($your-order-height);
+	@include panel;
+	height: $your-order-height;
 }
 
 .restaurant-panel {
-	@include panel($restaurant-height);
+	@include panel;
+	margin-top: 0.5em;
 }
 
 .credentials-panel {
-	@include panel($total-height - $restaurant-height - $margin);
-	margin-top: $margin;
-	font-size: 0.8em;
+	@include panel;
+	height: 4.5em;
 
 	.signed-in {
+		font-size: 0.8em;
 		text-align: center;
 		font-weight: bold;
-		margin-top: 1vh;
+		margin-top: 0.5em;
 	}
 
 	.email {

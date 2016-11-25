@@ -32,9 +32,10 @@ public class RestaurantResource {
     	return dao.getRestaurant(Integer.parseInt(id));
     }
 
+    @Path("add")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public int add(@Valid Restaurant restaurant) {
-        return dao.addRestaurant(restaurant);
+    public int addRestaurant(@Valid Restaurant newRestaurant) {
+        return dao.addRestaurant(newRestaurant);
     }
 }

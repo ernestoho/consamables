@@ -1,8 +1,7 @@
-@import 'panel-measurements';
 @import 'colors';
 
 .title {
-	height: $title-height;
+	height: 1.5em;
 	font-size: 2.5em;
 	font-weight: bold;
 	text-align: center;
@@ -10,6 +9,6 @@
 	span {
 		vertical-align: middle;
 		color: $title-color;
-		text-shadow: 0 0.2vh 0.5vmin $text-shadow;
+		text-shadow: 0 0.1em 0.2em $text-shadow;
 	}
 }
