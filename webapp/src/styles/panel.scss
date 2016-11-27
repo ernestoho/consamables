@@ -14,38 +14,46 @@
 
 .current-order-panel {
 	@include panel;
-	height: 48.5vh;
+	height: $order-height;
+	min-height: $order-min-height;
 	margin-top: 1vh;
 }
 
 .pending-order-panel {
 	@include panel;
-	height: 48.5vh;
+	height: $order-height;
+	min-height: $order-min-height;
 }
 
 .your-order-panel {
 	@include panel;
 	height: $your-order-height;
+	min-height: 2.5em;
+	max-width: 25em;
+	margin: 0 auto;
 }
 
 .restaurant-panel {
 	@include panel;
-	margin-top: 0.5em;
+	margin-top: 1vh;
+	height: $restaurant-height;
+	min-height: 9.5em;
 }
 
 .credentials-panel {
 	@include panel;
-	height: 4.5em;
+	height: $credentials-height;
+	padding: 0.5em;
 
 	.signed-in {
 		font-size: 0.8em;
 		text-align: center;
 		font-weight: bold;
-		margin-top: 0.5em;
 	}
 
 	.email {
-		margin-top: 0.5vh;
+		margin-top: 0.25em;
+		margin-bottom: 0.25em;
 		font-weight: normal;
 		font-style: italic;
 		color: $title-color;
@@ -54,6 +62,6 @@
 
 .panel-header {
 	font-weight: bold;
-	margin: 1vmin;
+	margin: 0.4em;
 	text-align: center;
 }

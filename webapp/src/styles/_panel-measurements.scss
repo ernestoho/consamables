@@ -1,7 +1,11 @@
-$total-height: 99.5vh;
+$total-height: 100vh;
 $margin: 1vh;
-$current-order-height: 48.5vh;
-$pending-order-height: 48.5vh;
-$title-height: 10vh;
-$your-order-height: 15vh;
-$restaurant-height: 85vh;
+$total-panel-height: $total-height - (3 * $margin);
+
+$your-order-height: 10vh;
+
+$order-height: $total-panel-height / 2;
+$order-min-height: 10em;
+
+$credentials-height: 5.3em;
+$restaurant-height: calc(#{$total-panel-height} - #{$credentials-height});
