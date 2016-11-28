@@ -14,10 +14,10 @@ public interface VoteDAO {
     @SqlQuery("SELECT user_id FROM vote WHERE group_id = :groupId")
     List<Integer> getVotingUsersByGroup(@Bind("groupId") int groupId);
 
-    @SqlQuery("SELECT count(*) FROM votes WHERE group_id = :groupId")
+    @SqlQuery("SELECT count(*) FROM vote WHERE group_id = :groupId")
     int countVotesForGroup(@Bind("groupId") int groupId);
 
-    @SqlUpdate("INSERT INTO \"order\" " +
+    @SqlUpdate("INSERT INTO vote " +
                "(user_id, group_id) " +
                "VALUES " +
                "(:userId, :groupId)")

@@ -5,7 +5,7 @@ $total-panel-height: $total-height - (3 * $margin);
 $your-order-height: 10vh;
 
 $order-height: $total-panel-height / 2;
-$order-min-height: 10em;
+$order-min-height: 11em;
 
 $credentials-height: 5.3em;
 $restaurant-height: calc(#{$total-panel-height} - #{$credentials-height});

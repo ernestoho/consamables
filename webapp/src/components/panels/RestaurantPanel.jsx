@@ -1,21 +1,49 @@
-import '../styles/restaurant-box.scss';
+import '../../styles/panels/restaurant-panel.scss';
 
 import React from 'react';
 import moment from 'moment';
+import PanelHeader from './PanelHeader';
 
-export default class RestaurantBox extends React.Component {
+export default class RestaurantPanel extends React.Component {
+    constructor() {
+        super();
+        this.state = { restaurants: [] };
+    }
+
+    componentDidMount() {
+        fetch('/api/restaurants').then(response => {
+            response.json().then(json => {
+                this.setState({ restaurants: json });
+            });
+        });
+    }
+
+    render() {
+        return (
+            <div className="restaurant-panel">
+                <PanelHeader name="Restaurants Nearby"></PanelHeader>
+                {this.state.restaurants.map(result => 
+                    <RestaurantBox key={result.restaurantId} {...result}></RestaurantBox>
+                )}
+            </div>
+        );
+    }
+}
+
+
+class RestaurantBox extends React.Component {
     render() {
         return (
             <div className="restaurant-box">
-                <div className="restaurant-name">{this.props.name}</div>
-                <div className="restaurant-address">
+                <div className="box-title">{this.props.name}</div>
+                <div className="info">
                     {this.props.location.address.street + ', ' + this.props.location.address.city}
                 </div>
                 <RestaurantLink url={this.props.url}></RestaurantLink>
                 <TimeDisplay hours={this.props.hours}></TimeDisplay>
                 <RestaurantToolbar/>
             </div>
-        )
+        );
     }
 }
 
@@ -23,7 +51,6 @@ export default class RestaurantBox extends React.Component {
 class TimeDisplay extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.getTimes();
     }
 
@@ -58,6 +85,11 @@ class TimeDisplay extends React.Component {
                 yesterday = weekdays[now.day() - 1];
             }
             closeTime = toMoment(this.props.hours[yesterday].split('-')[1]);
+
+            if (!afterMidnight(closeTime)) {
+                closeTime.subtract(1, 'days');
+            }
+
         } else {
             if (afterMidnight(closeTime)) {
                 closeTime.add(1, 'days');
@@ -76,15 +108,15 @@ class TimeDisplay extends React.Component {
 
     render() {
         let message = '';
-        if (moment().isBefore(this.state.openTime) && moment().isAfter(this.state.closeTime)) {
+        if (moment().isAfter(this.state.closeTime)) {
             message = `Opening at ${this.state.openTime.format("ddd, hA")}`;
         } else {
             message = `Closing at ${this.state.closeTime.format("ddd, hA")}`;
         }
 
         return (
-            <div className="closing-time-display">{message}</div>
-        )
+            <div className="info">{message}</div>
+        );
     }
 }
 
@@ -101,10 +133,10 @@ class RestaurantLink extends React.Component {
 
     render() {
         return (
-            <div className="restaurant-url" onClick={this.handleClick}>
+            <div className="link" onClick={this.handleClick}>
                 {this.props.url}
             </div>
-        )
+        );
     }
 }
 
@@ -112,11 +144,11 @@ class RestaurantLink extends React.Component {
 class RestaurantToolbar extends React.Component {
     render() {
         return (
-            <div className="restaurant-toolbar">
+            <div className="toolbar">
                 <button className="button">View Menu</button>
                 <button className="button">Start Order</button>
                 <button className="button">Suggest Order</button>
             </div>
-        )
+        );
     }
 }

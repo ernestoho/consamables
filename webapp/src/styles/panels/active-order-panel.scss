@@ -1,0 +1,8 @@
+@import 'panel';
+
+.current-order-panel {
+	@include panel;
+	height: $order-height;
+	min-height: $order-min-height;
+	margin-top: 1vh;
+}

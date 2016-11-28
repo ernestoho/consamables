@@ -25,17 +25,30 @@ public interface GroupDAO {
     Group getGroup(@Bind("groupId") int groupId);
 
     @SqlUpdate("INSERT INTO \"group\" " +
-               "(restaurant_id, start_time, duration, min_people, phase) " +
+               "(restaurant_id, phase, min_people) " +
                "VALUES " +
-               "(:restaurantId, :startTime, :duration, :minPeople, :phase)")
+               "(:restaurantId, 'pending', :minPeople)")
     @GetGeneratedKeys
-    int addGroup(@BindBean Group group);
+    int addPendingGroup(@BindBean Group group);
+    
+    @SqlUpdate("INSERT INTO \"group\" " +
+    		   "(restaurant_id, phase, duration, time_started) " +
+    		   "VALUES " +
+    		   "(:restaurantId, 'active', :duration, now())")
+    @GetGeneratedKeys
+    int addActiveGroup(@BindBean Group group);
 
     @SqlUpdate("UPDATE \"group\" SET " +
-               "(restaurant_id, start_time, duration, min_people, phase) = " +
-               "(:restaurantId, :startTime, :duration, :minPeople, :phase) " +
+               "(phase, duration, time_started) = " +
+               "('active', :duration, now()) " +
                "WHERE group_id = :groupId")
-    void updateGroup(@BindBean Group group);
+    void activatePendingGroup(@BindBean Group group);
+    
+    @SqlUpdate("UPDATE \"group\" SET " +
+            "(phase, time_ordered) = " +
+            "('ordered', now()) " +
+            "WHERE group_id = :groupId")
+    void closeActiveGroup(@BindBean Group group);
 
     @SqlUpdate("DELETE FROM \"group\" WHERE group_id = :groupId")
     void deleteGroup(@Bind("groupId") int groupId);

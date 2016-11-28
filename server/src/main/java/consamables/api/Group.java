@@ -1,91 +1,109 @@
 package consamables.api;
 
 import java.sql.Timestamp;
-import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Group {
     @JsonProperty
     private Integer groupId;
 
-    @NotNull
     @JsonProperty
     private Integer restaurantId;
-
-    @NotNull
-    @JsonProperty
-    private Timestamp startTime;
-
-    @NotNull
-    @JsonProperty
-    private Integer duration;
-
-    @NotNull
-    @JsonProperty
-    private Integer minPeople;
-
-    @NotNull
+    
     @JsonProperty
     private String phase;
     
+    @JsonProperty
+    private Integer minPeople;
+    
+    @JsonProperty
+    private Integer duration;
+
+    @JsonProperty
+    private Timestamp timeCreated;
+    
+    @JsonProperty
+    private Timestamp timeStarted;
+    
+    @JsonProperty
+    private Timestamp timeOrdered;
+    
     public Group() { }
-    
-    public Group(Integer groupId, Integer restaurantId,
-                     Timestamp startTime, Integer duration,
-                     Integer minPeople, String phase) {
-        this.groupId = groupId;
-        this.restaurantId = restaurantId;
-        this.startTime = startTime;
-        this.duration = duration;
-        this.minPeople = minPeople;
-        this.phase = phase;
-    }
-    
-    public Integer getgroupId() {
-        return groupId;
-    }
-    
-    public void setgroupId(Integer groupId) {
-        this.groupId = groupId;
-    }
 
-    public Integer getRestaurantId() {
-        return restaurantId;
-    }
+	public Group(Integer groupId, Integer restaurantId,
+				 String phase, Integer minPeople, Integer duration,
+				 Timestamp timeCreated, Timestamp timeStarted, Timestamp timeOrdered) {
+		this.groupId = groupId;
+		this.restaurantId = restaurantId;
+		this.phase = phase;
+		this.minPeople = minPeople;
+		this.duration = duration;
+		this.timeCreated = timeCreated;
+		this.timeStarted = timeStarted;
+		this.timeOrdered = timeOrdered;
+	}
 
-    public void setRestaurantId(Integer restaurantId) {
-        this.restaurantId = restaurantId;
-    }
+	public Integer getGroupId() {
+		return groupId;
+	}
 
-    public Timestamp getStartTime() {
-        return startTime;
-    }
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
+	}
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
+	public Integer getRestaurantId() {
+		return restaurantId;
+	}
 
-    public Integer getDuration() {
-        return duration;
-    }
+	public void setRestaurantId(Integer restaurantId) {
+		this.restaurantId = restaurantId;
+	}
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
+	public String getPhase() {
+		return phase;
+	}
 
-    public Integer getMinPeople() {
-        return minPeople;
-    }
+	public void setPhase(String phase) {
+		this.phase = phase;
+	}
 
-    public void setMinPeople(Integer minPeople) {
-        this.minPeople = minPeople;
-    }
+	public Integer getMinPeople() {
+		return minPeople;
+	}
 
-    public String getPhase() {
-        return phase;
-    }
+	public void setMinPeople(Integer minPeople) {
+		this.minPeople = minPeople;
+	}
 
-    public void setPhase(String phase) {
-        this.phase = phase;
-    }
+	public Integer getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
+
+	public Timestamp getTimeCreated() {
+		return timeCreated;
+	}
+
+	public void setTimeCreated(Timestamp timeCreated) {
+		this.timeCreated = timeCreated;
+	}
+
+	public Timestamp getTimeStarted() {
+		return timeStarted;
+	}
+
+	public void setTimeStarted(Timestamp timeStarted) {
+		this.timeStarted = timeStarted;
+	}
+
+	public Timestamp getTimeOrdered() {
+		return timeOrdered;
+	}
+
+	public void setTimeOrdered(Timestamp timeOrdered) {
+		this.timeOrdered = timeOrdered;
+	}
 }

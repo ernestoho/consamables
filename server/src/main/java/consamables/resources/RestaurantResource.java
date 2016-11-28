@@ -26,13 +26,13 @@ public class RestaurantResource {
         return dao.getAll();
     }
     
-    @Path("{id}")
+    @Path("/{id}")
     @GET
     public Restaurant getRestaurant(@PathParam("id") String id) {
     	return dao.getRestaurant(Integer.parseInt(id));
     }
 
-    @Path("add")
+    @Path("/add")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public int addRestaurant(@Valid Restaurant newRestaurant) {

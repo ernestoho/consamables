@@ -1,0 +1,56 @@
+@import 'panel-measurements';
+@import '../colors';
+
+@mixin panel {
+	background-color: white;
+	box-shadow: 0 0.1em 0.2em #E0E0E0;
+	box-sizing: border-box;
+	border: 0.1em #E8E8E8 solid;
+	overflow: auto;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	margin-bottom: 1vh;
+}
+
+@mixin panelbox {
+	padding: 1em 0.5em 0.5em;
+	font-size: 0.8em;
+	margin: 0.5em;
+
+	.box-title, .info, .link, .toolbar {
+		text-align: center;
+		margin-bottom: 0.25em;
+	}
+
+	.box-title {
+		font-weight: bold;
+		color: $title-color;
+	}
+
+	.info {
+
+	}
+
+	.link {
+		font-style: italic;
+		color: $title-color;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
+	.link:hover {
+		color: $hover-color;
+	}
+
+	.toolbar {
+		height: 2em;
+		margin: auto;
+		margin-top: 0.25em;
+	}
+}
+
+.panel-header {
+	font-weight: bold;
+	margin: 0.4em;
+	text-align: center;
+}

@@ -6,11 +6,12 @@ $lato: 'Lato', sans-serif;
 
 html {
 	body {
+		background-color: $background-color;
+		
 		#container {
 			font-family: $lato;
 			color: #484848;
 			font-size: 100%;
-			background-color: $background-color;
 			padding: 0 22em;
 			min-width: 18em;
 			overflow: hidden;

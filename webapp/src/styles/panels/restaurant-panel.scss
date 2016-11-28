@@ -1,0 +1,16 @@
+@import 'panel';
+
+.restaurant-panel {
+	@include panel;
+	margin-top: 1vh;
+	height: $restaurant-height;
+	min-height: 9.5em;
+}
+
+.restaurant-box+.restaurant-box {
+	border-top: 1px solid $title-color;
+}
+
+.restaurant-box {
+	@include panelbox;
+}

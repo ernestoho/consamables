@@ -9,7 +9,7 @@ export default class Helper extends React.Component {
                 <HelperText className="left-helper" text="Join an existing group"></HelperText>
                 <HelperText className="right-helper" text="Explore other options"></HelperText>
             </div>
-        )
+        );
     }
 }
 
@@ -23,6 +23,6 @@ class HelperText extends React.Component {
                     <div className="right-arrow">▼</div>
                 </div>
             </div>
-        )
+        );
     }
 }
