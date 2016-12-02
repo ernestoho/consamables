@@ -1,8 +1,16 @@
 @import 'panel';
 
-.current-order-panel {
+.active-order-panel {
 	@include panel;
 	height: $order-height;
 	min-height: $order-min-height;
 	margin-top: 1vh;
+}
+
+.active-order-box+.active-order-box {
+	border-top: 1px solid $title-color;
+}
+
+.active-order-box {
+	@include panelbox;
 }

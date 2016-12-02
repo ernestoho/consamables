@@ -8,6 +8,8 @@ SET search_path TO test;
 
 CREATE TYPE group_phase AS ENUM ('pending', 'active', 'ordered');
 
+CREATE TYPE group_type AS ENUM ('carryout', 'delivery', 'outing', 'carryout or delivery', 'any');
+
 CREATE TABLE "user"
 (
 	user_id serial NOT NULL,
@@ -47,6 +49,7 @@ CREATE TABLE "group"
 (
 	group_id serial NOT NULL,
 	restaurant_id int NOT NULL,
+	type group_type NOT NULL,
 	phase group_phase NOT NULL,
 	min_people int NOT NULL DEFAULT 4,
 	duration int,

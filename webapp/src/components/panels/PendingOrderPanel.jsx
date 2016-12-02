@@ -35,7 +35,7 @@ class PendingOrderBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            restaurantName: '',
+            restaurantName: `Restaurant ${props.restaurantId}`,
             votes: 0
         };
         this.getVotes = this.getVotes.bind(this);
