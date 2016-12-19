@@ -5,19 +5,28 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import { Map } from 'immutable';
 
 import App from './components/App';
 import rootReducer from './reducers'
-import { fetchRestaurants } from './actions';
+import { fetchRestaurants, fetchPendingOrders } from './actions';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const initialState = {
+    restaurants: Map(),
+    activeOrders: Map(),
+    pendingOrders: Map()
+}
+
 const store = createStore(
     rootReducer,
+    initialState,
     composeEnhancers(applyMiddleware(thunkMiddleware))
 );
 
 store.dispatch(fetchRestaurants());
+store.dispatch(fetchPendingOrders());
 
 ReactDOM.render(
     <Provider store={store}>

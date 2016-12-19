@@ -1,7 +1,7 @@
-import '../../styles/panels/credentials-panel.scss';
+import '../../../styles/panels/credentials-panel.scss';
 
 import React from 'react';
-import PanelHeader from './PanelHeader';
+import PanelHeader from '../PanelHeader';
 
 export default class CredentialsPanel extends React.Component {
     render() {
