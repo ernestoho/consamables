@@ -29,7 +29,7 @@ public class RestaurantResource {
     @Path("/{id}")
     @GET
     public Restaurant getRestaurant(@PathParam("id") String id) {
-    	return dao.getRestaurant(Integer.parseInt(id));
+        return dao.getRestaurant(Integer.parseInt(id));
     }
 
     @Path("/add")

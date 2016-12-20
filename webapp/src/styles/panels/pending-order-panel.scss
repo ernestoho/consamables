@@ -1,15 +1,15 @@
 @import 'panel';
 
 .pending-order-panel {
-	@include panel;
-	height: $order-height;
-	min-height: $order-min-height;
+    @include panel;
+    height: $order-height;
+    min-height: $order-min-height;
 }
 
 .pending-order-box+.pending-order-box {
-	border-top: 1px solid $title-color;
+    border-top: 1px solid $title-color;
 }
 
 .pending-order-box {
-	@include panelbox;
+    @include panelbox;
 }

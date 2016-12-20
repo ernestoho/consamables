@@ -1,36 +1,36 @@
 @mixin vertical-container {
-	margin-top: auto;
-	margin-bottom: auto;
-	vertical-align: top;
-	float: left;
-	height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: top;
+    float: left;
+    height: 100%;
 }
 
 .column-side {
-	@include vertical-container;
-	width: 20em;
-	position: relative;
+    @include vertical-container;
+    width: 20em;
+    position: relative;
 }
 
 
 .column-left {
-	@extend .column-side;
-	margin-left: -20em;
+    @extend .column-side;
+    margin-left: -20em;
 }
 
 .column-right {
-	@extend .column-side;
-	margin-right: -20em;
+    @extend .column-side;
+    margin-right: -20em;
 }
 
 .column-center {
-	@include vertical-container;
-	width: 100%;
-	min-width: 20em;
+    @include vertical-container;
+    width: 100%;
+    min-width: 20em;
 }
 
 .padding {
-	width: 100%;
-	height: calc(39vh - 11.5em);
-	min-height: 0em;
+    width: 100%;
+    height: calc(39vh - 11.5em);
+    min-height: 0em;
 }

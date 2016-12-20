@@ -1,15 +1,15 @@
 @import 'colors';
 
 .title {
-	height: 1.5em;
-	font-size: 2.5em;
-	font-weight: bold;
-	text-align: center;
-	padding: 0.2em;
+    height: 1.5em;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.2em;
 
-	span {
-		vertical-align: middle;
-		color: $title-color;
-		text-shadow: 0 0.1em 0.2em $text-shadow;
-	}
+    span {
+        vertical-align: middle;
+        color: $title-color;
+        text-shadow: 0 0.1em 0.2em $text-shadow;
+    }
 }

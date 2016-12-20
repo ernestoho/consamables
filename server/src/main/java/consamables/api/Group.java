@@ -30,80 +30,80 @@ public class Group {
     
     public Group() { }
 
-	public Group(Integer groupId, Integer restaurantId,
-				 String phase, Integer minPeople, Integer duration,
-				 Timestamp timeCreated, Timestamp timeStarted, Timestamp timeOrdered) {
-		this.groupId = groupId;
-		this.restaurantId = restaurantId;
-		this.phase = phase;
-		this.minPeople = minPeople;
-		this.duration = duration;
-		this.timeCreated = timeCreated;
-		this.timeStarted = timeStarted;
-		this.timeOrdered = timeOrdered;
-	}
+    public Group(Integer groupId, Integer restaurantId,
+                 String phase, Integer minPeople, Integer duration,
+                 Timestamp timeCreated, Timestamp timeStarted, Timestamp timeOrdered) {
+        this.groupId = groupId;
+        this.restaurantId = restaurantId;
+        this.phase = phase;
+        this.minPeople = minPeople;
+        this.duration = duration;
+        this.timeCreated = timeCreated;
+        this.timeStarted = timeStarted;
+        this.timeOrdered = timeOrdered;
+    }
 
-	public Integer getGroupId() {
-		return groupId;
-	}
+    public Integer getGroupId() {
+        return groupId;
+    }
 
-	public void setGroupId(Integer groupId) {
-		this.groupId = groupId;
-	}
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
 
-	public Integer getRestaurantId() {
-		return restaurantId;
-	}
+    public Integer getRestaurantId() {
+        return restaurantId;
+    }
 
-	public void setRestaurantId(Integer restaurantId) {
-		this.restaurantId = restaurantId;
-	}
+    public void setRestaurantId(Integer restaurantId) {
+        this.restaurantId = restaurantId;
+    }
 
-	public String getPhase() {
-		return phase;
-	}
+    public String getPhase() {
+        return phase;
+    }
 
-	public void setPhase(String phase) {
-		this.phase = phase;
-	}
+    public void setPhase(String phase) {
+        this.phase = phase;
+    }
 
-	public Integer getMinPeople() {
-		return minPeople;
-	}
+    public Integer getMinPeople() {
+        return minPeople;
+    }
 
-	public void setMinPeople(Integer minPeople) {
-		this.minPeople = minPeople;
-	}
+    public void setMinPeople(Integer minPeople) {
+        this.minPeople = minPeople;
+    }
 
-	public Integer getDuration() {
-		return duration;
-	}
+    public Integer getDuration() {
+        return duration;
+    }
 
-	public void setDuration(Integer duration) {
-		this.duration = duration;
-	}
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
 
-	public Timestamp getTimeCreated() {
-		return timeCreated;
-	}
+    public Timestamp getTimeCreated() {
+        return timeCreated;
+    }
 
-	public void setTimeCreated(Timestamp timeCreated) {
-		this.timeCreated = timeCreated;
-	}
+    public void setTimeCreated(Timestamp timeCreated) {
+        this.timeCreated = timeCreated;
+    }
 
-	public Timestamp getTimeStarted() {
-		return timeStarted;
-	}
+    public Timestamp getTimeStarted() {
+        return timeStarted;
+    }
 
-	public void setTimeStarted(Timestamp timeStarted) {
-		this.timeStarted = timeStarted;
-	}
+    public void setTimeStarted(Timestamp timeStarted) {
+        this.timeStarted = timeStarted;
+    }
 
-	public Timestamp getTimeOrdered() {
-		return timeOrdered;
-	}
+    public Timestamp getTimeOrdered() {
+        return timeOrdered;
+    }
 
-	public void setTimeOrdered(Timestamp timeOrdered) {
-		this.timeOrdered = timeOrdered;
-	}
+    public void setTimeOrdered(Timestamp timeOrdered) {
+        this.timeOrdered = timeOrdered;
+    }
 }

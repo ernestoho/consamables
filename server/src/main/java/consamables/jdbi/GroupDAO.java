@@ -16,7 +16,7 @@ public interface GroupDAO {
     List<Group> getAll();
     
     @SqlQuery("SELECT * FROM \"group\" WHERE phase = 'active' " +
-    		  "AND time_started + (duration || 'minutes')::interval > now()")
+              "AND time_started + (duration || 'minutes')::interval > now()")
     List<Group> getActive();
     
     @SqlQuery("SELECT * FROM \"group\" WHERE phase = 'pending'")
@@ -33,9 +33,9 @@ public interface GroupDAO {
     int addPendingGroup(@BindBean Group group);
     
     @SqlUpdate("INSERT INTO \"group\" " +
-    		   "(restaurant_id, phase, duration, time_started) " +
-    		   "VALUES " +
-    		   "(:restaurantId, 'active', :duration, now())")
+               "(restaurant_id, phase, duration, time_started) " +
+               "VALUES " +
+               "(:restaurantId, 'active', :duration, now())")
     @GetGeneratedKeys
     int addActiveGroup(@BindBean Group group);
 

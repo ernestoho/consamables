@@ -20,31 +20,31 @@ import consamables.api.Restaurant;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface BindRestaurant {
-	
-	public static class RestaurantBinderFactory implements BinderFactory {
-		
-		public Binder<BindRestaurant, Restaurant> build(Annotation annotation) {
+    
+    public static class RestaurantBinderFactory implements BinderFactory {
+        
+        public Binder<BindRestaurant, Restaurant> build(Annotation annotation) {
 
-			return new Binder<BindRestaurant, Restaurant>() {
+            return new Binder<BindRestaurant, Restaurant>() {
 
-				public void bind(SQLStatement<?> q, BindRestaurant bind, Restaurant arg) {
-					ObjectMapper mapper = new ObjectMapper();
-					String location;
-					String hours;
-					
-					try {
-						location = mapper.writeValueAsString(arg.getLocation());
-						hours = mapper.writeValueAsString(arg.getHours());
-					} catch (JsonProcessingException e) {
-						location = "";
-						hours = "";
-					}
-					q.bind("location", location);
-					q.bind("hours", hours);
-					q.bind("name", arg.getName());
-					q.bind("url", arg.getUrl());
-				}
-			};
-		}
-	}
+                public void bind(SQLStatement<?> q, BindRestaurant bind, Restaurant arg) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    String location;
+                    String hours;
+                    
+                    try {
+                        location = mapper.writeValueAsString(arg.getLocation());
+                        hours = mapper.writeValueAsString(arg.getHours());
+                    } catch (JsonProcessingException e) {
+                        location = "";
+                        hours = "";
+                    }
+                    q.bind("location", location);
+                    q.bind("hours", hours);
+                    q.bind("name", arg.getName());
+                    q.bind("url", arg.getUrl());
+                }
+            };
+        }
+    }
 }

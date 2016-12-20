@@ -17,7 +17,7 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
 
     @Override
     public void run(ConsamablesConfiguration config, Environment environment)
-    		throws ClassNotFoundException {
+            throws ClassNotFoundException {
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "postgresql");
         final RestaurantDAO restaurantDAO = jdbi.onDemand(RestaurantDAO.class);

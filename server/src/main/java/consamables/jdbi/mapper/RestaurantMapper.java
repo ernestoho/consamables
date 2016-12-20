@@ -13,7 +13,7 @@ import consamables.api.Restaurant;
 public class RestaurantMapper implements ResultSetMapper<Restaurant> {
     public Restaurant map(int index, ResultSet r, StatementContext ctx) throws SQLException {
         ObjectMapper mapper = new ObjectMapper();
-    	try {
+        try {
             return new Restaurant(r.getInt("restaurant_id"), r.getString("name"),
                                   mapper.readTree(r.getString("location")),
                                   mapper.readTree(r.getString("hours")),

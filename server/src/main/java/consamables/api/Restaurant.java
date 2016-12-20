@@ -32,13 +32,13 @@ public class Restaurant {
     public Restaurant() { }
 
     public Restaurant(Integer restaurantId, String name, JsonNode location, JsonNode hours, String url)
-    		throws JsonProcessingException, IOException {
-    	this(name, location, hours, url);
+            throws JsonProcessingException, IOException {
+        this(name, location, hours, url);
         this.restaurantId = restaurantId;
     }
 
     public Restaurant(String name, JsonNode location, JsonNode hours, String url)
-    		throws JsonProcessingException, IOException {
+            throws JsonProcessingException, IOException {
         this.name = name;
         this.location = location;
         this.hours = hours;
@@ -66,7 +66,7 @@ public class Restaurant {
     }
     
     public void setLocation(JsonNode location) {
-    	this.location = location;
+        this.location = location;
     }
 
     public JsonNode getHours() {
@@ -74,7 +74,7 @@ public class Restaurant {
     }
 
     public void setHours(JsonNode hours) {
-    	this.hours = hours;
+        this.hours = hours;
     }
 
     public String getUrl() {
