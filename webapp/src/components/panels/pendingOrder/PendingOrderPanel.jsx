@@ -21,10 +21,11 @@ class PendingOrderPanel extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return { 
         groups: state.pendingOrders.toList().map(
-            group => group.set('restaurantName', getRestaurantName(state, 
+            group => group.set('restaurantName', getRestaurantName(
+                state, 
                 group.get('restaurantId')
             ))
         )

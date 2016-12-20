@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PanelHeader from '../PanelHeader';
 import RestaurantBox from './RestaurantBox';
+import { showModal } from '../../../actions';
 
 class RestaurantPanel extends React.Component {
     render() {
@@ -11,7 +12,11 @@ class RestaurantPanel extends React.Component {
             <div className="restaurant-panel">
                 <PanelHeader name="Restaurants Nearby"></PanelHeader>
                 {this.props.restaurants.map(result =>
-                    <RestaurantBox key={result.get('restaurantId')} {...result.toJS()}></RestaurantBox>
+                    <RestaurantBox
+                        key={result.get('restaurantId')}
+                        {...result.toJS()}
+                        onStartClick={this.props.onStartClick}
+                    />
                 )}
             </div>
         );
@@ -19,8 +24,15 @@ class RestaurantPanel extends React.Component {
 }
 
 
-const mapStateToProps = (state) => ({restaurants: state.restaurants.toList()});
+const mapStateToProps = state => ({restaurants: state.restaurants.toList()});
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onStartClick: () => dispatch(showModal())
+    };
+};
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(RestaurantPanel)

@@ -14,9 +14,12 @@ import { fetchRestaurants, fetchPendingOrders } from './actions';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const initialState = {
-    restaurants: Map(),
     activeOrders: Map(),
-    pendingOrders: Map()
+    pendingOrders: Map(),
+    restaurants: Map(),
+    modal: Map({
+        visible: false
+    })
 }
 
 const store = createStore(

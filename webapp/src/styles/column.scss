@@ -8,25 +8,25 @@
 
 .column-side {
 	@include vertical-container;
-	width: 22em;
+	width: 20em;
 	position: relative;
 }
 
 
 .column-left {
 	@extend .column-side;
-	margin-left: -22em;
+	margin-left: -20em;
 }
 
 .column-right {
 	@extend .column-side;
-	margin-right: -22em;
+	margin-right: -20em;
 }
 
 .column-center {
 	@include vertical-container;
 	width: 100%;
-	min-width: 18em;
+	min-width: 20em;
 }
 
 .padding {
