@@ -3,11 +3,11 @@ import '../styles/column.scss'
 import React from 'react';
 import Title from './Title';
 import Helper from './Helper';
-import ActiveOrderPanel from './panels/ActiveOrderPanel';
-import PendingOrderPanel from './panels/PendingOrderPanel';
-import RestaurantPanel from './panels/RestaurantPanel';
-import YourOrderPanel from './panels/YourOrderPanel';
-import CredentialsPanel from './panels/CredentialsPanel';
+import ActiveOrderPanel from './panels/activeOrder/ActiveOrderPanel';
+import PendingOrderPanel from './panels/pendingOrder/PendingOrderPanel';
+import RestaurantPanel from './panels/restaurant/RestaurantPanel';
+import YourOrderPanel from './panels/yourOrder/YourOrderPanel';
+import CredentialsPanel from './panels/credentials/CredentialsPanel';
 
 class LeftColumn extends React.Component {
     render() {

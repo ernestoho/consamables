@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
 
-import restaurants from './restaurants';
 import activeOrders from './activeOrders';
 import pendingOrders from './pendingOrders';
+import restaurants from './restaurants';
+import modal from './modal';
 
 const rootReducer = combineReducers({
-    restaurants,
     activeOrders,
-    pendingOrders
+    pendingOrders,
+    restaurants,
+    modal
 });
 
 export default rootReducer
