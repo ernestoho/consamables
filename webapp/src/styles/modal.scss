@@ -10,13 +10,14 @@
     z-index: 1;
     overflow: auto;
     background-color: $modal-background;
-    transition: visibility 0s linear 0.5s, opacity 0.3s linear;
+    transition: visibility 0s linear 0.3s, opacity 0.3s linear;
 
     .modal-content {
         @include panel;
-        margin: 15% auto;
+        margin: 4.75em auto 1vh;
         padding: 3em;
-        width: 40%;
+        width: 20em;
+        height: calc(100% - 4.75em - 1vh);
         text-align: center;
     }
 }

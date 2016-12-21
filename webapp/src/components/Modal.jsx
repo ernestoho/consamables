@@ -35,7 +35,9 @@ class Modal extends React.Component {
 class ModalContent extends React.Component {
     render() {
         return (
-            <div className="modal-content" onClick={e => e.stopPropagation()}>This is a modal</div>
+            <div className="modal-content" onClick={e => e.stopPropagation()}>
+                This is a modal
+            </div>
         );
     }
 }

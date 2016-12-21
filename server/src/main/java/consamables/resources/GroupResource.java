@@ -37,7 +37,7 @@ public class GroupResource {
         return groupDAO.getPending();
     }
     
-    @Path("/count-votes/{id}")
+    @Path("/{id}/count-votes")
     @GET
     public int getNumPeople(@PathParam("id") String id) {
         return voteDAO.countVotesForGroup(Integer.parseInt(id));
