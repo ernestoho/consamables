@@ -10,7 +10,7 @@ public class Item {
     
     @NotNull
     @JsonProperty
-    private Integer restaurantId;
+    private Integer menuSectionId;
     
     @NotNull
     @JsonProperty
@@ -25,9 +25,9 @@ public class Item {
     
     public Item() { }
 
-    public Item(Integer itemId, Integer restaurantId, String name, String description, BigDecimal price) {
+    public Item(Integer itemId, Integer menuSectionId, String name, String description, BigDecimal price) {
         this.itemId = itemId;
-        this.restaurantId = restaurantId;
+        this.menuSectionId = menuSectionId;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -41,12 +41,12 @@ public class Item {
         this.itemId = itemId;
     }
 
-    public Integer getRestaurantId() {
-        return restaurantId;
+    public Integer getMenuSectionId() {
+        return menuSectionId;
     }
 
-    public void setRestaurantId(Integer restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setMenuSectionId(Integer menuSectionId) {
+        this.menuSectionId = menuSectionId;
     }
 
     public String getName() {

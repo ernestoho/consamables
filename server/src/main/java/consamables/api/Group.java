@@ -11,6 +11,9 @@ public class Group {
     private Integer restaurantId;
     
     @JsonProperty
+    private String type;
+    
+    @JsonProperty
     private String phase;
     
     @JsonProperty
@@ -30,11 +33,12 @@ public class Group {
     
     public Group() { }
 
-    public Group(Integer groupId, Integer restaurantId,
+    public Group(Integer groupId, Integer restaurantId, String type,
                  String phase, Integer minPeople, Integer duration,
                  Timestamp timeCreated, Timestamp timeStarted, Timestamp timeOrdered) {
         this.groupId = groupId;
         this.restaurantId = restaurantId;
+        this.type = type;
         this.phase = phase;
         this.minPeople = minPeople;
         this.duration = duration;
@@ -57,6 +61,14 @@ public class Group {
 
     public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getPhase() {
