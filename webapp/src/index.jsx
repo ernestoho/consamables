@@ -17,6 +17,7 @@ const initialState = {
     activeOrders: Map(),
     pendingOrders: Map(),
     restaurants: Map(),
+    menus: Map(),
     modal: Map({
         visible: false
     })
