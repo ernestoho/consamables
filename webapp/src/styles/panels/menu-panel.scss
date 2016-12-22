@@ -31,7 +31,7 @@
             position: relative;
 
             .menu-item-details .menu-item-price {
-                transition-duration: 0.3s;
+                transition-duration: 0.2s;
             }
 
             .menu-item-details {
@@ -59,12 +59,12 @@
                 background-color: $menu-item-overlay;
                 visibility: hidden;
                 opacity: 0;
-                transition: visibility 0s linear 0.3s, opacity 0.3s linear;
+                transition: visibility 0s linear 0.2s, opacity 0.2s linear;
                 text-align: center;
                 box-shadow: 0 0 5px 10px $menu-item-overlay;
 
                 .menu-item-button {
-                    font-size: 1.1em;
+                    font-size: 1.2em;
                     font-weight: bold;
                     color: white;
                     background-color: $menu-item-overlay-button;
