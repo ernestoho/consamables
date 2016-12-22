@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 
 import { hideModal } from '../actions';
 
-const modalStates = {
+const modalStyles = {
     visible: {
         visibility: 'visible',
-        opacity: 1
+        opacity: 1,
+        transitionDelay: '0s'
     },
     hidden: {
         visibility: 'hidden',
@@ -21,7 +22,7 @@ class Modal extends React.Component {
         return (
             <div
                 className="modal"
-                style={this.props.visible ? modalStates.visible : modalStates.hidden}
+                style={this.props.visible ? modalStyles.visible : modalStyles.hidden}
                 onClick={this.props.onClick}
             >
                 <ModalContent/>
@@ -34,12 +35,14 @@ class Modal extends React.Component {
 class ModalContent extends React.Component {
     render() {
         return (
-            <div className="modal-content">This is a modal</div>
+            <div className="modal-content" onClick={e => e.stopPropagation()}>
+                This is a modal
+            </div>
         );
     }
 }
 
-const mapStateToProps = state => ({visible: state.modal.get('visible')});
+const mapStateToProps = state => ({ visible: state.modal.get('visible') });
 
 const mapDispatchToProps = dispatch => {
     return {

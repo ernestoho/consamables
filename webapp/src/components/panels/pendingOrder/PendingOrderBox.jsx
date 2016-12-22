@@ -20,7 +20,7 @@ export default class PendingOrderBox extends React.Component {
     }
 
     getVotes() {
-        fetch('/api/groups/count-votes/' + this.props.groupId).then(response => {
+        fetch(`/api/groups/${this.props.groupId}/count-votes`).then(response => {
             response.json().then(json => {
                 this.setState({ votes: json });
             });

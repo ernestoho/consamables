@@ -14,7 +14,10 @@ export default class RestaurantBox extends React.Component {
                 </div>
                 <Link url={this.props.url}/>
                 <TimeDisplay hours={this.props.hours}/>
-                <RestaurantToolbar onStartClick={this.props.onStartClick}/>
+                <RestaurantToolbar
+                    onMenuClick={this.props.onMenuClick}
+                    onStartClick={this.props.onStartClick}
+                />
             </div>
         );
     }
@@ -25,9 +28,15 @@ class RestaurantToolbar extends React.Component {
     render() {
         return (
             <div className="toolbar">
-                <button className="button">View Menu</button>
-                <button className="button" onClick={this.props.onStartClick}>Start Order</button>
-                <button className="button">Suggest Order</button>
+                <button className="button" onClick={this.props.onMenuClick}>
+                    View Menu
+                </button>
+                <button className="button" onClick={this.props.onStartClick}>
+                    Start Order
+                </button>
+                <button className="button">
+                    Suggest Order
+                </button>
             </div>
         );
     }

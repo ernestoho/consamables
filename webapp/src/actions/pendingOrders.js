@@ -4,7 +4,7 @@ import { REQUEST_PENDING_ORDERS, RECEIVE_PENDING_ORDERS } from './actionTypes';
 
 const requestPendingOrders = () => ({ type: REQUEST_PENDING_ORDERS });
 
-const receivePendingOrders = (json) => ({
+const receivePendingOrders = json => ({
     type: RECEIVE_PENDING_ORDERS,
     pendingOrders: fromJS(json.reduce(
         (all, order) => {
@@ -16,7 +16,7 @@ const receivePendingOrders = (json) => ({
 });
 
 const fetchPendingOrders = () => {
-    return (dispatch) => {
+    return dispatch => {
         dispatch(requestPendingOrders());
         return fetch('/api/groups/pending')
             .then( response => response.json() )

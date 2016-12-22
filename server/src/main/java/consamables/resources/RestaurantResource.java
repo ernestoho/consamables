@@ -9,33 +9,49 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import consamables.api.Menu;
 import consamables.api.Restaurant;
+import consamables.jdbi.ItemDAO;
+import consamables.jdbi.MenuSectionDAO;
 import consamables.jdbi.RestaurantDAO;
 
 @Path("/restaurants")
 @Produces(MediaType.APPLICATION_JSON)
 public class RestaurantResource {
-    RestaurantDAO dao;
+    RestaurantDAO restaurantDAO;
+    MenuSectionDAO menuSectionDAO;
+    ItemDAO itemDAO;
     
-    public RestaurantResource(RestaurantDAO dao) {
-        this.dao = dao;
+    public RestaurantResource(RestaurantDAO restaurantDAO, 
+                              MenuSectionDAO menuSectionDAO,
+                              ItemDAO itemDAO) {
+        this.restaurantDAO = restaurantDAO;
+        this.menuSectionDAO = menuSectionDAO;
+        this.itemDAO = itemDAO;
     }
     
     @GET
     public List<Restaurant> getRestaurants() {
-        return dao.getAll();
+        return restaurantDAO.getAll();
     }
     
     @Path("/{id}")
     @GET
     public Restaurant getRestaurant(@PathParam("id") String id) {
-    	return dao.getRestaurant(Integer.parseInt(id));
+        return restaurantDAO.getRestaurant(Integer.parseInt(id));
     }
 
     @Path("/add")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public int addRestaurant(@Valid Restaurant newRestaurant) {
-        return dao.addRestaurant(newRestaurant);
+        return restaurantDAO.addRestaurant(newRestaurant);
+    }
+    
+    @Path("/{id}/menu")
+    @GET
+    public Menu getMenu(@PathParam("id") String id) {
+        return new Menu(Integer.parseInt(id)).loadSections(menuSectionDAO, itemDAO);
     }
 }

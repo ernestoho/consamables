@@ -14,8 +14,8 @@ public interface ItemDAO {
     @SqlQuery("SELECT * FROM item")
     List<Item> getAll();
     
-    @SqlQuery("SELECT * FROM item WHERE restaurant_id = :restaurantId")
-    List<Item> getItemsByRestaurant(@Bind("restaurantId") int restaurantId);
+    @SqlQuery("SELECT * FROM item WHERE menu_section_id = :menuSectionId")
+    List<Item> getItemsByMenuSection(@Bind("menuSectionId") int menuSectionId);
     
     @SqlQuery("SELECT * FROM item WHERE item_id = :itemId")
     Item getItem(@Bind("itemId") int itemId);

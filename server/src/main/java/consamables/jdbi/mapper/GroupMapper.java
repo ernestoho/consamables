@@ -10,8 +10,8 @@ public class GroupMapper implements ResultSetMapper<Group>
 {
     public Group map(int index, ResultSet r, StatementContext ctx) throws SQLException
     {
-        return new Group(r.getInt("group_id"), r.getInt("restaurant_id"),
-        				 r.getString("phase"), r.getInt("min_people"), r.getInt("duration"),
+        return new Group(r.getInt("group_id"), r.getInt("restaurant_id"), r.getString("type"),
+                         r.getString("phase"), r.getInt("min_people"), r.getInt("duration"),
                          r.getTimestamp("time_created"), r.getTimestamp("time_started"), r.getTimestamp("time_ordered"));
     }
 }

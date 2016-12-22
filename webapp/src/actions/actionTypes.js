@@ -9,3 +9,9 @@ export const RECEIVE_ACTIVE_ORDERS = 'RECEIVE_ACTIVE_ORDERS';
 
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
+
+export const REQUEST_MENU = 'REQUEST_MENU';
+export const RECEIVE_MENU = 'RECEIVE_MENU';
+
+export const SHOW_MENU = 'SHOW_MENU';
+export const HIDE_MENU = 'HIDE_MENU';
