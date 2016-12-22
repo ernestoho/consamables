@@ -1,0 +1,51 @@
+@import 'panel';
+@import 'panel-measurements';
+
+.menu-panel {
+    @include panel;
+    height: $menu-height;
+    margin-left: 0;
+    margin-right: 0;
+
+    .menu-name {
+        margin-top: 0.4em;
+        text-align: center;
+        color: $title-color;
+        font-weight: bold;
+    }
+
+    .menu-section {
+        font-size: 0.8em;
+        padding: 0.5em;
+
+        .menu-section-name {
+            font-size: 1.125em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .menu-item {
+            padding: 0.6em;
+            overflow: hidden;
+
+            .menu-item-details {
+
+                .menu-item-name {
+                    font-weight: bold;
+                    color: $title-color;
+                    margin-bottom: 0.2em;
+                }
+            }
+
+            .menu-item-price {
+                float: right;
+                font-weight: bold;
+                text-align: right;
+            }
+        }
+
+        .menu-item+.menu-item {
+            border-top: 1px solid $title-color;
+        }
+    }
+}

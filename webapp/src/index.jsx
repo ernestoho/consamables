@@ -10,6 +10,7 @@ import { Map } from 'immutable';
 import App from './components/App';
 import rootReducer from './reducers'
 import { fetchRestaurants, fetchPendingOrders } from './actions';
+import { DISPLAY_DEFAULT } from './constants';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,6 +19,9 @@ const initialState = {
     pendingOrders: Map(),
     restaurants: Map(),
     menus: Map(),
+    centerColumn: Map({
+        display: DISPLAY_DEFAULT
+    }),
     modal: Map({
         visible: false
     })

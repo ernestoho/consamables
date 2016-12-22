@@ -14,10 +14,10 @@
 
     .modal-content {
         @include panel;
-        margin: 4.75em auto 1vh;
+        margin: 1vh auto;
         padding: 3em;
         width: 20em;
-        height: calc(100% - 4.75em - 1vh);
+        height: calc(100% - 2vh);
         text-align: center;
     }
 }

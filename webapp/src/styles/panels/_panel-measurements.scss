@@ -9,3 +9,6 @@ $order-min-height: 11em;
 
 $credentials-height: 5.3em;
 $restaurant-height: calc(#{$total-panel-height} - #{$credentials-height});
+
+$title-height: 3.75em;
+$menu-height: calc(#{$total-panel-height} - #{$title-height});

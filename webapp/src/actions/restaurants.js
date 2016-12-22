@@ -1,19 +1,18 @@
-import { fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 import { REQUEST_RESTAURANTS, RECEIVE_RESTAURANTS } from './actionTypes';
-import fetchMenu from './menus';
+import { fetchMenu } from './menus';
 
 const requestRestaurants = () => ({ type: REQUEST_RESTAURANTS });
 
 const receiveRestaurants = json => ({
     type: RECEIVE_RESTAURANTS,
-    restaurants: fromJS(json.reduce(
+    restaurants: json.reduce(
         (all, restaurant) => {
-            all[restaurant.restaurantId] = restaurant;
-            return all;
+            return all.set(restaurant.restaurantId, fromJS(restaurant));
         },
-        {}
-    ))
+        Map()
+    )
 });
 
 const fetchRestaurants = () => {

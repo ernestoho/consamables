@@ -42,7 +42,7 @@ class ModalContent extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({visible: state.modal.get('visible')});
+const mapStateToProps = state => ({ visible: state.modal.get('visible') });
 
 const mapDispatchToProps = dispatch => {
     return {

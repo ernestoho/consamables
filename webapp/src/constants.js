@@ -1,0 +1,3 @@
+export const DISPLAY_DEFAULT = 'DISPLAY_DEFAULT';
+export const DISPLAY_MENU = 'DISPLAY_MENU';
+    

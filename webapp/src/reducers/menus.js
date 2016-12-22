@@ -5,7 +5,7 @@ import { REQUEST_MENU, RECEIVE_MENU } from '../actions/actionTypes';
 const menus = (state = Map(), action) => {
     switch(action.type) {
         case RECEIVE_MENU:
-            return state.set(action.menu.restaurantId, action.menu.sections);
+            return state.set(action.menu.get('restaurantId'), action.menu.get('sections'));
         default:
             return state;
     }
