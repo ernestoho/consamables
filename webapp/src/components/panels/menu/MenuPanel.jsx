@@ -5,12 +5,14 @@ import { connect } from 'react-redux';
 
 import PanelHeader from '../PanelHeader';
 import MenuSection from './MenuSection';
+import MenuCloseButton from './MenuCloseButton';
 import { getRestaurantName, getMenu } from '../../../selectors';
 
 class MenuPanel extends React.Component {
     render() {
         return (
             <div className="menu-panel">
+                <MenuCloseButton/>
                 <div className="menu-name">{this.props.name}</div>
                 {this.props.menu.map(section =>
                     <MenuSection

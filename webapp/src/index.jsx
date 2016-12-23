@@ -19,6 +19,7 @@ const initialState = {
     pendingOrders: Map(),
     restaurants: Map(),
     menus: Map(),
+    items: Map(),
     centerColumn: Map({
         display: DISPLAY_DEFAULT
     }),

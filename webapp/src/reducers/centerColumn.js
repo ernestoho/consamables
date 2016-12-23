@@ -8,7 +8,7 @@ const centerColumn = (state = Map({ display: DISPLAY_DEFAULT }), action) => {
         case SHOW_MENU:
             return state.set('display', DISPLAY_MENU).set('menuId', action.id);
         case HIDE_MENU:
-            return state.set('display', DISPLAY_DEFAULT);
+            return state.set('display', DISPLAY_DEFAULT).delete('menuId');
         default:
             return state;
     }
