@@ -23,7 +23,6 @@ class CenterColumn extends React.Component {
                 return (
                     <div className="column-center">
                         <Title/>
-                        <YourOrderPanel/>
                         <div className="padding"></div>
                         <Helper/>
                     </div>
