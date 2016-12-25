@@ -3,6 +3,7 @@ import fetchPendingOrders from './pendingOrders';
 import fetchRestaurants from './restaurants';
 import { showMenu, hideMenu } from './menus';
 import { showModal, hideModal } from './modal';
+import { addItemToOrder, removeItemFromOrder } from './order';
 
 export {
     fetchActiveOrders,
@@ -11,5 +12,7 @@ export {
     showMenu,
     hideMenu,
     showModal,
-    hideModal
+    hideModal,
+    addItemToOrder,
+    removeItemFromOrder
 }

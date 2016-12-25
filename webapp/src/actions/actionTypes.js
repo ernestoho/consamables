@@ -15,3 +15,6 @@ export const RECEIVE_MENU = 'RECEIVE_MENU';
 
 export const SHOW_MENU = 'SHOW_MENU';
 export const HIDE_MENU = 'HIDE_MENU';
+
+export const ADD_ITEM_TO_ORDER = 'ADD_ITEM_TO_ORDER';
+export const REMOVE_ITEM_FROM_ORDER = 'REMOVE_ITEM_FROM_ORDER';

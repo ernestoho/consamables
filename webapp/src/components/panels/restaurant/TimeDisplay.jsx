@@ -60,28 +60,46 @@ export default class TimeDisplay extends React.Component {
     }
 
     render() {
-        let message = '';
+        let messagePrefix;
+        let targetTime;
         const style = { };
         const now = moment();
         if (now.isAfter(this.state.closeTime)) {
-            if (now.day() !== this.state.openTime.day()) {
-                message = `Opening tomorrow at ${this.state.openTime.format("hA")}`;
+
+            targetTime = this.state.openTime;
+
+            if (now.day() !== targetTime.day()) {
+                messagePrefix = 'Opening tomorrow at';
             } else {
-                message = `Opening at ${this.state.openTime.format("hA")}`;
+                messagePrefix = 'Opening at';
             }
             style.color = 'red';
+
         } else {
-            if (this.state.closeTime.diff(now, 'minutes') < 60) {
-                message = `Closing at ${this.state.closeTime.format("hA")}`;
+
+            targetTime = this.state.closeTime;
+
+            if (targetTime.diff(now, 'minutes') < 60) {
+                messagePrefix = 'Closing at';
                 style.color = 'orange';
             } else {
-                message = `Open until ${this.state.closeTime.format("hA")}`;
+                messagePrefix = 'Open until';
                 style.color = 'green';
             }
         }
 
+        let displayTime;
+
+        if (targetTime.minutes() > 0) {
+            displayTime = targetTime.format('h:mA');
+        } else {
+            displayTime = targetTime.format('hA');
+        }
+
         return (
-            <div className="info" style={style}>{message}</div>
+            <div className="info" style={style}>
+                {messagePrefix} {displayTime}
+            </div>
         );
     }
 }

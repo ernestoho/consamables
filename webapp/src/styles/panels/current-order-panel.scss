@@ -1,0 +1,10 @@
+@import 'panel';
+
+.current-order-panel {
+    @include panel;
+    margin-left: 0;
+    margin-right: 0;
+    min-height: 2em;
+    min-width: 20em;
+    max-width: 25em;
+}

@@ -1,9 +1,0 @@
-@import 'panel';
-
-.your-order-panel {
-    @include panel;
-    height: $your-order-height;
-    min-height: 2.5em;
-    max-width: 25em;
-    margin: 0 auto;
-}
