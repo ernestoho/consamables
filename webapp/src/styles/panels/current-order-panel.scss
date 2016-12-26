@@ -84,7 +84,7 @@
     .continue {
         display: flex;
         font-size: 0.8em;
-        margin: 0.2em 0.4em;
+        margin: 0.2em 0.8em;
         align-items: center;
 
         .button {
@@ -93,8 +93,9 @@
 
         .order-total {
             font-weight: bold;
+            width: 6.5em;
+            text-align: right;
             margin-left: 0.4em;
-            margin-right: 0.4em;
         }
     }
 }
