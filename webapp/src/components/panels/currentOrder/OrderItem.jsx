@@ -18,6 +18,8 @@ class OrderItem extends React.Component {
                 <OrderItemQuantity
                     value={this.props.quantity}
                     onChange={this.props.onValueChange}
+                    onIncrementClick={this.props.onIncrementClick}
+                    onDecrementClick={this.props.onDecrementClick}
                 />
                 <div className="order-item-price">
                     ${(this.props.price * this.props.quantity).toFixed(2)}
@@ -33,8 +35,10 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onValueChange: event => dispatch(setQuantity(ownProps.id, Math.round(event.target.value) || 1)),
-    onRemoveClick: () => dispatch(removeItemFromOrder(ownProps.id))
+    onValueChange: event => dispatch(setQuantity(ownProps.id, Math.round(event.target.value))),
+    onRemoveClick: () => dispatch(removeItemFromOrder(ownProps.id)),
+    onIncrementClick: () => dispatch(incrementItem(ownProps.id)),
+    onDecrementClick: () => dispatch(decrementItem(ownProps.id))
 });
 
 export default connect(

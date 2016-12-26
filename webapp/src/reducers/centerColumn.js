@@ -32,6 +32,12 @@ const centerColumn = (state = Map({ display: DISPLAY_DEFAULT }), action) => {
                 return state.deleteIn(['orderItems', action.id]);
             }
 
+        case INCREMENT_ITEM:
+            return state.updateIn(['orderItems', action.id], q => q + 1);
+
+        case DECREMENT_ITEM:
+            return state.updateIn(['orderItems', action.id], q => q - 1);
+
         case SET_QUANTITY:
             return state.setIn(['orderItems', action.id], action.quantity);
 
