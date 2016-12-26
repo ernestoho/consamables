@@ -33,7 +33,7 @@
 
         .order-item-quantity {
             margin-left: auto;
-            margin-right: 1em;
+            margin-right: 0.5em;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -55,13 +55,13 @@
             input {
                 width: 1.5em;
                 text-align: center;
-                border: 1px solid $title-color;
+                border: 0.1em solid $title-color;
                 border-radius: 2px;
             }
 
             input:first-child {
                 margin-left: auto;
-                margin-right: 0.5em;
+                margin-right: 0.65em;
             }
 
             input::-webkit-inner-spin-button,
@@ -81,7 +81,20 @@
         border-top: 1px solid $title-color;
     }
 
-    .button {
-        margin: 0.5em;
+    .continue {
+        display: flex;
+        font-size: 0.8em;
+        margin: 0.2em 0.4em;
+        align-items: center;
+
+        .button {
+            flex: 1;
+        }
+
+        .order-total {
+            font-weight: bold;
+            margin-left: 0.4em;
+            margin-right: 0.4em;
+        }
     }
 }
