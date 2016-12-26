@@ -14,6 +14,7 @@ class CurrentOrderPanel extends React.Component {
                 {this.props.items.map(([id, quantity]) => 
                     <OrderItem key={id} id={id} quantity={quantity}/>
                 )}
+                <button className="button">Continue</button>
             </div>
         );
     }

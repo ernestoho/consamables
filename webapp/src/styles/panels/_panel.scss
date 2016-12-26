@@ -56,16 +56,20 @@
     text-align: center;
 }
 
+@mixin xbutton {
+    cursor: pointer;
+    transition-duration: 0.2s;
+
+    &:hover {
+        color: red;
+    }
+}
+
 .close-button {
+    @include xbutton;
     position: absolute;
     right: 0;
     font-size: 1.5em;
     margin-top: -0.2em;
     margin-right: 0.4em;
-    cursor: pointer;
-    transition-duration: 0.2s;
-}
-
-.close-button:hover {
-    color: red;
 }
