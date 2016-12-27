@@ -2,8 +2,7 @@
 
 .pending-order-panel {
     @include panel;
-    height: $order-height;
-    min-height: $order-min-height;
+    flex: 1 0 auto;
 }
 
 .pending-order-box+.pending-order-box {

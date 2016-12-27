@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
-import TimeDisplay from './TimeDisplay';
 import Link from '../Link';
+import TimeDisplay from './TimeDisplay';
+import RestaurantToolbar from './RestaurantToolbar';
 import { showMenu, startOrder } from '../../../actions';
 
 class RestaurantBox extends React.Component {
@@ -22,30 +22,10 @@ class RestaurantBox extends React.Component {
                 <Link url={url}/>
                 <TimeDisplay open={open} openTime={openTime} closeTime={closeTime}/>
                 <RestaurantToolbar
+                    open={open}
                     onMenuClick={() => onMenuClick(restaurantId)}
                     onStartClick={() => onStartClick(restaurantId)}
                 />
-            </div>
-        );
-    }
-}
-
-
-class RestaurantToolbar extends React.Component {
-    render() {
-        const { onMenuClick, onStartClick } = this.props;
-
-        return (
-            <div className="toolbar">
-                <button className="button" onClick={onMenuClick}>
-                    View Menu
-                </button>
-                <button className="button" onClick={onStartClick}>
-                    Start Order
-                </button>
-                <button className="button">
-                    Suggest Order
-                </button>
             </div>
         );
     }

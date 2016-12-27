@@ -7,89 +7,96 @@
     margin-right: 0;
     min-width: 20em;
     max-width: 25em;
-    display: flex;
-    flex-direction: column;
+    max-height: 15em;
     justify-content: center;
 
-    .order-item {
-        font-size: 0.8em;
-        font-weight: bold;
-        padding: 0.4em;
-        margin: 0 0.4em 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .scrollable {
+        overflow: auto;
 
-        .remove-item {
-            @include xbutton;
-            font-size: 1.3em;
-        }
-
-        .order-item-name {
-            color: $title-color;
-            margin-right: auto;
-            margin-left: 0.4em;
-        }
-
-        .order-item-quantity {
-            margin-left: auto;
-            margin-right: 0.5em;
+        .order-item {
+            flex: 0 0 auto;
+            font-size: 0.8em;
+            font-weight: bold;
+            padding: 0.4em;
+            margin: 0 0.4em 0;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            width: 5em;
+            align-items: center;
 
-            .order-item-decrement,.order-item-increment {
-                color: white;
-                background-color: $title-color;
-                border: 1px $title-color solid;
-                border-radius: 50%;
-                width: 1em;
-                height: 1em;
-                line-height: 1em;
-                text-align: center;
-                cursor: pointer;
-                user-select: none;
+            .remove-item {
+                @include xbutton;
+                font-size: 1.3em;
             }
 
-            input {
-                width: 1.5em;
-                text-align: center;
-                border: 0.1em solid $title-color;
-                border-radius: 2px;
+            .order-item-name {
+                color: $title-color;
+                margin-right: auto;
+                margin-left: 0.4em;
             }
 
-            input:first-child {
+            .order-item-quantity {
                 margin-left: auto;
-                margin-right: 0.65em;
+                margin-right: 0.5em;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 5em;
+
+                .order-item-decrement,.order-item-increment {
+                    color: white;
+                    background-color: $title-color;
+                    border: 1px $title-color solid;
+                    border-radius: 50%;
+                    width: 1em;
+                    height: 1em;
+                    line-height: 1em;
+                    text-align: center;
+                    cursor: pointer;
+                    user-select: none;
+                }
+
+                input {
+                    width: 1.5em;
+                    text-align: center;
+                    border: 0.1em solid $title-color;
+                    border-radius: 2px;
+                }
+
+                input:first-child {
+                    margin-left: auto;
+                    margin-right: 0.65em;
+                }
+
+                input::-webkit-inner-spin-button,
+                input::-webkit-outer-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                input {
+                    -moz-appearance: textfield;
+                }
             }
 
-            input::-webkit-inner-spin-button,
-            input::-webkit-outer-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
-
-            input {
-                -moz-appearance: textfield;
+            .order-item-price {
+                width: 3.5em;
+                text-align: right;
             }
         }
 
-        .order-item-price {
-            width: 3.5em;
-            text-align: right;
+        .order-item+.order-item {
+            border-top: 1px solid $title-color;
         }
-    }
-
-    .order-item+.order-item {
-        border-top: 1px solid $title-color;
     }
 
     .continue {
+        flex: 0 0 auto;
         display: flex;
         font-size: 0.8em;
-        margin: 0.2em 0.8em;
+        padding: 0.4em 0.8em 0.4em 0.6em;
         align-items: center;
+        z-index: 1;
+        box-shadow: 0px 2px 4px white;
 
         .button {
             flex: 1;

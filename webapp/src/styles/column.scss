@@ -4,6 +4,7 @@
     vertical-align: top;
     float: left;
     height: 100vh;
+    min-height: 35.5em;
 }
 
 .column-side {
@@ -16,6 +17,8 @@
 .column-left {
     @extend .column-side;
     margin-left: -20em;
+    display: flex;
+    flex-direction: column;
 }
 
 .column-right {
@@ -32,6 +35,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .padding {

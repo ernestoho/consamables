@@ -2,15 +2,19 @@
 
 .restaurant-panel {
     @include panel;
-    margin-top: 1vh;
-    flex: 1;
-    min-height: 9.5em;
-}
+    margin-top: $margin;
+    flex: 1 1 auto;
 
-.restaurant-box+.restaurant-box {
-    border-top: 1px solid $title-color;
-}
+    .scrollable {
+        padding: 0 0.5em 0.5em;
+        overflow: auto;
 
-.restaurant-box {
-    @include panelbox;
+        .restaurant-box+.restaurant-box {
+            border-top: 1px solid $title-color;
+        }
+
+        .restaurant-box {
+            @include panelbox;
+        }
+    }
 }
