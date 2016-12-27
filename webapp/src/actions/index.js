@@ -4,6 +4,7 @@ import { fetchRestaurants, updateRestaurantHours } from './restaurants';
 import { showMenu, hideMenu } from './menus';
 import { showModal, hideModal } from './modal';
 import {
+    startOrder,
     addItemToOrder, removeItemFromOrder,
     incrementItem, decrementItem,
     setQuantity
@@ -14,10 +15,13 @@ export {
     fetchPendingOrders,
     fetchRestaurants,
     updateRestaurantHours,
+
     showMenu,
     hideMenu,
     showModal,
     hideModal,
+
+    startOrder,
     addItemToOrder,
     removeItemFromOrder,
     incrementItem,

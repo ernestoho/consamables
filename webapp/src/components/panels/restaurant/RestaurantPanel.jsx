@@ -4,7 +4,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PanelHeader from '../PanelHeader';
 import RestaurantBox from './RestaurantBox';
-import { showModal, showMenu } from '../../../actions';
 
 class RestaurantPanel extends React.Component {
     render() {
@@ -32,14 +31,6 @@ class RestaurantPanel extends React.Component {
 
 const mapStateToProps = state => ({restaurants: state.restaurants.toList()});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onMenuClick: (id) => dispatch(showMenu(id)),
-        onStartClick: () => dispatch(showModal())
-    };
-};
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(RestaurantPanel)

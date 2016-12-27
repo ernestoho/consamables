@@ -1,8 +1,14 @@
 import {
+    START_ORDER,
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
     INCREMENT_ITEM, DECREMENT_ITEM,
     SET_QUANTITY
 } from './actionTypes';
+
+export const startOrder = (restaurantId) => ({
+    type: START_ORDER,
+    id: restaurantId
+});
 
 export const addItemToOrder = itemId => ({
     type: ADD_ITEM_TO_ORDER,

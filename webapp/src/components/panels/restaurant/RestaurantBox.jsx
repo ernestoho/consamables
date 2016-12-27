@@ -1,13 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
 
 import TimeDisplay from './TimeDisplay';
 import Link from '../Link';
+import { showMenu, startOrder } from '../../../actions';
 
-export default class RestaurantBox extends React.Component {
+class RestaurantBox extends React.Component {
     render() {
         const {
-            name, location, url, open, openTime, closeTime,
+            restaurantId, name, location, url, open, openTime, closeTime,
             onMenuClick, onStartClick
         } = this.props;
 
@@ -15,13 +17,13 @@ export default class RestaurantBox extends React.Component {
             <div className="restaurant-box">
                 <div className="box-title">{name}</div>
                 <div className="info">
-                    {`${location.address.street}, ${location.address.city}`}
+                    {location.address.street}, {location.address.city}
                 </div>
                 <Link url={url}/>
                 <TimeDisplay open={open} openTime={openTime} closeTime={closeTime}/>
                 <RestaurantToolbar
-                    onMenuClick={onMenuClick}
-                    onStartClick={onStartClick}
+                    onMenuClick={() => onMenuClick(restaurantId)}
+                    onStartClick={() => onStartClick(restaurantId)}
                 />
             </div>
         );
@@ -48,3 +50,15 @@ class RestaurantToolbar extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({
+    onMenuClick: (id) => dispatch(showMenu(id)),
+    onStartClick: (id) => dispatch(startOrder(id))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RestaurantBox)

@@ -47,26 +47,24 @@
             padding: 0.6em;
             position: relative;
 
-            .menu-item-details,.menu-item-price {
+            .menu-item-info {
                 transition-duration: 0.2s;
-            }
-
-            .menu-item-details {
 
                 .menu-item-name {
                     font-weight: bold;
                     color: $title-color;
                     margin-bottom: 0.2em;
                 }
-            }
 
-            .menu-item-price {
-                float: right;
-                font-weight: bold;
-                text-align: right;
+                .menu-item-price {
+                    float: right;
+                    font-weight: bold;
+                    text-align: right;
+                }
             }
 
             .menu-item-overlay {
+                z-index: 1;
                 filter: none;
                 position: absolute;
                 top: 0;
@@ -102,11 +100,7 @@
             }
         }
 
-        .menu-item:hover .menu-item-details {
-            filter: blur(1.1px);
-        }
-
-        .menu-item:hover .menu-item-price {
+        .menu-item:hover .menu-item-info:nth-child(2) {
             filter: blur(1.1px);
         }
 

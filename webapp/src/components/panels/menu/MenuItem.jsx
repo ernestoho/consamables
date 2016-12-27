@@ -13,14 +13,7 @@ class MenuItem extends React.Component {
 
         return (
             <div className="menu-item">
-                <div className="menu-item-price">
-                    ${price.toFixed(2)}
-                </div>
-                <div className="menu-item-details">
-                    <div className="menu-item-name">{name}</div>
-                    <div className="menu-item-description">{description}</div>
-                </div>
-                {ordering &&
+                {ordering ?
                     <div className="menu-item-overlay">
                         <button
                             className="menu-item-button"
@@ -29,7 +22,12 @@ class MenuItem extends React.Component {
                             Add to Order
                         </button>
                     </div>
-                }
+                : null}
+                <div className="menu-item-info">
+                    <div className="menu-item-price">${price.toFixed(2)}</div>
+                    <div className="menu-item-name">{name}</div>
+                    <div className="menu-item-description">{description}</div>
+                </div>
             </div>
         );
     }
