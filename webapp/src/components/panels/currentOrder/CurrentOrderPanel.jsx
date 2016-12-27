@@ -9,15 +9,17 @@ import { getItemPrice } from '../../../selectors';
 
 class CurrentOrderPanel extends React.Component {
     render() {
+        const { items, totalCost } = this.props;
+
         return (
             <div className="current-order-panel">
                 <PanelHeader name="Your Order"></PanelHeader>
-                {this.props.items.map(([id, quantity]) => 
+                {items.map(([id, quantity]) => 
                     <OrderItem key={id} id={id} quantity={quantity}/>
                 )}
                 <div className="continue">
                     <button className="button">Continue</button>
-                    <div className="order-total">Total: ${this.props.totalCost.toFixed(2)}</div>
+                    <div className="order-total">Total: ${totalCost.toFixed(2)}</div>
                 </div>
             </div>
         );

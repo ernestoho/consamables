@@ -10,14 +10,16 @@ import { getRestaurantName, getMenu } from '../../../selectors';
 
 class MenuPanel extends React.Component {
     render() {
+        const { name, menu } = this.props;
+
         return (
             <div className="menu-panel">
                 <div className="menu-header">
                     <MenuCloseButton/>
-                    <div className="menu-name">{`${this.props.name} Menu`}</div>
+                    <div className="menu-name">{`${name} Menu`}</div>
                 </div>
                 <div className="scrollable">
-                    {this.props.menu.map(section =>
+                    {menu.map(section =>
                         <MenuSection
                             key={section.get('menuSectionId')}
                             name={section.get('name')}

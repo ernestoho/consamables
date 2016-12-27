@@ -2,20 +2,25 @@ import React from 'react';
 
 export default class OrderItemQuantity extends React.Component {
     render() {
+        const {
+            value,
+            onChange, onIncrementClick, onDecrementClick
+        } = this.props;
+
         return (
             <div className="order-item-quantity">
-                {this.props.value > 1 ?
+                {value > 1 ?
                     <div
                         className="order-item-decrement"
-                        onClick={this.props.onDecrementClick}
+                        onClick={onDecrementClick}
                     >
                         -
                     </div>
                 : null}
-                <input type="number" value={this.props.value} onChange={this.props.onChange}></input>
+                <input type="number" value={value} onChange={onChange}></input>
                 <div
                     className="order-item-increment"
-                    onClick={this.props.onIncrementClick}
+                    onClick={onIncrementClick}
                 >
                     +
                 </div>

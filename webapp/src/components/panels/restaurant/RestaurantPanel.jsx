@@ -8,15 +8,20 @@ import { showModal, showMenu } from '../../../actions';
 
 class RestaurantPanel extends React.Component {
     render() {
+        const {
+            restaurants,
+            onMenuClick, onStartClick
+        } = this.props;
+
         return (
             <div className="restaurant-panel">
                 <PanelHeader name="Restaurants Nearby"></PanelHeader>
-                {this.props.restaurants.map(result =>
+                {restaurants.map(result =>
                     <RestaurantBox
                         key={result.get('restaurantId')}
                         {...result.toJS()}
-                        onMenuClick={() => this.props.onMenuClick(result.get('restaurantId'))}
-                        onStartClick={this.props.onStartClick}
+                        onMenuClick={() => onMenuClick(result.get('restaurantId'))}
+                        onStartClick={onStartClick}
                     />
                 )}
             </div>

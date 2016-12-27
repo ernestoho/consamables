@@ -5,12 +5,17 @@ import LeftColumn from './LeftColumn';
 import CenterColumn from './CenterColumn';
 import RightColumn from './RightColumn';
 import Modal from './Modal';
-import { fetchRestaurants, fetchPendingOrders } from '../actions';
+import { fetchPendingOrders, fetchRestaurants, updateRestaurantHours } from '../actions';
 
 class App extends React.Component {
     componentDidMount() {
         this.props.loadRestaurants();
         this.props.loadPendingOrders();
+        this.restaurantUpdate = setInterval(this.props.updateRestaurantHours, 10000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.restaurantUpdate);
     }
 
     render() {
@@ -29,7 +34,8 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
     loadRestaurants: () => dispatch(fetchRestaurants()),
-    loadPendingOrders: () => dispatch(fetchPendingOrders())
+    loadPendingOrders: () => dispatch(fetchPendingOrders()),
+    updateRestaurantHours: () => dispatch(updateRestaurantHours())
 });
 
 export default connect(

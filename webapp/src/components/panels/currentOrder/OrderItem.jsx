@@ -11,18 +11,23 @@ import {
 
 class OrderItem extends React.Component {
     render() {
+        const {
+            name, quantity, price,
+            onValueChange, onRemoveClick, onIncrementClick, onDecrementClick
+        } = this.props;
+
         return (
             <div className="order-item">
-                <div className="remove-item" onClick={this.props.onRemoveClick}>×</div>
-                <div className="order-item-name">{this.props.name}</div>
+                <div className="remove-item" onClick={onRemoveClick}>×</div>
+                <div className="order-item-name">{name}</div>
                 <OrderItemQuantity
-                    value={this.props.quantity}
-                    onChange={this.props.onValueChange}
-                    onIncrementClick={this.props.onIncrementClick}
-                    onDecrementClick={this.props.onDecrementClick}
+                    value={quantity}
+                    onChange={onValueChange}
+                    onIncrementClick={onIncrementClick}
+                    onDecrementClick={onDecrementClick}
                 />
                 <div className="order-item-price">
-                    ${(this.props.price * this.props.quantity).toFixed(2)}
+                    ${(price * quantity).toFixed(2)}
                 </div>
             </div>
         );

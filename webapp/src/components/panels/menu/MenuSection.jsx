@@ -4,10 +4,12 @@ import MenuItem from './MenuItem';
 
 export default class MenuSection extends React.Component {
     render() {
+        const { name, items } = this.props;
+
         return (
             <div className="menu-section">
-                <div className="menu-section-name">{this.props.name}</div>
-                {this.props.items.map(item =>
+                <div className="menu-section-name">{name}</div>
+                {items.map(item =>
                     <MenuItem key={item.get('name')} {...item.toJS()}/>
                 )}
             </div>

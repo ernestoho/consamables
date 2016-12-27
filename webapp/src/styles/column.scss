@@ -21,6 +21,8 @@
 .column-right {
     @extend .column-side;
     margin-right: -20em;
+    display: flex;
+    flex-direction: column;
 }
 
 .column-center {

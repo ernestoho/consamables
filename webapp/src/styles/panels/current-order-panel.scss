@@ -69,6 +69,10 @@
                 -webkit-appearance: none;
                 margin: 0;
             }
+
+            input {
+                -moz-appearance: textfield;
+            }
         }
 
         .order-item-price {
