@@ -1,0 +1,31 @@
+@import 'panel';
+
+.suggest-order-panel {
+    @include panel;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    min-width: 20em;
+    text-align: center;
+    padding-bottom: 0.5em;
+
+    .restaurant-name {
+        font-size: 0.9em;
+        font-weight: bold;
+        color: $title-color;
+    }
+
+    .suggest-options {
+        margin-top: 0.4em;
+        font-size: 0.8em;
+
+        .order-type {
+            display: flex;
+            flex-direction: column;
+
+            .order-type-heading {
+                font-weight: bold;
+            }
+        }
+    }
+}

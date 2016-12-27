@@ -51,6 +51,7 @@ class CenterColumn extends React.Component {
             case DISPLAY_SUGGEST_OPTIONS:
                 return (
                     <div className="column-center">
+                        <Title/>
                         <SuggestOrderPanel/>
                     </div>
                 );

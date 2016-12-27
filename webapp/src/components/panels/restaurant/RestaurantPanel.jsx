@@ -20,8 +20,6 @@ class RestaurantPanel extends React.Component {
                         <RestaurantBox
                             key={result.get('restaurantId')}
                             {...result.toJS()}
-                            onMenuClick={() => onMenuClick(result.get('restaurantId'))}
-                            onStartClick={onStartClick}
                         />
                     )}
                 </div>

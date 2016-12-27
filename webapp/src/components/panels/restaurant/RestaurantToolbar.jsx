@@ -4,7 +4,7 @@ export default class RestaurantToolbar extends React.Component {
     render() {
         const {
             open,
-            onMenuClick, onStartClick
+            onMenuClick, onStartClick, onSuggestClick
         } = this.props;
 
         if (open) {
@@ -12,7 +12,7 @@ export default class RestaurantToolbar extends React.Component {
                 <div className="toolbar">
                     <button className="button" onClick={onMenuClick}>View Menu</button>
                     <button className="button" onClick={onStartClick}>Start Order</button>
-                    <button className="button">Suggest Order</button>
+                    <button className="button" onClick={onSuggestClick}>Suggest Order</button>
                 </div>
             );
         } else {

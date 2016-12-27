@@ -10,9 +10,15 @@
     margin-top: $margin / 2.5;
     margin-bottom: auto;
 
-    span {
+    .heading {
         vertical-align: middle;
         color: $title-color;
+        text-shadow: 0 0.05em 0.1em $text-shadow;
+    }
+
+    .subheading {
+        margin-top: 0.2em;
+        font-size: 0.35em;
         text-shadow: 0 0.1em 0.2em $text-shadow;
     }
 }

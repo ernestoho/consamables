@@ -5,14 +5,16 @@ import {
     START_ORDER,
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
     INCREMENT_ITEM, DECREMENT_ITEM,
-    SET_QUANTITY
+    SET_QUANTITY,
+    SHOW_SUGGESTION
 } from '../actions/actionTypes';
 
 import {
     DISPLAY_DEFAULT,
     DISPLAY_MENU_VIEWING,
     DISPLAY_MENU_ORDERING,
-    DISPLAY_MENU_WITH_ORDER
+    DISPLAY_MENU_WITH_ORDER,
+    DISPLAY_SUGGEST_OPTIONS
 } from '../constants';
 
 const centerColumn = (state = Map({ display: DISPLAY_DEFAULT }), action) => {
@@ -50,6 +52,10 @@ const centerColumn = (state = Map({ display: DISPLAY_DEFAULT }), action) => {
 
         case SET_QUANTITY:
             return state.setIn(['orderItems', action.id], action.quantity);
+
+        case SHOW_SUGGESTION:
+            return state.set('display', DISPLAY_SUGGEST_OPTIONS)
+                        .set('suggestedRestaurant', action.id);
 
         default:
             return state;
