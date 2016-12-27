@@ -9,10 +9,12 @@ import { getRestaurantName } from '../../../selectors';
 
 class PendingOrderPanel extends React.Component {
     render() {
+        const { groups } = this.props;
+
         return (
             <div className="pending-order-panel">
                 <PanelHeader name="Pending Orders"></PanelHeader>
-                {this.props.groups.map(result =>
+                {groups.map(result =>
                     <PendingOrderBox key={result.get('groupId')} {...result.toJS()}></PendingOrderBox>
                 )}
             </div>

@@ -1,22 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
 
 import TimeDisplay from './TimeDisplay';
 import Link from '../Link';
+import { showMenu, startOrder } from '../../../actions';
 
-export default class RestaurantBox extends React.Component {
+class RestaurantBox extends React.Component {
     render() {
+        const {
+            restaurantId, name, location, url, open, openTime, closeTime,
+            onMenuClick, onStartClick
+        } = this.props;
+
         return (
             <div className="restaurant-box">
-                <div className="box-title">{this.props.name}</div>
+                <div className="box-title">{name}</div>
                 <div className="info">
-                    {`${this.props.location.address.street}, ${this.props.location.address.city}`}
+                    {location.address.street}, {location.address.city}
                 </div>
-                <Link url={this.props.url}/>
-                <TimeDisplay hours={this.props.hours}/>
+                <Link url={url}/>
+                <TimeDisplay open={open} openTime={openTime} closeTime={closeTime}/>
                 <RestaurantToolbar
-                    onMenuClick={this.props.onMenuClick}
-                    onStartClick={this.props.onStartClick}
+                    onMenuClick={() => onMenuClick(restaurantId)}
+                    onStartClick={() => onStartClick(restaurantId)}
                 />
             </div>
         );
@@ -26,12 +33,14 @@ export default class RestaurantBox extends React.Component {
 
 class RestaurantToolbar extends React.Component {
     render() {
+        const { onMenuClick, onStartClick } = this.props;
+
         return (
             <div className="toolbar">
-                <button className="button" onClick={this.props.onMenuClick}>
+                <button className="button" onClick={onMenuClick}>
                     View Menu
                 </button>
-                <button className="button" onClick={this.props.onStartClick}>
+                <button className="button" onClick={onStartClick}>
                     Start Order
                 </button>
                 <button className="button">
@@ -41,3 +50,15 @@ class RestaurantToolbar extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({
+    onMenuClick: (id) => dispatch(showMenu(id)),
+    onStartClick: (id) => dispatch(startOrder(id))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RestaurantBox)

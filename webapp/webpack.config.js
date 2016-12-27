@@ -24,10 +24,9 @@ var config = {
         loaders: [
             {
                 test: /\.jsx?$/,
+                exclude: /node_modules/,
                 include: APP_DIR,
-                loaders: [
-                    'babel'
-                ]
+                loader: 'babel'
             },
             {
                 test: /\.scss$/,

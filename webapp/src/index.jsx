@@ -3,16 +3,11 @@ import './styles/master.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunkMiddleware from 'redux-thunk';
 import { Map } from 'immutable';
 
 import App from './components/App';
-import rootReducer from './reducers'
-import { fetchRestaurants, fetchPendingOrders } from './actions';
+import configureStore from './configureStore';
 import { DISPLAY_DEFAULT } from './constants';
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const initialState = {
     activeOrders: Map(),
@@ -26,16 +21,9 @@ const initialState = {
     modal: Map({
         visible: false
     })
-}
+};
 
-const store = createStore(
-    rootReducer,
-    initialState,
-    composeEnhancers(applyMiddleware(thunkMiddleware))
-);
-
-store.dispatch(fetchRestaurants());
-store.dispatch(fetchPendingOrders());
+const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>
@@ -43,3 +31,13 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('container')
 );
+
+if (module.hot) {
+    module.hot.accept();
+
+    module.hot.accept('./reducers/index', () => {
+        const nextRootReducer = require('./reducers/index');
+
+        store.replaceReducer(nextRootReducer);
+    });
+}

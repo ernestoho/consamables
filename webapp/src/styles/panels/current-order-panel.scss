@@ -1,0 +1,105 @@
+@import 'panel';
+
+.current-order-panel {
+    @include panel;
+    flex: 0 0 auto;
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 20em;
+    max-width: 25em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .order-item {
+        font-size: 0.8em;
+        font-weight: bold;
+        padding: 0.4em;
+        margin: 0 0.4em 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .remove-item {
+            @include xbutton;
+            font-size: 1.3em;
+        }
+
+        .order-item-name {
+            color: $title-color;
+            margin-right: auto;
+            margin-left: 0.4em;
+        }
+
+        .order-item-quantity {
+            margin-left: auto;
+            margin-right: 0.5em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 5em;
+
+            .order-item-decrement,.order-item-increment {
+                color: white;
+                background-color: $title-color;
+                border: 1px $title-color solid;
+                border-radius: 50%;
+                width: 1em;
+                height: 1em;
+                line-height: 1em;
+                text-align: center;
+                cursor: pointer;
+                user-select: none;
+            }
+
+            input {
+                width: 1.5em;
+                text-align: center;
+                border: 0.1em solid $title-color;
+                border-radius: 2px;
+            }
+
+            input:first-child {
+                margin-left: auto;
+                margin-right: 0.65em;
+            }
+
+            input::-webkit-inner-spin-button,
+            input::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input {
+                -moz-appearance: textfield;
+            }
+        }
+
+        .order-item-price {
+            width: 3.5em;
+            text-align: right;
+        }
+    }
+
+    .order-item+.order-item {
+        border-top: 1px solid $title-color;
+    }
+
+    .continue {
+        display: flex;
+        font-size: 0.8em;
+        margin: 0.2em 0.8em;
+        align-items: center;
+
+        .button {
+            flex: 1;
+        }
+
+        .order-total {
+            font-weight: bold;
+            width: 6.5em;
+            text-align: right;
+            margin-left: 0.4em;
+        }
+    }
+}

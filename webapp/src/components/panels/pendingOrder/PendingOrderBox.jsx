@@ -28,12 +28,14 @@ export default class PendingOrderBox extends React.Component {
     }
 
     render() {
-        let timeElapsed = moment().diff(moment(this.props.timeCreated), 'minutes');
+        const { restaurantName, timeCreated, minPeople } = this.props;
+
+        let timeElapsed = moment().diff(moment(timeCreated), 'minutes');
 
         return (
             <div className="pending-order-box">
-                <div className="box-title">{this.props.restaurantName}</div>
-                <div className="info">{this.state.votes} of {this.props.minPeople} people in queue</div>
+                <div className="box-title">{restaurantName}</div>
+                <div className="info">{this.state.votes} of {minPeople} people in queue</div>
                 <div className="info">Suggested {timeElapsed} {(timeElapsed === 1) ? 'minute' : 'minutes'} ago</div>
                 <PendingOrderToolbar/>
             </div>

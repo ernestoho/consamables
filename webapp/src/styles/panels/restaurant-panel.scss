@@ -3,7 +3,7 @@
 .restaurant-panel {
     @include panel;
     margin-top: 1vh;
-    height: $restaurant-height;
+    flex: 1;
     min-height: 9.5em;
 }
 

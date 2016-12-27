@@ -9,10 +9,12 @@ import { getRestaurantName } from '../../../selectors';
 
 class ActiveOrderPanel extends React.Component {
     render() {
+        const { groups } = this.props;
+
         return (
                 <div className="active-order-panel">
                     <PanelHeader name="Active Orders"></PanelHeader>
-                    {this.props.groups.map(result =>
+                    {groups.map(result =>
                         <ActiveOrderBox key={result.get('groupId')} {...result.toJS()}></ActiveOrderBox>
                     )}
                 </div>
