@@ -15,14 +15,16 @@ class RestaurantPanel extends React.Component {
         return (
             <div className="restaurant-panel">
                 <PanelHeader name="Restaurants Nearby"></PanelHeader>
-                {restaurants.map(result =>
-                    <RestaurantBox
-                        key={result.get('restaurantId')}
-                        {...result.toJS()}
-                        onMenuClick={() => onMenuClick(result.get('restaurantId'))}
-                        onStartClick={onStartClick}
-                    />
-                )}
+                <div className="scrollable">
+                    {restaurants.map(result =>
+                        <RestaurantBox
+                            key={result.get('restaurantId')}
+                            {...result.toJS()}
+                            onMenuClick={() => onMenuClick(result.get('restaurantId'))}
+                            onStartClick={onStartClick}
+                        />
+                    )}
+                </div>
             </div>
         );
     }

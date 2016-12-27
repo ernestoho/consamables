@@ -8,16 +8,7 @@
     min-width: 20em;
     max-width: 25em;
     max-height: 15em;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-
-    .panel-header {
-        margin: 0;
-        padding: 0.4em;
-        z-index: 1;
-        box-shadow: 0px 2px 4px white;
-    }
 
     .scrollable {
         overflow: auto;
