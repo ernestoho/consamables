@@ -7,15 +7,14 @@
     box-sizing: border-box;
     border: 0.1em $border-color solid;
     overflow: auto;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    margin-bottom: 1vh;
+    margin: $margin;
+    margin-top: 0;
 }
 
 @mixin panelbox {
     padding: 1em 0 0.5em;
     font-size: 0.8em;
-    margin: 0.5em;
+    margin: $margin;
     text-align: center;
 
     .box-title, .info, .link, .toolbar {

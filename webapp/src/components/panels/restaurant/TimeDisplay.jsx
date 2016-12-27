@@ -32,7 +32,6 @@ export default class TimeDisplay extends React.Component {
                 messagePrefix = 'Opening at';
             }
             style.color = 'red';
-            
         }
 
         if (targetTime.minutes() > 0) {

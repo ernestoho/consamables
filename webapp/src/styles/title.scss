@@ -2,11 +2,13 @@
 @import './panels/panel-measurements';
 
 .title {
-    flex: 0 0 auto;
+    position: absolute;
+    top: 0;
     font-size: 2.5em;
     font-weight: bold;
     text-align: center;
-    margin: $margin auto $margin;
+    margin-top: $margin / 2.5;
+    margin-bottom: auto;
 
     span {
         vertical-align: middle;

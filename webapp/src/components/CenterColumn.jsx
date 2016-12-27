@@ -7,12 +7,14 @@ import Title from './Title';
 import Helper from './Helper';
 import MenuPanel from './panels/menu/MenuPanel';
 import CurrentOrderPanel from './panels/currentOrder/CurrentOrderPanel';
+import SuggestOrderPanel from './panels/suggestOrder/SuggestOrderPanel';
 import {
     DISPLAY_DEFAULT,
     DISPLAY_MENU_VIEWING,
     DISPLAY_MENU_ORDERING,
     DISPLAY_MENU_WITH_ORDER,
-    DISPLAY_ORDER_CONFIRM
+    DISPLAY_ORDER_CONFIRM,
+    DISPLAY_SUGGEST_OPTIONS
 } from '../constants';
 
 class CenterColumn extends React.Component {
@@ -46,11 +48,16 @@ class CenterColumn extends React.Component {
 
                     </div>
                 );
+            case DISPLAY_SUGGEST_OPTIONS:
+                return (
+                    <div className="column-center">
+                        <SuggestOrderPanel/>
+                    </div>
+                );
             default:
                 return (
                     <div className="column-center">
                         <Title/>
-                        <div className="padding"></div>
                         <Helper/>
                     </div>
                 );
