@@ -1,6 +1,10 @@
-import { SHOW_SUGGESTION } from './actionTypes';
+import { SHOW_SUGGESTION, HIDE_SUGGESTION } from './actionTypes';
 
-export const suggestOrder = restaurantId => ({
+export const openSuggestOrder = restaurantId => ({
     type: SHOW_SUGGESTION,
     id: restaurantId
+});
+
+export const closeSuggestOrder = () => ({
+    type: HIDE_SUGGESTION
 });

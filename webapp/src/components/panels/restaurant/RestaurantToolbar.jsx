@@ -17,7 +17,9 @@ export default class RestaurantToolbar extends React.Component {
             );
         } else {
             return (
-                <button className="button" onClick={onMenuClick}>View Menu</button>
+                <div className="toolbar">
+                    <button className="button" onClick={onMenuClick}>View Menu</button>
+                </div>
             );
         }
         

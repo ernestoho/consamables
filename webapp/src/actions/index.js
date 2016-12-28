@@ -3,7 +3,7 @@ import fetchPendingOrders from './pendingOrders';
 import { fetchRestaurants, updateRestaurantHours } from './restaurants';
 import { showMenu, hideMenu } from './menus';
 import { showModal, hideModal } from './modal';
-import { suggestOrder } from './suggestOrder';
+import { openSuggestOrder, closeSuggestOrder } from './suggestOrder';
 import {
     startOrder,
     addItemToOrder, removeItemFromOrder,
@@ -29,5 +29,6 @@ export {
     decrementItem,
     setQuantity,
 
-    suggestOrder
+    openSuggestOrder,
+    closeSuggestOrder
 }

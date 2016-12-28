@@ -29,8 +29,8 @@ class CurrentOrderPanel extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    items: state.centerColumn.get('orderItems').entrySeq().toJS(),
-    totalCost: state.centerColumn.get('orderItems').reduce((total, quantity, id) => {
+    items: state.centerColumn.currentOrder.get('items').entrySeq().toJS(),
+    totalCost: state.centerColumn.currentOrder.get('items').reduce((total, quantity, id) => {
         return total += getItemPrice(state, id) * quantity;
     }, 0)
 });

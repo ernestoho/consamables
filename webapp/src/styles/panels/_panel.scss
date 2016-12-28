@@ -11,6 +11,7 @@
     margin-top: 0;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 @mixin panelbox {
@@ -44,9 +45,13 @@
     }
 
     .toolbar {
-        height: 2em;
-        margin: auto;
+        display: flex;
+        justify-content: center;
         margin-top: 0.25em;
+
+        .button {
+            flex: 1 1 auto;
+        }
     }
 }
 

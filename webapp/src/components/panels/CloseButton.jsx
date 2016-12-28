@@ -2,8 +2,10 @@ import React from 'react';
 
 export default class CloseButton extends React.Component {
     render() {
+        const { onClick } = this.props;
+
         return (
-            <div className="close-button" onClick={this.props.onClick}>×</div>
+            <div className="close-button" onClick={onClick}>×</div>
         );
     }
 }

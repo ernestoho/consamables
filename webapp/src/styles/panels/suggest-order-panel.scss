@@ -6,8 +6,17 @@
     margin-right: 0;
     width: 100%;
     min-width: 20em;
+    max-width: 25em;
     text-align: center;
     padding-bottom: 0.5em;
+
+    .suggest-header {
+        padding: 0.4em;
+
+        .panel-header {
+            padding: 0;
+        }
+    }
 
     .restaurant-name {
         font-size: 0.9em;
@@ -16,16 +25,37 @@
     }
 
     .suggest-options {
-        margin-top: 0.4em;
+        padding: 0.4em;
         font-size: 0.8em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        .order-type {
+        .suggest-option {
             display: flex;
             flex-direction: column;
+            align-items: center;
 
-            .order-type-heading {
+            .suggest-option-heading {
                 font-weight: bold;
+                color: $title-color;
+            }
+
+            .suggest-option-choices {
+                margin: 0.4em;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+
+                input {
+                    margin-right: 0.4em;
+                }
             }
         }
+    }
+
+    .button {
+        margin-left: 1em;
+        margin-right: 1em;
     }
 }

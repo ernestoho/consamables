@@ -15,9 +15,12 @@ const initialState = {
     restaurants: Map(),
     menus: Map(),
     items: Map(),
-    centerColumn: Map({
-        display: DISPLAY_DEFAULT
-    }),
+    centerColumn: {
+        displayState: DISPLAY_DEFAULT,
+        menuId: -1,
+        currentOrder: Map(),
+        suggestOrder: Map()
+    },
     modal: Map({
         visible: false
     })

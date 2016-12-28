@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
 
 import CloseButton from '../CloseButton';
-import { hideMenu } from '../../../actions';
+import { closeSuggestOrder } from '../../../actions';
 
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-    onClick: () => dispatch(hideMenu())
+    onClick: () => dispatch(closeSuggestOrder())
 });
 
-const MenuCloseButton = connect(
+const SuggestCloseButton = connect(
     mapStateToProps,
     mapDispatchToProps
 )(CloseButton);
 
-export default MenuCloseButton
+export default SuggestCloseButton
