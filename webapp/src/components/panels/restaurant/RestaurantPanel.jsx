@@ -28,8 +28,9 @@ class RestaurantPanel extends React.Component {
     }
 }
 
-
-const mapStateToProps = state => ({restaurants: state.restaurants.toList()});
+const mapStateToProps = state => ({
+    restaurants: state.restaurants.toList().sortBy(r => r.get('name'))
+});
 
 export default connect(
     mapStateToProps

@@ -16,9 +16,9 @@ const initialState = {
     menus: Map(),
     items: Map(),
     centerColumn: {
-        displayState: DISPLAY_DEFAULT,
+        displayMode: DISPLAY_DEFAULT,
         menuId: -1,
-        currentOrder: Map(),
+        currentOrder: Map({ items: Map() }),
         suggestOrder: Map()
     },
     modal: Map({
@@ -26,13 +26,14 @@ const initialState = {
     })
 };
 
-const store = configureStore();
+const store = configureStore(initialState);
+const container = document.getElementById('container');
 
 ReactDOM.render(
     <Provider store={store}>
         <App/>
     </Provider>,
-    document.getElementById('container')
+    container
 );
 
 if (module.hot) {

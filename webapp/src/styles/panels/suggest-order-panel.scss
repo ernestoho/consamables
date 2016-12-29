@@ -15,13 +15,14 @@
 
         .panel-header {
             padding: 0;
+            color: $title-color;
         }
     }
 
     .restaurant-name {
-        font-size: 0.9em;
+        margin-top: 0.4em;
+        font-size: 0.8em;
         font-weight: bold;
-        color: $title-color;
     }
 
     .suggest-options {
@@ -50,6 +51,11 @@
                 input {
                     margin-right: 0.4em;
                 }
+            }
+
+            .wait-time {
+                margin-top: -0.2em;
+                padding-bottom: 0.4em;
             }
         }
     }

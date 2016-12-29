@@ -11,8 +11,12 @@
     border-color: $title-color;
     border-radius: 2px;
     transition-duration: 0.2s;
-}
 
-.button:hover {
-    background-color: $hover-color;
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        background-color: $hover-color;
+    }
 }
