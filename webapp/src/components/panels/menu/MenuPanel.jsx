@@ -33,8 +33,8 @@ class MenuPanel extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    name: getRestaurantName(state, state.centerColumn.get('menuId')),
-    menu: getMenu(state, state.centerColumn.get('menuId'))
+    name: getRestaurantName(state, state.centerColumn.menuId),
+    menu: getMenu(state, state.centerColumn.menuId)
 });
 
 export default connect(

@@ -33,12 +33,9 @@ class MenuItem extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    const display = state.centerColumn.get('display');
-    return {
-        ordering: (display == DISPLAY_MENU_ORDERING || display == DISPLAY_MENU_WITH_ORDER)
-    }
-};
+const mapStateToProps = state => ({
+    ordering: state.centerColumn.displayMode == DISPLAY_MENU_ORDERING
+});
 
 const mapDispatchToProps = dispatch => ({
     onAddClick: id => dispatch(addItemToOrder(id))

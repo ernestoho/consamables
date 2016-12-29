@@ -15,21 +15,25 @@ const initialState = {
     restaurants: Map(),
     menus: Map(),
     items: Map(),
-    centerColumn: Map({
-        display: DISPLAY_DEFAULT
-    }),
+    centerColumn: {
+        displayMode: DISPLAY_DEFAULT,
+        menuId: -1,
+        currentOrder: Map({ items: Map() }),
+        suggestOrder: Map()
+    },
     modal: Map({
         visible: false
     })
 };
 
-const store = configureStore();
+const store = configureStore(initialState);
+const container = document.getElementById('container');
 
 ReactDOM.render(
     <Provider store={store}>
         <App/>
     </Provider>,
-    document.getElementById('container')
+    container
 );
 
 if (module.hot) {

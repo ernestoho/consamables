@@ -6,7 +6,8 @@ export default class Title extends React.Component {
     render() {
         return (
             <div className="title">
-                <span>Consamables</span>
+                <div className="heading">Consamables</div>
+                <div className="subheading">Order food with your friends</div>
             </div>
         );
     }

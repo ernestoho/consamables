@@ -20,8 +20,6 @@ class RestaurantPanel extends React.Component {
                         <RestaurantBox
                             key={result.get('restaurantId')}
                             {...result.toJS()}
-                            onMenuClick={() => onMenuClick(result.get('restaurantId'))}
-                            onStartClick={onStartClick}
                         />
                     )}
                 </div>
@@ -30,8 +28,9 @@ class RestaurantPanel extends React.Component {
     }
 }
 
-
-const mapStateToProps = state => ({restaurants: state.restaurants.toList()});
+const mapStateToProps = state => ({
+    restaurants: state.restaurants.toList().sortBy(r => r.get('name'))
+});
 
 export default connect(
     mapStateToProps

@@ -1,0 +1,67 @@
+@import 'panel';
+
+.suggest-order-panel {
+    @include panel;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    min-width: 20em;
+    max-width: 25em;
+    text-align: center;
+    padding-bottom: 0.5em;
+
+    .suggest-header {
+        padding: 0.4em;
+
+        .panel-header {
+            padding: 0;
+            color: $title-color;
+        }
+    }
+
+    .restaurant-name {
+        margin-top: 0.4em;
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+
+    .suggest-options {
+        padding: 0.4em;
+        font-size: 0.8em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .suggest-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .suggest-option-heading {
+                font-weight: bold;
+                color: $title-color;
+            }
+
+            .suggest-option-choices {
+                margin: 0.4em;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+
+                input {
+                    margin-right: 0.4em;
+                }
+            }
+
+            .wait-time {
+                margin-top: -0.2em;
+                padding-bottom: 0.4em;
+            }
+        }
+    }
+
+    .button {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+}

@@ -3,7 +3,7 @@ import { Map } from 'immutable';
 import { RECEIVE_MENU } from '../actions/actionTypes';
 
 const items = (state = Map(), action) => {
-    switch(action.type) {
+    switch (action.type) {
         case RECEIVE_MENU:
             return state.merge(
                 action.menu.get('sections').reduce((items, section) => {

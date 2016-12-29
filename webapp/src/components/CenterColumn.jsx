@@ -19,7 +19,9 @@ import {
 
 class CenterColumn extends React.Component {
     render() {
-        switch(this.props.display) {
+        const { displayMode, orderStarted } = this.props;
+
+        switch (displayMode) {
             case DISPLAY_MENU_VIEWING:
                 return (
                     <div className="column-center">
@@ -27,33 +29,33 @@ class CenterColumn extends React.Component {
                         <MenuPanel/>
                     </div>
                 );
+
             case DISPLAY_MENU_ORDERING:
                 return (
                     <div className="column-center">
                         <Title/>
                         <MenuPanel/>
+                        {orderStarted ? 
+                            <CurrentOrderPanel/>
+                        : null}
                     </div>
                 );
-            case DISPLAY_MENU_WITH_ORDER:
-                return (
-                    <div className="column-center">
-                        <Title/>
-                        <MenuPanel/>
-                        <CurrentOrderPanel/>
-                    </div>
-                );
+
             case DISPLAY_ORDER_CONFIRM:
                 return (
                     <div className="column-center">
 
                     </div>
                 );
+
             case DISPLAY_SUGGEST_OPTIONS:
                 return (
                     <div className="column-center">
+                        <Title/>
                         <SuggestOrderPanel/>
                     </div>
                 );
+
             default:
                 return (
                     <div className="column-center">
@@ -66,7 +68,8 @@ class CenterColumn extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    display: state.centerColumn.get('display')
+    displayMode: state.centerColumn.displayMode,
+    orderStarted: !!state.centerColumn.currentOrder.get('items').size
 });
 
 export default connect(
