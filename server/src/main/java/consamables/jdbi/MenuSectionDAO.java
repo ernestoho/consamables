@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 import consamables.api.MenuSection;
-import consamables.jdbi.mapper.MenuSectionMapper;
+import consamables.jdbi.mappers.MenuSectionMapper;
 
 @RegisterMapper(MenuSectionMapper.class)
 public interface MenuSectionDAO {

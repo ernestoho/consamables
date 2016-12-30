@@ -10,9 +10,12 @@ import consamables.ConsamablesConfiguration;
 import consamables.jdbi.GroupDAO;
 import consamables.jdbi.ItemDAO;
 import consamables.jdbi.MenuSectionDAO;
+import consamables.jdbi.OrderDAO;
+import consamables.jdbi.OrderItemDAO;
 import consamables.jdbi.RestaurantDAO;
 import consamables.jdbi.VoteDAO;
 import consamables.resources.GroupResource;
+import consamables.resources.OrderResource;
 import consamables.resources.RestaurantResource;
 
 public class ConsamablesApplication extends Application<ConsamablesConfiguration> {
@@ -26,10 +29,13 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
         final GroupDAO groupDAO = jdbi.onDemand(GroupDAO.class);
         final MenuSectionDAO menuSectionDAO = jdbi.onDemand(MenuSectionDAO.class);
         final ItemDAO itemDAO = jdbi.onDemand(ItemDAO.class);
+        final OrderDAO orderDAO = jdbi.onDemand(OrderDAO.class);
+        final OrderItemDAO orderItemDAO = jdbi.onDemand(OrderItemDAO.class);
         final VoteDAO voteDAO = jdbi.onDemand(VoteDAO.class);
 
         environment.jersey().register(new RestaurantResource(restaurantDAO, menuSectionDAO, itemDAO));
         environment.jersey().register(new GroupResource(groupDAO, voteDAO));
+        environment.jersey().register(new OrderResource(orderDAO, orderItemDAO));
     }
 
     @Override

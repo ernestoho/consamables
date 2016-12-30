@@ -20,7 +20,7 @@ public class Group {
     private Integer minPeople;
     
     @JsonProperty
-    private Integer duration;
+    private Integer durationMinutes;
 
     @JsonProperty
     private Timestamp timeCreated;
@@ -34,14 +34,14 @@ public class Group {
     public Group() { }
 
     public Group(Integer groupId, Integer restaurantId, String type,
-                 String phase, Integer minPeople, Integer duration,
+                 String phase, Integer minPeople, Integer durationMinutes,
                  Timestamp timeCreated, Timestamp timeStarted, Timestamp timeOrdered) {
         this.groupId = groupId;
         this.restaurantId = restaurantId;
         this.type = type;
         this.phase = phase;
         this.minPeople = minPeople;
-        this.duration = duration;
+        this.durationMinutes = durationMinutes;
         this.timeCreated = timeCreated;
         this.timeStarted = timeStarted;
         this.timeOrdered = timeOrdered;
@@ -87,12 +87,12 @@ public class Group {
         this.minPeople = minPeople;
     }
 
-    public Integer getDuration() {
-        return duration;
+    public Integer getDurationMinutes() {
+        return durationMinutes;
     }
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
+    public void setDurationMinutes(Integer durationMinutes) {
+        this.durationMinutes = durationMinutes;
     }
 
     public Timestamp getTimeCreated() {

@@ -1,11 +1,8 @@
 package consamables.api;
 
-import java.io.IOException;
-
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class Restaurant {
@@ -31,14 +28,12 @@ public class Restaurant {
     
     public Restaurant() { }
 
-    public Restaurant(Integer restaurantId, String name, JsonNode location, JsonNode hours, String url)
-            throws JsonProcessingException, IOException {
+    public Restaurant(Integer restaurantId, String name, JsonNode location, JsonNode hours, String url) {
         this(name, location, hours, url);
         this.restaurantId = restaurantId;
     }
 
-    public Restaurant(String name, JsonNode location, JsonNode hours, String url)
-            throws JsonProcessingException, IOException {
+    public Restaurant(String name, JsonNode location, JsonNode hours, String url) {
         this.name = name;
         this.location = location;
         this.hours = hours;

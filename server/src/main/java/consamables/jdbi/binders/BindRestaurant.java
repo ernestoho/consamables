@@ -1,6 +1,5 @@
-package consamables.jdbi.binder;
+package consamables.jdbi.binders;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -21,12 +20,10 @@ import consamables.api.Restaurant;
 @Target(ElementType.PARAMETER)
 public @interface BindRestaurant {
     
-    public static class RestaurantBinderFactory implements BinderFactory {
+    public static class RestaurantBinderFactory implements BinderFactory<BindRestaurant> {
         
-        public Binder<BindRestaurant, Restaurant> build(Annotation annotation) {
-
+        public Binder<BindRestaurant, Restaurant> build(BindRestaurant annotation) {
             return new Binder<BindRestaurant, Restaurant>() {
-
                 public void bind(SQLStatement<?> q, BindRestaurant bind, Restaurant arg) {
                     ObjectMapper mapper = new ObjectMapper();
                     String location;
@@ -39,9 +36,9 @@ public @interface BindRestaurant {
                         location = "";
                         hours = "";
                     }
+                    q.bind("name", arg.getName());
                     q.bind("location", location);
                     q.bind("hours", hours);
-                    q.bind("name", arg.getName());
                     q.bind("url", arg.getUrl());
                 }
             };

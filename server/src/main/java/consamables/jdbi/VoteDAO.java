@@ -5,8 +5,12 @@ import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
-import consamables.api.Vote;
+import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
+import consamables.api.Vote;
+import consamables.jdbi.mappers.VoteMapper;
+
+@RegisterMapper(VoteMapper.class)
 public interface VoteDAO {
     @SqlQuery("SELECT * FROM vote")
     List<Vote> getAll();
@@ -18,9 +22,9 @@ public interface VoteDAO {
     int countVotesForGroup(@Bind("groupId") int groupId);
 
     @SqlUpdate("INSERT INTO vote " +
-               "(user_id, group_id) " +
+               "(user_id, group_id, minutes_interested, can_drive) " +
                "VALUES " +
-               "(:userId, :groupId)")
+               "(:userId, :groupId, :minutesInterested, :canDrive)")
     void addVote(@BindBean Vote vote);
 
     @SqlUpdate("DELETE FROM vote WHERE user_id = :userId AND group_id = :groupId")
