@@ -3,6 +3,7 @@ package consamables.api;
 import java.math.BigDecimal;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class Item {
     @JsonProperty
@@ -23,14 +24,18 @@ public class Item {
     @JsonProperty
     private BigDecimal price;
     
+    @JsonProperty
+    private JsonNode data;
+    
     public Item() { }
 
-    public Item(Integer itemId, Integer menuSectionId, String name, String description, BigDecimal price) {
+    public Item(Integer itemId, Integer menuSectionId, String name, String description, BigDecimal price, JsonNode data) {
         this.itemId = itemId;
         this.menuSectionId = menuSectionId;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.data = data;
     }
 
     public Integer getItemId() {
@@ -71,5 +76,13 @@ public class Item {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public JsonNode getData() {
+        return data;
+    }
+
+    public void setData(JsonNode data) {
+        this.data = data;
     }
 }

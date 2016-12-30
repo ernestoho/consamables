@@ -51,6 +51,7 @@ CREATE TABLE item
     name text NOT NULL,
     description text,
     price decimal(4, 2),
+    data json,
     CONSTRAINT item_pk
         PRIMARY KEY (item_id),
     CONSTRAINT item_menu_section_id_fk
@@ -65,7 +66,7 @@ CREATE TABLE "group"
     type group_type NOT NULL,
     phase group_phase NOT NULL,
     min_people int NOT NULL DEFAULT 4,
-    duration int,
+    duration_minutes int,
     time_created timestamp with time zone NOT NULL DEFAULT now(),
     time_started timestamp with time zone,
     time_ordered timestamp with time zone,
@@ -81,7 +82,8 @@ CREATE TABLE "order"
     order_id serial NOT NULL,
     group_id int NOT NULL,
     user_id int NOT NULL,
-    item_id int NOT NULL,
+    data json,
+    time_placed timestamp with time zone NOT NULL DEFAULT now(),
     CONSTRAINT order_pk
         PRIMARY KEY (order_id),
     CONSTRAINT order_group_id_fk
@@ -89,27 +91,33 @@ CREATE TABLE "order"
         REFERENCES "group" (group_id),
     CONSTRAINT order_user_id_fk
         FOREIGN KEY (user_id)
-        REFERENCES "user" (user_id),
-    CONSTRAINT order_item_id_fk
-        FOREIGN KEY (item_id)
-        REFERENCES item (item_id)
+        REFERENCES "user" (user_id)
 );
 
-CREATE TABLE order_data
+CREATE TABLE order_item
 (
+    order_item_id serial NOT NULL,
     order_id int NOT NULL,
+    item_id int NOT NULL,
+    quantity int NOT NULL,
     data json,
-    CONSTRAINT order_data_pk
-        PRIMARY KEY (order_id),
-    CONSTRAINT order_data_fk
+    CONSTRAINT order_item_pk
+        PRIMARY KEY (order_item_id),
+    CONSTRAINT order_item_order_id_fk
         FOREIGN KEY (order_id)
-        REFERENCES "order" (order_id)
+        REFERENCES "order" (order_id),
+    CONSTRAINT order_item_item_id_fk
+        FOREIGN KEY (item_id)
+        REFERENCES item (item_id)
 );
 
 CREATE TABLE vote
 (
     user_id int NOT NULL,
     group_id int NOT NULL,
+    minutes_interested int NOT NULL,
+    can_drive boolean NOT NULL,
+    time_placed timestamp with time zone NOT NULL DEFAULT now(),
     CONSTRAINT vote_pk
         PRIMARY KEY (user_id, group_id),
     CONSTRAINT vote_user_id_fk

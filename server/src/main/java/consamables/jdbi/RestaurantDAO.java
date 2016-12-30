@@ -7,8 +7,8 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
-import consamables.jdbi.binder.BindRestaurant;
-import consamables.jdbi.mapper.RestaurantMapper;
+import consamables.jdbi.binders.BindRestaurant;
+import consamables.jdbi.mappers.RestaurantMapper;
 import consamables.api.Restaurant;
 
 @RegisterMapper(RestaurantMapper.class)
@@ -25,7 +25,4 @@ public interface RestaurantDAO {
                "(:name, CAST(:location AS json), CAST(:hours AS json), :url) ")
     @GetGeneratedKeys
     int addRestaurant(@BindRestaurant Restaurant restaurant);
-    
-    @SqlUpdate("DELETE FROM restaurant WHERE restaurantId = :restaurantId")
-    void deleteRestaurant(@Bind("restaurantId") int restaurantId);
 }

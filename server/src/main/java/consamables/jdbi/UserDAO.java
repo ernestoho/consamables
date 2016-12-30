@@ -7,8 +7,9 @@ import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
-import consamables.jdbi.mapper.UserMapper;
+
 import consamables.api.User;
+import consamables.jdbi.mappers.UserMapper;
 
 @RegisterMapper(UserMapper.class)
 public interface UserDAO {

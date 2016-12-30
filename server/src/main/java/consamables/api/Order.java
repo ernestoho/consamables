@@ -1,7 +1,14 @@
 package consamables.api;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import consamables.jdbi.OrderItemDAO;
 
 public class Order {
     @JsonProperty
@@ -14,18 +21,26 @@ public class Order {
     @NotNull
     @JsonProperty
     private Integer userId;
+
+    @JsonProperty
+    private JsonNode data;
+    
+    @JsonProperty
+    private Timestamp timePlaced;
     
     @NotNull
     @JsonProperty
-    private Integer itemId;
+    List<OrderItem> orderItems;
     
     public Order() { }
-    
-    public Order(Integer orderId, Integer groupId, Integer userId, Integer itemId) {
+
+    public Order(Integer orderId, Integer groupId, Integer userId, JsonNode data, Timestamp timePlaced) {
         this.orderId = orderId;
         this.groupId = groupId;
         this.userId = userId;
-        this.itemId = itemId;
+        this.data = data;
+        this.timePlaced = timePlaced;
+        this.orderItems = new ArrayList<OrderItem>();
     }
 
     public Integer getOrderId() {
@@ -52,11 +67,32 @@ public class Order {
         this.userId = userId;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public JsonNode getData() {
+        return data;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setData(JsonNode data) {
+        this.data = data;
+    }
+
+    public Timestamp getTimePlaced() {
+        return timePlaced;
+    }
+
+    public void setTimePlaced(Timestamp timePlaced) {
+        this.timePlaced = timePlaced;
+    }
+        
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public Order loadOrderItems(OrderItemDAO dao) {
+        setOrderItems(dao.getOrderItems(orderId));
+        return this;
     }
 }

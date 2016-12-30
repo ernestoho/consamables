@@ -2,11 +2,13 @@ package consamables.jdbi;
 
 import java.util.List;
 import org.skife.jdbi.v2.sqlobject.Bind;
-import org.skife.jdbi.v2.sqlobject.BindBean;
+import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
-import consamables.jdbi.mapper.OrderMapper;
+
+import consamables.jdbi.binders.BindOrder;
+import consamables.jdbi.mappers.OrderMapper;
 import consamables.api.Order;
 
 @RegisterMapper(OrderMapper.class)
@@ -21,17 +23,12 @@ public interface OrderDAO {
     Order getOrder(@Bind("order_id") int orderId);
     
     @SqlUpdate("INSERT INTO \"order\" " +
-               "(group_id, user_id, item_id) " +
+               "(group_id, user_id, data) " +
                "VALUES " +
-               "(:groupId, :userId, :itemId)")
-    void addOrder(@BindBean Order order);
-    
-    @SqlUpdate("UPDATE \"order\" SET " +
-               "(group_id, user_id, item_id) = " +
-               "(:groupId, :userId, :itemId) " +
-               "WHERE order_id = :orderId")
-    void updateOrder(@BindBean Order order);
+               "(:groupId, :userId, CAST(:data AS json))")
+    @GetGeneratedKeys
+    int addOrder(@BindOrder Order order);
     
     @SqlUpdate("DELETE FROM \"order\" WHERE order_id = :orderId")
-    void deleteGroup(@Bind("groupId") int groupId);
+    void deleteOrder(@Bind("orderId") int orderId);
 }
