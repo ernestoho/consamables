@@ -14,9 +14,11 @@ class PendingOrderPanel extends React.Component {
         return (
             <div className="pending-order-panel">
                 <PanelHeader name="Pending Orders"></PanelHeader>
-                {groups.map(result =>
-                    <PendingOrderBox key={result.get('groupId')} {...result.toJS()}></PendingOrderBox>
-                )}
+                <div className="scrollable">
+                    {groups.map(result =>
+                        <PendingOrderBox key={result.get('groupId')} {...result.toJS()}></PendingOrderBox>
+                    )}
+                </div>
             </div>
         );
     }

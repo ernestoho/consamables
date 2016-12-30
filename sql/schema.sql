@@ -8,7 +8,7 @@ SET search_path TO test;
 
 CREATE TYPE group_phase AS ENUM ('pending', 'active', 'ordered');
 
-CREATE TYPE group_type AS ENUM ('carryout', 'delivery', 'outing', 'carryout or delivery', 'any');
+CREATE TYPE group_type AS ENUM ('delivery', 'carryout', 'outing', 'delivery or carryout', 'any');
 
 CREATE TABLE "user"
 (

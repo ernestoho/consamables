@@ -8,6 +8,8 @@ import PanelHeader from '../PanelHeader';
 import OrderTypePreference from './OrderTypePreference';
 import DrivingPreference from './DrivingPreference';
 import WaitTimePreference from './WaitTimePreference';
+import MinPeoplePreference from './MinPeoplePreference';
+import SubmitSuggestion from './SubmitSuggestion';
 import { getRestaurantName } from '../../../selectors';
 
 class SuggestOrderPanel extends React.Component {
@@ -27,8 +29,9 @@ class SuggestOrderPanel extends React.Component {
                         <DrivingPreference/>
                     : null}
                     <WaitTimePreference/>
+                    <MinPeoplePreference/>
                 </div>
-                <button className="button">Submit Suggestion</button>
+                <SubmitSuggestion/>
             </div>
         );
     }

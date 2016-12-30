@@ -43,3 +43,15 @@ export const calculateHours = (currentTime, hours) => {
 
     return Map({ openTime, closeTime, open });
 };
+
+export const buildOrderType = prefs => {
+    const { delivery, carryout, outing } = prefs.toJS();
+
+    if (outing && (delivery || carryout)) {
+        return 'any';
+    } else if (outing && !(delivery || carryout)) {
+        return 'outing';
+    } else {
+        return 'delivery or carryout';
+    }
+};

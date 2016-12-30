@@ -1,6 +1,6 @@
 SCHEMA=test
-DUMP_FILE=data.sql
-SCHEMA_FIlE=schema.sql
+DUMP_FILE="data.sql"
+SCHEMA_FILE="schema.sql"
 
 pg_dump consamables -a -f $DUMP_FILE -n $SCHEMA
 

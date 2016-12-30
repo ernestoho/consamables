@@ -27,9 +27,9 @@ public interface GroupDAO {
     Group getGroup(@Bind("groupId") int groupId);
 
     @SqlUpdate("INSERT INTO \"group\" " +
-               "(restaurant_id, phase, min_people) " +
+               "(restaurant_id, type, phase, min_people) " +
                "VALUES " +
-               "(:restaurantId, 'pending', :minPeople)")
+               "(:restaurantId, CAST(:type AS group_type), 'pending', :minPeople)")
     @GetGeneratedKeys
     int addPendingGroup(@BindBean Group group);
     
