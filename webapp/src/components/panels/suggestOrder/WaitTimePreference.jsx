@@ -10,10 +10,11 @@ class WaitTimePreference extends React.Component {
         return (
             <div className="suggest-option">
                 <div className="suggest-option-heading">How long can you wait?</div>
-                <input type="range" min="10" max="120" value={value} step="5"
+                <input className="wait-time" type="range" min="10" max="120" step="5"
+                    value={value}
                     onChange={changeValue}
                 />
-                <div className="wait-time">{value} minutes</div>
+                <div className="range-label">{value} minutes</div>
             </div>
         );
     }

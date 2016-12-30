@@ -21,6 +21,7 @@ const initialState = {
         currentOrder: Map({ items: Map() }),
         suggestOrder: Map()
     },
+    currentUser: Map({ userId: 1 }),
     modal: Map({
         visible: false
     })

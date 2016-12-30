@@ -4,6 +4,7 @@
     @include panel;
     flex: 1 0 auto;
     margin-top: $margin;
+    height: 45%;
 }
 
 .active-order-box+.active-order-box {

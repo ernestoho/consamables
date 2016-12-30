@@ -3,14 +3,17 @@ package consamables.resources;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import consamables.api.Group;
+import consamables.api.Suggestion;
 import consamables.jdbi.GroupDAO;
 import consamables.jdbi.VoteDAO;
 
@@ -43,15 +46,19 @@ public class GroupResource {
         return voteDAO.countVotesForGroup(Integer.parseInt(id));
     }
     
-    @Path("/pending/add")
+    @Path("/suggest")
     @POST
-    public int addPendingGroup(@Valid Group newGroup) {
-        return groupDAO.addPendingGroup(newGroup);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addSuggestion(@Valid Suggestion suggestion) {
+        int groupId = groupDAO.addPendingGroup(suggestion.getPendingGroup());
+        suggestion.getVote().setGroupId(groupId);
+        voteDAO.addVote(suggestion.getVote());
+        return Response.ok().build();
     }
     
-    @Path("/active/add")
+    @Path("/start")
     @POST
-    public int addActiveGroup(@Valid Group newGroup) {
-        return groupDAO.addActiveGroup(newGroup);
+    public void startNewGroup(@Valid Group newGroup) {
+        groupDAO.addActiveGroup(newGroup);
     }
 }

@@ -14,7 +14,8 @@ import {
 import {
     openSuggestOrder, closeSuggestOrder,
     toggleDelivery, toggleCarryout, toggleOuting,
-    setDrivingPreference, setWaitTime
+    setDrivingPreference, setWaitTime, setMinPeople,
+    submitSuggestion
 } from './suggestOrder';
 
 export {
@@ -41,5 +42,7 @@ export {
     toggleCarryout,
     toggleOuting,
     setDrivingPreference,
-    setWaitTime
+    setWaitTime,
+    setMinPeople,
+    submitSuggestion
 }

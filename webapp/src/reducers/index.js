@@ -6,6 +6,7 @@ import restaurants from './restaurants';
 import menus from './menus';
 import items from './items';
 import centerColumn from './centerColumn';
+import currentUser from './currentUser';
 import modal from './modal';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     menus,
     items,
     centerColumn,
+    currentUser,
     modal
 });
 
