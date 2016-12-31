@@ -5,11 +5,15 @@ import { connect } from 'react-redux';
 
 import PanelHeader from '../PanelHeader';
 import OrderItem from './OrderItem';
+import { continueOrder } from '../../../actions';
 import { getItemPrice } from '../../../selectors';
 
 class CurrentOrderPanel extends React.Component {
     render() {
-        const { items, totalCost } = this.props;
+        const {
+            items, totalCost,
+            onContinueClick
+        } = this.props;
 
         return (
             <div className="current-order-panel">
@@ -20,7 +24,7 @@ class CurrentOrderPanel extends React.Component {
                     )}
                 </div>
                 <div className="continue">
-                    <button className="button">Continue</button>
+                    <button className="button" onClick={onContinueClick}>Continue</button>
                     <div className="order-total">Total: ${totalCost.toFixed(2)}</div>
                 </div>
             </div>
@@ -35,6 +39,11 @@ const mapStateToProps = state => ({
     }, 0)
 });
 
+const mapDispatchToProps = dispatch => ({
+    onContinueClick: () => dispatch(continueOrder())
+});
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(CurrentOrderPanel)

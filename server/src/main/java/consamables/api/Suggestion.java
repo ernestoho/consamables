@@ -8,11 +8,11 @@ public class Suggestion {
     @NotNull
     @JsonProperty
     private Group pendingGroup;
-    
+
     @NotNull
     @JsonProperty
     private Vote vote;
-    
+
     public Suggestion() { }
 
     public Group getPendingGroup() {

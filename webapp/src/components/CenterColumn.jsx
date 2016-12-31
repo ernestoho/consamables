@@ -7,13 +7,14 @@ import Title from './Title';
 import Helper from './Helper';
 import MenuPanel from './panels/menu/MenuPanel';
 import CurrentOrderPanel from './panels/currentOrder/CurrentOrderPanel';
+import NewOrderOptionsPanel from './panels/newOrderOptions/NewOrderOptionsPanel';
 import SuggestOrderPanel from './panels/suggestOrder/SuggestOrderPanel';
 import {
     DISPLAY_DEFAULT,
     DISPLAY_MENU_VIEWING,
     DISPLAY_MENU_ORDERING,
     DISPLAY_MENU_WITH_ORDER,
-    DISPLAY_ORDER_CONFIRM,
+    DISPLAY_NEW_ORDER_OPTIONS,
     DISPLAY_SUGGEST_OPTIONS
 } from '../constants';
 
@@ -41,10 +42,12 @@ class CenterColumn extends React.Component {
                     </div>
                 );
 
-            case DISPLAY_ORDER_CONFIRM:
+            case DISPLAY_NEW_ORDER_OPTIONS:
                 return (
                     <div className="column-center">
-
+                        <Title/>
+                        <CurrentOrderPanel/>
+                        <NewOrderOptionsPanel/>
                     </div>
                 );
 

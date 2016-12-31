@@ -34,7 +34,7 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
         final VoteDAO voteDAO = jdbi.onDemand(VoteDAO.class);
 
         environment.jersey().register(new RestaurantResource(restaurantDAO, menuSectionDAO, itemDAO));
-        environment.jersey().register(new GroupResource(groupDAO, voteDAO));
+        environment.jersey().register(new GroupResource(groupDAO, voteDAO, orderDAO, orderItemDAO));
         environment.jersey().register(new OrderResource(orderDAO, orderItemDAO));
     }
 
