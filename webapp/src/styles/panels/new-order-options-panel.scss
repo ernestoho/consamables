@@ -1,0 +1,46 @@
+@import 'panel';
+
+.new-order-options-panel {
+    @include panel;
+    flex: 0 0 auto;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    min-width: 20em;
+    padding-bottom: 0.5em;
+
+    .order-options {
+        padding: 0.4em;
+        font-size: 0.8em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .order-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .order-option-heading {
+                font-weight: bold;
+                color: $title-color;
+            }
+
+            .order-option-choices {
+                margin: 0.4em;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+
+                input {
+                    margin-right: 0.4em;
+                }
+            }
+        }
+    }
+
+    .button {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+}

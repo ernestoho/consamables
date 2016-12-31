@@ -8,7 +8,9 @@ import {
     startOrder,
     addItemToOrder, removeItemFromOrder,
     incrementItem, decrementItem,
-    setQuantity
+    setQuantity,
+    continueOrder, setOrderType, setOrderDuration,
+    submitNewGroup
 } from './order';
 
 import {
@@ -35,6 +37,11 @@ export {
     incrementItem,
     decrementItem,
     setQuantity,
+
+    continueOrder,
+    setOrderType,
+    setOrderDuration,
+    submitNewGroup,
 
     openSuggestOrder,
     closeSuggestOrder,

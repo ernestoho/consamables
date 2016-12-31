@@ -5,6 +5,7 @@ import {
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
     INCREMENT_ITEM, DECREMENT_ITEM,
     SET_QUANTITY,
+    CONTINUE_ORDER, SET_ORDER_TYPE, SET_ORDER_DURATION
 } from '../../actions/actionTypes';
 
 const currentOrder = (state = Map({ items: Map() }), action) => {
@@ -32,6 +33,21 @@ const currentOrder = (state = Map({ items: Map() }), action) => {
 
         case SET_QUANTITY:
             return state.setIn(['items', action.id], action.quantity);
+
+        case CONTINUE_ORDER:
+            return state.set(
+                'options',
+                Map({
+                    'type': 'delivery',
+                    'duration': 30
+                })
+            );
+
+        case SET_ORDER_TYPE:
+            return state.setIn(['options', 'type'], action.value);
+
+        case SET_ORDER_DURATION:
+            return state.setIn(['options', 'duration'], action.value);
 
         default:
             return state;

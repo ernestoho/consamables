@@ -27,6 +27,7 @@ CREATE TABLE restaurant
     location json NOT NULL,
     hours json NOT NULL,
     url text,
+    delivery boolean NOT NULL,
     CONSTRAINT restaurant_pk
         PRIMARY KEY (restaurant_id)
 );
@@ -65,8 +66,9 @@ CREATE TABLE "group"
     restaurant_id int NOT NULL,
     type group_type NOT NULL,
     phase group_phase NOT NULL,
-    min_people int NOT NULL DEFAULT 4,
+    min_people int,
     duration_minutes int,
+    organizer_id int,
     time_created timestamp with time zone NOT NULL DEFAULT now(),
     time_started timestamp with time zone,
     time_ordered timestamp with time zone,

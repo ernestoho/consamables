@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setWaitTime } from '../../../actions';
+import { setOrderDuration } from '../../../actions';
 
-class WaitTimePreference extends React.Component {
+class OrderDurationPreference extends React.Component {
     render() {
         const { value, changeValue } = this.props;
 
         return (
-            <div className="suggest-option">
-                <div className="suggest-option-heading">How long can you wait?</div>
+            <div className="order-option">
+                <div className="order-option-heading">How long should this be open?</div>
                 <input className="wait-time" type="range" min="10" max="120" step="5"
                     value={value}
                     onChange={changeValue}
@@ -21,14 +21,14 @@ class WaitTimePreference extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    value: state.centerColumn.suggestOrder.get('waitTime')
+    value: state.centerColumn.currentOrder.getIn(['options', 'duration'])
 });
 
 const mapDispatchToProps = dispatch => ({
-    changeValue: e => dispatch(setWaitTime(parseInt(e.currentTarget.value)))
+    changeValue: e => dispatch(setOrderDuration(parseInt(e.currentTarget.value)))
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(WaitTimePreference)
+)(OrderDurationPreference)
