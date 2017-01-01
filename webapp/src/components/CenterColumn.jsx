@@ -10,7 +10,6 @@ import CurrentOrderPanel from './panels/currentOrder/CurrentOrderPanel';
 import NewOrderOptionsPanel from './panels/newOrderOptions/NewOrderOptionsPanel';
 import SuggestOrderPanel from './panels/suggestOrder/SuggestOrderPanel';
 import {
-    DISPLAY_DEFAULT,
     DISPLAY_MENU_VIEWING,
     DISPLAY_MENU_ORDERING,
     DISPLAY_MENU_WITH_ORDER,
@@ -38,7 +37,7 @@ class CenterColumn extends React.Component {
                         <MenuPanel/>
                         {orderStarted ? 
                             <CurrentOrderPanel/>
-                        : null}
+                            : null}
                     </div>
                 );
 

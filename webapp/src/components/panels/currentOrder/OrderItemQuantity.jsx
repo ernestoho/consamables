@@ -16,7 +16,7 @@ export default class OrderItemQuantity extends React.Component {
                     >
                         -
                     </div>
-                : null}
+                    : null}
                 <input type="number" value={value} onChange={onChange}></input>
                 <div
                     className="order-item-increment"

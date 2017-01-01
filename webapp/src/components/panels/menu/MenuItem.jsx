@@ -22,7 +22,7 @@ class MenuItem extends React.Component {
                             Add to Order
                         </button>
                     </div>
-                : null}
+                    : null}
                 <div className="menu-item-info">
                     <div className="menu-item-price">${price.toFixed(2)}</div>
                     <div className="menu-item-name">{name}</div>

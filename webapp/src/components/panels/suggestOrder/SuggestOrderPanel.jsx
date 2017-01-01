@@ -14,7 +14,7 @@ import { getRestaurantName } from '../../../selectors';
 
 class SuggestOrderPanel extends React.Component {
     render() {
-        const { name, askDriving } = this.props;
+        const { name, askDriving, valid } = this.props;
 
         return (
             <div className="suggest-order-panel">
@@ -27,11 +27,13 @@ class SuggestOrderPanel extends React.Component {
                     <OrderTypePreference/>
                     {askDriving ?
                         <DrivingPreference/>
-                    : null}
+                        : null}
                     <WaitTimePreference/>
                     <MinPeoplePreference/>
                 </div>
-                <SubmitSuggestion/>
+                {valid ?
+                    <SubmitSuggestion/>
+                    : null}
             </div>
         );
     }
@@ -42,7 +44,8 @@ const mapStateToProps = state => {
 
     return {
         name: getRestaurantName(state, state.centerColumn.suggestOrder.get('restaurantId')),
-        askDriving: orderType.get('carryout') || orderType.get('outing')
+        askDriving: orderType.get('carryout') || orderType.get('outing'),
+        valid: orderType.includes(true)
     };
 };
 

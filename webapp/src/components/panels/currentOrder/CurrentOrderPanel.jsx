@@ -17,17 +17,6 @@ class CurrentOrderPanel extends React.Component {
         } = this.props;
 
         const isSelectingItems = displayMode == DISPLAY_MENU_ORDERING;
-        let button;
-        
-        if (isSelectingItems) {
-            button = (
-                <button className="button" onClick={onContinueClick}>Continue</button>
-            );
-        } else {
-            button = (
-                <button className="button" onClick={onBackClick}>Return to Menu</button>
-            );
-        }
 
         return (
             <div className="current-order-panel">
@@ -38,7 +27,10 @@ class CurrentOrderPanel extends React.Component {
                     )}
                 </div>
                 <div className="continue">
-                    {button}
+                    {isSelectingItems ?
+                        <button className="button" onClick={onContinueClick}>Continue</button>
+                        :
+                        <button className="button" onClick={onBackClick}>Return to Menu</button>}
                     <div className="order-total">Total: ${totalCost.toFixed(2)}</div>
                 </div>
             </div>

@@ -20,7 +20,7 @@ class PendingOrderPanel extends React.Component {
                             <PendingOrderBox key={result.get('groupId')} {...result.toJS()}/>
                         )}
                     </div>
-                :
+                    :
                     <div className="empty-text-container">
                         <div className="empty-text">
                             No pending orders right now!

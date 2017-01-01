@@ -22,6 +22,5 @@ export default class RestaurantToolbar extends React.Component {
                 </div>
             );
         }
-        
     }
 }
