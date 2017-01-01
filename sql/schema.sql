@@ -27,7 +27,7 @@ CREATE TABLE restaurant
     location json NOT NULL,
     hours json NOT NULL,
     url text,
-    delivery boolean NOT NULL,
+    delivery boolean NOT NULL DEFAULT FALSE,
     CONSTRAINT restaurant_pk
         PRIMARY KEY (restaurant_id)
 );

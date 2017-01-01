@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 import { REQUEST_ACTIVE_ORDERS, RECEIVE_ACTIVE_ORDERS } from './actionTypes';
 
@@ -6,18 +6,17 @@ const requestActiveOrders = () => ({ type: REQUEST_ACTIVE_ORDERS });
 
 const receiveActiveOrders = json => ({
     type: RECEIVE_ACTIVE_ORDERS,
-    activeOrders: fromJS(json.reduce(
+    activeOrders: json.reduce(
         (all, order) => {
-            all[order.groupId] = order;
-            return all;
+            return all.set(order.groupId, fromJS(order));
         },
-        {}
-    ))
+        Map()
+    )
 });
 
 const fetchActiveOrders = () => {
     return dispatch => {
-        dispatch(requestRestaurants());
+        dispatch(requestActiveOrders());
         return fetch('/api/groups/active')
             .then( response => response.json() )
             .then( json => dispatch(receiveActiveOrders(json)) );

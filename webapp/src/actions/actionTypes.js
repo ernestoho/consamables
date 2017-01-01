@@ -14,6 +14,9 @@ export const HIDE_MODAL = 'HIDE_MODAL';
 export const REQUEST_MENU = 'REQUEST_MENU';
 export const RECEIVE_MENU = 'RECEIVE_MENU';
 
+export const REQUEST_VOTES = 'REQUEST_VOTES';
+export const RECEIVE_VOTES = 'RECEIVE_VOTES';
+
 export const SHOW_MENU = 'SHOW_MENU';
 export const HIDE_MENU = 'HIDE_MENU';
 
@@ -25,6 +28,7 @@ export const DECREMENT_ITEM = 'DECREMENT_ITEM';
 export const SET_QUANTITY = 'SET_QUANTITY';
 
 export const CONTINUE_ORDER = 'CONTINUE_ORDER';
+export const GO_BACK_TO_MENU = 'GO_BACK_TO_MENU';
 export const SET_ORDER_TYPE = 'SET_ORDER_TYPE';
 export const SET_ORDER_DURATION = 'SET_ORDER_DURATION';
 

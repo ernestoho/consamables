@@ -2,8 +2,8 @@
 
 .pending-order-panel {
     @include panel;
-    flex: 1 0 auto;
-    height: 45%;
+    flex: 1 1 auto;
+    min-height: 15em;
 
     .scrollable {
         padding: 0 0.5em 0.5em;

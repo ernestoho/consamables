@@ -9,27 +9,44 @@ import { getRestaurantName } from '../../../selectors';
 
 class ActiveOrderPanel extends React.Component {
     render() {
-        const { groups } = this.props;
+        const { groups, anyPendingOrders } = this.props;
 
         return (
-                <div className="active-order-panel">
-                    <PanelHeader name="Active Orders"></PanelHeader>
-                    {groups.map(result =>
-                        <ActiveOrderBox key={result.get('groupId')} {...result.toJS()}></ActiveOrderBox>
-                    )}
-                </div>
+            <div className="active-order-panel">
+                <PanelHeader name="Active Orders"/>
+                {groups.size > 0 ?
+                    <div className="scrollable">
+                        {groups.map(result =>
+                            <ActiveOrderBox key={result.get('groupId')} {...result.toJS()}/>
+                        )}
+                    </div>
+                :
+                    <div className="empty-text-container">
+                        <div className="empty-text">
+                            No one's ordering right now!
+                        </div>
+                        <div className="empty-text">
+                            {anyPendingOrders ? 'Join a pending order ' : 'Suggest an order '}
+                            or start one of your own.
+                        </div>
+                    </div>}
+            </div>
         );
     }
 }
 
 const mapStateToProps = state => {
     return {
-        groups: state.activeOrders.toList().map(
-            group => group.set('restaurantName', getRestaurantName(
-                state,
-                group.get('restaurantId')
-            ))
-        )
+        groups: state.activeOrders
+            .toList()
+            .sortBy( group => group.get('timeStarted') )
+            .map(
+                group => group.set('restaurantName', getRestaurantName(
+                    state,
+                    group.get('restaurantId')
+                ))
+            ),
+        anyPendingOrders: state.pendingOrders.size > 0
     };
 };
 

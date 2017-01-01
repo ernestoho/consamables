@@ -5,15 +5,29 @@ import { connect } from 'react-redux';
 
 import PanelHeader from '../PanelHeader';
 import OrderItem from './OrderItem';
-import { continueOrder } from '../../../actions';
+import { continueOrder, goBackToMenu } from '../../../actions';
 import { getItemPrice } from '../../../selectors';
+import { DISPLAY_MENU_ORDERING, DISPLAY_NEW_ORDER_OPTIONS } from '../../../constants';
 
 class CurrentOrderPanel extends React.Component {
     render() {
         const {
-            items, totalCost,
-            onContinueClick
+            items, totalCost, displayMode,
+            onContinueClick, onBackClick
         } = this.props;
+
+        const isSelectingItems = displayMode == DISPLAY_MENU_ORDERING;
+        let button;
+        
+        if (isSelectingItems) {
+            button = (
+                <button className="button" onClick={onContinueClick}>Continue</button>
+            );
+        } else {
+            button = (
+                <button className="button" onClick={onBackClick}>Return to Menu</button>
+            );
+        }
 
         return (
             <div className="current-order-panel">
@@ -24,7 +38,7 @@ class CurrentOrderPanel extends React.Component {
                     )}
                 </div>
                 <div className="continue">
-                    <button className="button" onClick={onContinueClick}>Continue</button>
+                    {button}
                     <div className="order-total">Total: ${totalCost.toFixed(2)}</div>
                 </div>
             </div>
@@ -36,11 +50,13 @@ const mapStateToProps = state => ({
     items: state.centerColumn.currentOrder.get('items').entrySeq().toJS(),
     totalCost: state.centerColumn.currentOrder.get('items').reduce((total, quantity, id) => {
         return total += getItemPrice(state, id) * quantity;
-    }, 0)
+    }, 0),
+    displayMode: state.centerColumn.displayMode
 });
 
 const mapDispatchToProps = dispatch => ({
-    onContinueClick: () => dispatch(continueOrder())
+    onContinueClick: () => dispatch(continueOrder()),
+    onBackClick: () => dispatch(goBackToMenu())
 });
 
 export default connect(

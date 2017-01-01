@@ -2,15 +2,20 @@
 
 .active-order-panel {
     @include panel;
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     margin-top: $margin;
-    height: 45%;
-}
+    min-height: 15em;
 
-.active-order-box+.active-order-box {
-    border-top: 1px solid $title-color;
-}
+    .scrollable {
+        padding: 0 0.5em 0.5em;
+        overflow: auto;
 
-.active-order-box {
-    @include panelbox;
+        .active-order-box+.active-order-box {
+            border-top: 1px solid $title-color;
+        }
+
+        .active-order-box {
+            @include panelbox;
+        }
+    }
 }
