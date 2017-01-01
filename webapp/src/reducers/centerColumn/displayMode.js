@@ -1,7 +1,8 @@
 import {
     SHOW_MENU, HIDE_MENU,
-    START_ORDER, CONTINUE_ORDER,
-    SHOW_SUGGESTION, HIDE_SUGGESTION
+    START_ORDER, CONTINUE_ORDER, GO_BACK_TO_MENU,
+    SHOW_SUGGESTION, HIDE_SUGGESTION,
+    SUGGESTION_SUCCESS, NEW_GROUP_SUCCESS
 } from '../../actions/actionTypes';
 
 import {
@@ -24,12 +25,19 @@ const displayMode = (state = DISPLAY_DEFAULT, action) => {
             return DISPLAY_MENU_ORDERING;
 
         case CONTINUE_ORDER:
-            return DISPLAY_NEW_ORDER_OPTIONS
+            return DISPLAY_NEW_ORDER_OPTIONS;
+
+        case GO_BACK_TO_MENU:
+            return DISPLAY_MENU_ORDERING;
 
         case SHOW_SUGGESTION:
             return DISPLAY_SUGGEST_OPTIONS;
 
         case HIDE_SUGGESTION:
+            return DISPLAY_DEFAULT;
+
+        case SUGGESTION_SUCCESS:
+        case NEW_GROUP_SUCCESS:
             return DISPLAY_DEFAULT;
 
         default:

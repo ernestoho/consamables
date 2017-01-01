@@ -13,10 +13,12 @@ class ActiveOrderPanel extends React.Component {
 
         return (
                 <div className="active-order-panel">
-                    <PanelHeader name="Active Orders"></PanelHeader>
-                    {groups.map(result =>
-                        <ActiveOrderBox key={result.get('groupId')} {...result.toJS()}></ActiveOrderBox>
-                    )}
+                    <PanelHeader name="Active Orders"/>
+                    <div className="scrollable">
+                        {groups.map(result =>
+                            <ActiveOrderBox key={result.get('groupId')} {...result.toJS()}/>
+                        )}
+                    </div>
                 </div>
         );
     }
@@ -24,12 +26,15 @@ class ActiveOrderPanel extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        groups: state.activeOrders.toList().map(
-            group => group.set('restaurantName', getRestaurantName(
-                state,
-                group.get('restaurantId')
-            ))
-        )
+        groups: state.activeOrders
+            .toList()
+            .sortBy( group => group.get('timeStarted') )
+            .map(
+                group => group.set('restaurantName', getRestaurantName(
+                    state,
+                    group.get('restaurantId')
+                ))
+            )
     };
 };
 

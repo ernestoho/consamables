@@ -2,14 +2,14 @@ import React from 'react';
 
 import OrderTimer from '../OrderTimer';
 
-class ActiveOrderBox extends React.Component {
+export default class ActiveOrderBox extends React.Component {
     render() {
-        const { restaurantName, timeStarted, duration } = this.props;
+        const { restaurantName, timeStarted, durationMinutes } = this.props;
 
         return (
             <div className="active-order-box">
                 <div className="box-title">{restaurantName}</div>
-                <OrderTimer timeStarted={timeStarted} duration={duration}/>
+                <OrderTimer timeStarted={timeStarted} duration={durationMinutes}/>
                 <div className="toolbar">
                     <button className="button">Join Order</button>
                 </div>

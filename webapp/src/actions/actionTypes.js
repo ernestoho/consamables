@@ -25,6 +25,7 @@ export const DECREMENT_ITEM = 'DECREMENT_ITEM';
 export const SET_QUANTITY = 'SET_QUANTITY';
 
 export const CONTINUE_ORDER = 'CONTINUE_ORDER';
+export const GO_BACK_TO_MENU = 'GO_BACK_TO_MENU';
 export const SET_ORDER_TYPE = 'SET_ORDER_TYPE';
 export const SET_ORDER_DURATION = 'SET_ORDER_DURATION';
 

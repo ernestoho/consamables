@@ -5,7 +5,8 @@ import {
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
     INCREMENT_ITEM, DECREMENT_ITEM,
     SET_QUANTITY,
-    CONTINUE_ORDER, SET_ORDER_TYPE, SET_ORDER_DURATION
+    CONTINUE_ORDER, SET_ORDER_TYPE, SET_ORDER_DURATION,
+    SEND_NEW_GROUP, NEW_GROUP_FAILURE, NEW_GROUP_SUCCESS
 } from '../../actions/actionTypes';
 
 const currentOrder = (state = Map({ items: Map() }), action) => {
@@ -14,7 +15,8 @@ const currentOrder = (state = Map({ items: Map() }), action) => {
             // Clear items if switching restaurants
             if (state.get('items').size > 0 && state.get('restaurantId') != action.id) {
                 return state.set('restaurantId', action.id)
-                            .set('items', Map());
+                            .set('items', Map())
+                            .set('loading', false);
             } else {
                 return state.set('restaurantId', action.id);
             }
@@ -48,6 +50,16 @@ const currentOrder = (state = Map({ items: Map() }), action) => {
 
         case SET_ORDER_DURATION:
             return state.setIn(['options', 'duration'], action.value);
+
+        case SEND_NEW_GROUP:
+            return state.set('loading', true);
+
+        case NEW_GROUP_FAILURE:
+            return state.set('loading', false);
+
+        case NEW_GROUP_SUCCESS:
+            return state.set('items', Map())
+                        .set('loading', false);
 
         default:
             return state;

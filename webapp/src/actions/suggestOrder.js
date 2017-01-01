@@ -61,7 +61,7 @@ export const submitSuggestion = data => {
             })
         })
             .then(response => {
-                if (response.ok()) {
+                if (response.ok) {
                     dispatch(suggestionSuccess());
                 }
             })

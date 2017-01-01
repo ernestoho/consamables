@@ -3,7 +3,8 @@ import {
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
     INCREMENT_ITEM, DECREMENT_ITEM,
     SET_QUANTITY,
-    CONTINUE_ORDER, SET_ORDER_TYPE, SET_ORDER_DURATION,
+    CONTINUE_ORDER, GO_BACK_TO_MENU,
+    SET_ORDER_TYPE, SET_ORDER_DURATION,
     SEND_NEW_GROUP, NEW_GROUP_SUCCESS, NEW_GROUP_FAILURE
 } from './actionTypes';
 
@@ -40,6 +41,8 @@ export const setQuantity = (itemId, quantity) => ({
 
 export const continueOrder = () => ({ type: CONTINUE_ORDER });
 
+export const goBackToMenu = () => ({ type: GO_BACK_TO_MENU });
+
 export const setOrderType = orderType => ({
     type: SET_ORDER_TYPE,
     value: orderType
@@ -70,7 +73,7 @@ export const submitNewGroup = data => {
             })
         })
             .then(response => {
-                if (response.ok()) {
+                if (response.ok) {
                     dispatch(newGroupSuccess());
                 }
             })

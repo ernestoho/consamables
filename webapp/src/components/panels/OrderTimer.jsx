@@ -1,6 +1,7 @@
 import React from 'react';
+import moment from 'moment';
 
-class OrderTimer extends React.Component {
+export default class OrderTimer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,7 +39,7 @@ class OrderTimer extends React.Component {
             style.color = 'red';
         }
 
-        if (this.state.minutes > 0 && this.state.seconds > 0) {
+        if (this.state.minutes > 0 || this.state.seconds > 0) {
             const minutes = this.state.minutes.toString();
             const seconds = this.state.seconds < 10 ? `0${this.state.seconds}` : this.state.seconds.toString();
             
