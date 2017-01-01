@@ -13,7 +13,7 @@ export default class Link extends React.Component {
     render() {
         return (
             <div className="link" onClick={this.handleClick}>
-                {this.props.url}
+                {this.props.url.slice(4)}
             </div>
         );
     }

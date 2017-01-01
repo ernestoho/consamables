@@ -22,7 +22,7 @@ class NewOrderOptionsPanel extends React.Component {
                 </div>
                 {loading ?
                     <Spinner/>
-                : <SubmitNewGroup/>}
+                    : <SubmitNewGroup/>}
             </div>
         );
     }

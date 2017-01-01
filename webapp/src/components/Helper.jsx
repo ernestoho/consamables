@@ -15,9 +15,11 @@ export default class Helper extends React.Component {
 
 class HelperText extends React.Component {
     render() {
+        const { className, text } = this.props;
+
         return (
-            <div className={this.props.className}>
-                <div className="helper-text">{this.props.text}</div>
+            <div className={className}>
+                <div className="helper-text">{text}</div>
                 <div className="arrows">
                     <div className="left-arrow">▼</div>
                     <div className="right-arrow">▼</div>
