@@ -8,6 +8,8 @@ import {
     SEND_NEW_GROUP, NEW_GROUP_SUCCESS, NEW_GROUP_FAILURE
 } from './actionTypes';
 
+import fetchActiveOrders from './activeOrders';
+
 export const startOrder = (restaurantId) => ({
     type: START_ORDER,
     id: restaurantId
@@ -75,6 +77,7 @@ export const submitNewGroup = data => {
             .then(response => {
                 if (response.ok) {
                     dispatch(newGroupSuccess());
+                    dispatch(fetchActiveOrders());
                 }
             })
             .catch( error => dispatch(newGroupFailure(error)) );

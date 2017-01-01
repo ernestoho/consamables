@@ -5,6 +5,8 @@ import {
     SEND_SUGGESTION, SUGGESTION_SUCCESS, SUGGESTION_FAILURE
 } from './actionTypes';
 
+import fetchPendingOrders from './pendingOrders';
+
 export const openSuggestOrder = restaurantId => ({
     type: SHOW_SUGGESTION,
     id: restaurantId
@@ -63,6 +65,7 @@ export const submitSuggestion = data => {
             .then(response => {
                 if (response.ok) {
                     dispatch(suggestionSuccess());
+                    dispatch(fetchPendingOrders());
                 }
             })
             .catch( error => dispatch(suggestionFailure(error)) );

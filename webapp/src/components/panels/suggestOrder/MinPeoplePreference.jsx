@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    changeValue: e => dispatch(setMinPeople(e.currentTarget.value))
+    changeValue: e => dispatch(setMinPeople(parseInt(e.currentTarget.value)))
 });
 
 export default connect(
