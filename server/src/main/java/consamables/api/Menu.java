@@ -14,11 +14,11 @@ public class Menu {
     @NotNull
     @JsonProperty
     private long restaurantId;
-    
+
     @NotNull
     @JsonProperty
     private List<MenuSection> sections;
-    
+
     public Menu(long restaurantId) {
         this.restaurantId = restaurantId;
         this.sections = new ArrayList<MenuSection>();
@@ -39,7 +39,7 @@ public class Menu {
     public void setSections(List<MenuSection> sections) {
         this.sections = sections;
     }
-    
+
     public Menu loadSections(MenuSectionDAO menuSectionDAO, ItemDAO itemDAO) {
         setSections(menuSectionDAO.getMenuSections(restaurantId));
         for (MenuSection menuSection : sections) {

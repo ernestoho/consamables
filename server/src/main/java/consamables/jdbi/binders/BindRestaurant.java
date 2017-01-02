@@ -19,7 +19,7 @@ import consamables.api.Restaurant;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface BindRestaurant {
-    
+
     public static class RestaurantBinderFactory implements BinderFactory<BindRestaurant> {
         
         public Binder<BindRestaurant, Restaurant> build(BindRestaurant annotation) {

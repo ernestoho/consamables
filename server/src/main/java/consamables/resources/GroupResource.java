@@ -29,7 +29,7 @@ public class GroupResource {
     private VoteDAO voteDAO;
     private OrderDAO orderDAO;
     private OrderItemDAO orderItemDAO;
-    
+
     public GroupResource(GroupDAO groupDAO, VoteDAO voteDAO,
                          OrderDAO orderDAO, OrderItemDAO orderItemDAO) {
         this.groupDAO = groupDAO;
@@ -43,13 +43,13 @@ public class GroupResource {
     public List<Group> getActiveGroups() {
         return groupDAO.getActive();
     }
-    
+
     @Path("/pending")
     @GET
     public List<Group> getPendingGroups() {
         return groupDAO.getPending();
     }
-    
+
     @Path("/{id}/count-votes")
     @GET
     public int getNumPeople(@PathParam("id") String id) {

@@ -21,7 +21,7 @@ public interface UserDAO {
 
     @SqlQuery("SELECT email FROM \"user\" WHERE user_id = :userId")
     String getEmailById(@Bind("userId") long userId);
-    
+
     @SqlQuery("SELECT password_hash FROM \"user\" WHERE email = :username")
     String getPasswordHash(@Bind("username") String username);
 

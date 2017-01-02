@@ -20,7 +20,7 @@ import consamables.api.OrderItem;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface BindOrderItem {
-    
+
     public static class OrderItemBinderFactory implements BinderFactory<BindOrderItem> {
         
         public Binder<BindOrderItem, OrderItem> build(BindOrderItem annotation) {

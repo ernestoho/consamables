@@ -8,25 +8,25 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class Item {
     @JsonProperty
     private Long itemId;
-    
+
     @NotNull
     @JsonProperty
     private Long menuSectionId;
-    
+
     @NotNull
     @JsonProperty
     private String name;
-    
+
     @JsonProperty
     private String description;
-    
+
     @NotNull
     @JsonProperty
     private BigDecimal price;
-    
+
     @JsonProperty
     private JsonNode data;
-    
+
     public Item() { }
 
     public Item(Long itemId, Long menuSectionId, String name, String description, BigDecimal price, JsonNode data) {

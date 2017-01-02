@@ -24,7 +24,7 @@ public class RestaurantResource {
     RestaurantDAO restaurantDAO;
     MenuSectionDAO menuSectionDAO;
     ItemDAO itemDAO;
-    
+
     public RestaurantResource(RestaurantDAO restaurantDAO, 
                               MenuSectionDAO menuSectionDAO,
                               ItemDAO itemDAO) {
@@ -32,12 +32,12 @@ public class RestaurantResource {
         this.menuSectionDAO = menuSectionDAO;
         this.itemDAO = itemDAO;
     }
-    
+
     @GET
     public List<Restaurant> getRestaurants() {
         return restaurantDAO.getAll();
     }
-    
+
     @Path("/{id}")
     @GET
     public Restaurant getRestaurant(@PathParam("id") String id) {

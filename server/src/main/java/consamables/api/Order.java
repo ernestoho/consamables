@@ -13,25 +13,25 @@ import consamables.jdbi.OrderItemDAO;
 public class Order {
     @JsonProperty
     private Long orderId;
-    
+
     @NotNull
     @JsonProperty
     private Long groupId;
-    
+
     @NotNull
     @JsonProperty
     private Long userId;
 
     @JsonProperty
     private JsonNode data;
-    
+
     @JsonProperty
     private Timestamp timePlaced;
-    
+
     @NotNull
     @JsonProperty
     List<OrderItem> orderItems;
-    
+
     public Order() { }
 
     public Order(Long orderId, Long groupId, Long userId, JsonNode data, Timestamp timePlaced) {

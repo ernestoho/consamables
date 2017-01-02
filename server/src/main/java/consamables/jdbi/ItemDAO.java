@@ -14,19 +14,19 @@ import consamables.jdbi.mappers.ItemMapper;
 public interface ItemDAO {
     @SqlQuery("SELECT * FROM item")
     List<Item> getAll();
-    
+
     @SqlQuery("SELECT * FROM item WHERE menu_section_id = :menuSectionId")
     List<Item> getItemsByMenuSection(@Bind("menuSectionId") long menuSectionId);
-    
+
     @SqlQuery("SELECT * FROM item WHERE item_id = :itemId")
     Item getItem(@Bind("itemId") long itemId);
-    
+
     @SqlUpdate("INSERT INTO item " +
                "(menu_section_id, name, description, price, data) " +
                "VALUES " +
                "(:menuSectionId, :name, :description, :price, CAST(:data AS json))")
     void addItem(@BindItem Item item);
-    
+
     @SqlUpdate("DELETE FROM item WHERE item_id = :itemId")
     void deleteItem(@Bind("itemId") long itemId);
 }

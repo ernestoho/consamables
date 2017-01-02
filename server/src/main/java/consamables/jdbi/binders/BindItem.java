@@ -19,7 +19,7 @@ import consamables.api.Item;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface BindItem {
-    
+
     public static class ItemBinderFactory implements BinderFactory<BindItem> {
         
         public Binder<BindItem, Item> build(BindItem annotation) {

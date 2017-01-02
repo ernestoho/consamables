@@ -7,13 +7,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User implements Principal {
     @JsonProperty
     private Long userId;
-    
+
     @NotNull
     @JsonProperty
     private String email;
-    
+
     public User() { }
-    
+
     public User(Long userId, String email) {
         this.userId = userId;
         this.email = email;

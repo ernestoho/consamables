@@ -5,15 +5,15 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class NewGroup {
-    
+
     @NotNull
     @JsonProperty
     private Group activeGroup;
-    
+
     @NotNull
     @JsonProperty
     private Order order;
-    
+
     public NewGroup() { }
 
     public Group getActiveGroup() {

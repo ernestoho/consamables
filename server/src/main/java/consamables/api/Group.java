@@ -9,28 +9,28 @@ public class Group {
 
     @JsonProperty
     private Long restaurantId;
-    
+
     @JsonProperty
     private String type;
-    
+
     @JsonProperty
     private String phase;
-    
+
     @JsonProperty
     private Integer minPeople;
-    
+
     @JsonProperty
     private Integer durationMinutes;
 
     @JsonProperty
     private Timestamp timeCreated;
-    
+
     @JsonProperty
     private Timestamp timeStarted;
-    
+
     @JsonProperty
     private Timestamp timeOrdered;
-    
+
     public Group() { }
 
     public Group(Long groupId, Long restaurantId, String type,

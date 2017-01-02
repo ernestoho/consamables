@@ -9,23 +9,23 @@ public class Restaurant {
 
     @JsonProperty
     private Long restaurantId;
-    
+
     @NotNull
     @JsonProperty
     private String name;
-    
+
     @NotNull
     @JsonProperty
     private JsonNode location;
-    
+
     @NotNull
     @JsonProperty
     private JsonNode hours;
-    
+
     @NotNull
     @JsonProperty
     private String url;
-    
+
     public Restaurant() { }
 
     public Restaurant(Long restaurantId, String name, JsonNode location, JsonNode hours, String url) {
@@ -59,7 +59,7 @@ public class Restaurant {
     public JsonNode getLocation() {
         return location;
     }
-    
+
     public void setLocation(JsonNode location) {
         this.location = location;
     }

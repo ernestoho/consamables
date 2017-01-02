@@ -14,10 +14,10 @@ public interface AccessTokenDAO {
     @SqlUpdate("INSERT INTO access_token (access_token_id, user_id) " +
               "VALUES (CAST(:accessTokenId AS uuid), :userId)")
     void addAccessToken(@BindAccessToken AccessToken accessToken);
-    
+
     @SqlQuery("SELECT * FROM access_token WHERE access_token_id = CAST(:accessTokenId AS uuid)")
     AccessToken findById(@Bind("accessTokenId") String accessTokenId);
-    
+
     @SqlUpdate("UPDATE access_token SET (last_access_time) = (now()) " +
                "WHERE access_token_id = CAST(:accessTokenId AS uuid)")
     void updateLastAccessTime(@Bind("accessTokenId") String accessTokenId);

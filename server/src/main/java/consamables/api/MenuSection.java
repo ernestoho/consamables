@@ -13,11 +13,11 @@ public class MenuSection {
     @NotNull
     @JsonProperty
     private long menuSectionId;
-    
+
     @NotNull
     @JsonProperty
     private String name;
-    
+
     @NotNull
     @JsonProperty
     private List<Item> items;
@@ -43,15 +43,15 @@ public class MenuSection {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public List<Item> getItems() {
         return items;
     }
-    
+
     public void setItems(List<Item> items) {
         this.items = items;
     }
-    
+
     public void loadItems(ItemDAO dao) {
         setItems(dao.getItemsByMenuSection(menuSectionId));
     }

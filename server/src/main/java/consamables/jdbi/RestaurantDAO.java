@@ -15,10 +15,10 @@ import consamables.api.Restaurant;
 public interface RestaurantDAO {
     @SqlQuery("SELECT * FROM restaurant")
     List<Restaurant> getAll();
-    
+
     @SqlQuery("SELECT * FROM restaurant WHERE restaurant_id = :restaurantId")
     Restaurant getRestaurant(@Bind("restaurantId") long restaurantId);
-    
+
     @SqlUpdate("INSERT INTO restaurant " +
                "(name, location, hours, url) " +
                "VALUES " +

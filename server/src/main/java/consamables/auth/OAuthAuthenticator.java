@@ -18,7 +18,7 @@ public class OAuthAuthenticator implements Authenticator<String, User> {
     public static final int ACCESS_TOKEN_EXPIRE_TIME_MIN = 60;
     private AccessTokenDAO accessTokenDAO;
     private UserDAO userDAO;
-    
+
     public OAuthAuthenticator(AccessTokenDAO accessTokenDAO, UserDAO userDAO) {
         this.accessTokenDAO = accessTokenDAO;
         this.userDAO = userDAO;

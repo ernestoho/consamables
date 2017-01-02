@@ -9,19 +9,19 @@ public class Vote {
     @NotNull
     @JsonProperty
     private Long userId;
-    
+
     @NotNull
     @JsonProperty
     private Long groupId;
-    
+
     @NotNull
     @JsonProperty
     private Integer minutesInterested;
-    
+
     @NotNull
     @JsonProperty
     private Boolean canDrive;
-    
+
     @JsonProperty
     private Timestamp timePlaced;
 

@@ -6,24 +6,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class OrderItem {
-    
+
     @JsonProperty
     private Long orderItemId;
-    
+
     @JsonProperty
     private Long orderId;
-    
+
     @NotNull
     @JsonProperty
     private Long itemId;
-    
+
     @NotNull
     @JsonProperty
     private Integer quantity;
-    
+
     @JsonProperty
     private JsonNode data;
-    
+
     public OrderItem() { }
 
     public OrderItem(Long orderItemId, Long orderId, Long itemId, Integer quantity, JsonNode data) {
