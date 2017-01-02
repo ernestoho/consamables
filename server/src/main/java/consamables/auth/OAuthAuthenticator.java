@@ -12,7 +12,6 @@ import consamables.jdbi.AccessTokenDAO;
 import consamables.jdbi.UserDAO;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
-import io.dropwizard.auth.basic.BasicCredentials;
 
 public class OAuthAuthenticator implements Authenticator<String, User> {
     public static final int ACCESS_TOKEN_EXPIRE_TIME_MIN = 60;
@@ -45,20 +44,5 @@ public class OAuthAuthenticator implements Authenticator<String, User> {
 
         accessTokenDAO.updateLastAccessTime(accessTokenId);
         return Optional.of(userDAO.getUser(accessToken.getUserId()));
-    }
-
-    private boolean verifyCredentials(BasicCredentials credentials) {
-        String username = credentials.getUsername();
-        String password = credentials.getPassword();
-
-        return hashPassword(username, password) == getPasswordHash(username);
-    }
-
-    private String hashPassword(String username, String password) {
-        return password;
-    }
-
-    private String getPasswordHash(String username) {
-        return userDAO.getPasswordHash(username);
     }
 }

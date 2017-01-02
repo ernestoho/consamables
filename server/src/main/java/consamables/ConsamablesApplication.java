@@ -3,6 +3,7 @@ package consamables;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -24,6 +25,7 @@ import consamables.jdbi.VoteDAO;
 import consamables.resources.GroupResource;
 import consamables.resources.OrderResource;
 import consamables.resources.RestaurantResource;
+import consamables.resources.UserResource;
 
 public class ConsamablesApplication extends Application<ConsamablesConfiguration> {
 
@@ -45,12 +47,14 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
         environment.jersey().register(new RestaurantResource(restaurantDAO, menuSectionDAO, itemDAO));
         environment.jersey().register(new GroupResource(groupDAO, voteDAO, orderDAO, orderItemDAO));
         environment.jersey().register(new OrderResource(orderDAO, orderItemDAO));
+        environment.jersey().register(new UserResource(userDAO, accessTokenDAO));
 
         environment.jersey().register(new AuthDynamicFeature(
                 new OAuthCredentialAuthFilter.Builder<User>()
                     .setAuthenticator(new OAuthAuthenticator(accessTokenDAO, userDAO))
                     .setPrefix("Bearer")
                     .buildAuthFilter()));
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
     }
 
     @Override

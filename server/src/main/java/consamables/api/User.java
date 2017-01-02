@@ -2,6 +2,8 @@ package consamables.api;
 
 import java.security.Principal;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User implements Principal {
@@ -35,6 +37,7 @@ public class User implements Principal {
         this.email = email;
     }
 
+    @JsonIgnore
     @Override
     public String getName() {
         return email;

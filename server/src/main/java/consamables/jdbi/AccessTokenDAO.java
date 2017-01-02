@@ -11,9 +11,10 @@ import consamables.jdbi.mappers.AccessTokenMapper;
 
 @RegisterMapper(AccessTokenMapper.class)
 public interface AccessTokenDAO {
-    @SqlUpdate("INSERT INTO access_token (access_token_id, user_id) " +
-              "VALUES (CAST(:accessTokenId AS uuid), :userId)")
-    void addAccessToken(@BindAccessToken AccessToken accessToken);
+    @SqlQuery("INSERT INTO access_token (access_token_id, user_id) " +
+               "VALUES (CAST(:accessTokenId AS uuid), :userId) " +
+               "RETURNING *")
+    AccessToken addAccessToken(@BindAccessToken AccessToken accessToken);
 
     @SqlQuery("SELECT * FROM access_token WHERE access_token_id = CAST(:accessTokenId AS uuid)")
     AccessToken findById(@Bind("accessTokenId") String accessTokenId);

@@ -14,8 +14,8 @@ CREATE TABLE "user"
 (
     user_id bigserial NOT NULL,
     email text UNIQUE NOT NULL,
-    password_hash text NOT NULL,
-    password_salt text NOT NULL,
+    password_hash bytea NOT NULL,
+    password_salt bytea NOT NULL,
     CONSTRAINT user_pk
         PRIMARY KEY (user_id)
 );
@@ -80,7 +80,7 @@ CREATE TABLE "group"
     phase group_phase NOT NULL,
     min_people int,
     duration_minutes int,
-    organizer_id int,
+    organizer_id bigint,
     time_created timestamp with time zone NOT NULL DEFAULT now(),
     time_started timestamp with time zone,
     time_ordered timestamp with time zone,
@@ -88,7 +88,10 @@ CREATE TABLE "group"
         PRIMARY KEY (group_id),
     CONSTRAINT group_restaurant_id_fk
         FOREIGN KEY (restaurant_id)
-        REFERENCES restaurant (restaurant_id)
+        REFERENCES restaurant (restaurant_id),
+    CONSTRAINT group_organizer_id_fk
+        FOREIGN KEY (organizer_id)
+        REFERENCES "user" (user_id)
 );
 
 CREATE TABLE "order"

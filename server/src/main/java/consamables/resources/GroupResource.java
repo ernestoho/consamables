@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -16,10 +17,13 @@ import consamables.api.Group;
 import consamables.api.NewGroup;
 import consamables.api.OrderItem;
 import consamables.api.Suggestion;
+import consamables.api.User;
 import consamables.jdbi.GroupDAO;
 import consamables.jdbi.OrderDAO;
 import consamables.jdbi.OrderItemDAO;
 import consamables.jdbi.VoteDAO;
+import io.dropwizard.auth.Auth;
+
 import javax.annotation.security.PermitAll;
 
 @Path("/groups")
@@ -60,7 +64,10 @@ public class GroupResource {
     @Path("/suggest")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addSuggestion(@Valid Suggestion suggestion) {
+    public Response addSuggestion(@Auth User user, @Valid Suggestion suggestion) {
+        if (!user.getUserId().equals(suggestion.getVote().getUserId())) {
+            throw new NotAuthorizedException("You can only suggest orders on behalf of yourself.", Response.status(401).build());
+        }
         long groupId = groupDAO.addPendingGroup(suggestion.getPendingGroup());
         suggestion.getVote().setGroupId(groupId);
         voteDAO.addVote(suggestion.getVote());
@@ -70,7 +77,10 @@ public class GroupResource {
     @PermitAll
     @Path("/start")
     @POST
-    public Response startNewGroup(@Valid NewGroup newGroup) {
+    public Response startNewGroup(@Auth User user, @Valid NewGroup newGroup) {
+        if (!user.getUserId().equals(newGroup.getOrder().getUserId())) {
+            throw new NotAuthorizedException("You can only start orders on behalf of yourself.", Response.status(401).build());
+        }
         long groupId = groupDAO.addActiveGroup(newGroup.getActiveGroup());
         newGroup.getOrder().setGroupId(groupId);
         long orderId = orderDAO.addOrder(newGroup.getOrder());
