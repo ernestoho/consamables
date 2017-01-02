@@ -14,7 +14,7 @@ import consamables.jdbi.mappers.OrderItemMapper;
 @RegisterMapper(OrderItemMapper.class)
 public interface OrderItemDAO {
     @SqlQuery("SELECT * FROM order_item WHERE order_id = :orderId")
-    List<OrderItem> getOrderItems(@Bind("order_id") int orderId);
+    List<OrderItem> getOrderItems(@Bind("order_id") long orderId);
     
     @SqlUpdate("INSERT INTO order_item " +
                "(order_id, item_id, quantity, data) " +

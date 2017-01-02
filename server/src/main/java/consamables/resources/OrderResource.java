@@ -1,5 +1,6 @@
 package consamables.resources;
 
+import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -11,6 +12,7 @@ import consamables.api.OrderItem;
 import consamables.jdbi.OrderDAO;
 import consamables.jdbi.OrderItemDAO;
 
+@PermitAll
 @Path("/order")
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderResource {
@@ -21,11 +23,11 @@ public class OrderResource {
         this.orderDAO = orderDAO;
         this.orderItemDAO = orderItemDAO;
     }
-    
+
     @Path("/place")
     @POST
     public void placeOrder(@Valid Order order) {
-        int orderId = orderDAO.addOrder(order);
+        long orderId = orderDAO.addOrder(order);
         for (OrderItem orderItem : order.getOrderItems()) {
             orderItem.setOrderId(orderId);
             orderItemDAO.addOrderItem(orderItem);

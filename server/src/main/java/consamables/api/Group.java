@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Group {
     @JsonProperty
-    private Integer groupId;
+    private Long groupId;
 
     @JsonProperty
-    private Integer restaurantId;
+    private Long restaurantId;
     
     @JsonProperty
     private String type;
@@ -33,7 +33,7 @@ public class Group {
     
     public Group() { }
 
-    public Group(Integer groupId, Integer restaurantId, String type,
+    public Group(Long groupId, Long restaurantId, String type,
                  String phase, Integer minPeople, Integer durationMinutes,
                  Timestamp timeCreated, Timestamp timeStarted, Timestamp timeOrdered) {
         this.groupId = groupId;
@@ -47,19 +47,19 @@ public class Group {
         this.timeOrdered = timeOrdered;
     }
 
-    public Integer getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
-    public Integer getRestaurantId() {
+    public Long getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(Integer restaurantId) {
+    public void setRestaurantId(Long restaurantId) {
         this.restaurantId = restaurantId;
     }
 

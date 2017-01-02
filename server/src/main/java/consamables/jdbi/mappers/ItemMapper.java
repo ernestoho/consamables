@@ -25,7 +25,7 @@ public class ItemMapper implements ResultSetMapper<Item> {
                 e.printStackTrace();
             }
         }
-        return new Item(r.getInt("item_id"), r.getInt("menu_section_id"),
+        return new Item(r.getLong("item_id"), r.getLong("menu_section_id"),
                 r.getString("name"), r.getString("description"),
                 r.getBigDecimal("price"), data);
     }

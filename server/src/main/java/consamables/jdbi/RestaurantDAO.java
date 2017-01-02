@@ -17,12 +17,12 @@ public interface RestaurantDAO {
     List<Restaurant> getAll();
     
     @SqlQuery("SELECT * FROM restaurant WHERE restaurant_id = :restaurantId")
-    Restaurant getRestaurant(@Bind("restaurantId") int restaurantId);
+    Restaurant getRestaurant(@Bind("restaurantId") long restaurantId);
     
     @SqlUpdate("INSERT INTO restaurant " +
                "(name, location, hours, url) " +
                "VALUES " +
                "(:name, CAST(:location AS json), CAST(:hours AS json), :url) ")
     @GetGeneratedKeys
-    int addRestaurant(@BindRestaurant Restaurant restaurant);
+    long addRestaurant(@BindRestaurant Restaurant restaurant);
 }

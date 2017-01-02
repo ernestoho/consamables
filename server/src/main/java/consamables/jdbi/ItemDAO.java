@@ -16,10 +16,10 @@ public interface ItemDAO {
     List<Item> getAll();
     
     @SqlQuery("SELECT * FROM item WHERE menu_section_id = :menuSectionId")
-    List<Item> getItemsByMenuSection(@Bind("menuSectionId") int menuSectionId);
+    List<Item> getItemsByMenuSection(@Bind("menuSectionId") long menuSectionId);
     
     @SqlQuery("SELECT * FROM item WHERE item_id = :itemId")
-    Item getItem(@Bind("itemId") int itemId);
+    Item getItem(@Bind("itemId") long itemId);
     
     @SqlUpdate("INSERT INTO item " +
                "(menu_section_id, name, description, price, data) " +
@@ -28,5 +28,5 @@ public interface ItemDAO {
     void addItem(@BindItem Item item);
     
     @SqlUpdate("DELETE FROM item WHERE item_id = :itemId")
-    void deleteItem(@Bind("itemId") int itemId);
+    void deleteItem(@Bind("itemId") long itemId);
 }

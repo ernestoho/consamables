@@ -13,22 +13,22 @@ import consamables.jdbi.MenuSectionDAO;
 public class Menu {
     @NotNull
     @JsonProperty
-    private int restaurantId;
+    private long restaurantId;
     
     @NotNull
     @JsonProperty
     private List<MenuSection> sections;
     
-    public Menu(int restaurantId) {
+    public Menu(long restaurantId) {
         this.restaurantId = restaurantId;
         this.sections = new ArrayList<MenuSection>();
     }
 
-    public int getRestaurantId() {
+    public long getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(int restaurantId) {
+    public void setRestaurantId(long restaurantId) {
         this.restaurantId = restaurantId;
     }
 

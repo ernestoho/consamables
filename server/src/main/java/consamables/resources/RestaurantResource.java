@@ -1,6 +1,8 @@
 package consamables.resources;
 
 import java.util.List;
+
+import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -42,13 +44,14 @@ public class RestaurantResource {
         return restaurantDAO.getRestaurant(Integer.parseInt(id));
     }
 
+    @PermitAll
     @Path("/add")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public int addRestaurant(@Valid Restaurant newRestaurant) {
+    public long addRestaurant(@Valid Restaurant newRestaurant) {
         return restaurantDAO.addRestaurant(newRestaurant);
     }
-    
+
     @Path("/{id}/menu")
     @GET
     public Menu getMenu(@PathParam("id") String id) {

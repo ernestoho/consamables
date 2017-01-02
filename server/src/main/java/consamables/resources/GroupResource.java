@@ -20,6 +20,7 @@ import consamables.jdbi.GroupDAO;
 import consamables.jdbi.OrderDAO;
 import consamables.jdbi.OrderItemDAO;
 import consamables.jdbi.VoteDAO;
+import javax.annotation.security.PermitAll;
 
 @Path("/groups")
 @Produces(MediaType.APPLICATION_JSON)
@@ -36,7 +37,7 @@ public class GroupResource {
         this.orderDAO = orderDAO;
         this.orderItemDAO = orderItemDAO;
     }
-    
+
     @Path("/active")
     @GET
     public List<Group> getActiveGroups() {
@@ -54,23 +55,25 @@ public class GroupResource {
     public int getNumPeople(@PathParam("id") String id) {
         return voteDAO.countVotesForGroup(Integer.parseInt(id));
     }
-    
+
+    @PermitAll
     @Path("/suggest")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addSuggestion(@Valid Suggestion suggestion) {
-        int groupId = groupDAO.addPendingGroup(suggestion.getPendingGroup());
+        long groupId = groupDAO.addPendingGroup(suggestion.getPendingGroup());
         suggestion.getVote().setGroupId(groupId);
         voteDAO.addVote(suggestion.getVote());
         return Response.ok().build();
     }
-    
+
+    @PermitAll
     @Path("/start")
     @POST
     public Response startNewGroup(@Valid NewGroup newGroup) {
-        int groupId = groupDAO.addActiveGroup(newGroup.getActiveGroup());
+        long groupId = groupDAO.addActiveGroup(newGroup.getActiveGroup());
         newGroup.getOrder().setGroupId(groupId);
-        int orderId = orderDAO.addOrder(newGroup.getOrder());
+        long orderId = orderDAO.addOrder(newGroup.getOrder());
         for (OrderItem orderItem : newGroup.getOrder().getOrderItems()) {
             orderItem.setOrderId(orderId);
             orderItemDAO.addOrderItem(orderItem);

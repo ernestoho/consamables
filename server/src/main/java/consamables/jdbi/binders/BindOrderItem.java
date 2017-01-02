@@ -25,6 +25,7 @@ public @interface BindOrderItem {
         
         public Binder<BindOrderItem, OrderItem> build(BindOrderItem annotation) {
             return new Binder<BindOrderItem, OrderItem>() {
+
                 public void bind(SQLStatement<?> q, BindOrderItem bind, OrderItem arg) {
                     ObjectMapper mapper = new ObjectMapper();
                     String data;

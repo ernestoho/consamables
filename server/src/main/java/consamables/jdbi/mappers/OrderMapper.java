@@ -15,7 +15,7 @@ public class OrderMapper implements ResultSetMapper<Order> {
     public Order map(int index, ResultSet r, StatementContext ctx) throws SQLException {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return new Order(r.getInt("order_id"), r.getInt("group_id"), r.getInt("user_id"),
+            return new Order(r.getLong("order_id"), r.getLong("group_id"), r.getLong("user_id"),
                              mapper.readTree(r.getString("data")),
                              r.getTimestamp("time_placed"));
         } catch (IOException e) {

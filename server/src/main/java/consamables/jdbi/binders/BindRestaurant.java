@@ -24,6 +24,7 @@ public @interface BindRestaurant {
         
         public Binder<BindRestaurant, Restaurant> build(BindRestaurant annotation) {
             return new Binder<BindRestaurant, Restaurant>() {
+
                 public void bind(SQLStatement<?> q, BindRestaurant bind, Restaurant arg) {
                     ObjectMapper mapper = new ObjectMapper();
                     String location;

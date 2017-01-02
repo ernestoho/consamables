@@ -8,14 +8,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class OrderItem {
     
     @JsonProperty
-    private Integer orderItemId;
+    private Long orderItemId;
     
     @JsonProperty
-    private Integer orderId;
+    private Long orderId;
     
     @NotNull
     @JsonProperty
-    private Integer itemId;
+    private Long itemId;
     
     @NotNull
     @JsonProperty
@@ -26,7 +26,7 @@ public class OrderItem {
     
     public OrderItem() { }
 
-    public OrderItem(Integer orderItemId, Integer orderId, Integer itemId, Integer quantity, JsonNode data) {
+    public OrderItem(Long orderItemId, Long orderId, Long itemId, Integer quantity, JsonNode data) {
         this.orderItemId = orderItemId;
         this.orderId = orderId;
         this.itemId = itemId;
@@ -34,27 +34,27 @@ public class OrderItem {
         this.data = data;
     }
 
-    public Integer getOrderItemId() {
+    public Long getOrderItemId() {
         return orderItemId;
     }
 
-    public void setOrderItemId(Integer orderItemId) {
+    public void setOrderItemId(Long orderItemId) {
         this.orderItemId = orderItemId;
     }
 
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public Integer getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(Long itemId) {
         this.itemId = itemId;
     }
 

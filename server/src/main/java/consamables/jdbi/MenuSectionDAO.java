@@ -12,5 +12,5 @@ import consamables.jdbi.mappers.MenuSectionMapper;
 @RegisterMapper(MenuSectionMapper.class)
 public interface MenuSectionDAO {
     @SqlQuery("SELECT * FROM menu_section WHERE restaurant_id = :restaurantId")
-    List<MenuSection> getMenuSections(@Bind("restaurantId") int restaurantId);
+    List<MenuSection> getMenuSections(@Bind("restaurantId") long restaurantId);
 }

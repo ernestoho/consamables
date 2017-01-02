@@ -24,21 +24,21 @@ public interface GroupDAO {
     List<Group> getPending();
 
     @SqlQuery("SELECT * FROM \"group\" WHERE group_id = :groupId")
-    Group getGroup(@Bind("groupId") int groupId);
+    Group getGroup(@Bind("groupId") long groupId);
 
     @SqlUpdate("INSERT INTO \"group\" " +
                "(restaurant_id, type, phase, min_people) " +
                "VALUES " +
                "(:restaurantId, CAST(:type AS group_type), 'pending', :minPeople)")
     @GetGeneratedKeys
-    int addPendingGroup(@BindBean Group group);
+    long addPendingGroup(@BindBean Group group);
     
     @SqlUpdate("INSERT INTO \"group\" " +
                "(restaurant_id, type, phase, duration_minutes, time_started) " +
                "VALUES " +
                "(:restaurantId, CAST(:type AS group_type), 'active', :durationMinutes, now())")
     @GetGeneratedKeys
-    int addActiveGroup(@BindBean Group group);
+    long addActiveGroup(@BindBean Group group);
 
     @SqlUpdate("UPDATE \"group\" SET " +
                "(phase, duration_minutes, time_started) = " +
@@ -53,5 +53,5 @@ public interface GroupDAO {
     void closeActiveGroup(@BindBean Group group);
 
     @SqlUpdate("DELETE FROM \"group\" WHERE group_id = :groupId")
-    void deleteGroup(@Bind("groupId") int groupId);
+    void deleteGroup(@Bind("groupId") long groupId);
 }
