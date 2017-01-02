@@ -20,11 +20,12 @@ import consamables.api.OrderItem;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface BindOrderItem {
-    
+
     public static class OrderItemBinderFactory implements BinderFactory<BindOrderItem> {
         
         public Binder<BindOrderItem, OrderItem> build(BindOrderItem annotation) {
             return new Binder<BindOrderItem, OrderItem>() {
+
                 public void bind(SQLStatement<?> q, BindOrderItem bind, OrderItem arg) {
                     ObjectMapper mapper = new ObjectMapper();
                     String data;

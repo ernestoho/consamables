@@ -16,10 +16,10 @@ public interface VoteDAO {
     List<Vote> getAll();
 
     @SqlQuery("SELECT user_id FROM vote WHERE group_id = :groupId")
-    List<Integer> getVotingUsersByGroup(@Bind("groupId") int groupId);
+    List<Integer> getVotingUsersByGroup(@Bind("groupId") long groupId);
 
     @SqlQuery("SELECT count(*) FROM vote WHERE group_id = :groupId")
-    int countVotesForGroup(@Bind("groupId") int groupId);
+    int countVotesForGroup(@Bind("groupId") long groupId);
 
     @SqlUpdate("INSERT INTO vote " +
                "(user_id, group_id, minutes_interested, can_drive) " +
@@ -28,5 +28,5 @@ public interface VoteDAO {
     void addVote(@BindBean Vote vote);
 
     @SqlUpdate("DELETE FROM vote WHERE user_id = :userId AND group_id = :groupId")
-    void deleteVote(@Bind("userId") int userId, @Bind("groupId") int groupId);
+    void deleteVote(@Bind("userId") long userId, @Bind("groupId") long groupId);
 }

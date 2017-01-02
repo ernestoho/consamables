@@ -3,9 +3,7 @@ package consamables.jdbi;
 import java.util.List;
 
 import org.skife.jdbi.v2.sqlobject.Bind;
-import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
-import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 import consamables.api.User;
@@ -13,27 +11,28 @@ import consamables.jdbi.mappers.UserMapper;
 
 @RegisterMapper(UserMapper.class)
 public interface UserDAO {
-    @SqlQuery("SELECT * FROM \"user\"")
+    @SqlQuery("SELECT user_id, email FROM \"user\"")
     List<User> getAll();
 
-    @SqlQuery("SELECT * FROM \"user\" WHERE user_id = :userId")
-    User getUser(@Bind("userId") int userId);
+    @SqlQuery("SELECT EXISTS (SELECT 1 FROM \"user\" WHERE email = :username)")
+    boolean doesUserExist(@Bind("username") String username);
 
-    @SqlQuery("SELECT email FROM \"user\" WHERE user_id = :userId")
-    String getEmailById(@Bind("userId") int userId);
+    @SqlQuery("SELECT user_id, email FROM \"user\" WHERE user_id = :userId")
+    User getUser(@Bind("userId") long userId);
 
-    @SqlUpdate("INSERT INTO \"user\" " +
-               "(email, password_hash, password_salt) " +
-               "VALUES " +
-               "(:email, :passwordHash, :passwordSalt)")
-    void addUser(@BindBean User user);
+    @SqlQuery("SELECT user_id, email FROM \"user\" WHERE email = :username")
+    User getUser(@Bind("username") String username);
 
-    @SqlUpdate("UPDATE \"user\" SET " +
-               "(email, password_hash, password_salt) = " +
-               "(:email, :passwordHash, :passwordSalt) " +
-               "WHERE user_id = :userId")
-    void updateUser(@BindBean User user);
+    @SqlQuery("SELECT password_hash FROM \"user\" WHERE email = :username")
+    byte[] getPasswordHash(@Bind("username") String username);
 
-    @SqlUpdate("DELETE FROM \"user\" WHERE user_id = :userId")
-    void deleteUser(@Bind("userId") int userId);
+    @SqlQuery("SELECT password_salt FROM \"user\" WHERE email = :username")
+    byte[] getPasswordSalt(@Bind("username") String username);
+
+    @SqlQuery("INSERT INTO \"user\" " +
+              "(email, password_hash, password_salt) " +
+              "VALUES " +
+              "(:username, :hash, :salt) " +
+              "RETURNING user_id, email")
+    User addUser(@Bind("username") String username, @Bind("hash") byte[] hash, @Bind("salt") byte[] salt);
 }

@@ -9,7 +9,7 @@ import consamables.api.Group;
 public class GroupMapper implements ResultSetMapper<Group> {
 
     public Group map(int index, ResultSet r, StatementContext ctx) throws SQLException {
-        return new Group(r.getInt("group_id"), r.getInt("restaurant_id"), r.getString("type"),
+        return new Group(r.getLong("group_id"), r.getLong("restaurant_id"), r.getString("type"),
                          r.getString("phase"), r.getInt("min_people"), r.getInt("duration_minutes"),
                          r.getTimestamp("time_created"), r.getTimestamp("time_started"), r.getTimestamp("time_ordered"));
     }

@@ -8,27 +8,27 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class Restaurant {
 
     @JsonProperty
-    private Integer restaurantId;
-    
+    private Long restaurantId;
+
     @NotNull
     @JsonProperty
     private String name;
-    
+
     @NotNull
     @JsonProperty
     private JsonNode location;
-    
+
     @NotNull
     @JsonProperty
     private JsonNode hours;
-    
+
     @NotNull
     @JsonProperty
     private String url;
-    
+
     public Restaurant() { }
 
-    public Restaurant(Integer restaurantId, String name, JsonNode location, JsonNode hours, String url) {
+    public Restaurant(Long restaurantId, String name, JsonNode location, JsonNode hours, String url) {
         this(name, location, hours, url);
         this.restaurantId = restaurantId;
     }
@@ -40,11 +40,11 @@ public class Restaurant {
         this.url = url;
     }
 
-    public Integer getRestaurantId() {
+    public Long getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(Integer restaurantId) {
+    public void setRestaurantId(Long restaurantId) {
         this.restaurantId = restaurantId;
     }
 
@@ -59,7 +59,7 @@ public class Restaurant {
     public JsonNode getLocation() {
         return location;
     }
-    
+
     public void setLocation(JsonNode location) {
         this.location = location;
     }

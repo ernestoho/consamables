@@ -15,20 +15,20 @@ import consamables.api.Order;
 public interface OrderDAO {        
     @SqlQuery("SELECT * FROM \"order\"")
     List<Order> getAll();
-    
+
     @SqlQuery("SELECT * FROM \"order\" WHERE group_id = :groupId")
-    List<Order> getOrdersByGroup(@Bind("groupId") int groupId);
-    
+    List<Order> getOrdersByGroup(@Bind("groupId") long groupId);
+
     @SqlQuery("SELECT * FROM \"order\" WHERE order_id = :orderId")
-    Order getOrder(@Bind("order_id") int orderId);
-    
+    Order getOrder(@Bind("order_id") long orderId);
+
     @SqlUpdate("INSERT INTO \"order\" " +
                "(group_id, user_id, data) " +
                "VALUES " +
                "(:groupId, :userId, CAST(:data AS json))")
     @GetGeneratedKeys
-    int addOrder(@BindOrder Order order);
-    
+    long addOrder(@BindOrder Order order);
+
     @SqlUpdate("DELETE FROM \"order\" WHERE order_id = :orderId")
-    void deleteOrder(@Bind("orderId") int orderId);
+    void deleteOrder(@Bind("orderId") long orderId);
 }

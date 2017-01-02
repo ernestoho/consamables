@@ -12,27 +12,27 @@ import consamables.jdbi.ItemDAO;
 public class MenuSection {
     @NotNull
     @JsonProperty
-    private int menuSectionId;
-    
+    private long menuSectionId;
+
     @NotNull
     @JsonProperty
     private String name;
-    
+
     @NotNull
     @JsonProperty
     private List<Item> items;
 
-    public MenuSection(int menuSectionId, String name) {
+    public MenuSection(long menuSectionId, String name) {
         this.menuSectionId = menuSectionId;
         this.name = name;
         this.items = new ArrayList<Item>();
     }
 
-    public int getMenuSectionId() {
+    public long getMenuSectionId() {
         return menuSectionId;
     }
 
-    public void setMenuSectionId(int menuSectionId) {
+    public void setMenuSectionId(long menuSectionId) {
         this.menuSectionId = menuSectionId;
     }
 
@@ -43,15 +43,15 @@ public class MenuSection {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public List<Item> getItems() {
         return items;
     }
-    
+
     public void setItems(List<Item> items) {
         this.items = items;
     }
-    
+
     public void loadItems(ItemDAO dao) {
         setItems(dao.getItemsByMenuSection(menuSectionId));
     }

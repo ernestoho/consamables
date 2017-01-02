@@ -12,17 +12,29 @@ CREATE TYPE group_type AS ENUM ('delivery', 'carryout', 'outing', 'delivery or c
 
 CREATE TABLE "user"
 (
-    user_id serial NOT NULL,
-    email text NOT NULL,
-    password_hash text NOT NULL,
-    password_salt text NOT NULL,
+    user_id bigserial NOT NULL,
+    email text UNIQUE NOT NULL,
+    password_hash bytea NOT NULL,
+    password_salt bytea NOT NULL,
     CONSTRAINT user_pk
         PRIMARY KEY (user_id)
 );
 
+CREATE TABLE access_token
+(
+    access_token_id uuid NOT NULL,
+    user_id bigint NOT NULL,
+    last_access_time timestamp with time zone NOT NULL DEFAULT now(),
+    CONSTRAINT access_token_pk
+        PRIMARY KEY (access_token_id),
+    CONSTRAINT access_token_user_id_fk
+        FOREIGN KEY (user_id)
+        REFERENCES "user" (user_id)
+);
+
 CREATE TABLE restaurant
 (
-    restaurant_id serial NOT NULL,
+    restaurant_id bigserial NOT NULL,
     name text NOT NULL,
     location json NOT NULL,
     hours json NOT NULL,
@@ -34,8 +46,8 @@ CREATE TABLE restaurant
 
 CREATE TABLE menu_section
 (
-    menu_section_id serial NOT NULL,
-    restaurant_id int NOT NULL,
+    menu_section_id bigserial NOT NULL,
+    restaurant_id bigint NOT NULL,
     name text NOT NULL,
     CONSTRAINT menu_section_pk
         PRIMARY KEY (menu_section_id),
@@ -47,8 +59,8 @@ CREATE TABLE menu_section
 
 CREATE TABLE item
 (
-    item_id serial NOT NULL,
-    menu_section_id int NOT NULL,
+    item_id bigserial NOT NULL,
+    menu_section_id bigint NOT NULL,
     name text NOT NULL,
     description text,
     price decimal(4, 2),
@@ -62,13 +74,13 @@ CREATE TABLE item
 
 CREATE TABLE "group"
 (
-    group_id serial NOT NULL,
-    restaurant_id int NOT NULL,
+    group_id bigserial NOT NULL,
+    restaurant_id bigint NOT NULL,
     type group_type NOT NULL,
     phase group_phase NOT NULL,
     min_people int,
     duration_minutes int,
-    organizer_id int,
+    organizer_id bigint,
     time_created timestamp with time zone NOT NULL DEFAULT now(),
     time_started timestamp with time zone,
     time_ordered timestamp with time zone,
@@ -76,14 +88,17 @@ CREATE TABLE "group"
         PRIMARY KEY (group_id),
     CONSTRAINT group_restaurant_id_fk
         FOREIGN KEY (restaurant_id)
-        REFERENCES restaurant (restaurant_id)
+        REFERENCES restaurant (restaurant_id),
+    CONSTRAINT group_organizer_id_fk
+        FOREIGN KEY (organizer_id)
+        REFERENCES "user" (user_id)
 );
 
 CREATE TABLE "order"
 (
-    order_id serial NOT NULL,
-    group_id int NOT NULL,
-    user_id int NOT NULL,
+    order_id bigserial NOT NULL,
+    group_id bigint NOT NULL,
+    user_id bigint NOT NULL,
     data json,
     time_placed timestamp with time zone NOT NULL DEFAULT now(),
     CONSTRAINT order_pk
@@ -98,9 +113,9 @@ CREATE TABLE "order"
 
 CREATE TABLE order_item
 (
-    order_item_id serial NOT NULL,
-    order_id int NOT NULL,
-    item_id int NOT NULL,
+    order_item_id bigserial NOT NULL,
+    order_id bigint NOT NULL,
+    item_id bigint NOT NULL,
     quantity int NOT NULL,
     data json,
     CONSTRAINT order_item_pk
@@ -115,8 +130,8 @@ CREATE TABLE order_item
 
 CREATE TABLE vote
 (
-    user_id int NOT NULL,
-    group_id int NOT NULL,
+    user_id bigint NOT NULL,
+    group_id bigint NOT NULL,
     minutes_interested int NOT NULL,
     can_drive boolean NOT NULL,
     time_placed timestamp with time zone NOT NULL DEFAULT now(),

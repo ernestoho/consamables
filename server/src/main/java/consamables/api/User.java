@@ -1,38 +1,31 @@
 package consamables.api;
 
+import java.security.Principal;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class User {
+public class User implements Principal {
     @JsonProperty
-    private Integer userId;
-    
+    private Long userId;
+
     @NotNull
     @JsonProperty
     private String email;
-    
-    @NotNull
-    @JsonProperty
-    private String passwordHash;
-    
-    @NotNull
-    @JsonProperty
-    private String passwordSalt;
-    
+
     public User() { }
-    
-    public User(Integer userId, String email, String passwordHash, String passwordSalt) {
+
+    public User(Long userId, String email) {
         this.userId = userId;
         this.email = email;
-        this.passwordHash = passwordHash;
-        this.passwordSalt = passwordSalt;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -44,19 +37,9 @@ public class User {
         this.email = email;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public String getPasswordSalt() {
-        return passwordSalt;
-    }
-
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt;
+    @JsonIgnore
+    @Override
+    public String getName() {
+        return email;
     }
 }

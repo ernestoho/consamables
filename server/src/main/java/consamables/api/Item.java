@@ -7,29 +7,29 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class Item {
     @JsonProperty
-    private Integer itemId;
-    
+    private Long itemId;
+
     @NotNull
     @JsonProperty
-    private Integer menuSectionId;
-    
+    private Long menuSectionId;
+
     @NotNull
     @JsonProperty
     private String name;
-    
+
     @JsonProperty
     private String description;
-    
+
     @NotNull
     @JsonProperty
     private BigDecimal price;
-    
+
     @JsonProperty
     private JsonNode data;
-    
+
     public Item() { }
 
-    public Item(Integer itemId, Integer menuSectionId, String name, String description, BigDecimal price, JsonNode data) {
+    public Item(Long itemId, Long menuSectionId, String name, String description, BigDecimal price, JsonNode data) {
         this.itemId = itemId;
         this.menuSectionId = menuSectionId;
         this.name = name;
@@ -38,19 +38,19 @@ public class Item {
         this.data = data;
     }
 
-    public Integer getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(Long itemId) {
         this.itemId = itemId;
     }
 
-    public Integer getMenuSectionId() {
+    public Long getMenuSectionId() {
         return menuSectionId;
     }
 
-    public void setMenuSectionId(Integer menuSectionId) {
+    public void setMenuSectionId(Long menuSectionId) {
         this.menuSectionId = menuSectionId;
     }
 

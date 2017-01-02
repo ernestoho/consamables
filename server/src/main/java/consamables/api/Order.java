@@ -12,29 +12,29 @@ import consamables.jdbi.OrderItemDAO;
 
 public class Order {
     @JsonProperty
-    private Integer orderId;
-    
+    private Long orderId;
+
     @NotNull
     @JsonProperty
-    private Integer groupId;
-    
+    private Long groupId;
+
     @NotNull
     @JsonProperty
-    private Integer userId;
+    private Long userId;
 
     @JsonProperty
     private JsonNode data;
-    
+
     @JsonProperty
     private Timestamp timePlaced;
-    
+
     @NotNull
     @JsonProperty
     List<OrderItem> orderItems;
-    
+
     public Order() { }
 
-    public Order(Integer orderId, Integer groupId, Integer userId, JsonNode data, Timestamp timePlaced) {
+    public Order(Long orderId, Long groupId, Long userId, JsonNode data, Timestamp timePlaced) {
         this.orderId = orderId;
         this.groupId = groupId;
         this.userId = userId;
@@ -43,27 +43,27 @@ public class Order {
         this.orderItems = new ArrayList<OrderItem>();
     }
 
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public Integer getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

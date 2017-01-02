@@ -8,26 +8,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Vote {
     @NotNull
     @JsonProperty
-    private Integer userId;
-    
+    private Long userId;
+
     @NotNull
     @JsonProperty
-    private Integer groupId;
-    
+    private Long groupId;
+
     @NotNull
     @JsonProperty
     private Integer minutesInterested;
-    
+
     @NotNull
     @JsonProperty
     private Boolean canDrive;
-    
+
     @JsonProperty
     private Timestamp timePlaced;
 
     public Vote() { }
 
-    public Vote(Integer userId, Integer groupId, Integer minutesInterested, Boolean canDrive, Timestamp timePlaced) {
+    public Vote(Long userId, Long groupId, Integer minutesInterested, Boolean canDrive, Timestamp timePlaced) {
         this.userId = userId;
         this.groupId = groupId;
         this.minutesInterested = minutesInterested;
@@ -35,19 +35,19 @@ public class Vote {
         this.timePlaced = timePlaced;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Integer getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
