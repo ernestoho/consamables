@@ -3,11 +3,11 @@ import React from 'react';
 export default class RestaurantToolbar extends React.Component {
     render() {
         const {
-            open,
+            loggedIn, open,
             onMenuClick, onStartClick, onSuggestClick
         } = this.props;
 
-        if (open) {
+        if (loggedIn && open) {
             return (
                 <div className="toolbar">
                     <button className="button" onClick={onMenuClick}>View Menu</button>

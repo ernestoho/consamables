@@ -34,7 +34,8 @@ public class LoginManager {
         String password = credentials.getPassword();
 
         if (checkPassword(username, password)) {
-            return generateNewAccessToken(userDAO.getUser(username));
+            AccessToken token = generateNewAccessToken(userDAO.getUser(username));
+            return token.setUsername(username);
         } else {
             return null;
         }
@@ -51,7 +52,8 @@ public class LoginManager {
         r.nextBytes(salt);
         final byte[] passwordHash = hashPassword(password.toCharArray(), salt, NUM_ITERATIONS, KEY_LENGTH);
         User newUser = userDAO.addUser(username, passwordHash, salt);
-        return generateNewAccessToken(newUser);
+        AccessToken token = generateNewAccessToken(newUser);
+        return token.setUsername(username);
     }
     
     private AccessToken generateNewAccessToken(User user) {

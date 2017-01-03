@@ -2,7 +2,14 @@ import fetchActiveOrders from './activeOrders';
 import fetchPendingOrders from './pendingOrders';
 import { fetchRestaurants, updateRestaurantHours } from './restaurants';
 import { showMenu, hideMenu } from './menus';
-import { showModal, hideModal } from './modal';
+
+import {
+    verifyUser,
+    updateUsernameField, updatePasswordField,
+    submitLogin, logOut, goToCreateAccount
+} from './login';
+
+import { updateConfirmPasswordField, submitNewAccount, goToLogin } from './createAccount';
 
 import {
     startOrder,
@@ -29,8 +36,6 @@ export {
 
     showMenu,
     hideMenu,
-    showModal,
-    hideModal,
 
     startOrder,
     addItemToOrder,
@@ -53,5 +58,16 @@ export {
     setDrivingPreference,
     setWaitTime,
     setMinPeople,
-    submitSuggestion
+    submitSuggestion,
+
+    verifyUser,
+    updateUsernameField,
+    updatePasswordField,
+    submitLogin,
+    logOut,
+
+    goToLogin,
+    goToCreateAccount,
+    updateConfirmPasswordField,
+    submitNewAccount
 }

@@ -12,6 +12,9 @@ public class AccessToken {
 
     @JsonProperty
     private Long userId;
+    
+    @JsonProperty
+    private String username;
 
     @JsonProperty
     private Timestamp lastAccessTime;
@@ -33,6 +36,15 @@ public class AccessToken {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public AccessToken setUsername(String username) {
+        this.username = username;
+        return this;
     }
 
     public Timestamp getLastAccessTime() {

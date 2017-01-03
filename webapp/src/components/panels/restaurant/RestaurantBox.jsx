@@ -9,7 +9,7 @@ import { showMenu, startOrder, openSuggestOrder } from '../../../actions';
 class RestaurantBox extends React.Component {
     render() {
         const {
-            restaurantId, name, location, url, open, openTime, closeTime,
+            loggedIn, restaurantId, name, location, url, open, openTime, closeTime,
             onMenuClick, onStartClick, onSuggestClick
         } = this.props;
 
@@ -22,6 +22,7 @@ class RestaurantBox extends React.Component {
                 <Link url={url}/>
                 <TimeDisplay open={open} openTime={openTime} closeTime={closeTime}/>
                 <RestaurantToolbar
+                    loggedIn={loggedIn}
                     open={open}
                     onMenuClick={() => onMenuClick(restaurantId)}
                     onStartClick={() => onStartClick(restaurantId)}
@@ -32,7 +33,9 @@ class RestaurantBox extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    loggedIn: state.currentUser.get('loggedIn')
+});
 
 const mapDispatchToProps = dispatch => ({
     onMenuClick: (id) => dispatch(showMenu(id)),

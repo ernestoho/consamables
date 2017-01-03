@@ -6,6 +6,8 @@ import {
 } from './actionTypes';
 
 import fetchPendingOrders from './pendingOrders';
+import { buildPostInit } from '../helpers';
+import { promptLogin } from './login';
 
 export const openSuggestOrder = restaurantId => ({
     type: SHOW_SUGGESTION,
@@ -55,17 +57,13 @@ const suggestionFailure = error => ({
 export const submitSuggestion = data => {
     return dispatch => {
         dispatch(sendSuggestion());
-        return fetch('/api/groups/suggest', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        })
+        fetch('/api/groups/suggest', buildPostInit(data))
             .then(response => {
                 if (response.ok) {
                     dispatch(suggestionSuccess());
                     dispatch(fetchPendingOrders());
+                } else if (response.status == 401) {
+                    dispatch(promptLogin());
                 }
             })
             .catch( error => dispatch(suggestionFailure(error)) );

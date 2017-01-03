@@ -6,13 +6,25 @@ import { connect } from 'react-redux';
 import RestaurantPanel from './panels/restaurant/RestaurantPanel';
 import CredentialsPanel from './panels/credentials/CredentialsPanel';
 
-export default class RightColumn extends React.Component {
+class RightColumn extends React.Component {
     render() {
+        const { loggedIn } = this.props;
+
         return (
             <div className="column-right">
                 <RestaurantPanel/>
-                <CredentialsPanel/>
+                {loggedIn ?
+                    <CredentialsPanel/>
+                    : null}
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    loggedIn: state.currentUser.get('loggedIn')
+});
+
+export default connect(
+    mapStateToProps
+)(RightColumn)

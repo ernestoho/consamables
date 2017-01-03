@@ -19,12 +19,10 @@ const initialState = {
         displayMode: DISPLAY_DEFAULT,
         menuId: -1,
         currentOrder: Map({ items: Map() }),
-        suggestOrder: Map()
+        suggestOrder: Map(),
+        login: Map({ username: '', password: '' })
     },
-    currentUser: Map({ userId: 1 }),
-    modal: Map({
-        visible: false
-    })
+    currentUser: Map({ loggedIn: false })
 };
 
 const store = configureStore(initialState);
@@ -42,7 +40,6 @@ if (module.hot) {
 
     module.hot.accept('./reducers/index', () => {
         const nextRootReducer = require('./reducers/index');
-
         store.replaceReducer(nextRootReducer);
     });
 }

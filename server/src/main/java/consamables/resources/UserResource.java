@@ -2,6 +2,7 @@ package consamables.resources;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -12,9 +13,11 @@ import javax.ws.rs.core.Response;
 
 import consamables.api.AccessToken;
 import consamables.api.LoginCredentials;
+import consamables.api.User;
 import consamables.auth.LoginManager;
 import consamables.jdbi.AccessTokenDAO;
 import consamables.jdbi.UserDAO;
+import io.dropwizard.auth.Auth;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -47,5 +50,11 @@ public class UserResource {
         } else {
             return token;
         }
+    }
+
+    @Path("/get-info")
+    @GET
+    public User getInfo(@Auth User user) {
+        return user;
     }
 }

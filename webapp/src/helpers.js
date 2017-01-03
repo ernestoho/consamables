@@ -44,6 +44,7 @@ export const calculateHours = (currentTime, hours) => {
     return Map({ openTime, closeTime, open });
 };
 
+
 export const buildOrderType = prefs => {
     const { delivery, carryout, outing } = prefs.toJS();
 
@@ -55,3 +56,25 @@ export const buildOrderType = prefs => {
         return 'delivery or carryout';
     }
 };
+
+
+export const TokenManager = {
+    storeAccessToken: accessToken => { localStorage.setItem('accessToken', accessToken) },
+    retrieveAccessToken: () => localStorage.accessToken,
+    clearAccessToken: () => localStorage.removeItem('accessToken')
+};
+
+
+export const buildPostInit = data => ({
+    method: POST,
+    body: JSON.stringify(data),
+    headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${TokenManager.retrieveAccessToken()}`
+    })
+});
+
+
+export const testUsername = username => /^[\w-\.]+@([a-zA-Z_]+?\.)+[a-zA-Z]{2,3}$/.test(username);
+
+export const testPassword = password => true; //TODO: implement password complexity rules
