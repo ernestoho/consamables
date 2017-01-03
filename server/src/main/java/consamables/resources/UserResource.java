@@ -1,5 +1,7 @@
 package consamables.resources;
 
+import java.util.regex.Pattern;
+
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -44,6 +46,9 @@ public class UserResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public AccessToken createUser(@Valid LoginCredentials credentials) {
+        if (!Pattern.matches("^[\\w-\\.]+@([a-zA-Z_]+?\\.)+[a-zA-Z]{2,3}$", credentials.getUsername())) {
+            throw new WebApplicationException("Invalid username.", Response.status(400).build());
+        }
         AccessToken token = loginManager.registerNewUser(credentials);
         if (token == null) {
             throw new WebApplicationException("That username is already taken.", Response.status(409).build());
