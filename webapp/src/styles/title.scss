@@ -4,11 +4,12 @@
 .title {
     position: absolute;
     top: 0;
-    font-size: 2.5em;
+    font-size: 2.8em;
     font-weight: bold;
     text-align: center;
     margin-top: $margin / 2.5;
     margin-bottom: auto;
+    z-index: 2;
 
     .heading {
         vertical-align: middle;

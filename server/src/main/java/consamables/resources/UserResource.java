@@ -1,7 +1,10 @@
 package consamables.resources;
 
+import java.util.regex.Pattern;
+
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -12,9 +15,11 @@ import javax.ws.rs.core.Response;
 
 import consamables.api.AccessToken;
 import consamables.api.LoginCredentials;
+import consamables.api.User;
 import consamables.auth.LoginManager;
 import consamables.jdbi.AccessTokenDAO;
 import consamables.jdbi.UserDAO;
+import io.dropwizard.auth.Auth;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -41,11 +46,20 @@ public class UserResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public AccessToken createUser(@Valid LoginCredentials credentials) {
+        if (!Pattern.matches("^[\\w-\\.]+@([a-zA-Z_]+?\\.)+[a-zA-Z]{2,3}$", credentials.getUsername())) {
+            throw new WebApplicationException("Invalid username.", Response.status(400).build());
+        }
         AccessToken token = loginManager.registerNewUser(credentials);
         if (token == null) {
             throw new WebApplicationException("That username is already taken.", Response.status(409).build());
         } else {
             return token;
         }
+    }
+
+    @Path("/get-info")
+    @GET
+    public User getInfo(@Auth User user) {
+        return user;
     }
 }

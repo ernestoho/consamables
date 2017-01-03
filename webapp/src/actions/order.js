@@ -9,6 +9,8 @@ import {
 } from './actionTypes';
 
 import fetchActiveOrders from './activeOrders';
+import { buildPostInit } from '../helpers';
+import { promptLogin } from './login';
 
 export const startOrder = (restaurantId) => ({
     type: START_ORDER,
@@ -67,17 +69,13 @@ const newGroupFailure = error => ({
 export const submitNewGroup = data => {
     return dispatch => {
         dispatch(sendNewGroup());
-        return fetch('/api/groups/start', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        })
+        fetch('/api/groups/start', buildPostInit(data))
             .then(response => {
                 if (response.ok) {
                     dispatch(newGroupSuccess());
                     dispatch(fetchActiveOrders());
+                } else if (response.status == 401) {
+                    dispatch(promptLogin());
                 }
             })
             .catch( error => dispatch(newGroupFailure(error)) );

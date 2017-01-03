@@ -4,17 +4,20 @@ import { connect } from 'react-redux';
 import LeftColumn from './LeftColumn';
 import CenterColumn from './CenterColumn';
 import RightColumn from './RightColumn';
-import Modal from './Modal';
+import Overlay from './Overlay';
 import {
+    verifyUser,
     fetchActiveOrders, fetchPendingOrders,
     fetchRestaurants, updateRestaurantHours
 } from '../actions';
 
 class App extends React.Component {
     componentDidMount() {
+        this.props.loadUserInfo();
         this.props.loadRestaurants();
         this.props.loadActiveOrders();
         this.props.loadPendingOrders();
+
         this.restaurantUpdate = setInterval(this.props.updateRestaurantHours, 10000);
     }
 
@@ -28,7 +31,7 @@ class App extends React.Component {
                 <LeftColumn/>
                 <CenterColumn/>
                 <RightColumn/>
-                <Modal/>
+                <Overlay/>
             </div>
         );
     }
@@ -37,6 +40,7 @@ class App extends React.Component {
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
+    loadUserInfo: () => dispatch(verifyUser()),
     loadRestaurants: () => dispatch(fetchRestaurants()),
     loadActiveOrders: () => dispatch(fetchActiveOrders()),
     loadPendingOrders: () => dispatch(fetchPendingOrders()),

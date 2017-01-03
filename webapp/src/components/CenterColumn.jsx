@@ -5,11 +5,15 @@ import { connect } from 'react-redux';
 
 import Title from './Title';
 import Helper from './Helper';
+import LoginPanel from './panels/login/LoginPanel';
+import CreateAccountPanel from './panels/createAccount/CreateAccountPanel';
 import MenuPanel from './panels/menu/MenuPanel';
 import CurrentOrderPanel from './panels/currentOrder/CurrentOrderPanel';
 import NewOrderOptionsPanel from './panels/newOrderOptions/NewOrderOptionsPanel';
 import SuggestOrderPanel from './panels/suggestOrder/SuggestOrderPanel';
 import {
+    DISPLAY_LOGIN,
+    DISPLAY_CREATE_ACCOUNT,
     DISPLAY_MENU_VIEWING,
     DISPLAY_MENU_ORDERING,
     DISPLAY_MENU_WITH_ORDER,
@@ -22,6 +26,22 @@ class CenterColumn extends React.Component {
         const { displayMode, orderStarted } = this.props;
 
         switch (displayMode) {
+            case DISPLAY_LOGIN:
+                return (
+                    <div className="column-center">
+                        <Title/>
+                        <LoginPanel/>
+                    </div>
+                );
+
+            case DISPLAY_CREATE_ACCOUNT:
+                return (
+                    <div className="column-center">
+                        <Title/>
+                        <CreateAccountPanel/>
+                    </div>
+                );
+
             case DISPLAY_MENU_VIEWING:
                 return (
                     <div className="column-center">

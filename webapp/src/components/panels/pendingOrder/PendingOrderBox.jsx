@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
 
-export default class PendingOrderBox extends React.Component {
+class PendingOrderBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +26,7 @@ export default class PendingOrderBox extends React.Component {
     }
 
     render() {
-        const { restaurantName, timeCreated, minPeople, votes } = this.props;
+        const { loggedIn, restaurantName, timeCreated, minPeople, votes } = this.props;
         const { timeElapsed } = this.state;
 
         return (
@@ -35,7 +36,9 @@ export default class PendingOrderBox extends React.Component {
                 <div className="info">
                     Suggested {timeElapsed > 0 ? timeElapsed : 'less than a'} {(timeElapsed <= 1) ? 'minute' : 'minutes'} ago
                 </div>
-                <PendingOrderToolbar/>
+                {loggedIn ?
+                    <PendingOrderToolbar/>
+                    : null}
             </div>
         );
     }
@@ -52,3 +55,11 @@ class PendingOrderToolbar extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    loggedIn: state.currentUser.get('loggedIn')
+});
+
+export default connect(
+    mapStateToProps
+)(PendingOrderBox)
