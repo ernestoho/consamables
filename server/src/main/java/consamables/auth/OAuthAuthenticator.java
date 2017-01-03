@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
-import org.joda.time.Period;
+import org.joda.time.Duration;
 
 import consamables.api.AccessToken;
 import consamables.api.User;
@@ -37,8 +37,8 @@ public class OAuthAuthenticator implements Authenticator<String, User> {
             return Optional.empty();
         }
 
-        Period period = new Period(new DateTime(accessToken.getLastAccessTime()), new DateTime());
-        if (period.getMinutes() > ACCESS_TOKEN_EXPIRE_TIME_MIN) {
+        Duration duration = new Duration(new DateTime(accessToken.getLastAccessTime()), new DateTime());
+        if (duration.getStandardMinutes() > ACCESS_TOKEN_EXPIRE_TIME_MIN) {
             return Optional.empty();
         }
 
