@@ -23,15 +23,24 @@ const pizzaBuilder = (state = Map({ toppings: Map() }), action) => {
 
             } else {
                 newState = state.setIn(['toppings', action.name], 'whole');
+
                 if (pizzaOverCapacity(newState)) {
-                    return state;
-                } else {
-                    return newState;
+                    newState = state.setIn(['toppings', action.name], 'left');
+
+                    if (pizzaOverCapacity(newState)) {
+                        return state;
+                    }
                 }
+                return newState;
             }
 
         case CHANGE_TOPPING_SIDE:
-            return state.setIn(['toppings', action.name], action.side);
+            newState = state.setIn(['toppings', action.name], action.side);
+            if (pizzaOverCapacity(newState)) {
+                return state;
+            } else {
+                return newState;
+            }
 
         case SET_INITIAL_SAUCE:
             return state.set('defaultSauce', action.value)

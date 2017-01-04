@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleTopping, changeToppingSide } from '../../../actions';
+import ToppingSideButton from './ToppingSideButton';
+import { toggleTopping } from '../../../actions';
 
 class ToppingOption extends React.Component {
     render() {
         const {
-            name, selected,
+            name, selected, side,
             toggle, changeSide
         } = this.props;
 
@@ -18,24 +19,24 @@ class ToppingOption extends React.Component {
                 >
                     {name}
                 </div>
-                <div className="topping-select">
-                    <div className="topping-left"></div>
-                    <div className="topping-whole"></div>
-                    <div className="topping-right"></div>
-                </div>
+                {selected ?
+                    <div className="topping-select">
+                        <ToppingSideButton name={name} side="left" icon="◐"/>
+                        <ToppingSideButton name={name} side="whole" icon="◉"/>
+                        <ToppingSideButton name={name} side="right" icon="◑"/>
+                    </div>
+                    : null}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    selected: state.centerColumn.pizzaBuilder.hasIn(['toppings', ownProps.name]),
-    side: state.centerColumn.pizzaBuilder.getIn(['toppings', ownProps.name])
+    selected: state.centerColumn.pizzaBuilder.hasIn(['toppings', ownProps.name])
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    toggle: () => dispatch(toggleTopping(ownProps.name)),
-    changeSide: side => dispatch(changeToppingSide(ownProps.name, side))
+    toggle: () => dispatch(toggleTopping(ownProps.name))
 });
 
 export default connect(
