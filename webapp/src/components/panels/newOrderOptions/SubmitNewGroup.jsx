@@ -14,7 +14,11 @@ const mapStateToProps = state => ({
         order: {
             userId: state.currentUser.get('userId'),
             orderItems: state.centerColumn.currentOrder.get('items')
-                .map( (quantity, itemId) => ({ itemId, quantity }) )
+                .map((item, itemId) => ({
+                    itemId,
+                    quantity: item.get('quantity'),
+                    data: item.get('data') 
+                }))
                 .toArray()
         }
     }

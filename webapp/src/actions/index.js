@@ -22,6 +22,13 @@ import {
 } from './order';
 
 import {
+    openPizzaBuilder, closePizzaBuilder,
+    toggleTopping, changeToppingSide,
+    setInitialSauce, setMaxToppings,
+    changeSauce, changeCheese
+} from './pizzaBuilder';
+
+import {
     openSuggestOrder, closeSuggestOrder,
     toggleDelivery, toggleCarryout, toggleOuting,
     setDrivingPreference, setWaitTime, setMinPeople,
@@ -43,6 +50,15 @@ export {
     incrementItem,
     decrementItem,
     setQuantity,
+
+    openPizzaBuilder,
+    closePizzaBuilder,
+    toggleTopping,
+    changeToppingSide,
+    setInitialSauce,
+    setMaxToppings,
+    changeSauce,
+    changeCheese,
 
     continueOrder,
     goBackToMenu,

@@ -1,15 +1,11 @@
 @import 'panel';
 
 .menu-panel {
-    @include panel;
-    min-width: 20em;
+    @include centerpanel;
     min-height: 15em;
     flex-grow: 1;
     margin-top: 6em;
-    margin-left: 0;
-    margin-right: 0;
     position: relative;
-    z-index: 2;
 
     .menu-header {
         padding: 0.4em;
@@ -25,7 +21,7 @@
 
     .scrollable {
         font-size: 0.8em;
-        padding: 0 0.5em 0.5em;
+        padding: 0.5em 0.5em 0.5em;
         overflow: auto;
     }
 

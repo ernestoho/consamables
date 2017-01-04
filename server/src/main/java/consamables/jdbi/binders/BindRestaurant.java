@@ -29,18 +29,23 @@ public @interface BindRestaurant {
                     ObjectMapper mapper = new ObjectMapper();
                     String location;
                     String hours;
+                    String data;
                     
                     try {
                         location = mapper.writeValueAsString(arg.getLocation());
                         hours = mapper.writeValueAsString(arg.getHours());
+                        data = mapper.writeValueAsString(arg.getData());
                     } catch (JsonProcessingException e) {
                         location = "";
                         hours = "";
+                        data = "";
                     }
                     q.bind("name", arg.getName());
                     q.bind("location", location);
                     q.bind("hours", hours);
                     q.bind("url", arg.getUrl());
+                    q.bind("hasDelivery", arg.getHasDelivery());
+                    q.bind("data", data);
                 }
             };
         }

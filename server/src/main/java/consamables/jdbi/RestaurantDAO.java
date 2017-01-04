@@ -20,9 +20,9 @@ public interface RestaurantDAO {
     Restaurant getRestaurant(@Bind("restaurantId") long restaurantId);
 
     @SqlUpdate("INSERT INTO restaurant " +
-               "(name, location, hours, url) " +
+               "(name, location, hours, url, has_delivery, data) " +
                "VALUES " +
-               "(:name, CAST(:location AS json), CAST(:hours AS json), :url) ")
+               "(:name, CAST(:location AS json), CAST(:hours AS json), :url, :hasDelivery, CAST(:data AS json))")
     @GetGeneratedKeys
     long addRestaurant(@BindRestaurant Restaurant restaurant);
 }

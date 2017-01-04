@@ -13,6 +13,17 @@
     flex-direction: column;
     position: relative;
 
+    .toolbar {
+        flex: 0 0 auto;
+        display: flex;
+        justify-content: center;
+        margin-top: 0.25em;
+
+        .button {
+            flex: 1 1 auto;
+        }
+    }
+
     .empty-text-container {
         color: $title-color;
         margin: 1em 3em 2em;
@@ -23,6 +34,15 @@
         align-items: center;
         text-align: center;
     }
+}
+
+@mixin centerpanel {
+    @include panel;
+    width: 100%;
+    min-width: 20em;
+    margin-left: 0;
+    margin-right: 0;
+    z-index: 2;
 }
 
 @mixin panelbox {
@@ -53,17 +73,7 @@
 
     .link:hover {
         color: $hover-color;
-    }
-
-    .toolbar {
-        display: flex;
-        justify-content: center;
-        margin-top: 0.25em;
-
-        .button {
-            flex: 1 1 auto;
-        }
-    }
+    }    
 }
 
 .panel-header {

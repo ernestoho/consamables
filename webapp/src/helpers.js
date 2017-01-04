@@ -59,14 +59,14 @@ export const buildOrderType = prefs => {
 
 
 export const TokenManager = {
-    storeAccessToken: accessToken => { localStorage.setItem('accessToken', accessToken) },
+    storeAccessToken: accessToken => localStorage.setItem('accessToken', accessToken),
     retrieveAccessToken: () => localStorage.accessToken,
     clearAccessToken: () => localStorage.removeItem('accessToken')
 };
 
 
 export const buildPostInit = data => ({
-    method: POST,
+    method: 'POST',
     body: JSON.stringify(data),
     headers: new Headers({
         'Content-Type': 'application/json',
@@ -78,3 +78,14 @@ export const buildPostInit = data => ({
 export const testUsername = username => /^[\w-\.]+@([a-zA-Z_]+?\.)+[a-zA-Z]{2,3}$/.test(username);
 
 export const testPassword = password => true; //TODO: implement password complexity rules
+
+export const pizzaOverCapacity = builder => {
+    const totalToppings = builder.get('toppings').reduce((total, side) => {
+        return total + (side == 'whole' ? 1 : 0.5);
+    }, 0);
+
+    const hasExtraCheese = builder.get('cheese') == 'Extra Cheese';
+    const hasDiffSauce = builder.get('sauce') != builder.get('defaultSauce') && builder.get('sauce') != 'No Sauce';
+
+    return (totalToppings + (hasDiffSauce ? 1 : 0) + (hasExtraCheese ? 1 : 0)) > builder.get('maxToppings');
+};

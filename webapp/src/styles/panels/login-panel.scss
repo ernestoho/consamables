@@ -1,16 +1,11 @@
 @import 'panel';
 
 .login-panel {
-    @include panel;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    min-width: 20em;
+    @include centerpanel;
     max-width: 25em;
     flex: 0 0 auto;
     align-items: center;
     padding: 0 0.4em 0.4em;
-    z-index: 2;
 
     .panel-header {
         font-size: 1.2em;

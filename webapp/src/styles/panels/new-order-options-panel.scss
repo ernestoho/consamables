@@ -1,14 +1,9 @@
 @import 'panel';
 
 .new-order-options-panel {
-    @include panel;
+    @include centerpanel;
     flex: 0 0 auto;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    min-width: 20em;
     padding-bottom: 0.5em;
-    z-index: 2;
 
     .order-options {
         padding: 0.4em;

@@ -25,19 +25,30 @@ public class Restaurant {
     @NotNull
     @JsonProperty
     private String url;
+    
+    @NotNull
+    @JsonProperty
+    private boolean hasDelivery;
+    
+    @JsonProperty
+    private JsonNode data;
 
     public Restaurant() { }
 
-    public Restaurant(Long restaurantId, String name, JsonNode location, JsonNode hours, String url) {
-        this(name, location, hours, url);
+    public Restaurant(Long restaurantId, String name, JsonNode location, JsonNode hours,
+                      String url, boolean hasDelivery, JsonNode data) {
+        this(name, location, hours, url, hasDelivery, data);
         this.restaurantId = restaurantId;
     }
 
-    public Restaurant(String name, JsonNode location, JsonNode hours, String url) {
+    public Restaurant(String name, JsonNode location, JsonNode hours,
+                      String url, boolean hasDelivery, JsonNode data) {
         this.name = name;
         this.location = location;
         this.hours = hours;
         this.url = url;
+        this.hasDelivery = hasDelivery;
+        this.data = data;
     }
 
     public Long getRestaurantId() {
@@ -78,5 +89,21 @@ public class Restaurant {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public boolean getHasDelivery() {
+        return hasDelivery;
+    }
+
+    public void setHasDelivery(boolean delivery) {
+        this.hasDelivery = delivery;
+    }
+
+    public JsonNode getData() {
+        return data;
+    }
+
+    public void setData(JsonNode data) {
+        this.data = data;
     }
 }
