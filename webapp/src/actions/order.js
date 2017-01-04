@@ -17,9 +17,10 @@ export const startOrder = (restaurantId) => ({
     id: restaurantId
 });
 
-export const addItemToOrder = itemId => ({
+export const addItemToOrder = (itemId, data) => ({
     type: ADD_ITEM_TO_ORDER,
-    id: itemId
+    id: itemId,
+    data: data
 });
 
 export const removeItemFromOrder = itemId => ({

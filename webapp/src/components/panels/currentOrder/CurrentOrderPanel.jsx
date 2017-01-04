@@ -22,8 +22,8 @@ class CurrentOrderPanel extends React.Component {
             <div className="current-order-panel">
                 <PanelHeader name="Your Order"></PanelHeader>
                 <div className="scrollable">
-                    {items.map(([id, quantity]) => 
-                        <OrderItem key={id} id={id} quantity={quantity}/>
+                    {items.map(item => 
+                        <OrderItem key={item.get('id')} id={item.get('id')} quantity={item.get('quantity')}/>
                     )}
                 </div>
                 <div className="continue">
@@ -39,9 +39,9 @@ class CurrentOrderPanel extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    items: state.centerColumn.currentOrder.get('items').entrySeq().toJS(),
-    totalCost: state.centerColumn.currentOrder.get('items').reduce((total, quantity, id) => {
-        return total += getItemPrice(state, id) * quantity;
+    items: state.centerColumn.currentOrder.get('items').map((item, id) => item.set('id', id)).toList(),
+    totalCost: state.centerColumn.currentOrder.get('items').reduce((total, item, id) => {
+        return total += getItemPrice(state, id) * item.get('quantity');
     }, 0),
     displayMode: state.centerColumn.displayMode
 });

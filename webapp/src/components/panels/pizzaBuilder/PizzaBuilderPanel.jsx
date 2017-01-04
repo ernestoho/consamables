@@ -8,6 +8,7 @@ import ToppingsSection from './ToppingsSection';
 import CheeseSelection from './CheeseSelection';
 import SauceSelection from './SauceSelection';
 import SideToppings from './SideToppings';
+import AddPizzaButton from './AddPizzaButton';
 import { closePizzaBuilder, setInitialSauce, setMaxToppings } from '../../../actions';
 import { pizzaAtCapacity } from '../../../helpers';
 
@@ -45,7 +46,7 @@ class PizzaBuilderPanel extends React.Component {
                     : <div className="no-toppings">No Toppings</div>}
                 <div className="toolbar">
                     <button className="button" onClick={close}>Cancel</button>
-                    <button className="button">Add to Order</button>
+                    <AddPizzaButton/>
                 </div>
             </div>
         );

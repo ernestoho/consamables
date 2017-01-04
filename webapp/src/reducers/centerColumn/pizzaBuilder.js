@@ -4,7 +4,8 @@ import {
     OPEN_PIZZA_BUILDER, CLOSE_PIZZA_BUILDER,
     TOGGLE_TOPPING, CHANGE_TOPPING_SIDE,
     SET_INITIAL_SAUCE, SET_MAX_TOPPINGS,
-    CHANGE_SAUCE, CHANGE_CHEESE
+    CHANGE_SAUCE, CHANGE_CHEESE,
+    ADD_ITEM_TO_ORDER
 } from '../../actions/actionTypes';
 
 import { pizzaOverCapacity } from '../../helpers';
@@ -64,6 +65,9 @@ const pizzaBuilder = (state = Map({ toppings: Map() }), action) => {
             } else {
                 return newState;
             }
+
+        case ADD_ITEM_TO_ORDER:
+            return state.clear().set('toppings', Map());
 
         default:
             return state;
