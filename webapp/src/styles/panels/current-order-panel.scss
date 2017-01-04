@@ -1,15 +1,10 @@
 @import 'panel';
 
 .current-order-panel {
-    @include panel;
+    @include centerpanel;
     flex: 0 0 auto;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    min-width: 20em;
     max-height: 15em;
     justify-content: center;
-    z-index: 2;
 
     .scrollable {
         overflow: auto;

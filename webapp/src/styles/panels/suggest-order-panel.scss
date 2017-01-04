@@ -1,15 +1,10 @@
 @import 'panel';
 
 .suggest-order-panel {
-    @include panel;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    min-width: 20em;
+    @include centerpanel;
     max-width: 25em;
     text-align: center;
     padding-bottom: 0.5em;
-    z-index: 2;
 
     .suggest-header {
         padding: 0.4em;

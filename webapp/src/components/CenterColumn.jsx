@@ -9,6 +9,7 @@ import LoginPanel from './panels/login/LoginPanel';
 import CreateAccountPanel from './panels/createAccount/CreateAccountPanel';
 import MenuPanel from './panels/menu/MenuPanel';
 import CurrentOrderPanel from './panels/currentOrder/CurrentOrderPanel';
+import PizzaBuilderPanel from './panels/pizzaBuilder/PizzaBuilderPanel';
 import NewOrderOptionsPanel from './panels/newOrderOptions/NewOrderOptionsPanel';
 import SuggestOrderPanel from './panels/suggestOrder/SuggestOrderPanel';
 import {
@@ -16,7 +17,7 @@ import {
     DISPLAY_CREATE_ACCOUNT,
     DISPLAY_MENU_VIEWING,
     DISPLAY_MENU_ORDERING,
-    DISPLAY_MENU_WITH_ORDER,
+    DISPLAY_PIZZA_BUILDER,
     DISPLAY_NEW_ORDER_OPTIONS,
     DISPLAY_SUGGEST_OPTIONS
 } from '../constants';
@@ -58,6 +59,14 @@ class CenterColumn extends React.Component {
                         {orderStarted ? 
                             <CurrentOrderPanel/>
                             : null}
+                    </div>
+                );
+
+            case DISPLAY_PIZZA_BUILDER:
+                return (
+                    <div className="column-center">
+                        <Title/>
+                        <PizzaBuilderPanel/>
                     </div>
                 );
 

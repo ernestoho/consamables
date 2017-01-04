@@ -20,7 +20,8 @@ const initialState = {
         menuId: -1,
         currentOrder: Map({ items: Map() }),
         suggestOrder: Map(),
-        login: Map({ username: '', password: '' })
+        login: Map({ username: '', password: '' }),
+        pizzaBuilder: Map({ toppings: Map() })
     },
     currentUser: Map({ loggedIn: false })
 };

@@ -1,0 +1,48 @@
+{
+    "pizza": {
+        "toppings": {
+            "meats": [
+                "Pepperoni",
+                "Sliced Italian Sausage",
+                "Philly Steak",
+                "Bacon",
+                "Premium Chicken",
+                "Italian Sausage",
+                "Beef",
+                "Ham",
+                "Salami"
+            ],
+            "non-meats": [
+                "Cheddar Cheese",
+                "Shredded Parmesan Asiago",
+                "Banana Peppers",
+                "Garlic",
+                "Jalapeno Peppers",
+                "Pineapple",
+                "Roasted Red Peppers",
+                "Diced Tomatoes",
+                "Feta Cheese",
+                "Shredded Provolone Cheese",
+                "Black Olives",
+                "Green Peppers",
+                "Mushrooms",
+                "Onions",
+                "Spinach",
+                "Hot Sauce"
+            ]
+        },
+        "sauces": {
+            "default": "Robust Inspired Tomato Sauce",
+            "other": [
+                "Hearty Marinara Sauce",
+                "BBQ Sauce",
+                "Garlic Parmesan White Sauce",
+                "Alfredo Sauce"
+            ]
+        }
+    }
+}
+
+{
+    "pizza": 
+}
