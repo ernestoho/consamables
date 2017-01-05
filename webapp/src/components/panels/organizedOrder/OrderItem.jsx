@@ -6,9 +6,15 @@ import { getItemName } from '../../../selectors';
 class OrderItem extends React.Component {
     render() {
         const { name, quantity, data } = this.props;
+        const pizzaSize = data.getIn(['pizza', 'size']);
         return (
             <div className="order-item">
-                <div className="order-item-name">{name}</div>
+                <div className="order-item-name">
+                    {name}
+                    {pizzaSize ?
+                        ` (${pizzaSize.charAt(0).toUpperCase()}${pizzaSize.slice(1)})`
+                        : null}
+                </div>
                 {data ? (
                     data.has('pizza') ?
                         <PizzaDetails {...data.get('pizza').toObject()}/>
@@ -25,7 +31,6 @@ class PizzaDetails extends React.Component {
 
         return (
             <div className="item-data">
-                <div className="pizza-size">{size.charAt(0).toUpperCase()}{size.slice(1)}</div>
                 <div>{cheese}</div>
                 <div>{sauce}</div>
                 
