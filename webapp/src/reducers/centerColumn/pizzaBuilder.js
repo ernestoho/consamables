@@ -2,6 +2,7 @@ import { Map } from 'immutable';
 
 import {
     OPEN_PIZZA_BUILDER, CLOSE_PIZZA_BUILDER,
+    SET_PIZZA_SIZE,
     TOGGLE_TOPPING, CHANGE_TOPPING_SIDE,
     SET_INITIAL_SAUCE, SET_MAX_TOPPINGS,
     CHANGE_SAUCE, CHANGE_CHEESE,
@@ -10,7 +11,7 @@ import {
 
 import { pizzaOverCapacity } from '../../helpers';
 
-const pizzaBuilder = (state = Map({ toppings: Map() }), action) => {
+const pizzaBuilder = (state = Map({ toppings: Map(), size: 'half' }), action) => {
     let newState;
 
     switch (action.type) {
@@ -18,22 +19,29 @@ const pizzaBuilder = (state = Map({ toppings: Map() }), action) => {
             return state.set('itemId', action.id)
                         .set('cheese', 'Normal Cheese');
 
+        case SET_PIZZA_SIZE:
+            if (action.value == 'half') {
+                return state.set('sauce', state.get('defaultSauce'))
+                            .set('toppings', Map())
+                            .set('size', action.value);
+            }
+            return state.set('size', action.value);
+
         case TOGGLE_TOPPING:
             if (state.hasIn(['toppings', action.name])) {
                 return state.deleteIn(['toppings', action.name]);
+            }
 
-            } else {
-                newState = state.setIn(['toppings', action.name], 'whole');
+            newState = state.setIn(['toppings', action.name], 'whole');
+
+            if (pizzaOverCapacity(newState)) {
+                newState = state.setIn(['toppings', action.name], 'left');
 
                 if (pizzaOverCapacity(newState)) {
-                    newState = state.setIn(['toppings', action.name], 'left');
-
-                    if (pizzaOverCapacity(newState)) {
-                        return state;
-                    }
+                    return state;
                 }
-                return newState;
             }
+            return newState;
 
         case CHANGE_TOPPING_SIDE:
             newState = state.setIn(['toppings', action.name], action.side);

@@ -1,8 +1,7 @@
 @import 'panel';
 
-@mixin item($color, $background, $hover-background) {
-    color: $color;
-    background-color: $background;
+@mixin item {
+    color: $title-color;
     padding: 0.2em;
     border: 2px solid $title-color;
     border-radius: 3px;
@@ -11,16 +10,17 @@
 
     &:hover {
         cursor: default;
-        background-color: $hover-background;
+        background-color: $background-color;
     }
 }
 
-@mixin unselected-item {
-    @include item($title-color, transparent, $background-color);
-}
+@mixin selected {
+    color: white;
+    background-color: $title-color;
 
-@mixin selected-item {
-    @include item(white, $title-color, $hover-color);
+    &:hover {
+        background-color: $hover-color;
+    }
 }
 
 .pizza-builder-panel {
@@ -30,14 +30,37 @@
     margin-top: 6em;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
 
     .panel-header {
         color: $title-color;
+        box-shadow: none;
+    }
+
+    .pizza-size {
+        flex: 0 0 auto;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 0.4em;
+        margin: 0.2em 0.4em 0;
+        border-bottom: 1px solid $title-color;
+
+        .size-option {
+            @include item;
+            flex: 0 0 5em;
+            text-align: center;
+            margin: 0 0.5em;
+
+            &.selected {
+                @include selected;
+            }
+        }
     }
 
     .toppings {
+        flex: 1 1 auto;
         font-size: 0.9em;
-        margin-top: 0.2em;
+        margin-top: 0.4em;
         display: flex;
 
         .toppings-section {
@@ -76,17 +99,16 @@
                     align-items: stretch;
 
                     .topping-name {
-                        @include unselected-item;
+                        @include item;
                         margin-bottom: 0.2em;
+
+                        &.selected {
+                            @include selected;
+                        }
                     }
 
-                    .topping-name-selected {
-                        @include selected-item;
-                    }
-
-                    .topping-select {
+                    .topping-side-select {
                         font-size: 1.5em;
-                        margin-top: 0.2em;
                         flex: 0 0 auto;
                         line-height: 1.1em;
                         display: flex;
@@ -104,19 +126,14 @@
                             &:hover {
                                 background-color: $border-color;
                             }
+
+                            &.selected {
+                                @include selected;
+                            }
                         }
 
                         .topping-side+.topping-side {
                             margin-left: 0.5em;
-                        }
-
-                        .selected {
-                            color: white;
-                            background-color: $title-color;
-
-                            &:hover {
-                                background-color: $hover-color;
-                            }
                         }
                     }
                 }
@@ -145,13 +162,12 @@
         }
 
         .attribute-option {
-            @include unselected-item;
+            @include item;
             margin: 0.4em;
-        }
 
-        .attribute-option-selected {
-            @include selected-item;
-            margin: 0.4em;
+            &.selected {
+                @include selected;
+            }
         }
     }
 
@@ -205,5 +221,10 @@
 
     .toolbar {
         margin: 0 0.5em;
+    }
+
+    .pizza-attribute+.toolbar {
+        border-top: 1px solid $title-color;
+        padding-top: 0.4em;
     }
 }

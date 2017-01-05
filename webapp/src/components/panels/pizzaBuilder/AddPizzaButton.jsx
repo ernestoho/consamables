@@ -15,12 +15,19 @@ class AddPizzaButton extends React.Component {
 
 const mapStateToProps = state => {
     const builder = state.centerColumn.pizzaBuilder;
+    const cheese = builder.get('cheese');
+    const sauce = builder.get('sauce');
+    const toppings = builder.get('toppings');
+    const size = builder.get('size');
     return {
         itemId: builder.get('itemId'),
         data: {
-            cheese: builder.get('cheese') != 'Normal Cheese' ? builder.get('cheese') : undefined,
-            sauce: builder.get('sauce') != builder.get('defaultSauce') ? builder.get('sauce') : undefined,
-            toppings: builder.get('toppings').toJS()
+            pizza: {
+                cheese: cheese != 'Normal Cheese' ? cheese : undefined,
+                sauce: sauce != builder.get('defaultSauce') && size =='whole' ? sauce : undefined,
+                toppings: size == 'whole' ? toppings.toJS() : toppings.keySeq().toArray(),
+                size: size
+            }
         }
     };
 };

@@ -21,7 +21,7 @@ const initialState = {
         currentOrder: Map({ items: Map() }),
         suggestOrder: Map(),
         login: Map({ username: '', password: '' }),
-        pizzaBuilder: Map({ toppings: Map() })
+        pizzaBuilder: Map({ toppings: Map(), size: 'half' })
     },
     currentUser: Map({ loggedIn: false })
 };

@@ -23,6 +23,7 @@ import {
 
 import {
     openPizzaBuilder, closePizzaBuilder,
+    setPizzaSize,
     toggleTopping, changeToppingSide,
     setInitialSauce, setMaxToppings,
     changeSauce, changeCheese
@@ -53,6 +54,7 @@ export {
 
     openPizzaBuilder,
     closePizzaBuilder,
+    setPizzaSize,
     toggleTopping,
     changeToppingSide,
     setInitialSauce,
