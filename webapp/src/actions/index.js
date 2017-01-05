@@ -12,13 +12,13 @@ import {
 import { updateConfirmPasswordField, submitNewAccount, goToLogin } from './createAccount';
 
 import {
-    startOrder,
+    startOrder, joinOrder,
     addItemToOrder, removeItemFromOrder,
     incrementItem, decrementItem,
     setQuantity,
     continueOrder, goBackToMenu,
     setOrderType, setOrderDuration,
-    submitNewGroup
+    submitNewGroup, submitNewOrder
 } from './order';
 
 import {
@@ -36,6 +36,8 @@ import {
     submitSuggestion
 } from './suggestOrder';
 
+import { showGroupDetails, hideGroupDetails } from './organizer';
+
 export {
     fetchActiveOrders,
     fetchPendingOrders,
@@ -46,6 +48,7 @@ export {
     hideMenu,
 
     startOrder,
+    joinOrder,
     addItemToOrder,
     removeItemFromOrder,
     incrementItem,
@@ -67,6 +70,7 @@ export {
     setOrderType,
     setOrderDuration,
     submitNewGroup,
+    submitNewOrder,
 
     openSuggestOrder,
     closeSuggestOrder,
@@ -87,5 +91,8 @@ export {
     goToLogin,
     goToCreateAccount,
     updateConfirmPasswordField,
-    submitNewAccount
+    submitNewAccount,
+
+    showGroupDetails,
+    hideGroupDetails
 }

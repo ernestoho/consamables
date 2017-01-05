@@ -1,0 +1,29 @@
+@import 'panel';
+
+.organized-order-panel {
+    @include centerpanel;
+    text-align: center;
+
+    .group-details-header {
+        padding: 0.4em;
+        font-weight: bold;
+
+        .group-details-heading {
+            color: $title-color;
+        }
+
+        .group-details-subheading {
+            font-size: 0.9em;
+            font-style: italic;
+            margin: 0.4em;
+        }
+
+        .order-timer {
+            font-size: 0.9em;
+        }
+    }
+
+    .orders {
+        
+    }
+}

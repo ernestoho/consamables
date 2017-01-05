@@ -25,6 +25,12 @@ public interface GroupDAO {
 
     @SqlQuery("SELECT * FROM \"group\" WHERE group_id = :groupId")
     Group getGroup(@Bind("groupId") long groupId);
+    
+    @SqlQuery("SELECT organizer_id FROM \"group\" WHERE group_id = :groupId")
+    long getOrganizerId(@Bind("groupId") long groupId);
+    
+    @SqlQuery("SELECT * FROM \"group\" WHERE organizer_id = :organizerId AND phase = 'active'")
+    List<Group> getGroupsByOrganizer(@Bind("organizerId") long organizerId);
 
     @SqlUpdate("INSERT INTO \"group\" " +
                "(restaurant_id, type, phase, min_people) " +
@@ -34,15 +40,15 @@ public interface GroupDAO {
     long addPendingGroup(@BindBean Group group);
 
     @SqlUpdate("INSERT INTO \"group\" " +
-               "(restaurant_id, type, phase, duration_minutes, time_started) " +
+               "(restaurant_id, type, phase, duration_minutes, organizer_id, time_started) " +
                "VALUES " +
-               "(:restaurantId, CAST(:type AS group_type), 'active', :durationMinutes, now())")
+               "(:restaurantId, CAST(:type AS group_type), 'active', :durationMinutes, :organizerId, now())")
     @GetGeneratedKeys
     long addActiveGroup(@BindBean Group group);
 
     @SqlUpdate("UPDATE \"group\" SET " +
-               "(phase, duration_minutes, time_started) = " +
-               "('active', :durationMinutes, now()) " +
+               "(phase, duration_minutes, organizer_id, time_started) = " +
+               "('active', :durationMinutes, , :organizerId, now()) " +
                "WHERE group_id = :groupId")
     void activatePendingGroup(@BindBean Group group);
 

@@ -10,21 +10,25 @@ import CreateAccountPanel from './panels/createAccount/CreateAccountPanel';
 import MenuPanel from './panels/menu/MenuPanel';
 import CurrentOrderPanel from './panels/currentOrder/CurrentOrderPanel';
 import PizzaBuilderPanel from './panels/pizzaBuilder/PizzaBuilderPanel';
-import NewOrderOptionsPanel from './panels/newOrderOptions/NewOrderOptionsPanel';
+import NewGroupOptionsPanel from './panels/orderOptions/NewGroupOptionsPanel';
+import NewOrderConfirmPanel from './panels/orderOptions/NewOrderConfirmPanel';
 import SuggestOrderPanel from './panels/suggestOrder/SuggestOrderPanel';
+import OrganizedOrderSummary from './panels/organizedOrder/OrganizedOrderSummary';
+import OrganizedOrderPanel from './panels/organizedOrder/OrganizedOrderPanel';
 import {
     DISPLAY_LOGIN,
     DISPLAY_CREATE_ACCOUNT,
     DISPLAY_MENU_VIEWING,
     DISPLAY_MENU_ORDERING,
     DISPLAY_PIZZA_BUILDER,
-    DISPLAY_NEW_ORDER_OPTIONS,
-    DISPLAY_SUGGEST_OPTIONS
+    DISPLAY_ORDER_OPTIONS,
+    DISPLAY_SUGGEST_OPTIONS,
+    DISPLAY_GROUP_DETAILS
 } from '../constants';
 
 class CenterColumn extends React.Component {
     render() {
-        const { displayMode, orderStarted } = this.props;
+        const { displayMode, orderMode, orderStarted, organizer } = this.props;
 
         switch (displayMode) {
             case DISPLAY_LOGIN:
@@ -70,12 +74,14 @@ class CenterColumn extends React.Component {
                     </div>
                 );
 
-            case DISPLAY_NEW_ORDER_OPTIONS:
+            case DISPLAY_ORDER_OPTIONS:
                 return (
                     <div className="column-center">
                         <Title/>
                         <CurrentOrderPanel/>
-                        <NewOrderOptionsPanel/>
+                        {orderMode == 'start' ?
+                            <NewGroupOptionsPanel/>
+                            :<NewOrderConfirmPanel/>}
                     </div>
                 );
 
@@ -87,10 +93,21 @@ class CenterColumn extends React.Component {
                     </div>
                 );
 
+            case DISPLAY_GROUP_DETAILS:
+                return (
+                    <div className="column-center">
+                        <Title/>
+                        <OrganizedOrderPanel/>
+                    </div>
+                );
+
             default:
                 return (
                     <div className="column-center">
                         <Title/>
+                        {organizer ?
+                            <OrganizedOrderSummary/>
+                            : null}
                         <Helper/>
                     </div>
                 );
@@ -100,7 +117,9 @@ class CenterColumn extends React.Component {
 
 const mapStateToProps = state => ({
     displayMode: state.centerColumn.displayMode,
-    orderStarted: !!state.centerColumn.currentOrder.get('items').size
+    orderMode: state.centerColumn.currentOrder.get('mode'),
+    orderStarted: !!state.centerColumn.currentOrder.get('items').size,
+    organizer: state.organizedOrders.size > 0
 });
 
 export default connect(

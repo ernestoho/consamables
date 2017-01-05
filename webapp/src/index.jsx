@@ -12,6 +12,7 @@ import { DISPLAY_DEFAULT } from './constants';
 const initialState = {
     activeOrders: Map(),
     pendingOrders: Map(),
+    organizedOrders: Map(),
     restaurants: Map(),
     menus: Map(),
     items: Map(),
@@ -21,9 +22,11 @@ const initialState = {
         currentOrder: Map({ items: Map() }),
         suggestOrder: Map(),
         login: Map({ username: '', password: '' }),
-        pizzaBuilder: Map({ toppings: Map(), size: 'half' })
+        pizzaBuilder: Map({ toppings: Map(), size: 'half' }),
+        organizer: Map()
     },
-    currentUser: Map({ loggedIn: false })
+    currentUser: Map({ loggedIn: false }),
+    users: Map()
 };
 
 const store = configureStore(initialState);

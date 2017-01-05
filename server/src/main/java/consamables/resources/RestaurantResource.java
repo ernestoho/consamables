@@ -55,6 +55,6 @@ public class RestaurantResource {
     @Path("/{id}/menu")
     @GET
     public Menu getMenu(@PathParam("id") String id) {
-        return new Menu(Integer.parseInt(id)).loadSections(menuSectionDAO, itemDAO);
+        return new Menu(Long.parseLong(id)).loadSections(menuSectionDAO, itemDAO);
     }
 }

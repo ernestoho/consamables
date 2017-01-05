@@ -2,12 +2,14 @@ package consamables.resources;
 
 import java.util.regex.Pattern;
 
+import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -25,9 +27,11 @@ import io.dropwizard.auth.Auth;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
     private LoginManager loginManager;
+    private UserDAO dao;
 
     public UserResource(UserDAO userDAO, AccessTokenDAO accessTokenDAO) {
         this.loginManager = new LoginManager(userDAO, accessTokenDAO);
+        this.dao = userDAO;
     }
 
     @Path("/login")
@@ -61,5 +65,12 @@ public class UserResource {
     @GET
     public User getInfo(@Auth User user) {
         return user;
+    }
+    
+    @PermitAll
+    @Path("/{id}/name")
+    @GET
+    public User getName(@PathParam("id") String id) {
+        return dao.getUser(Long.parseLong(id));
     }
 }

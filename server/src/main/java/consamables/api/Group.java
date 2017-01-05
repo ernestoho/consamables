@@ -1,7 +1,12 @@
 package consamables.api;
 
 import java.sql.Timestamp;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import consamables.jdbi.OrderDAO;
+import consamables.jdbi.OrderItemDAO;
 
 public class Group {
     @JsonProperty
@@ -23,6 +28,9 @@ public class Group {
     private Integer durationMinutes;
 
     @JsonProperty
+    private Long organizerId;
+
+    @JsonProperty
     private Timestamp timeCreated;
 
     @JsonProperty
@@ -30,11 +38,14 @@ public class Group {
 
     @JsonProperty
     private Timestamp timeOrdered;
+    
+    @JsonProperty
+    private List<Order> orders;
 
     public Group() { }
 
     public Group(Long groupId, Long restaurantId, String type,
-                 String phase, Integer minPeople, Integer durationMinutes,
+                 String phase, Integer minPeople, Integer durationMinutes, Long organizerId,
                  Timestamp timeCreated, Timestamp timeStarted, Timestamp timeOrdered) {
         this.groupId = groupId;
         this.restaurantId = restaurantId;
@@ -42,6 +53,7 @@ public class Group {
         this.phase = phase;
         this.minPeople = minPeople;
         this.durationMinutes = durationMinutes;
+        this.organizerId = organizerId;
         this.timeCreated = timeCreated;
         this.timeStarted = timeStarted;
         this.timeOrdered = timeOrdered;
@@ -95,6 +107,14 @@ public class Group {
         this.durationMinutes = durationMinutes;
     }
 
+    public Long getOrganizerId() {
+        return organizerId;
+    }
+
+    public void setOrganizerId(Long organizerId) {
+        this.organizerId = organizerId;
+    }
+
     public Timestamp getTimeCreated() {
         return timeCreated;
     }
@@ -117,5 +137,21 @@ public class Group {
 
     public void setTimeOrdered(Timestamp timeOrdered) {
         this.timeOrdered = timeOrdered;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+    
+    public Group loadOrders(OrderDAO orderDAO, OrderItemDAO orderItemDAO) {
+        setOrders(orderDAO.getOrdersForGroup(groupId));
+        for (Order order : orders) {
+            order.loadOrderItems(orderItemDAO);
+        }
+        return this;
     }
 }

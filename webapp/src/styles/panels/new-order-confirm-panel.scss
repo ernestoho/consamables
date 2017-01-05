@@ -1,0 +1,12 @@
+@import 'panel';
+
+.new-order-confirm-panel {
+    @include centerpanel;
+    padding: 0 0.5em 0.5em;
+
+    .confirm-message {
+        text-align: center;
+        color: $title-color;
+        margin: 0.4em 0.4em 0.8em;
+    }
+}

@@ -6,6 +6,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import consamables.api.Order;
 import consamables.api.OrderItem;
@@ -26,11 +27,12 @@ public class OrderResource {
 
     @Path("/place")
     @POST
-    public void placeOrder(@Valid Order order) {
+    public Response placeOrder(@Valid Order order) {
         long orderId = orderDAO.addOrder(order);
         for (OrderItem orderItem : order.getOrderItems()) {
             orderItem.setOrderId(orderId);
             orderItemDAO.addOrderItem(orderItem);
         }
+        return Response.ok().build();
     }
 }

@@ -18,7 +18,7 @@ const receivePendingOrders = json => ({
 const fetchPendingOrders = () => {
     return dispatch => {
         dispatch(requestPendingOrders());
-        return fetch('/api/groups/pending')
+        fetch('/api/groups/pending')
             .then( response => response.json() )
             .then(json => {
                 dispatch(receivePendingOrders(json));

@@ -14,7 +14,7 @@ const receiveVotes = (groupId, json) => ({
 const fetchVotes = groupId => {
     return dispatch => {
         dispatch(requestVotes(groupId));
-        return fetch(`/api/groups/${groupId}/count-votes`)
+        fetch(`/api/groups/${groupId}/count-votes`)
             .then( response => response.json() )
             .then( json => dispatch(receiveVotes(groupId, json)) );
     };

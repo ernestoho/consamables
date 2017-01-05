@@ -1,11 +1,12 @@
 import {
     SHOW_MENU, HIDE_MENU,
-    START_ORDER, CONTINUE_ORDER, GO_BACK_TO_MENU,
+    START_ORDER, JOIN_ORDER, CONTINUE_ORDER, GO_BACK_TO_MENU,
     SHOW_SUGGESTION, HIDE_SUGGESTION,
-    SUGGESTION_SUCCESS, NEW_GROUP_SUCCESS,
+    SUGGESTION_SUCCESS, NEW_GROUP_SUCCESS, NEW_ORDER_SUCCESS,
     LOGIN_SUCCESS, SET_USER_INFO, PROMPT_LOGIN,
     NEW_ACCOUNT_SUCCESS, GOTO_CREATE_ACCOUNT, GOTO_LOGIN,
-    OPEN_PIZZA_BUILDER, CLOSE_PIZZA_BUILDER
+    OPEN_PIZZA_BUILDER, CLOSE_PIZZA_BUILDER,
+    SHOW_GROUP_DETAILS, HIDE_GROUP_DETAILS
 } from '../../actions/actionTypes';
 
 import {
@@ -15,8 +16,9 @@ import {
     DISPLAY_MENU_VIEWING,
     DISPLAY_MENU_ORDERING,
     DISPLAY_PIZZA_BUILDER,
-    DISPLAY_NEW_ORDER_OPTIONS,
-    DISPLAY_SUGGEST_OPTIONS
+    DISPLAY_ORDER_OPTIONS,
+    DISPLAY_SUGGEST_OPTIONS,
+    DISPLAY_GROUP_DETAILS
 } from '../../constants';
 
 const displayMode = (state = DISPLAY_DEFAULT, action) => {
@@ -34,12 +36,15 @@ const displayMode = (state = DISPLAY_DEFAULT, action) => {
         case HIDE_SUGGESTION:
         case SUGGESTION_SUCCESS:
         case NEW_GROUP_SUCCESS:
+        case NEW_ORDER_SUCCESS:
+        case HIDE_GROUP_DETAILS:
             return DISPLAY_DEFAULT;
 
         case SHOW_MENU:
             return DISPLAY_MENU_VIEWING;
 
         case START_ORDER:
+        case JOIN_ORDER:
         case GO_BACK_TO_MENU:
         case CLOSE_PIZZA_BUILDER:
             return DISPLAY_MENU_ORDERING;
@@ -48,10 +53,13 @@ const displayMode = (state = DISPLAY_DEFAULT, action) => {
             return DISPLAY_PIZZA_BUILDER;
 
         case CONTINUE_ORDER:
-            return DISPLAY_NEW_ORDER_OPTIONS;
+            return DISPLAY_ORDER_OPTIONS;
 
         case SHOW_SUGGESTION:
             return DISPLAY_SUGGEST_OPTIONS;
+
+        case SHOW_GROUP_DETAILS:
+            return DISPLAY_GROUP_DETAILS;
 
         default:
             return state;
