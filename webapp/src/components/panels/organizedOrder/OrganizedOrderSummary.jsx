@@ -13,7 +13,7 @@ class OrganizedOrderSummary extends React.Component {
         const { groups, viewDetails } = this.props;
         return (
             <div className="organized-order-summary">
-                <PanelHeader name="Groups You've Organized"/>
+                <PanelHeader name="Groups You're Ordering For"/>
                 {groups.map(group =>
                     <OrganizedOrderPreview key={group.id}
                         {...group}

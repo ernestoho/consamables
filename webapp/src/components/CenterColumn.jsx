@@ -81,7 +81,7 @@ class CenterColumn extends React.Component {
                         <CurrentOrderPanel/>
                         {orderMode == 'start' ?
                             <NewGroupOptionsPanel/>
-                            :<NewOrderConfirmPanel/>}
+                            : <NewOrderConfirmPanel/>}
                     </div>
                 );
 
