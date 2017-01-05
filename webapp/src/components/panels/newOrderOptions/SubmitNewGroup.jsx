@@ -17,9 +17,9 @@ const mapStateToProps = state => ({
                 .map((item, itemId) => ({
                     itemId,
                     quantity: item.get('quantity'),
-                    data: item.get('data') 
+                    data: item.get('data')
                 }))
-                .toArray()
+                .toList().toJS()
         }
     }
 });
