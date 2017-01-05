@@ -94,3 +94,11 @@ export const pizzaOverCapacity = builder => {
 
     return (totalToppings + (hasDiffSauce ? 1 : 0) + (hasExtraCheese ? 1 : 0)) > builder.get('maxToppings');
 };
+
+export const formatOrderItemData = data => {
+    if (data.has('pizza')) {
+        const size = data.getIn(['pizza', 'size']);
+        return `${size.charAt(0).toUpperCase()}${size.slice(1)} ` +
+               `with ${data.getIn(['pizza', 'toppings']).size} toppings`;
+    }
+};

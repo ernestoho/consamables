@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Map } from 'immutable';
 
 import { addItemToOrder, closePizzaBuilder } from '../../../actions';
 
@@ -21,14 +22,14 @@ const mapStateToProps = state => {
     const size = builder.get('size');
     return {
         itemId: builder.get('itemId'),
-        data: {
-            pizza: {
+        data: Map({
+            pizza: Map({
                 cheese: cheese != 'Normal Cheese' ? cheese : undefined,
                 sauce: sauce != builder.get('defaultSauce') && size =='whole' ? sauce : undefined,
-                toppings: size == 'whole' ? toppings.toJS() : toppings.keySeq().toArray(),
+                toppings: size == 'whole' ? toppings : toppings.keySeq().toList(),
                 size: size
-            }
-        }
+            })
+        })
     };
 };
 

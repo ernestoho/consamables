@@ -24,11 +24,20 @@
                 font-size: 1.3em;
             }
 
-            .order-item-name {
-                color: $title-color;
+            .order-item-description {
                 margin-right: auto;
                 margin-left: 0.4em;
                 max-width: 55%;
+                display: flex;
+                flex-direction: column;
+
+                .order-item-name {
+                    color: $title-color;
+                }
+
+                .order-item-data {
+                    font-style: italic;
+                }
             }
 
             .order-item-quantity {

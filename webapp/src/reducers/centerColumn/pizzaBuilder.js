@@ -17,6 +17,7 @@ const pizzaBuilder = (state = Map({ toppings: Map(), size: 'half' }), action) =>
     switch (action.type) {
         case OPEN_PIZZA_BUILDER:
             return state.set('itemId', action.id)
+                        .set('size', 'half')
                         .set('cheese', 'Normal Cheese');
 
         case SET_PIZZA_SIZE:
