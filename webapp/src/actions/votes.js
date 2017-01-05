@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import { REQUEST_VOTES, RECEIVE_VOTES } from './actionTypes';
 
 const requestVotes = groupId => ({

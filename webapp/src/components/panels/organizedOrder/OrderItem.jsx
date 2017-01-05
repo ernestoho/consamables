@@ -6,7 +6,7 @@ import { getItemName } from '../../../selectors';
 class OrderItem extends React.Component {
     render() {
         const { name, quantity, data } = this.props;
-        const pizzaSize = data.getIn(['pizza', 'size']);
+        const pizzaSize = data ? data.getIn(['pizza', 'size']) : null;
         return (
             <div className="order-item">
                 <div className="order-item-name">
@@ -31,8 +31,8 @@ class PizzaDetails extends React.Component {
 
         return (
             <div className="item-data">
-                <div>{cheese}</div>
-                <div>{sauce}</div>
+                {cheese ? <div>{cheese}</div> : null}
+                {sauce ? <div>{sauce}</div> : null}
                 
             </div>
         );

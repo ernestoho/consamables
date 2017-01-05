@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import { Map, fromJS } from 'immutable';
 
 import { REQUEST_PENDING_ORDERS, RECEIVE_PENDING_ORDERS } from './actionTypes';

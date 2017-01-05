@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import {
     PROMPT_LOGIN, SET_USER_INFO,
     UPDATE_USERNAME_FIELD, UPDATE_PASSWORD_FIELD,

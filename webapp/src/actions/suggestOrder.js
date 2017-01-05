@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import {
     SHOW_SUGGESTION, HIDE_SUGGESTION,
     TOGGLE_DELIVERY, TOGGLE_CARRYOUT, TOGGLE_OUTING,

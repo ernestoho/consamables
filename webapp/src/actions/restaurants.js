@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import { Map, fromJS } from 'immutable';
 import moment from 'moment';
 
