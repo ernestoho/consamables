@@ -7,20 +7,20 @@ import { toggleTopping } from '../../../actions';
 class ToppingOption extends React.Component {
     render() {
         const {
-            name, selected, side,
+            name, selected, side, whole,
             toggle, changeSide
         } = this.props;
 
         return (
             <div className="topping-option">
                 <div
-                    className={selected ? 'topping-name-selected' : 'topping-name'}
+                    className={`topping-name${selected ? ' selected' : ''}`}
                     onClick={toggle}
                 >
                     {name}
                 </div>
-                {selected ?
-                    <div className="topping-select">
+                {selected && whole ?
+                    <div className="topping-side-select">
                         <ToppingSideButton name={name} side="left" icon="◐"/>
                         <ToppingSideButton name={name} side="whole" icon="◉"/>
                         <ToppingSideButton name={name} side="right" icon="◑"/>
@@ -32,7 +32,9 @@ class ToppingOption extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    selected: state.centerColumn.pizzaBuilder.hasIn(['toppings', ownProps.name])
+    selected: state.centerColumn.pizzaBuilder.hasIn(['toppings', ownProps.name]),
+    whole: state.centerColumn.pizzaBuilder.get('size') == 'whole'
+
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

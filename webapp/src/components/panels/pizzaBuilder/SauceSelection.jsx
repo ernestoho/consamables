@@ -26,7 +26,7 @@ class SauceSelection extends React.Component {
                         {options.map((value, i) =>
                             <div
                                 key={i}
-                                className={value == currentValue ? 'attribute-option-selected' : 'attribute-option'}
+                                className={`attribute-option${value == currentValue ? ' selected' : ''}`}
                                 onClick={() => this.setValue(value)}
                             >
                                 {value}
@@ -34,7 +34,7 @@ class SauceSelection extends React.Component {
                         )}
                     </div>
                     : <div 
-                        className="attribute-option-selected"
+                        className="attribute-option selected"
                         onClick={() => this.setState({ expanded: true})}
                     >
                         {currentValue}

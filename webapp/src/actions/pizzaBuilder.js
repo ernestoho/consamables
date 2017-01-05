@@ -1,5 +1,6 @@
 import {
     OPEN_PIZZA_BUILDER, CLOSE_PIZZA_BUILDER,
+    SET_PIZZA_SIZE,
     TOGGLE_TOPPING, CHANGE_TOPPING_SIDE,
     SET_INITIAL_SAUCE, SET_MAX_TOPPINGS,
     CHANGE_SAUCE, CHANGE_CHEESE
@@ -12,6 +13,11 @@ export const openPizzaBuilder = itemId => ({
 
 export const closePizzaBuilder = () => ({
     type: CLOSE_PIZZA_BUILDER
+});
+
+export const setPizzaSize = size => ({
+    type: SET_PIZZA_SIZE,
+    value: size
 });
 
 export const toggleTopping = topping => ({

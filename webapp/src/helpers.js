@@ -80,9 +80,14 @@ export const testUsername = username => /^[\w-\.]+@([a-zA-Z_]+?\.)+[a-zA-Z]{2,3}
 export const testPassword = password => true; //TODO: implement password complexity rules
 
 export const pizzaOverCapacity = builder => {
-    const totalToppings = builder.get('toppings').reduce((total, side) => {
-        return total + (side == 'whole' ? 1 : 0.5);
-    }, 0);
+    let totalToppings;
+    if (builder.get('size') == 'whole') {
+        totalToppings = builder.get('toppings').reduce((total, side) => {
+            return total + (side == 'whole' ? 1 : 0.5);
+        }, 0);
+    } else {
+        totalToppings = builder.get('toppings').size;
+    }
 
     const hasExtraCheese = builder.get('cheese') == 'Extra Cheese';
     const hasDiffSauce = builder.get('sauce') != builder.get('defaultSauce') && builder.get('sauce') != 'No Sauce';
