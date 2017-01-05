@@ -5,7 +5,8 @@ import {
     GOTO_CREATE_ACCOUNT
 } from './actionTypes';
 
-import { TokenManager, buildPostInit } from '../helpers';
+import { TokenManager, buildPostInit, buildGetInit } from '../helpers';
+import { fetchOrganizedOrders } from './organizer';
 
 export const promptLogin = () => ({ type: PROMPT_LOGIN });
 
@@ -53,6 +54,7 @@ export const submitLogin = data => {
                     if (response.ok) {
                         TokenManager.storeAccessToken(json.accessTokenId);
                         dispatch(loginSuccess(json.userId, json.username));
+                        dispatch(fetchOrganizedOrders());
                     } else {
                         dispatch(loginFailure(json.message));
                     }
@@ -67,17 +69,12 @@ export const verifyUser = () => {
         if (!TokenManager.retrieveAccessToken()) {
             dispatch(promptLogin());
         } else {
-            fetch('/api/user/get-info', {
-                method: 'GET',
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${TokenManager.retrieveAccessToken()}`
-                })
-            })
+            fetch('/api/user/get-info', buildGetInit())
                 .then(response => {
                     if (response.ok) {
                         response.json().then(json => {
                             dispatch(setUserInfo(json.userId, json.email));
+                            dispatch(fetchOrganizedOrders());
                         });
                     } else {
                         dispatch(promptLogin());

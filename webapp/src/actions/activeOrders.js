@@ -17,7 +17,7 @@ const receiveActiveOrders = json => ({
 const fetchActiveOrders = () => {
     return dispatch => {
         dispatch(requestActiveOrders());
-        return fetch('/api/groups/active')
+        fetch('/api/groups/active')
             .then( response => response.json() )
             .then( json => dispatch(receiveActiveOrders(json)) );
     }

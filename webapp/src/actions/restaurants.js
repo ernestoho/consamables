@@ -22,7 +22,7 @@ const receiveRestaurants = json => ({
 export const fetchRestaurants = () => {
     return dispatch => {
         dispatch(requestRestaurants());
-        return fetch('/api/restaurants')
+        fetch('/api/restaurants')
             .then( response => response.json() )
             .then(json => {
                 dispatch(receiveRestaurants(json));

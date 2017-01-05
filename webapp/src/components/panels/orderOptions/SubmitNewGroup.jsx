@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
         activeGroup: {
             restaurantId: state.centerColumn.currentOrder.get('restaurantId'),
             type: state.centerColumn.currentOrder.getIn(['options', 'type']),
-            durationMinutes: state.centerColumn.currentOrder.getIn(['options', 'duration'])
+            durationMinutes: state.centerColumn.currentOrder.getIn(['options', 'duration']),
+            organizerId: state.currentUser.get('userId')
         },
         order: {
             userId: state.currentUser.get('userId'),

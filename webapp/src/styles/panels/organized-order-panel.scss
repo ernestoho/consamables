@@ -1,0 +1,79 @@
+@import 'panel';
+
+.organized-order-panel {
+    @include centerpanel;
+    text-align: center;
+
+    .group-details-header {
+        padding: 0.4em;
+        font-weight: bold;
+
+        .group-details-heading {
+            color: $title-color;
+        }
+
+        .order-timer {
+            font-size: 0.9em;
+            margin: 0.4em 0.4em 0.3em;
+        }
+
+        .group-details-subheading {
+            font-size: 0.9em;
+            font-style: italic;
+        }
+    }
+
+    .orders {
+        padding: 0.2em 0.4em 0.4em;
+        display: flex;
+        flex-direction: column;
+
+        .orders-heading {
+            font-weight: bold;
+            color: $title-color;
+        }
+
+        .individual-order {
+            display: flex;
+            align-items: center;
+            padding: 0.4em;
+            font-size: 0.9em;
+
+            &+.individual-order {
+                border-top: 1px solid $title-color;
+            }
+
+            .username {
+                flex: 0 0 auto;
+                width: 40%;
+                text-align: left;
+                font-style: italic;
+                color: $title-color;
+                text-align: center;
+                padding-right: 0.5em;
+            }
+
+            .order-items {
+                flex: 1 0 auto;
+                display: flex;
+                flex-direction: column;
+                border-left: 1px solid $title-color;
+
+                .order-item {
+                    padding: 0.1em;
+
+                    .order-item-name {
+                        font-weight: bold;
+                    }
+
+                    .item-data {
+                        margin-top: 0.2em;
+                        font-size: 0.9em;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+            }
+        }
+    }
+}

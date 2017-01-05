@@ -17,7 +17,7 @@ public interface OrderDAO {
     List<Order> getAll();
 
     @SqlQuery("SELECT * FROM \"order\" WHERE group_id = :groupId")
-    List<Order> getOrdersByGroup(@Bind("groupId") long groupId);
+    List<Order> getOrdersForGroup(@Bind("groupId") long groupId);
 
     @SqlQuery("SELECT * FROM \"order\" WHERE order_id = :orderId")
     Order getOrder(@Bind("order_id") long orderId);

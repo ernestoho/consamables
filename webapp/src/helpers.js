@@ -60,7 +60,7 @@ export const buildOrderType = prefs => {
 
 export const TokenManager = {
     storeAccessToken: accessToken => localStorage.setItem('accessToken', accessToken),
-    retrieveAccessToken: () => localStorage.accessToken,
+    retrieveAccessToken: () => localStorage.getItem('accessToken'),
     clearAccessToken: () => localStorage.removeItem('accessToken')
 };
 
@@ -70,6 +70,13 @@ export const buildPostInit = data => ({
     body: JSON.stringify(data),
     headers: new Headers({
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${TokenManager.retrieveAccessToken()}`
+    })
+});
+
+export const buildGetInit = () => ({
+    method: 'GET',
+    headers: new Headers({
         'Authorization': `Bearer ${TokenManager.retrieveAccessToken()}`
     })
 });

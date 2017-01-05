@@ -1,4 +1,4 @@
-import '../../../styles/panels/new-order-options-panel';
+import '../../../styles/panels/new-group-options-panel';
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -9,12 +9,12 @@ import OrderDurationPreference from './OrderDurationPreference';
 import SubmitNewGroup from './SubmitNewGroup';
 import Spinner from '../Spinner';
 
-class NewOrderOptionsPanel extends React.Component {
+class NewGroupOptionsPanel extends React.Component {
     render() {
         const { loading } = this.props;
 
         return (
-            <div className="new-order-options-panel">
+            <div className="new-group-options-panel">
                 <PanelHeader name="Order Options"/>
                 <div className="order-options">
                     <OrderTypePreference/>
@@ -32,4 +32,4 @@ const mapStateToProps = state => ({ loading: state.centerColumn.currentOrder.get
 
 export default connect(
     mapStateToProps
-)(NewOrderOptionsPanel)
+)(NewGroupOptionsPanel)

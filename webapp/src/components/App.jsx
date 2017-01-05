@@ -10,6 +10,7 @@ import {
     fetchActiveOrders, fetchPendingOrders,
     fetchRestaurants, updateRestaurantHours
 } from '../actions';
+import { DISPLAY_DEFAULT, DISPLAY_MENU_VIEWING } from '../constants';
 
 class App extends React.Component {
     componentDidMount() {
@@ -26,8 +27,10 @@ class App extends React.Component {
     }
 
     render() {
+        const style = this.props.centerFocus ? { minWidth: '30em', padding: '0 15em' } : null;
+
         return (
-            <div>
+            <div style={style}>
                 <LeftColumn/>
                 <CenterColumn/>
                 <RightColumn/>
@@ -37,7 +40,12 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => {
+    const displayMode = state.centerColumn.displayMode;
+    return {
+        centerFocus: displayMode != DISPLAY_DEFAULT && displayMode != DISPLAY_MENU_VIEWING
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     loadUserInfo: () => dispatch(verifyUser()),

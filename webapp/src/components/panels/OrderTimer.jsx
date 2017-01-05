@@ -23,9 +23,11 @@ export default class OrderTimer extends React.Component {
 
     tick() {
         const diff = this.state.finalTime.diff( moment() );
+        const hours = Math.floor( (diff / 3600000) % 60 );
         const minutes = Math.floor( (diff / 60000) % 60 );
         const seconds = Math.floor( (diff / 1000) % 60 );
         this.setState({
+            hours: hours > 0 ? hours : 0,
             minutes: minutes > 0 ? minutes : 0,
             seconds: seconds > 0 ? seconds : 0
         })
@@ -34,18 +36,28 @@ export default class OrderTimer extends React.Component {
     render() {
         let message;
         const style = { };
+        const { concise } = this.props;
+        const { hours, minutes, seconds } = this.state;
 
-        if (this.state.minutes < 5) {
+        if (minutes < 5 && hours == 0) {
             style.color = 'red';
+        } else if (minutes < 10 && hours == 0) {
+            style.color = 'orange';
+        } else {
+            style.color = 'green';
         }
 
-        if (this.state.minutes > 0 || this.state.seconds > 0) {
-            const minutes = this.state.minutes.toString();
-            const seconds = this.state.seconds < 10 ? `0${this.state.seconds}` : this.state.seconds.toString();
+        if (minutes > 0 || seconds > 0 || hours > 0) {
+            const displayHours = hours > 0 ? `${hours}:` : '';
+            const displayMinutes = hours > 0 && minutes < 10 ? `0${minutes}` : minutes.toString();
+            const displaySeconds = seconds < 10 ? `0${seconds}` : seconds.toString();
             
-            message = `${minutes}:${seconds} remaining`;
+            message = `${displayHours}${displayMinutes}:${displaySeconds}`;
+            if (!concise) {
+                message += ' remaining';
+            }
         } else {
-            message = 'Order closed';
+            message = concise ? 'Closed' : 'Order closed';
         }
 
         return (

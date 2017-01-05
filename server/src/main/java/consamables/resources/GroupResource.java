@@ -57,7 +57,7 @@ public class GroupResource {
     @Path("/{id}/count-votes")
     @GET
     public int getNumPeople(@PathParam("id") String id) {
-        return voteDAO.countVotesForGroup(Integer.parseInt(id));
+        return voteDAO.countVotesForGroup(Long.parseLong(id));
     }
 
     @PermitAll
@@ -89,5 +89,16 @@ public class GroupResource {
             orderItemDAO.addOrderItem(orderItem);
         }
         return Response.ok().build();
+    }
+
+    @PermitAll
+    @Path("/organized")
+    @GET
+    public List<Group> getOrganizedGroups(@Auth User user) {
+        List<Group> groups = groupDAO.getGroupsByOrganizer(user.getUserId());
+        for (Group group : groups) {
+            group.loadOrders(orderDAO, orderItemDAO);
+        }
+        return groups;
     }
 }

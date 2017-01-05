@@ -10,12 +10,13 @@ html {
     body {
         background-color: $background-color;
         
-        #container {
+        #container>div {
             color: $text-color;
             font-size: 100%;
             padding: 0 20em;
             min-width: 20em;
             overflow: hidden;
+            transition-duration: 0.2s;
         }
     }
 }
