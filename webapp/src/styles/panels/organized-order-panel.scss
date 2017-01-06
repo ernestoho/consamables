@@ -11,15 +11,71 @@
         .group-details-heading {
             color: $title-color;
         }
+    }
 
-        .order-timer {
-            font-size: 0.9em;
-            margin: 0.4em 0.4em 0.3em;
+    .group-details-toolbar {
+        margin: 0.5em 0.5em 0;
+        background-color: $background-color;
+        border-radius: 4px;
+        padding: 0.4em;
+        display: flex;
+        align-items: center;
+
+        .info {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 1em;
+
+            .group-type {
+                font-size: 0.9em;
+                font-style: italic;
+                padding: 0.2em;
+            }
+
+            .order-timer {
+                font-size: 0.9em;
+                padding: 0.2em;
+            }
         }
 
-        .group-details-subheading {
-            font-size: 0.9em;
-            font-style: italic;
+        .status-container {
+            flex: 1 0 auto;
+            display: flex;
+            justify-content: center;
+
+            .status {
+                flex: 0 0 auto;
+                border-radius: 4px;
+                padding: 0.2em 0.6em;
+
+                &.ordered {
+                    background-color: rgba(0, 255, 0, 0.2);
+                }
+
+                &.not-ordered {
+                    background-color: rgba(255, 0, 0, 0.2);
+                }
+            }
+        }
+
+        .controls {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            padding: 0 1em;
+
+            .button {
+                flex: 0 0 auto;
+
+                &+.button {
+                    margin-top: 0.4em;
+                }
+            }
         }
     }
 
@@ -54,7 +110,9 @@
             }
 
             .order-items {
-                flex: 1 0 auto;
+                padding-left: 0.8em;
+                padding-right: 0.2em;
+                flex: 1 1 auto;
                 display: flex;
                 flex-direction: column;
                 border-left: 1px solid $title-color;
@@ -62,15 +120,43 @@
                 .order-item {
                     padding: 0.1em;
 
+                    &+.order-item {
+                        margin-top: 0.2em;
+                    }
+
                     .order-item-name {
                         font-weight: bold;
                     }
 
                     .item-data {
+                        color: $title-color;
                         margin-top: 0.2em;
+                        padding: 0.4em;
                         font-size: 0.9em;
+                        background-color: $background-color;
+                        border-radius: 4px;
                         display: flex;
                         flex-direction: column;
+
+                        .toppings {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: center;
+
+                            .topping:after {
+                                content: ", ";
+                                margin-right: 0.2em;
+                            }
+
+                            .topping:last-child:after {
+                                content: "";
+                                margin-right: 0;
+                            }
+                        }
+
+                        .toppings+.other {
+                            margin-top: 0.4em;
+                        }
                     }
                 }
             }

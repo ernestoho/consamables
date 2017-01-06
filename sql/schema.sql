@@ -6,7 +6,7 @@ CREATE SCHEMA test AUTHORIZATION sam;
 
 SET search_path TO test;
 
-CREATE TYPE group_phase AS ENUM ('pending', 'active', 'ordered');
+CREATE TYPE group_phase AS ENUM ('pending', 'active', 'ordered', 'complete');
 
 CREATE TYPE group_type AS ENUM ('delivery', 'carryout', 'outing', 'delivery or carryout', 'any');
 

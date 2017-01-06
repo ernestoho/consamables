@@ -30,10 +30,24 @@ class PizzaDetails extends React.Component {
         const { toppings, sauce, cheese, size } = this.props;
 
         return (
-            <div className="item-data">
-                {cheese ? <div>{cheese}</div> : null}
-                {sauce ? <div>{sauce}</div> : null}
-                
+            <div className="item-data pizza">
+                {toppings.size > 0 ?
+                    <div className="toppings">
+                        {size == 'half' ?
+                            toppings.map(topping =>
+                                <div className="topping" key={topping}>{topping}</div>
+                            )
+                            : toppings.map((side, topping) =>
+                                <div className="topping" key={topping}>{topping} ({side})</div>
+                            ).toList()}
+                    </div>
+                    : null}
+                {cheese || sauce ?
+                    <div className="other">
+                        <div>{cheese}</div>
+                        <div>{sauce}</div>
+                    </div>
+                    : null}
             </div>
         );
     }

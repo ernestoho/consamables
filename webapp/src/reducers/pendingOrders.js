@@ -8,7 +8,7 @@ import {
 const pendingOrders = (state = Map(), action) => {
     switch (action.type) {
         case RECEIVE_PENDING_ORDERS:
-            return state.merge(action.pendingOrders);
+            return action.pendingOrders;
 
         case RECEIVE_VOTES:
             return state.setIn([action.id, 'votes'], action.value);

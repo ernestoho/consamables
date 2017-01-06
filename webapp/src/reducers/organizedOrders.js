@@ -5,7 +5,7 @@ import { REQUEST_ORGANIZED_ORDERS, RECEIVE_ORGANIZED_ORDERS } from '../actions/a
 const organizedOrders = (state = Map(), action) => {
     switch (action.type) {
         case RECEIVE_ORGANIZED_ORDERS:
-            return state.merge(action.organizedOrders);
+            return action.organizedOrders;
         default:
             return state;
     }

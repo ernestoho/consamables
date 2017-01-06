@@ -36,7 +36,10 @@ import {
     submitSuggestion
 } from './suggestOrder';
 
-import { showGroupDetails, hideGroupDetails } from './organizer';
+import {
+    showGroupDetails, hideGroupDetails,
+    markGroupOrdered, markGroupComplete
+} from './organizer';
 
 export {
     fetchActiveOrders,
@@ -94,5 +97,7 @@ export {
     submitNewAccount,
 
     showGroupDetails,
-    hideGroupDetails
+    hideGroupDetails,
+    markGroupOrdered,
+    markGroupComplete
 }
