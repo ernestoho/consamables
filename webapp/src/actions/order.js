@@ -106,7 +106,7 @@ const newOrderFailure = error => ({
 export const submitNewOrder = data => {
     return dispatch => {
         dispatch(sendNewOrder());
-        fetch('/api/order/place', buildPostInit(data))
+        fetch('/api/orders/place', buildPostInit(data))
             .then(response => {
                 if (response.ok) {
                     dispatch(newOrderSuccess());

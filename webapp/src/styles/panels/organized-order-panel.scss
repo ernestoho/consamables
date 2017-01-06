@@ -3,6 +3,8 @@
 .organized-order-panel {
     @include centerpanel;
     text-align: center;
+    margin-top: 6em;
+    flex: 0 1 auto;
 
     .group-details-header {
         padding: 0.4em;
@@ -27,7 +29,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            padding-left: 1em;
+            padding-left: 0.5em;
 
             .group-type {
                 font-size: 0.9em;
@@ -67,7 +69,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: stretch;
-            padding: 0 1em;
+            padding-left: 1em;
+            padding-right: 0.5em;
 
             .button {
                 flex: 0 0 auto;

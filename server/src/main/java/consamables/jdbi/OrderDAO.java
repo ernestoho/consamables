@@ -28,6 +28,9 @@ public interface OrderDAO {
                "(:groupId, :userId, CAST(:data AS json))")
     @GetGeneratedKeys
     long addOrder(@BindOrder Order order);
+    
+    @SqlQuery("SELECT * FROM \"order\" WHERE user_id = :userId")
+    List<Order> getOrdersForUser(@Bind("userId") long userId);
 
     @SqlUpdate("DELETE FROM \"order\" WHERE order_id = :orderId")
     void deleteOrder(@Bind("orderId") long orderId);
