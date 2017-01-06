@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import { Map, List, fromJS } from 'immutable';
 
 import {
     START_ORDER, JOIN_ORDER,
@@ -8,12 +9,13 @@ import {
     CONTINUE_ORDER, GO_BACK_TO_MENU,
     SET_ORDER_TYPE, SET_ORDER_DURATION,
     SEND_NEW_GROUP, NEW_GROUP_SUCCESS, NEW_GROUP_FAILURE,
-    SEND_NEW_ORDER, NEW_ORDER_SUCCESS, NEW_ORDER_FAILURE
+    SEND_NEW_ORDER, NEW_ORDER_SUCCESS, NEW_ORDER_FAILURE,
+    REQUEST_MY_ORDERS, RECEIVE_MY_ORDERS
 } from './actionTypes';
 
 import fetchActiveOrders from './activeOrders';
 import { fetchOrganizedOrders } from './organizer';
-import { buildPostInit } from '../helpers';
+import { buildPostInit, buildGetInit } from '../helpers';
 import { promptLogin } from './login';
 
 export const startOrder = restaurantId => ({
@@ -110,10 +112,40 @@ export const submitNewOrder = data => {
             .then(response => {
                 if (response.ok) {
                     dispatch(newOrderSuccess());
+                    dispatch(fetchMyOrders());
                 } else if (response.status == 401) {
                     dispatch(promptLogin())
                 }
             })
             .catch( error => dispatch(newGroupFailure(error)) );
+    };
+};
+
+const requestMyOrders = () => ({ type: REQUEST_MY_ORDERS });
+
+const receiveMyOrders = json => ({
+    type: RECEIVE_MY_ORDERS,
+    myOrders: json.reduce((all, order) => {
+        return all.set(order.orderId, Map({ groupId: order.groupId }))
+            .updateIn(
+                [order.orderId, 'orderItems'],
+                List(),
+                orderItems => orderItems.concat(fromJS(order.orderItems))
+            );
+    }, Map())
+});
+
+export const fetchMyOrders = () => {
+    return dispatch => {
+        fetch('/api/orders/my-orders', buildGetInit())
+            .then(response => {
+                response.json().then(json => {
+                    if (response.ok) {
+                        dispatch(receiveMyOrders(json));
+                    } else if (response.status == 401) {
+                        dispatch(promptLogin());
+                    }
+                })
+            });
     };
 };

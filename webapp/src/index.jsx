@@ -13,6 +13,7 @@ const initialState = {
     activeOrders: Map(),
     pendingOrders: Map(),
     organizedOrders: Map(),
+    myOrders: Map(),
     restaurants: Map(),
     menus: Map(),
     items: Map(),

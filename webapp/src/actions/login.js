@@ -9,6 +9,7 @@ import {
 
 import { TokenManager, buildPostInit, buildGetInit } from '../helpers';
 import { fetchOrganizedOrders } from './organizer';
+import { fetchMyOrders } from './order';
 
 export const promptLogin = () => ({ type: PROMPT_LOGIN });
 
@@ -77,6 +78,7 @@ export const verifyUser = () => {
                         response.json().then(json => {
                             dispatch(setUserInfo(json.userId, json.email));
                             dispatch(fetchOrganizedOrders());
+                            dispatch(fetchMyOrders());
                         });
                     } else {
                         dispatch(promptLogin());

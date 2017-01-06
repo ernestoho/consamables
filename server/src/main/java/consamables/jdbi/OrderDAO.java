@@ -18,6 +18,10 @@ public interface OrderDAO {
 
     @SqlQuery("SELECT * FROM \"order\" WHERE group_id = :groupId")
     List<Order> getOrdersForGroup(@Bind("groupId") long groupId);
+    
+    @SqlQuery("SELECT \"order\".* FROM \"order\" JOIN \"group\" USING (group_id) " +
+              "WHERE user_id = :userId AND phase != 'complete'")
+    List<Order> getOrdersForUser(@Bind("userId") long userId);
 
     @SqlQuery("SELECT * FROM \"order\" WHERE order_id = :orderId")
     Order getOrder(@Bind("order_id") long orderId);
@@ -28,9 +32,6 @@ public interface OrderDAO {
                "(:groupId, :userId, CAST(:data AS json))")
     @GetGeneratedKeys
     long addOrder(@BindOrder Order order);
-    
-    @SqlQuery("SELECT * FROM \"order\" WHERE user_id = :userId")
-    List<Order> getOrdersForUser(@Bind("userId") long userId);
 
     @SqlUpdate("DELETE FROM \"order\" WHERE order_id = :orderId")
     void deleteOrder(@Bind("orderId") long orderId);
