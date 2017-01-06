@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import activeOrders from './activeOrders';
 import pendingOrders from './pendingOrders';
 import organizedOrders from './organizedOrders';
+import myOrders from './myOrders';
 import restaurants from './restaurants';
 import menus from './menus';
 import items from './items';
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     activeOrders,
     pendingOrders,
     organizedOrders,
+    myOrders,
     restaurants,
     menus,
     items,

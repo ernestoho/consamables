@@ -8,9 +8,7 @@ const requestActiveOrders = () => ({ type: REQUEST_ACTIVE_ORDERS });
 const receiveActiveOrders = json => ({
     type: RECEIVE_ACTIVE_ORDERS,
     activeOrders: json.reduce(
-        (all, order) => {
-            return all.set(order.groupId, fromJS(order));
-        },
+        (all, order) => all.set(order.groupId, fromJS(order)),
         Map()
     )
 });

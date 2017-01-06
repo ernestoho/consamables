@@ -18,7 +18,8 @@ import {
     setQuantity,
     continueOrder, goBackToMenu,
     setOrderType, setOrderDuration,
-    submitNewGroup, submitNewOrder
+    submitNewGroup, submitNewOrder,
+    showOrderDetails, hideOrderDetails
 } from './order';
 
 import {
@@ -99,5 +100,8 @@ export {
     showGroupDetails,
     hideGroupDetails,
     markGroupOrdered,
-    markGroupComplete
+    markGroupComplete,
+
+    showOrderDetails,
+    hideOrderDetails
 }

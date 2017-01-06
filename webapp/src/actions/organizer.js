@@ -15,15 +15,14 @@ const requestOrganizedOrders = () => ({ type: REQUEST_ORGANIZED_ORDERS });
 const receiveOrganizedOrders = json => ({
     type: RECEIVE_ORGANIZED_ORDERS,
     organizedOrders: json.reduce(
-        (all, order) => {
-            return all.set(order.groupId, fromJS(order));
-        },
+        (all, order) => all.set(order.groupId, fromJS(order)),
         Map()
     )
 });
 
 export const fetchOrganizedOrders = () => {
     return dispatch => {
+        dispatch(requestOrganizedOrders());
         fetch('/api/groups/organized', buildGetInit())
             .then(response => {
                 response.json().then(json => {

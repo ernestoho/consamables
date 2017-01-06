@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getItemName } from '../../../selectors';
+import { getItemName } from '../../selectors';
 
 class OrderItem extends React.Component {
     render() {
@@ -10,6 +10,9 @@ class OrderItem extends React.Component {
         return (
             <div className="order-item">
                 <div className="order-item-name">
+                    {quantity > 1 ?
+                        `${quantity} × `
+                        : null}
                     {name}
                     {pizzaSize ?
                         ` (${pizzaSize.charAt(0).toUpperCase()}${pizzaSize.slice(1)})`

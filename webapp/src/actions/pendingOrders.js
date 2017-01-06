@@ -10,9 +10,7 @@ const requestPendingOrders = () => ({ type: REQUEST_PENDING_ORDERS });
 const receivePendingOrders = json => ({
     type: RECEIVE_PENDING_ORDERS,
     pendingOrders: json.reduce(
-        (all, order) => {
-            return all.set(order.groupId, fromJS(order).set('votes', 0));
-        },
+        (all, order) => all.set(order.groupId, fromJS(order).set('votes', 0)),
         Map()
     )
 });

@@ -6,7 +6,8 @@ import {
     LOGIN_SUCCESS, SET_USER_INFO, PROMPT_LOGIN,
     NEW_ACCOUNT_SUCCESS, GOTO_CREATE_ACCOUNT, GOTO_LOGIN,
     OPEN_PIZZA_BUILDER, CLOSE_PIZZA_BUILDER,
-    SHOW_GROUP_DETAILS, HIDE_GROUP_DETAILS
+    SHOW_GROUP_DETAILS, HIDE_GROUP_DETAILS,
+    SHOW_ORDER_DETAILS, HIDE_ORDER_DETAILS
 } from '../../actions/actionTypes';
 
 import {
@@ -18,7 +19,8 @@ import {
     DISPLAY_PIZZA_BUILDER,
     DISPLAY_ORDER_OPTIONS,
     DISPLAY_SUGGEST_OPTIONS,
-    DISPLAY_GROUP_DETAILS
+    DISPLAY_GROUP_DETAILS,
+    DISPLAY_ORDER_DETAILS
 } from '../../constants';
 
 const displayMode = (state = DISPLAY_DEFAULT, action) => {
@@ -38,6 +40,7 @@ const displayMode = (state = DISPLAY_DEFAULT, action) => {
         case NEW_GROUP_SUCCESS:
         case NEW_ORDER_SUCCESS:
         case HIDE_GROUP_DETAILS:
+        case HIDE_ORDER_DETAILS:
             return DISPLAY_DEFAULT;
 
         case SHOW_MENU:
@@ -60,6 +63,9 @@ const displayMode = (state = DISPLAY_DEFAULT, action) => {
 
         case SHOW_GROUP_DETAILS:
             return DISPLAY_GROUP_DETAILS;
+
+        case SHOW_ORDER_DETAILS:
+            return DISPLAY_ORDER_DETAILS;
 
         default:
             return state;

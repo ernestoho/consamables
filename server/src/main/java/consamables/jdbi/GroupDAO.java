@@ -16,8 +16,7 @@ public interface GroupDAO {
     @SqlQuery("SELECT * FROM \"group\"")
     List<Group> getAll();
 
-    @SqlQuery("SELECT * FROM \"group\" WHERE phase = 'active' " +
-              "AND time_started + (duration_minutes || 'minutes')::interval > now()")
+    @SqlQuery("SELECT * FROM \"group\" WHERE phase = 'active' OR phase = 'ordered'")
     List<Group> getActive();
 
     @SqlQuery("SELECT * FROM \"group\" WHERE phase = 'pending'")

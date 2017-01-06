@@ -7,6 +7,7 @@ import suggestOrder from './suggestOrder';
 import login from './login';
 import pizzaBuilder from './pizzaBuilder';
 import organizer from './organizer';
+import myOrderDetails from './myOrderDetails';
 
 const centerColumn = combineReducers({
     displayMode,
@@ -15,7 +16,8 @@ const centerColumn = combineReducers({
     suggestOrder,
     login,
     pizzaBuilder,
-    organizer
+    organizer,
+    myOrderDetails
 });
 
 export default centerColumn
