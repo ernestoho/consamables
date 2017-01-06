@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import OrderItem from './OrderItem';
+import OrderItem from '../OrderItem';
 
 class IndividualOrder extends React.Component {
     render() {

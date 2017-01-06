@@ -10,7 +10,8 @@ import {
     SET_ORDER_TYPE, SET_ORDER_DURATION,
     SEND_NEW_GROUP, NEW_GROUP_SUCCESS, NEW_GROUP_FAILURE,
     SEND_NEW_ORDER, NEW_ORDER_SUCCESS, NEW_ORDER_FAILURE,
-    REQUEST_MY_ORDERS, RECEIVE_MY_ORDERS
+    REQUEST_MY_ORDERS, RECEIVE_MY_ORDERS,
+    SHOW_ORDER_DETAILS, HIDE_ORDER_DETAILS
 } from './actionTypes';
 
 import fetchActiveOrders from './activeOrders';
@@ -149,3 +150,10 @@ export const fetchMyOrders = () => {
             });
     };
 };
+
+export const showOrderDetails = orderId => ({
+    type: SHOW_ORDER_DETAILS,
+    id: orderId
+});
+
+export const hideOrderDetails = () => ({ type: HIDE_ORDER_DETAILS });

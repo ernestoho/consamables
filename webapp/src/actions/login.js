@@ -58,6 +58,7 @@ export const submitLogin = data => {
                         TokenManager.storeAccessToken(json.accessTokenId);
                         dispatch(loginSuccess(json.userId, json.username));
                         dispatch(fetchOrganizedOrders());
+                        dispatch(fetchMyOrders())
                     } else {
                         dispatch(loginFailure(json.message));
                     }

@@ -38,20 +38,22 @@ class OrganizedOrderPanel extends React.Component {
                         </div>
                     </div>
                     <div className="controls">
-                        {ended ?
-                            (phase == 'active' ?
-                                <button className="button"
-                                    onClick={() => markGroupOrdered(groupId)}
-                                >
-                                    Mark as ordered
-                                </button>
-                                : <button className="button"
-                                    onClick={() => markGroupComplete(groupId)}
-                                >
-                                    Mark complete
-                                </button>)
-                            : null}
-                        <button className="button">Message group members</button>
+                        <div className="buttons">
+                            {ended ?
+                                (phase == 'active' ?
+                                    <button className="button"
+                                        onClick={() => markGroupOrdered(groupId)}
+                                    >
+                                        Mark as ordered
+                                    </button>
+                                    : <button className="button"
+                                        onClick={() => markGroupComplete(groupId)}
+                                    >
+                                        Mark complete
+                                    </button>)
+                                : null}
+                            <button className="button">Message group members</button>
+                        </div>
                     </div>
                 </div>
                 </div>

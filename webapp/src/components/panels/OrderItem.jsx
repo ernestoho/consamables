@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getItemName } from '../../../selectors';
+import { getItemName } from '../../selectors';
 
 class OrderItem extends React.Component {
     render() {

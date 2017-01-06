@@ -13,8 +13,10 @@ import PizzaBuilderPanel from './panels/pizzaBuilder/PizzaBuilderPanel';
 import NewGroupOptionsPanel from './panels/orderOptions/NewGroupOptionsPanel';
 import NewOrderConfirmPanel from './panels/orderOptions/NewOrderConfirmPanel';
 import SuggestOrderPanel from './panels/suggestOrder/SuggestOrderPanel';
+import MyOrderSummary from './panels/myOrder/MyOrderSummary';
 import OrganizedOrderSummary from './panels/organizedOrder/OrganizedOrderSummary';
 import OrganizedOrderPanel from './panels/organizedOrder/OrganizedOrderPanel';
+import MyOrderPanel from './panels/myOrder/MyOrderPanel';
 import {
     DISPLAY_LOGIN,
     DISPLAY_CREATE_ACCOUNT,
@@ -23,12 +25,13 @@ import {
     DISPLAY_PIZZA_BUILDER,
     DISPLAY_ORDER_OPTIONS,
     DISPLAY_SUGGEST_OPTIONS,
-    DISPLAY_GROUP_DETAILS
+    DISPLAY_GROUP_DETAILS,
+    DISPLAY_ORDER_DETAILS
 } from '../constants';
 
 class CenterColumn extends React.Component {
     render() {
-        const { displayMode, orderMode, orderStarted, organizer } = this.props;
+        const { displayMode, orderMode, orderStarted, organizer, joinedOrders } = this.props;
 
         switch (displayMode) {
             case DISPLAY_LOGIN:
@@ -101,6 +104,14 @@ class CenterColumn extends React.Component {
                     </div>
                 );
 
+            case DISPLAY_ORDER_DETAILS:
+                return (
+                    <div className="column-center">
+                        <Title/>
+                        <MyOrderPanel/>
+                    </div>
+                );
+
             default:
                 return (
                     <div className="column-center">
@@ -109,6 +120,9 @@ class CenterColumn extends React.Component {
                             <OrganizedOrderSummary/>
                             : null}
                         <Helper/>
+                        {joinedOrders ?
+                            <MyOrderSummary/>
+                            : null}
                     </div>
                 );
         }
@@ -119,7 +133,9 @@ const mapStateToProps = state => ({
     displayMode: state.centerColumn.displayMode,
     orderMode: state.centerColumn.currentOrder.get('mode'),
     orderStarted: !!state.centerColumn.currentOrder.get('items').size,
-    organizer: state.organizedOrders.size > 0
+    organizer: state.organizedOrders.size > 0,
+    joinedOrders: state.myOrders.size > 0
+        && state.myOrders.filter(order => !state.organizedOrders.has(order.get('groupId'))).size > 0
 });
 
 export default connect(
