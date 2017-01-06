@@ -9,6 +9,8 @@ import {
 import { buildPostInit, buildGetInit } from '../helpers';
 import { promptLogin } from './login';
 import { fetchUsername } from './users';
+import { fetchActiveOrders } from './activeOrders';
+import { fetchMyOrders } from './order';
 
 const requestOrganizedOrders = () => ({ type: REQUEST_ORGANIZED_ORDERS });
 
@@ -65,6 +67,8 @@ export const markGroupComplete = groupId => {
             .then(response => {
                 if (response.ok) {
                     dispatch(fetchOrganizedOrders());
+                    dispatch(fetchActiveOrders());
+                    dispatch(fetchMyOrders())
                     dispatch(hideGroupDetails());
                 }
             });
