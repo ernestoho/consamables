@@ -101,4 +101,26 @@ public class GroupResource {
         }
         return groups;
     }
+    
+    @Path("/{id}/mark-ordered")
+    @POST
+    public Response markOrdered(@Auth User user, @PathParam("id") String id) {
+        Long groupId = Long.parseLong(id);
+        if (!user.getUserId().equals(groupDAO.getOrganizerId(groupId))) {
+            throw new NotAuthorizedException("You're not the organizer for this group.", Response.status(401).build());
+        }
+        groupDAO.markGroupOrdered(groupId);
+        return Response.ok().build();
+    }
+    
+    @Path("/{id}/mark-complete")
+    @POST
+    public Response markComplete(@Auth User user, @PathParam("id") String id) {
+        Long groupId = Long.parseLong(id);
+        if (!user.getUserId().equals(groupDAO.getOrganizerId(groupId))) {
+            throw new NotAuthorizedException("You're not the organizer for this group.", Response.status(401).build());
+        }
+        groupDAO.markGroupComplete(groupId);
+        return Response.ok().build();
+    }
 }

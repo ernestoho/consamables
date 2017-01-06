@@ -6,7 +6,7 @@ import { getItemName } from '../../../selectors';
 class OrderItem extends React.Component {
     render() {
         const { name, quantity, data } = this.props;
-        const pizzaSize = data.getIn(['pizza', 'size']);
+        const pizzaSize = data ? data.getIn(['pizza', 'size']) : null;
         return (
             <div className="order-item">
                 <div className="order-item-name">
@@ -30,10 +30,24 @@ class PizzaDetails extends React.Component {
         const { toppings, sauce, cheese, size } = this.props;
 
         return (
-            <div className="item-data">
-                <div>{cheese}</div>
-                <div>{sauce}</div>
-                
+            <div className="item-data pizza">
+                {toppings.size > 0 ?
+                    <div className="toppings">
+                        {size == 'half' ?
+                            toppings.map(topping =>
+                                <div className="topping" key={topping}>{topping}</div>
+                            )
+                            : toppings.map((side, topping) =>
+                                <div className="topping" key={topping}>{topping} ({side})</div>
+                            ).toList()}
+                    </div>
+                    : null}
+                {cheese || sauce ?
+                    <div className="other">
+                        <div>{cheese}</div>
+                        <div>{sauce}</div>
+                    </div>
+                    : null}
             </div>
         );
     }

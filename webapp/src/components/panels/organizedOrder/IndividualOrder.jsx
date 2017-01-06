@@ -1,14 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import OrderItem from './OrderItem';
 
-export default class IndividualOrder extends React.Component {
+class IndividualOrder extends React.Component {
     render() {
-        const { username, orderItems } = this.props;
+        const { username, isCurrentUser, orderItems } = this.props;
         return (
             <div className="individual-order">
                 <div className="username">
                     {username.split('@')[0]}<wbr/>{'@' + username.split('@')[1]}
+                    {isCurrentUser ? ' (you)' : null}
                 </div>
                 <div className="order-items">
                     {orderItems.map(orderItem =>
@@ -19,3 +21,11 @@ export default class IndividualOrder extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state, ownProps) => ({
+    isCurrentUser: state.currentUser.get('username') == ownProps.username
+});
+
+export default connect(
+    mapStateToProps
+)(IndividualOrder)

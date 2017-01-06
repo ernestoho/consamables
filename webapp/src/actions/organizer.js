@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import { Map, fromJS } from 'immutable';
 
 import {
@@ -46,3 +48,26 @@ export const showGroupDetails = groupId => ({
 });
 
 export const hideGroupDetails = () => ({ type: HIDE_GROUP_DETAILS });
+
+export const markGroupOrdered = groupId => {
+    return dispatch => {
+        fetch(`/api/groups/${groupId}/mark-ordered`, buildPostInit())
+            .then(response => {
+                if (response.ok) {
+                    dispatch(fetchOrganizedOrders());
+                }
+            });
+    };
+};
+
+export const markGroupComplete = groupId => {
+    return dispatch => {
+        fetch(`/api/groups/${groupId}/mark-complete`, buildPostInit())
+            .then(response => {
+                if (response.ok) {
+                    dispatch(fetchOrganizedOrders());
+                    dispatch(hideGroupDetails());
+                }
+            });
+    };
+};

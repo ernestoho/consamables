@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import { RECEIVE_USERNAME } from './actionTypes';
 import { buildGetInit } from '../helpers';
 import { promptLogin } from './login';

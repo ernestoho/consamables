@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import {
     START_ORDER, JOIN_ORDER,
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
@@ -10,6 +12,7 @@ import {
 } from './actionTypes';
 
 import fetchActiveOrders from './activeOrders';
+import { fetchOrganizedOrders } from './organizer';
 import { buildPostInit } from '../helpers';
 import { promptLogin } from './login';
 
@@ -82,6 +85,7 @@ export const submitNewGroup = data => {
                 if (response.ok) {
                     dispatch(newGroupSuccess());
                     dispatch(fetchActiveOrders());
+                    dispatch(fetchOrganizedOrders());
                 } else if (response.status == 401) {
                     dispatch(promptLogin());
                 }

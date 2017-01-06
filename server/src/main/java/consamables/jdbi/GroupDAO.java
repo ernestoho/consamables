@@ -29,7 +29,8 @@ public interface GroupDAO {
     @SqlQuery("SELECT organizer_id FROM \"group\" WHERE group_id = :groupId")
     long getOrganizerId(@Bind("groupId") long groupId);
     
-    @SqlQuery("SELECT * FROM \"group\" WHERE organizer_id = :organizerId AND phase = 'active'")
+    @SqlQuery("SELECT * FROM \"group\" WHERE organizer_id = :organizerId " +
+              "AND (phase = 'active' OR phase = 'ordered')")
     List<Group> getGroupsByOrganizer(@Bind("organizerId") long organizerId);
 
     @SqlUpdate("INSERT INTO \"group\" " +
@@ -51,6 +52,14 @@ public interface GroupDAO {
                "('active', :durationMinutes, , :organizerId, now()) " +
                "WHERE group_id = :groupId")
     void activatePendingGroup(@BindBean Group group);
+    
+    @SqlUpdate("UPDATE \"group\" SET (phase, time_ordered) = " +
+               "('ordered', now()) WHERE group_id = :groupId")
+    void markGroupOrdered(@Bind("groupId") long groupId);
+    
+    @SqlUpdate("UPDATE \"group\" SET (phase) = ('complete') " +
+               "WHERE group_id = :groupId")
+    void markGroupComplete(@Bind("groupId") long groupId);
 
     @SqlUpdate("UPDATE \"group\" SET " +
             "(phase, time_ordered) = " +
