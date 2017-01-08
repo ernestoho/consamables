@@ -34,7 +34,7 @@ class PendingOrderBox extends React.Component {
         } = this.props;
         const { timeElapsed } = this.state;
 
-        const timeColor = timeElapsed < 15 ? 'green' : (timeElapsed < 30 ? 'orange' : 'red');
+        const timeColor = timeElapsed < 30 ? 'green' : (timeElapsed < 60 ? 'darkorange' : 'red');
 
         return (
             <div className="pending-order-box">

@@ -17,7 +17,7 @@ export default class TimeDisplay extends React.Component {
 
             if (targetTime.diff(now, 'minutes') < 60) {
                 messagePrefix = 'Closing at';
-                style.color = 'orange';
+                style.color = 'darkorange';
             } else {
                 messagePrefix = 'Open until';
                 style.color = 'green';

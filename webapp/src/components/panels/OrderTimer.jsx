@@ -42,7 +42,7 @@ export default class OrderTimer extends React.Component {
         if (minutes < 5 && hours == 0) {
             style.color = 'red';
         } else if (minutes < 10 && hours == 0) {
-            style.color = 'orange';
+            style.color = 'darkorange';
         } else {
             style.color = 'green';
         }
