@@ -11,6 +11,7 @@
     border-color: $title-color;
     border-radius: 2px;
     transition-duration: 0.2s;
+    user-select: none;
 
     &:focus {
         outline: none;

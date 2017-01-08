@@ -53,6 +53,12 @@ public class GroupResource {
     public List<Group> getPendingGroups() {
         return groupDAO.getPending();
     }
+    
+    @Path("/{id}/count-orders")
+    @GET
+    public int getNumOrders(@PathParam("id") String id) {
+        return orderDAO.countOrdersInGroup(Long.parseLong(id));
+    }
 
     @Path("/{id}/count-votes")
     @GET
@@ -83,6 +89,22 @@ public class GroupResource {
         }
         long groupId = groupDAO.addActiveGroup(newGroup.getActiveGroup());
         newGroup.getOrder().setGroupId(groupId);
+        long orderId = orderDAO.addOrder(newGroup.getOrder());
+        for (OrderItem orderItem : newGroup.getOrder().getOrderItems()) {
+            orderItem.setOrderId(orderId);
+            orderItemDAO.addOrderItem(orderItem);
+        }
+        return Response.ok().build();
+    }
+
+    @PermitAll
+    @Path("/activate")
+    @POST
+    public Response activatePendingGroup(@Auth User user, @Valid NewGroup newGroup) {
+        if (!user.getUserId().equals(newGroup.getOrder().getUserId())) {
+            throw new NotAuthorizedException("You can only start orders on behalf of yourself.", Response.status(401).build());
+        }
+        groupDAO.activatePendingGroup(newGroup.getActiveGroup());
         long orderId = orderDAO.addOrder(newGroup.getOrder());
         for (OrderItem orderItem : newGroup.getOrder().getOrderItems()) {
             orderItem.setOrderId(orderId);

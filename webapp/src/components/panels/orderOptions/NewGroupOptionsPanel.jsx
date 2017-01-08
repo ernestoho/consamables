@@ -7,11 +7,12 @@ import PanelHeader from '../PanelHeader';
 import OrderTypePreference from './OrderTypePreference';
 import OrderDurationPreference from './OrderDurationPreference';
 import SubmitNewGroup from './SubmitNewGroup';
+import SubmitActivatedGroup from './SubmitActivatedGroup';
 import Spinner from '../Spinner';
 
 class NewGroupOptionsPanel extends React.Component {
     render() {
-        const { loading } = this.props;
+        const { loading, mode } = this.props;
 
         return (
             <div className="new-group-options-panel">
@@ -22,13 +23,18 @@ class NewGroupOptionsPanel extends React.Component {
                 </div>
                 {loading ?
                     <Spinner/>
-                    : <SubmitNewGroup/>}
+                    : (mode == 'start' ?
+                        <SubmitNewGroup/>
+                        : <SubmitActivatedGroup/>)}
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({ loading: state.centerColumn.currentOrder.get('loading') });
+const mapStateToProps = state => ({
+    loading: state.centerColumn.currentOrder.get('loading'),
+    mode: state.centerColumn.currentOrder.get('mode')
+});
 
 export default connect(
     mapStateToProps

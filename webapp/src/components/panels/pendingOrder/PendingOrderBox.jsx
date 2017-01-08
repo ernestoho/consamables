@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
+import { activateOrder } from '../../../actions';
+
 class PendingOrderBox extends React.Component {
     constructor(props) {
         super(props);
@@ -26,18 +28,29 @@ class PendingOrderBox extends React.Component {
     }
 
     render() {
-        const { loggedIn, restaurantName, timeCreated, minPeople, votes } = this.props;
+        const {
+            loggedIn, restaurantName, type, timeCreated, minPeople, votes,
+            onJoinClick, onStartClick
+        } = this.props;
         const { timeElapsed } = this.state;
+
+        const timeColor = timeElapsed < 15 ? 'green' : (timeElapsed < 30 ? 'orange' : 'red');
 
         return (
             <div className="pending-order-box">
                 <div className="box-title">{restaurantName}</div>
+                <div className="order-type info">
+                    {type == 'delivery or carryout' ? 'Delivery or Carryout' : 'Outing'}
+                </div>
                 <div className="info">{votes} of {minPeople} people in queue</div>
-                <div className="info">
+                <div className="time-elapsed" style={{ color: timeColor }}>
                     Suggested {timeElapsed > 0 ? timeElapsed : 'less than a'} {(timeElapsed <= 1) ? 'minute' : 'minutes'} ago
                 </div>
                 {loggedIn ?
-                    <PendingOrderToolbar/>
+                    <PendingOrderToolbar
+                        onStartClick={onStartClick}
+                        onJoinClick={onJoinClick}
+                    />
                     : null}
             </div>
         );
@@ -47,10 +60,11 @@ class PendingOrderBox extends React.Component {
 
 class PendingOrderToolbar extends React.Component {
     render() {
+        const { onJoinClick, onStartClick } = this.props;
         return (
             <div className="toolbar">
-                <button className="button">Join Queue</button>
-                <button className="button">Start Order</button>
+                <button className="button" onClick={onJoinClick}>Join Queue</button>
+                <button className="button" onClick={onStartClick}>Start Order</button>
             </div>
         );
     }
@@ -60,6 +74,12 @@ const mapStateToProps = state => ({
     loggedIn: state.currentUser.get('loggedIn')
 });
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    onJoinClick: () => {},
+    onStartClick: () => dispatch(activateOrder(ownProps.restaurantId, ownProps.groupId))
+});
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(PendingOrderBox)

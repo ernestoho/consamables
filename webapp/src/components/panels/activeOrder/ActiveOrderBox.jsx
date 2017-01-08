@@ -7,13 +7,15 @@ import { joinOrder } from '../../../actions';
 class ActiveOrderBox extends React.Component {
     render() {
         const {
-            loggedIn, restaurantName, timeStarted, durationMinutes,
+            loggedIn, restaurantName, type, orders, timeStarted, durationMinutes,
             joinOrder
         } = this.props;
 
         return (
             <div className="active-order-box">
                 <div className="box-title">{restaurantName}</div>
+                <div className="info order-type">{type.charAt(0).toUpperCase()}{type.slice(1)}</div>
+                <div className="info">{orders} {orders > 1 ? 'people' : 'person'} in group</div>
                 <OrderTimer timeStarted={timeStarted} duration={durationMinutes}/>
                 {loggedIn ?
                     <div className="toolbar">

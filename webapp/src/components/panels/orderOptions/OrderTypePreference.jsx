@@ -27,14 +27,6 @@ class OrderTypePreference extends React.Component {
                         />
                         Carryout
                     </label>
-                    <label>
-                        <input
-                            type="radio" value="outing"
-                            checked={value == 'outing'}
-                            onChange={changeValue}
-                        />
-                        Outing
-                    </label>
                 </div>
             </div>
         );

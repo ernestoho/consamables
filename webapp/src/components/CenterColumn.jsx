@@ -82,9 +82,9 @@ class CenterColumn extends React.Component {
                     <div className="column-center">
                         <Title/>
                         <CurrentOrderPanel/>
-                        {orderMode == 'start' ?
-                            <NewGroupOptionsPanel/>
-                            : <NewOrderConfirmPanel/>}
+                        {orderMode == 'join' ?
+                            <NewOrderConfirmPanel/>
+                            : <NewGroupOptionsPanel/>}
                     </div>
                 );
 

@@ -38,9 +38,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onMenuClick: (id) => dispatch(showMenu(id)),
-    onStartClick: (id) => dispatch(startOrder(id)),
-    onSuggestClick: (id) => dispatch(openSuggestOrder(id))
+    onMenuClick: id => dispatch(showMenu(id)),
+    onStartClick: id => dispatch(startOrder(id)),
+    onSuggestClick: id => dispatch(openSuggestOrder(id))
 });
 
 export default connect(

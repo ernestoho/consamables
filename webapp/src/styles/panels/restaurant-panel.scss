@@ -15,6 +15,10 @@
 
         .restaurant-box {
             @include panelbox;
+
+            .time-display {
+                font-weight: bold;
+            }
         }
     }
 }

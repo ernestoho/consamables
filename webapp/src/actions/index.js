@@ -12,13 +12,12 @@ import {
 import { updateConfirmPasswordField, submitNewAccount, goToLogin } from './createAccount';
 
 import {
-    startOrder, joinOrder,
+    startOrder, joinOrder, activateOrder,
     addItemToOrder, removeItemFromOrder,
-    incrementItem, decrementItem,
-    setQuantity,
+    incrementItem, decrementItem, setQuantity,
     continueOrder, goBackToMenu,
     setOrderType, setOrderDuration,
-    submitNewGroup, submitNewOrder,
+    submitNewGroup, submitNewOrder, submitActivatedGroup,
     showOrderDetails, hideOrderDetails
 } from './order';
 
@@ -53,6 +52,7 @@ export {
 
     startOrder,
     joinOrder,
+    activateOrder,
     addItemToOrder,
     removeItemFromOrder,
     incrementItem,
@@ -75,6 +75,7 @@ export {
     setOrderDuration,
     submitNewGroup,
     submitNewOrder,
+    submitActivatedGroup,
 
     openSuggestOrder,
     closeSuggestOrder,
