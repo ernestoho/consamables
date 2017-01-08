@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
+import { activateOrder } from '../../../actions';
+
 class PendingOrderBox extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +28,10 @@ class PendingOrderBox extends React.Component {
     }
 
     render() {
-        const { loggedIn, restaurantName, timeCreated, minPeople, votes } = this.props;
+        const {
+            loggedIn, restaurantName, timeCreated, minPeople, votes,
+            onJoinClick, onStartClick
+        } = this.props;
         const { timeElapsed } = this.state;
 
         return (
@@ -37,7 +42,10 @@ class PendingOrderBox extends React.Component {
                     Suggested {timeElapsed > 0 ? timeElapsed : 'less than a'} {(timeElapsed <= 1) ? 'minute' : 'minutes'} ago
                 </div>
                 {loggedIn ?
-                    <PendingOrderToolbar/>
+                    <PendingOrderToolbar
+                        onStartClick={onStartClick}
+                        onJoinClick={onJoinClick}
+                    />
                     : null}
             </div>
         );
@@ -47,10 +55,11 @@ class PendingOrderBox extends React.Component {
 
 class PendingOrderToolbar extends React.Component {
     render() {
+        const { onJoinClick, onStartClick } = this.props;
         return (
             <div className="toolbar">
-                <button className="button">Join Queue</button>
-                <button className="button">Start Order</button>
+                <button className="button" onClick={onJoinClick}>Join Queue</button>
+                <button className="button" onClick={onStartClick}>Start Order</button>
             </div>
         );
     }
@@ -60,6 +69,12 @@ const mapStateToProps = state => ({
     loggedIn: state.currentUser.get('loggedIn')
 });
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    onJoinClick: () => {},
+    onStartClick: () => dispatch(activateOrder(ownProps.restaurantId, ownProps.groupId))
+});
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(PendingOrderBox)

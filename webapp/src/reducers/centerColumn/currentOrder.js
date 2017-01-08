@@ -1,41 +1,40 @@
 import { Map, List } from 'immutable';
 
 import {
-    START_ORDER, JOIN_ORDER,
+    START_ORDER, JOIN_ORDER, ACTIVATE_ORDER,
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
-    INCREMENT_ITEM, DECREMENT_ITEM,
-    SET_QUANTITY,
+    INCREMENT_ITEM, DECREMENT_ITEM, SET_QUANTITY,
     CONTINUE_ORDER, SET_ORDER_TYPE, SET_ORDER_DURATION,
     SEND_NEW_GROUP, NEW_GROUP_FAILURE, NEW_GROUP_SUCCESS,
     SEND_NEW_ORDER, NEW_ORDER_FAILURE, NEW_ORDER_SUCCESS
 } from '../../actions/actionTypes';
 
-const currentOrder = (state = Map({ items: Map() }), action) => {
+const startOrder = (state, action, orderType) => {
     let newState;
+    // Clear items if switching restaurants
+    if (state.get('items').size > 0 && state.get('restaurantId') != action.restaurantId) {
+        newState = state.set('items', Map())
+                        .set('loading', false);
+    } else {
+        newState = state;
+    }
+    return newState.set('mode', orderType)
+                   .set('restaurantId', action.restaurantId);
+};
 
+const currentOrder = (state = Map({ items: Map() }), action) => {
     switch (action.type) {
         case START_ORDER:
-            // Clear items if switching restaurants
-            if (state.get('items').size > 0 && state.get('restaurantId') != action.id) {
-                newState = state.set('items', Map())
-                                .set('loading', false);
-            } else {
-                newState = state;
-            }
-            return newState.set('mode', 'start')
-                           .set('restaurantId', action.id)
-                           .delete('groupId');
+            return startOrder(state, action, 'start')
+                .delete('groupId');
 
         case JOIN_ORDER:
-            if (state.get('items').size > 0 && state.get('restaurantId') != action.id) {
-                newState = state.set('items', Map())
-                                .set('loading', false);
-            } else {
-                newState = state;
-            }
-            return newState.set('mode', 'join')
-                           .set('restaurantId', action.restaurantId)
-                           .set('groupId', action.groupId);
+            return startOrder(state, action, 'join')
+                .set('groupId', action.groupId);
+
+        case ACTIVATE_ORDER:
+            return startOrder(state, action, 'activate')
+                .set('groupId', action.groupId);
 
         case ADD_ITEM_TO_ORDER:
             return state.updateIn(['items', action.id, 'quantity'], 0, q => q + 1)

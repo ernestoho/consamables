@@ -92,6 +92,22 @@ public class GroupResource {
     }
 
     @PermitAll
+    @Path("/activate")
+    @POST
+    public Response activatePendingGroup(@Auth User user, @Valid NewGroup newGroup) {
+        if (!user.getUserId().equals(newGroup.getOrder().getUserId())) {
+            throw new NotAuthorizedException("You can only start orders on behalf of yourself.", Response.status(401).build());
+        }
+        groupDAO.activatePendingGroup(newGroup.getActiveGroup());
+        long orderId = orderDAO.addOrder(newGroup.getOrder());
+        for (OrderItem orderItem : newGroup.getOrder().getOrderItems()) {
+            orderItem.setOrderId(orderId);
+            orderItemDAO.addOrderItem(orderItem);
+        }
+        return Response.ok().build();
+    }
+
+    @PermitAll
     @Path("/organized")
     @GET
     public List<Group> getOrganizedGroups(@Auth User user) {

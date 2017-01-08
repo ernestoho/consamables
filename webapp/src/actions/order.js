@@ -2,30 +2,37 @@ import 'whatwg-fetch';
 import { Map, List, fromJS } from 'immutable';
 
 import {
-    START_ORDER, JOIN_ORDER,
+    START_ORDER, JOIN_ORDER, ACTIVATE_ORDER,
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
-    INCREMENT_ITEM, DECREMENT_ITEM,
-    SET_QUANTITY,
+    INCREMENT_ITEM, DECREMENT_ITEM, SET_QUANTITY,
     CONTINUE_ORDER, GO_BACK_TO_MENU,
     SET_ORDER_TYPE, SET_ORDER_DURATION,
     SEND_NEW_GROUP, NEW_GROUP_SUCCESS, NEW_GROUP_FAILURE,
     SEND_NEW_ORDER, NEW_ORDER_SUCCESS, NEW_ORDER_FAILURE,
+    SEND_ACTIVATED_GROUP, ACTIVATED_GROUP_SUCCESS, ACTIVATED_GROUP_FAILURE,
     REQUEST_MY_ORDERS, RECEIVE_MY_ORDERS,
     SHOW_ORDER_DETAILS, HIDE_ORDER_DETAILS
 } from './actionTypes';
 
 import fetchActiveOrders from './activeOrders';
+import fetchPendingOrders from './pendingOrders';
 import { fetchOrganizedOrders } from './organizer';
 import { buildPostInit, buildGetInit } from '../helpers';
 import { promptLogin } from './login';
 
 export const startOrder = restaurantId => ({
     type: START_ORDER,
-    id: restaurantId
+    restaurantId: restaurantId
 });
 
 export const joinOrder = (restaurantId, groupId) => ({
     type: JOIN_ORDER,
+    restaurantId: restaurantId,
+    groupId: groupId
+});
+
+export const activateOrder = (restaurantId, groupId) => ({
+    type: ACTIVATE_ORDER,
     restaurantId: restaurantId,
     groupId: groupId
 });
@@ -115,10 +122,36 @@ export const submitNewOrder = data => {
                     dispatch(newOrderSuccess());
                     dispatch(fetchMyOrders());
                 } else if (response.status == 401) {
-                    dispatch(promptLogin())
+                    dispatch(promptLogin());
                 }
             })
             .catch( error => dispatch(newGroupFailure(error)) );
+    };
+};
+
+const sendActivatedGroup = () => ({ type: SEND_ACTIVATED_GROUP });
+
+const activatedGroupSuccess = () => ({ type: ACTIVATED_GROUP_SUCCESS });
+
+const activatedGroupFailure = error => ({
+    type: ACTIVATED_GROUP_FAILURE,
+    error: error
+});
+
+export const submitActivatedGroup = data => {
+    return dispatch => {
+        dispatch(sendActivatedGroup());
+        fetch('/api/groups/activate', buildPostInit(data))
+            .then(response => {
+                if (response.ok) {
+                    dispatch(activatedGroupSuccess());
+                    dispatch(fetchActiveOrders());
+                    dispatch(fetchPendingOrders());
+                } else if (response.status == 401) {
+                    dispatch(promptLogin());
+                }
+            })
+            .catch( error => dispatch(activatedGroupFailure(error)) );
     };
 };
 
