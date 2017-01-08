@@ -6,7 +6,8 @@ import {
     INCREMENT_ITEM, DECREMENT_ITEM, SET_QUANTITY,
     CONTINUE_ORDER, SET_ORDER_TYPE, SET_ORDER_DURATION,
     SEND_NEW_GROUP, NEW_GROUP_FAILURE, NEW_GROUP_SUCCESS,
-    SEND_NEW_ORDER, NEW_ORDER_FAILURE, NEW_ORDER_SUCCESS
+    SEND_NEW_ORDER, NEW_ORDER_FAILURE, NEW_ORDER_SUCCESS,
+    SEND_ACTIVATED_GROUP, ACTIVATED_GROUP_FAILURE, ACTIVATED_GROUP_SUCCESS
 } from '../../actions/actionTypes';
 
 const startOrder = (state, action, orderType) => {
@@ -66,14 +67,17 @@ const currentOrder = (state = Map({ items: Map() }), action) => {
 
         case SEND_NEW_GROUP:
         case SEND_NEW_ORDER:
+        case SEND_ACTIVATED_GROUP:
             return state.set('loading', true);
 
         case NEW_GROUP_FAILURE:
         case NEW_ORDER_FAILURE:
+        case ACTIVATED_GROUP_FAILURE:
             return state.set('loading', false);
 
         case NEW_GROUP_SUCCESS:
         case NEW_ORDER_SUCCESS:
+        case ACTIVATED_GROUP_SUCCESS:
             return state.set('items', Map())
                         .set('loading', false);
 
