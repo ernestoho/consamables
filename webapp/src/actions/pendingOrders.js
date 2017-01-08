@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 import { Map, fromJS } from 'immutable';
 
 import { REQUEST_PENDING_ORDERS, RECEIVE_PENDING_ORDERS } from './actionTypes';
-import fetchVotes from './votes';
+import { fetchVotes } from './stats';
 
 const requestPendingOrders = () => ({ type: REQUEST_PENDING_ORDERS });
 

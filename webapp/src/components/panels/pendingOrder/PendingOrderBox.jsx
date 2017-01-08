@@ -29,16 +29,21 @@ class PendingOrderBox extends React.Component {
 
     render() {
         const {
-            loggedIn, restaurantName, timeCreated, minPeople, votes,
+            loggedIn, restaurantName, type, timeCreated, minPeople, votes,
             onJoinClick, onStartClick
         } = this.props;
         const { timeElapsed } = this.state;
 
+        const timeColor = timeElapsed < 15 ? 'green' : (timeElapsed < 30 ? 'orange' : 'red');
+
         return (
             <div className="pending-order-box">
                 <div className="box-title">{restaurantName}</div>
+                <div className="order-type info">
+                    {type == 'delivery or carryout' ? 'Delivery or Carryout' : 'Outing'}
+                </div>
                 <div className="info">{votes} of {minPeople} people in queue</div>
-                <div className="info">
+                <div className="time-elapsed" style={{ color: timeColor }}>
                     Suggested {timeElapsed > 0 ? timeElapsed : 'less than a'} {(timeElapsed <= 1) ? 'minute' : 'minutes'} ago
                 </div>
                 {loggedIn ?

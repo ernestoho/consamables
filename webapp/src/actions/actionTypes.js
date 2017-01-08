@@ -20,6 +20,9 @@ export const RECEIVE_MENU = 'RECEIVE_MENU';
 export const REQUEST_VOTES = 'REQUEST_VOTES';
 export const RECEIVE_VOTES = 'RECEIVE_VOTES';
 
+export const REQUEST_NUM_ORDERS = 'REQUEST_NUM_ORDERS';
+export const RECEIVE_NUM_ORDERS = 'RECEIVE_NUM_ORDERS';
+
 export const SHOW_MENU = 'SHOW_MENU';
 export const HIDE_MENU = 'HIDE_MENU';
 

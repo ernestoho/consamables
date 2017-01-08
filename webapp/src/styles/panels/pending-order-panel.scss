@@ -15,6 +15,15 @@
 
         .pending-order-box {
             @include panelbox;
+
+            .order-type {
+                font-weight: bold;
+                font-style: italic;
+            }
+
+            .time-elapsed {
+                font-weight: bold;
+            }
         }
     }
 }

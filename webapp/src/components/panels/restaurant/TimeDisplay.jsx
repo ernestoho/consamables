@@ -41,7 +41,7 @@ export default class TimeDisplay extends React.Component {
         }
 
         return (
-            <div className="info" style={style}>
+            <div className="time-display" style={style}>
                 {messagePrefix} {displayTime}
             </div>
         );

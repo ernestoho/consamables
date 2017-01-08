@@ -145,6 +145,7 @@ export const submitActivatedGroup = data => {
             .then(response => {
                 if (response.ok) {
                     dispatch(activatedGroupSuccess());
+                    dispatch(fetchOrganizedOrders());
                     dispatch(fetchActiveOrders());
                     dispatch(fetchPendingOrders());
                 } else if (response.status == 401) {

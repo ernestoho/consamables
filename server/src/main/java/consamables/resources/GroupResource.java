@@ -53,6 +53,12 @@ public class GroupResource {
     public List<Group> getPendingGroups() {
         return groupDAO.getPending();
     }
+    
+    @Path("/{id}/count-orders")
+    @GET
+    public int getNumOrders(@PathParam("id") String id) {
+        return orderDAO.countOrdersInGroup(Long.parseLong(id));
+    }
 
     @Path("/{id}/count-votes")
     @GET

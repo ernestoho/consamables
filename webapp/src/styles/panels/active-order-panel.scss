@@ -16,6 +16,15 @@
 
         .active-order-box {
             @include panelbox;
+
+            .order-type {
+                font-weight: bold;
+                font-style: italic;
+            }
+
+            .order-timer {
+                font-weight: bold;
+            }
         }
     }
 }
