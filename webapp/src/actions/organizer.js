@@ -9,7 +9,7 @@ import {
 import { buildPostInit, buildGetInit } from '../helpers';
 import { promptLogin } from './login';
 import { fetchUsername } from './users';
-import { fetchActiveOrders } from './activeOrders';
+import fetchActiveOrders from './activeOrders';
 import { fetchMyOrders } from './order';
 
 const requestOrganizedOrders = () => ({ type: REQUEST_ORGANIZED_ORDERS });

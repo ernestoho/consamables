@@ -65,6 +65,7 @@ export const submitSuggestion = data => {
                     dispatch(suggestionSuccess());
                     dispatch(fetchPendingOrders());
                 } else if (response.status == 401) {
+                    dispatch(suggestionFailure('Logged out.'));
                     dispatch(promptLogin());
                 }
             })

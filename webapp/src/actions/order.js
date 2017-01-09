@@ -97,6 +97,7 @@ export const submitNewGroup = data => {
                     dispatch(fetchActiveOrders());
                     dispatch(fetchOrganizedOrders());
                 } else if (response.status == 401) {
+                    dispatch(newGroupFailure('Logged out.'));
                     dispatch(promptLogin());
                 }
             })
@@ -122,6 +123,7 @@ export const submitNewOrder = data => {
                     dispatch(newOrderSuccess());
                     dispatch(fetchMyOrders());
                 } else if (response.status == 401) {
+                    dispatch(newOrderFailure('Logged out.'));
                     dispatch(promptLogin());
                 }
             })
@@ -149,6 +151,7 @@ export const submitActivatedGroup = data => {
                     dispatch(fetchActiveOrders());
                     dispatch(fetchPendingOrders());
                 } else if (response.status == 401) {
+                    dispatch(activatedGroupFailure('Logged out.'));
                     dispatch(promptLogin());
                 }
             })
