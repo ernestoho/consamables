@@ -38,7 +38,7 @@ export const submitNewAccount = data => {
             dispatch(newAccountFailure('Passwords must match.'));
         } else {
             dispatch(sendNewAccount());
-            fetch('api/user/new', {
+            fetch('/api/user/new', {
                 method: 'POST',
                 body: JSON.stringify({username: data.username, password: data.password}),
                 headers: new Headers({

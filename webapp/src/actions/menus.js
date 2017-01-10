@@ -22,10 +22,3 @@ export const fetchMenu = restaurantId => {
             .then( json => dispatch(receiveMenu(json)) );
     };
 };
-
-export const showMenu = restaurantId => ({
-    type: SHOW_MENU,
-    id: restaurantId
-});
-
-export const hideMenu = () => ({ type: HIDE_MENU });

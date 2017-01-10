@@ -1,9 +1,7 @@
 import { Map } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
-import {
-    LOGIN_SUCCESS, NEW_ACCOUNT_SUCCESS, SET_USER_INFO,
-    PROMPT_LOGIN
-} from '../actions/actionTypes';
+import { LOGIN_SUCCESS, NEW_ACCOUNT_SUCCESS, SET_USER_INFO } from '../actions/actionTypes';
 
 const currentUser = (state = Map({ loggedIn: false }), action) => {
     switch (action.type) {
@@ -14,10 +12,13 @@ const currentUser = (state = Map({ loggedIn: false }), action) => {
                         .set('userId', action.id)
                         .set('username', action.username);
 
-        case PROMPT_LOGIN:
-            return state.set('loggedIn', false)
-                        .delete('userId')
-                        .delete('username');
+        case LOCATION_CHANGE:
+            if (action.payload.pathname == '/login') {
+                return state.set('loggedIn', false)
+                            .delete('userId')
+                            .delete('username');
+            }
+            return state;
 
         default:
             return state;

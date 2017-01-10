@@ -3,7 +3,7 @@ import '../../../styles/panels/suggest-order-panel.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import SuggestCloseButton from './SuggestCloseButton';
+import CloseButton from '../CloseButton';
 import PanelHeader from '../PanelHeader';
 import OrderTypePreference from './OrderTypePreference';
 import DrivingPreference from './DrivingPreference';
@@ -19,7 +19,7 @@ class SuggestOrderPanel extends React.Component {
         return (
             <div className="suggest-order-panel">
                 <div className="suggest-header">
-                    <SuggestCloseButton/>
+                    <CloseButton/>
                     <PanelHeader name="Suggest an Order"/>
                     <div className="restaurant-name">{name}</div>
                 </div>
