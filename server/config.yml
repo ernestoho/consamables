@@ -11,12 +11,14 @@ server:
 
   rootPath: /api/*
 
+
 logging:
   level: INFO
   loggers:
     io.dropwizard.jersey.jackson.JsonProcessingExceptionMapper: DEBUG
   appenders:
     - type: console
+
 
 database:
   # the name of your JDBC driver
@@ -58,3 +60,18 @@ database:
 
   # the minimum amount of time an connection must sit idle in the pool before it is eligible for eviction
   minIdleTime: 1 minute
+
+
+jerseyClient:
+  minThreads: 1
+  maxThreads: 128
+  workQueueSize: 8
+  gzipEnabled: true
+  gzipEnabledForRequests: true
+  chunkedEncodingEnabled: true
+
+
+splitwiseConsumerKey: Bsv9XxSw2SzW6nQPX7HJgIux240bjVl7xhhQ88C1
+
+splitwiseConsumerSecret: odaP848LkkM7yTjIUAAKx7vUXkq48lRjHLs02Gdt
+

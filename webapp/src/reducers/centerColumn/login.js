@@ -1,5 +1,7 @@
 import { Map } from 'immutable';
 
+import { LOCATION_CHANGE } from 'react-router-redux';
+
 import {
     UPDATE_USERNAME_FIELD, UPDATE_PASSWORD_FIELD,
     SEND_LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS,
@@ -8,7 +10,7 @@ import {
     GOTO_LOGIN, GOTO_CREATE_ACCOUNT
 } from '../../actions/actionTypes';
 
-const login = (state = Map({ username: '', password: '' }), action) => {
+const login = (state = Map({ username: '', password: '', confirmPassword: '' }), action) => {
     switch (action.type) {
         case UPDATE_USERNAME_FIELD:
             return state.set('username', action.value)
@@ -40,13 +42,8 @@ const login = (state = Map({ username: '', password: '' }), action) => {
                         .delete('confirmPassword')
                         .delete('error');
 
-        case GOTO_LOGIN:
-            return state.delete('confirmPassword')
-                        .delete('error');
-
-        case GOTO_CREATE_ACCOUNT:
-            return state.set('confirmPassword', '')
-                        .delete('error');
+        case LOCATION_CHANGE:
+            return state.delete('error');
 
         default:
             return state;

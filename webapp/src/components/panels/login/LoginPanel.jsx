@@ -2,6 +2,7 @@ import '../../../styles/panels/login-panel.scss';
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 import PanelHeader from '../PanelHeader';
 import UsernameField from './UsernameField';
@@ -34,7 +35,7 @@ class LoginPanel extends React.Component {
                 </div>
                 <div className="create-account">
                     <div>Don't have an account yet?</div>
-                    <button className="button" onClick={createAccount}>Get started</button>
+                    <Link to="/login/create" className="button">Get started</Link>
                 </div>
             </div>
         );

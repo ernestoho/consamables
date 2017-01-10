@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Map, List } from 'immutable';
 import moment from 'moment';
 
-import GroupDetailsCloseButton from './GroupDetailsCloseButton';
+import CloseButton from '../CloseButton';
 import OrderTimer from '../OrderTimer';
 import IndividualOrder from './IndividualOrder';
 import { getRestaurantName } from '../../../selectors';
@@ -21,7 +21,7 @@ class OrganizedOrderPanel extends React.Component {
         return (
             <div className="organized-order-panel">
                 <div className="group-details-header">
-                    <GroupDetailsCloseButton/>
+                    <CloseButton/>
                     <div className="group-details-heading">
                         Group Order from {restaurantName}
                     </div>
@@ -59,22 +59,22 @@ class OrganizedOrderPanel extends React.Component {
                 </div>
                 <div className="orders">
                     <div className="orders-heading">Individual Orders</div>
-                    {orders.map(order =>
+                    {orders ? orders.map(order =>
                         <IndividualOrder key={order.get('userId')} {...order.toObject()}/>
-                    )}
+                    ) : null}
                 </div>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {
-    const groupId = state.centerColumn.organizer.get('groupId');
+const mapStateToProps = (state, ownProps) => {
+    const groupId = ownProps.id;
     const group = state.organizedOrders.get(groupId);
     return {
         groupId: groupId,
         // Merge order items, in case people have placed multiple orders
-        orders: group.get('orders').reduce((orders, order) => {
+        orders: group ? group.get('orders').reduce((orders, order) => {
             const id = order.get('userId');
             return orders.setIn([id, 'userId'], id)
                 .updateIn(
@@ -84,15 +84,15 @@ const mapStateToProps = state => {
                 )
         }, Map())
             .toList()
-            .map( order => order.set('username', state.users.get(order.get('userId'))) ),
+            .map( order => order.set('username', state.users.get(order.get('userId'))) ) : null,
         restaurantName: getRestaurantName(state, group.get('restaurantId')),
-        type: group.get('type'),
-        phase: group.get('phase'),
-        timeStarted: group.get('timeStarted'),
-        duration: group.get('durationMinutes'),
-        ended: moment(group.get('timeStarted'))
+        type: group ? group.get('type') : null,
+        phase: group ? group.get('phase') : null,
+        timeStarted: group ? group.get('timeStarted') : null,
+        duration: group ? group.get('durationMinutes') : null,
+        ended: group ? moment(group.get('timeStarted'))
             .add(group.get('durationMinutes'), 'minutes')
-            .isBefore(moment())
+            .isBefore(moment()) : null
     };
 };
 

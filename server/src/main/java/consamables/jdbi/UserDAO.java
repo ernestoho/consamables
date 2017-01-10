@@ -17,11 +17,16 @@ public interface UserDAO {
     @SqlQuery("SELECT EXISTS (SELECT 1 FROM \"user\" WHERE email = :username)")
     boolean doesUserExist(@Bind("username") String username);
 
-    @SqlQuery("SELECT user_id, email FROM \"user\" WHERE user_id = :userId")
+    @SqlQuery("SELECT user_id, email, (SELECT splitwise_token IS NOT NULL) AS auth " +
+              "FROM \"user\" WHERE user_id = :userId")
     User getUser(@Bind("userId") long userId);
 
-    @SqlQuery("SELECT user_id, email FROM \"user\" WHERE email = :username")
+    @SqlQuery("SELECT user_id, email, (SELECT splitwise_token IS NOT NULL) AS auth " +
+              "FROM \"user\" WHERE email = :username")
     User getUser(@Bind("username") String username);
+    
+    @SqlQuery("SELECT (splitwise_token IS NOT NULL) FROM \"user\" WHERE user_id = :userId")
+    boolean isSplitwiseAuthenticated(@Bind("userId") long userId);
 
     @SqlQuery("SELECT password_hash FROM \"user\" WHERE email = :username")
     byte[] getPasswordHash(@Bind("username") String username);

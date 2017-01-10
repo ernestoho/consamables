@@ -9,6 +9,10 @@ export const getGroupRestaurant = (state, id) => {
     return state.restaurants.getIn([restaurantId, 'name']);
 };
 
+export const getGroupRestaurantId = (state, id) => {
+    return state.pendingOrders.getIn([id, 'restaurantId']) || state.activeOrders.getIn([id, 'restaurantId']);
+};
+
 export const getMenu = (state, id) => state.menus.has(id) ?
                                       state.menus.get(id)
                                       : List();

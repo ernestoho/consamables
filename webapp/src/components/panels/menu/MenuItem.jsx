@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addItemToOrder, openPizzaBuilder } from '../../../actions'
+import { addItemToOrder, openPizzaBuilder } from '../../../actions';
 import { DISPLAY_MENU_ORDERING, DISPLAY_MENU_WITH_ORDER } from '../../../constants';
 
 class MenuItem extends React.Component {
     render() {
         const {
-            price, name, description, ordering, itemId, data,
+            price, name, description, viewOnly, itemId, data,
             onAddClick, onBuildClick
         } = this.props;
 
         return (
             <div className="menu-item">
-                {ordering ?
+                {!viewOnly ?
                     <div className="menu-item-overlay">
                         {data && 'pizza' in data ?
                             <button
@@ -40,9 +40,7 @@ class MenuItem extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    ordering: state.centerColumn.displayMode == DISPLAY_MENU_ORDERING
-});
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
     onAddClick: id => dispatch(addItemToOrder(id)),

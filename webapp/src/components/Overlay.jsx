@@ -17,26 +17,16 @@ const overlayStyles = {
     }
 }
 
-class Overlay extends React.Component {
+export default class Overlay extends React.Component {
     render() {
+        const { centerFocus, onClick } = this.props;
         return (
             <div
                 className="overlay"
-                style={this.props.visible ? overlayStyles.visible : overlayStyles.hidden}
-                onClick={this.props.onClick}
+                style={centerFocus ? overlayStyles.visible : overlayStyles.hidden}
+                onClick={onClick}
             >
             </div>
         );
     }
 }
-
-const mapStateToProps = state => {
-    const { displayMode } = state.centerColumn;
-    return {
-        visible: !(displayMode == DISPLAY_DEFAULT || displayMode == DISPLAY_MENU_VIEWING)
-    };
-};
-
-export default connect(
-    mapStateToProps
-)(Overlay)

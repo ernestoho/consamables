@@ -88,6 +88,8 @@
 @mixin xbutton {
     cursor: pointer;
     transition-duration: 0.2s;
+    text-decoration: none;
+    color: $text-color;
 
     &:hover {
         color: red;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 import OrderTimer from '../OrderTimer';
 
@@ -16,7 +17,7 @@ export default class OrganizedOrderPreview extends React.Component {
                     <div className="type">{type.charAt(0).toUpperCase()}{type.slice(1)}</div>
                 </div>
                 <OrderTimer timeStarted={timeStarted} duration={duration} concise={true}/>
-                <button className="button" onClick={onClick}>View Details</button>
+                <Link to={`/group-details/${id}`} className="button">View Details</Link>
             </div>
         );
     }

@@ -17,6 +17,9 @@ public class AccessToken {
     private String username;
 
     @JsonProperty
+    private boolean splitwiseAuthenticated;
+
+    @JsonProperty
     private Timestamp lastAccessTime;
 
     public AccessToken(UUID accessTokenId, Long userId) {
@@ -44,6 +47,15 @@ public class AccessToken {
 
     public AccessToken setUsername(String username) {
         this.username = username;
+        return this;
+    }
+
+    public boolean isSplitwiseAuthenticated() {
+        return splitwiseAuthenticated;
+    }
+
+    public AccessToken setSplitwiseAuthenticated(boolean splitwiseAuthenticated) {
+        this.splitwiseAuthenticated = splitwiseAuthenticated;
         return this;
     }
 

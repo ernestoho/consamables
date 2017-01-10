@@ -1,15 +1,15 @@
 import 'whatwg-fetch';
 
 import { Map, fromJS } from 'immutable';
+import { push } from 'react-router-redux';
 
 import {
     REQUEST_ORGANIZED_ORDERS, RECEIVE_ORGANIZED_ORDERS,
     SHOW_GROUP_DETAILS, HIDE_GROUP_DETAILS
 } from './actionTypes';
 import { buildPostInit, buildGetInit } from '../helpers';
-import { promptLogin } from './login';
 import { fetchUsername } from './users';
-import { fetchActiveOrders } from './activeOrders';
+import fetchActiveOrders from './activeOrders';
 import { fetchMyOrders } from './order';
 
 const requestOrganizedOrders = () => ({ type: REQUEST_ORGANIZED_ORDERS });
@@ -36,7 +36,7 @@ export const fetchOrganizedOrders = () => {
                             });
                         });
                     } else {
-                        dispatch(promptLogin());
+                        dispatch(push('/login'));
                     }
                 });
             });
@@ -66,6 +66,7 @@ export const markGroupComplete = groupId => {
         fetch(`/api/groups/${groupId}/mark-complete`, buildPostInit())
             .then(response => {
                 if (response.ok) {
+                    dispatch(push('/'));
                     dispatch(fetchOrganizedOrders());
                     dispatch(fetchActiveOrders());
                     dispatch(fetchMyOrders())

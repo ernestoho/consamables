@@ -1,5 +1,6 @@
-import { Map, fromJS } from 'immutable';
 import 'whatwg-fetch';
+
+import { Map, fromJS } from 'immutable';
 
 import { REQUEST_ACTIVE_ORDERS, RECEIVE_ACTIVE_ORDERS } from './actionTypes';
 import { fetchNumOrders } from './stats';

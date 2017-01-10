@@ -1,5 +1,7 @@
 import 'whatwg-fetch';
 
+import { push } from 'react-router-redux';
+
 import {
     UPDATE_CONFIRM_PASSWORD_FIELD,
     SEND_NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS, NEW_ACCOUNT_FAILURE,
@@ -36,7 +38,7 @@ export const submitNewAccount = data => {
             dispatch(newAccountFailure('Passwords must match.'));
         } else {
             dispatch(sendNewAccount());
-            fetch('api/user/new', {
+            fetch('/api/user/new', {
                 method: 'POST',
                 body: JSON.stringify({username: data.username, password: data.password}),
                 headers: new Headers({
@@ -48,6 +50,7 @@ export const submitNewAccount = data => {
                         if (response.ok) {
                             TokenManager.storeAccessToken(json.accessTokenId);
                             dispatch(newAccountSuccess(json.userId, json.username));
+                            dispatch(push('/'));
                         } else {
                             dispatch(newAccountFailure(json.message));
                         }
