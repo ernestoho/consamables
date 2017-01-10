@@ -25,7 +25,7 @@ public interface OrderDAO {
 
     @SqlQuery("SELECT * FROM \"order\" WHERE order_id = :orderId")
     Order getOrder(@Bind("order_id") long orderId);
-    
+
     @SqlQuery("SELECT count(*) FROM \"order\" WHERE group_id = :groupId")
     int countOrdersInGroup(@Bind("groupId") long groupId);
 

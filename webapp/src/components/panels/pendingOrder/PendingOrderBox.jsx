@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import moment from 'moment';
 
 import { activateOrder } from '../../../actions';
@@ -29,7 +30,7 @@ class PendingOrderBox extends React.Component {
 
     render() {
         const {
-            loggedIn, restaurantName, type, timeCreated, minPeople, votes,
+            groupId, loggedIn, restaurantName, type, timeCreated, minPeople, votes,
             onJoinClick, onStartClick
         } = this.props;
         const { timeElapsed } = this.state;
@@ -48,6 +49,7 @@ class PendingOrderBox extends React.Component {
                 </div>
                 {loggedIn ?
                     <PendingOrderToolbar
+                        id={groupId}
                         onStartClick={onStartClick}
                         onJoinClick={onJoinClick}
                     />
@@ -60,11 +62,15 @@ class PendingOrderBox extends React.Component {
 
 class PendingOrderToolbar extends React.Component {
     render() {
-        const { onJoinClick, onStartClick } = this.props;
+        const {
+            id,
+            onJoinClick, onStartClick
+        } = this.props;
+
         return (
             <div className="toolbar">
-                <button className="button" onClick={onJoinClick}>Join Queue</button>
-                <button className="button" onClick={onStartClick}>Start Order</button>
+                <Link to="" className="button" onClick={onJoinClick}>Join Queue</Link>
+                <Link to={`/activate/${id}`} className="button" onClick={onStartClick}>Start Order</Link>
             </div>
         );
     }

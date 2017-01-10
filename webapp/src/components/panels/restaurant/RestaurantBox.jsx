@@ -22,6 +22,7 @@ class RestaurantBox extends React.Component {
                 <Link url={url}/>
                 <TimeDisplay open={open} openTime={openTime} closeTime={closeTime}/>
                 <RestaurantToolbar
+                    id={restaurantId}
                     loggedIn={loggedIn}
                     open={open}
                     onMenuClick={() => onMenuClick(restaurantId)}

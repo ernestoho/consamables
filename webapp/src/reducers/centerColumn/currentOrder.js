@@ -4,7 +4,9 @@ import {
     START_ORDER, JOIN_ORDER, ACTIVATE_ORDER,
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
     INCREMENT_ITEM, DECREMENT_ITEM, SET_QUANTITY,
-    CONTINUE_ORDER, SET_ORDER_TYPE, SET_ORDER_DURATION,
+    CONTINUE_ORDER, GO_BACK_TO_MENU,
+    OPEN_PIZZA_BUILDER, CLOSE_PIZZA_BUILDER,
+    SET_ORDER_TYPE, SET_ORDER_DURATION,
     SEND_NEW_GROUP, NEW_GROUP_FAILURE, NEW_GROUP_SUCCESS,
     SEND_NEW_ORDER, NEW_ORDER_FAILURE, NEW_ORDER_SUCCESS,
     SEND_ACTIVATED_GROUP, ACTIVATED_GROUP_FAILURE, ACTIVATED_GROUP_SUCCESS
@@ -23,19 +25,16 @@ const startOrder = (state, action, orderType) => {
                    .set('restaurantId', action.restaurantId);
 };
 
-const currentOrder = (state = Map({ items: Map() }), action) => {
+const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) => {
     switch (action.type) {
         case START_ORDER:
-            return startOrder(state, action, 'start')
-                .delete('groupId');
+            return startOrder(state, action, 'start').delete('groupId');
 
         case JOIN_ORDER:
-            return startOrder(state, action, 'join')
-                .set('groupId', action.groupId);
+            return startOrder(state, action, 'join').set('groupId', action.groupId);
 
         case ACTIVATE_ORDER:
-            return startOrder(state, action, 'activate')
-                .set('groupId', action.groupId);
+            return startOrder(state, action, 'activate').set('groupId', action.groupId);
 
         case ADD_ITEM_TO_ORDER:
             return state.updateIn(['items', action.id, 'quantity'], 0, q => q + 1)
@@ -54,10 +53,20 @@ const currentOrder = (state = Map({ items: Map() }), action) => {
             return state.setIn(['items', action.id, 'quantity'], action.quantity);
 
         case CONTINUE_ORDER:
-            return state.set('options', Map({
-                'type': 'delivery',
-                'duration': 30
-            }));
+            return state.set('stage', 'confirm')
+                        .set('options', Map({
+                            'type': 'delivery',
+                            'duration': 30
+                        }));
+
+        case OPEN_PIZZA_BUILDER:
+            return state.set('stage', 'pizza');
+
+        case CLOSE_PIZZA_BUILDER:
+            return state.set('stage, choose');
+
+        case GO_BACK_TO_MENU:
+            return state.set('stage', 'choose');
 
         case SET_ORDER_TYPE:
             return state.setIn(['options', 'type'], action.value);

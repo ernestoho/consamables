@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 
 import activeOrders from './activeOrders';
 import pendingOrders from './pendingOrders';
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     items,
     centerColumn,
     currentUser,
-    users
+    users,
+    routing: routerReducer
 });
 
 export default rootReducer

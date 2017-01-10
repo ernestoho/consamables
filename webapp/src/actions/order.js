@@ -1,5 +1,7 @@
 import 'whatwg-fetch';
+
 import { Map, List, fromJS } from 'immutable';
+import { push } from 'react-router-redux';
 
 import {
     START_ORDER, JOIN_ORDER, ACTIVATE_ORDER,
@@ -18,7 +20,6 @@ import fetchActiveOrders from './activeOrders';
 import fetchPendingOrders from './pendingOrders';
 import { fetchOrganizedOrders } from './organizer';
 import { buildPostInit, buildGetInit } from '../helpers';
-import { promptLogin } from './login';
 
 export const startOrder = restaurantId => ({
     type: START_ORDER,
@@ -94,11 +95,12 @@ export const submitNewGroup = data => {
             .then(response => {
                 if (response.ok) {
                     dispatch(newGroupSuccess());
+                    dispatch(push('/'));
                     dispatch(fetchActiveOrders());
                     dispatch(fetchOrganizedOrders());
                 } else if (response.status == 401) {
                     dispatch(newGroupFailure('Logged out.'));
-                    dispatch(promptLogin());
+                    dispatch(push('/login'));
                 }
             })
             .catch( error => dispatch(newGroupFailure(error)) );
@@ -121,10 +123,11 @@ export const submitNewOrder = data => {
             .then(response => {
                 if (response.ok) {
                     dispatch(newOrderSuccess());
+                    dispatch(push('/'));
                     dispatch(fetchMyOrders());
                 } else if (response.status == 401) {
                     dispatch(newOrderFailure('Logged out.'));
-                    dispatch(promptLogin());
+                    dispatch(push('/login'));
                 }
             })
             .catch( error => dispatch(newGroupFailure(error)) );
@@ -147,12 +150,13 @@ export const submitActivatedGroup = data => {
             .then(response => {
                 if (response.ok) {
                     dispatch(activatedGroupSuccess());
+                    dispatch(push('/'));
                     dispatch(fetchOrganizedOrders());
                     dispatch(fetchActiveOrders());
                     dispatch(fetchPendingOrders());
                 } else if (response.status == 401) {
                     dispatch(activatedGroupFailure('Logged out.'));
-                    dispatch(promptLogin());
+                    dispatch(push('/login'));
                 }
             })
             .catch( error => dispatch(activatedGroupFailure(error)) );
@@ -181,7 +185,7 @@ export const fetchMyOrders = () => {
                     if (response.ok) {
                         dispatch(receiveMyOrders(json));
                     } else if (response.status == 401) {
-                        dispatch(promptLogin());
+                        dispatch(push('/login'));
                     }
                 })
             });

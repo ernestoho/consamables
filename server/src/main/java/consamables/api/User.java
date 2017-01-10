@@ -14,11 +14,16 @@ public class User implements Principal {
     @JsonProperty
     private String email;
 
+    @NotNull
+    @JsonProperty
+    private boolean splitwiseAuthenticated;
+
     public User() { }
 
-    public User(Long userId, String email) {
+    public User(Long userId, String email, boolean splitwiseAuthenticated) {
         this.userId = userId;
         this.email = email;
+        this.splitwiseAuthenticated = splitwiseAuthenticated;
     }
 
     public Long getUserId() {
@@ -35,6 +40,14 @@ public class User implements Principal {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isSplitwiseAuthenticated() {
+        return splitwiseAuthenticated;
+    }
+
+    public void setSplitwiseAuthenticated(boolean splitwiseAuthenticated) {
+        this.splitwiseAuthenticated = splitwiseAuthenticated;
     }
 
     @JsonIgnore

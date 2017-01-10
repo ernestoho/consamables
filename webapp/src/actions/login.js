@@ -1,5 +1,7 @@
 import 'whatwg-fetch';
 
+import { push } from 'react-router-redux';
+
 import {
     PROMPT_LOGIN, SET_USER_INFO,
     UPDATE_USERNAME_FIELD, UPDATE_PASSWORD_FIELD,
@@ -10,8 +12,6 @@ import {
 import { TokenManager, buildPostInit, buildGetInit } from '../helpers';
 import { fetchOrganizedOrders } from './organizer';
 import { fetchMyOrders } from './order';
-
-export const promptLogin = () => ({ type: PROMPT_LOGIN });
 
 export const setUserInfo = (userId, username) => ({
     type: SET_USER_INFO,
@@ -57,8 +57,9 @@ export const submitLogin = data => {
                     if (response.ok) {
                         TokenManager.storeAccessToken(json.accessTokenId);
                         dispatch(loginSuccess(json.userId, json.username));
+                        dispatch(push('/'));
                         dispatch(fetchOrganizedOrders());
-                        dispatch(fetchMyOrders())
+                        dispatch(fetchMyOrders());
                     } else {
                         dispatch(loginFailure(json.message));
                     }
@@ -71,7 +72,7 @@ export const submitLogin = data => {
 export const verifyUser = () => {
     return dispatch => {
         if (!TokenManager.retrieveAccessToken()) {
-            dispatch(promptLogin());
+            dispatch(push('/login'));
         } else {
             fetch('/api/user/get-info', buildGetInit())
                 .then(response => {
@@ -82,7 +83,7 @@ export const verifyUser = () => {
                             dispatch(fetchMyOrders());
                         });
                     } else {
-                        dispatch(promptLogin());
+                        dispatch(push('/login'));
                     }
                 });
         }
@@ -92,7 +93,7 @@ export const verifyUser = () => {
 export const logOut = () => {
     return dispatch => {
         TokenManager.clearAccessToken();
-        dispatch(promptLogin());
+        dispatch(push('/login'));
     }
 }
 

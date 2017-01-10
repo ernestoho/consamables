@@ -32,8 +32,7 @@ class NewGroupOptionsPanel extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    loading: state.centerColumn.currentOrder.get('loading'),
-    mode: state.centerColumn.currentOrder.get('mode')
+    loading: state.centerColumn.currentOrder.get('loading')
 });
 
 export default connect(

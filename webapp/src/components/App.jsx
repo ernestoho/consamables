@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import LeftColumn from './LeftColumn';
-import CenterColumn from './CenterColumn';
 import RightColumn from './RightColumn';
 import Overlay from './Overlay';
 import {
@@ -27,25 +26,21 @@ class App extends React.Component {
     }
 
     render() {
-        const style = this.props.centerFocus ? { minWidth: '30em', padding: '0 15em' } : null;
+        const centerFocus = !/^\/(menu\/[0-9]+)?$/.test(this.props.location.pathname);
+        const style = centerFocus ? { minWidth: '30em', padding: '0 15em' } : null;
 
         return (
             <div style={style}>
                 <LeftColumn/>
-                <CenterColumn/>
+                {this.props.children}
                 <RightColumn/>
-                <Overlay/>
+                <Overlay centerFocus={centerFocus}/>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {
-    const displayMode = state.centerColumn.displayMode;
-    return {
-        centerFocus: displayMode != DISPLAY_DEFAULT && displayMode != DISPLAY_MENU_VIEWING
-    };
-};
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
     loadUserInfo: () => dispatch(verifyUser()),

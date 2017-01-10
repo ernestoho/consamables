@@ -35,7 +35,8 @@ public class LoginManager {
 
         if (checkPassword(username, password)) {
             AccessToken token = generateNewAccessToken(userDAO.getUser(username));
-            return token.setUsername(username);
+            boolean splitwiseAuthenticated = userDAO.isSplitwiseAuthenticated(token.getUserId());
+            return token.setUsername(username).setSplitwiseAuthenticated(splitwiseAuthenticated);
         } else {
             return null;
         }
@@ -53,7 +54,7 @@ public class LoginManager {
         final byte[] passwordHash = hashPassword(password.toCharArray(), salt, NUM_ITERATIONS, KEY_LENGTH);
         User newUser = userDAO.addUser(username, passwordHash, salt);
         AccessToken token = generateNewAccessToken(newUser);
-        return token.setUsername(username);
+        return token.setUsername(username).setSplitwiseAuthenticated(false);
     }
     
     private AccessToken generateNewAccessToken(User user) {

@@ -3,40 +3,44 @@ import './styles/master.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux'
 import { Map } from 'immutable';
 
-import App from './components/App';
 import configureStore from './configureStore';
-import { DISPLAY_DEFAULT } from './constants';
+import App from './components/App';
+import CenterColumn from './components/centerColumn/CenterColumn';
+import Dashboard from './components/centerColumn/Dashboard';
+import Login from './components/centerColumn/Login';
+import CreateAccount from './components/centerColumn/CreateAccount';
+import Menu from './components/centerColumn/Menu';
+import Order from './components/centerColumn/Order';
+import Suggest from './components/centerColumn/Suggest';
+import GroupDetails from './components/centerColumn/GroupDetails';
+import OrderDetails from './components/centerColumn/OrderDetails';
 
-const initialState = {
-    activeOrders: Map(),
-    pendingOrders: Map(),
-    organizedOrders: Map(),
-    myOrders: Map(),
-    restaurants: Map(),
-    menus: Map(),
-    items: Map(),
-    centerColumn: {
-        displayMode: DISPLAY_DEFAULT,
-        menuId: -1,
-        currentOrder: Map({ items: Map() }),
-        suggestOrder: Map(),
-        login: Map({ username: '', password: '' }),
-        pizzaBuilder: Map({ toppings: Map(), size: 'half' }),
-        organizer: Map(),
-        myOrderDetails: Map()
-    },
-    currentUser: Map({ loggedIn: false }),
-    users: Map()
-};
-
-const store = configureStore(initialState);
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
 const container = document.getElementById('container');
 
 ReactDOM.render(
     <Provider store={store}>
-        <App/>
+        <Router history={history}>
+            <Route path="/" component={App}>
+                <IndexRoute component={Dashboard}/>
+                <Route path="login">
+                    <IndexRoute component={Login}/>
+                    <Route path="create" component={CreateAccount}/>
+                </Route>
+                <Route path="menu/:id" component={Menu}/>
+                <Route path="join/:id" component={Order}/>
+                <Route path="start/:id" component={Order}/>
+                <Route path="activate/:id" component={Order}/>
+                <Route path="suggest/:id" component={Suggest}/>
+                <Route path="group-details/:id" component={GroupDetails}/>
+                <Route path="order-details/:id" component={OrderDetails}/>
+            </Route>
+        </Router>
     </Provider>,
     container
 );

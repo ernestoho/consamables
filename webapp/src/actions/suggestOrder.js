@@ -1,5 +1,7 @@
 import 'whatwg-fetch';
 
+import { push } from 'react-router-redux';
+
 import {
     SHOW_SUGGESTION, HIDE_SUGGESTION,
     TOGGLE_DELIVERY, TOGGLE_CARRYOUT, TOGGLE_OUTING,
@@ -9,7 +11,6 @@ import {
 
 import fetchPendingOrders from './pendingOrders';
 import { buildPostInit } from '../helpers';
-import { promptLogin } from './login';
 
 export const openSuggestOrder = restaurantId => ({
     type: SHOW_SUGGESTION,
@@ -63,10 +64,11 @@ export const submitSuggestion = data => {
             .then(response => {
                 if (response.ok) {
                     dispatch(suggestionSuccess());
+                    dispatch(push('/'));
                     dispatch(fetchPendingOrders());
                 } else if (response.status == 401) {
                     dispatch(suggestionFailure('Logged out.'));
-                    dispatch(promptLogin());
+                    dispatch(push('/login'));
                 }
             })
             .catch( error => dispatch(suggestionFailure(error)) );

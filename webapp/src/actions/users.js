@@ -1,8 +1,9 @@
 import 'whatwg-fetch';
 
+import { push } from 'react-router-redux';
+
 import { RECEIVE_USERNAME } from './actionTypes';
 import { buildGetInit } from '../helpers';
-import { promptLogin } from './login';
 
 const receiveUsername = (userId, username) => ({
     type: RECEIVE_USERNAME,
@@ -19,7 +20,7 @@ export const fetchUsername = userId => {
                         dispatch(receiveUsername(json.userId, json.email));
                     });
                 } else if (response.status == 401) {
-                    dispatch(promptLogin());
+                    dispatch(push('/login'));
                 }
             });
     };
