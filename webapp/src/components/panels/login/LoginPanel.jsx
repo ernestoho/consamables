@@ -3,6 +3,7 @@ import '../../../styles/panels/login-panel.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { push } from 'react-router-redux';
 
 import PanelHeader from '../PanelHeader';
 import UsernameField from './UsernameField';
@@ -12,6 +13,20 @@ import Spinner from '../Spinner';
 import { goToCreateAccount } from '../../../actions';
 
 class LoginPanel extends React.Component {
+    componentDidMount() {
+        const { loggedIn, exitLogin } = this.props;
+
+        if (loggedIn) {
+            exitLogin();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.loggedIn) {
+            this.props.exitLogin();
+        }
+    }
+
     render() {
         const {
             loading, error,
@@ -44,11 +59,13 @@ class LoginPanel extends React.Component {
 
 const mapStateToProps = state => ({
     loading: state.centerColumn.login.get('loading'),
-    error: state.centerColumn.login.get('error')
+    error: state.centerColumn.login.get('error'),
+    loggedIn: state.currentUser.get('loggedIn')
 });
 
 const mapDispatchToProps = dispatch => ({
-    createAccount: () => dispatch(goToCreateAccount())
+    createAccount: () => dispatch(goToCreateAccount()),
+    exitLogin: () => dispatch(push('/'))
 });
 
 export default connect(

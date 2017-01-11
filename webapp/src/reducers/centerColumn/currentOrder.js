@@ -56,7 +56,8 @@ const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) =>
             return state.set('stage', 'confirm')
                         .set('options', Map({
                             'type': 'delivery',
-                            'duration': 30
+                            'duration': 30,
+                            'overhead': 0
                         }));
 
         case OPEN_PIZZA_BUILDER:

@@ -1,5 +1,6 @@
 package consamables.resources;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,6 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import consamables.api.Group;
 import consamables.api.NewGroup;
@@ -105,10 +108,18 @@ public class GroupResource {
     @PermitAll
     @Path("/join")
     @POST
-    public Response placeOrder(@Auth User user, @Valid Order order) {
+    public Response placeOrder(@Auth User user, @Valid Order order) throws JsonProcessingException {
         if (!user.getUserId().equals(order.getUserId())) {
             throw new NotAuthorizedException("You can only join orders on behalf of yourself.", Response.status(401).build());
         }
+        long payerId = order.getUserId();
+        long payeeId = groupDAO.getOrganizerId(order.getGroupId());
+        BigDecimal amount = paymentManager.calculateOrderCost(
+                order.getOrderItems(),
+                groupDAO.getOverheadPercentage(order.getGroupId()));
+        String description = groupDAO.getRestaurantName(order.getGroupId());
+        paymentManager.createCharge(payerId, payeeId, amount, description);
+
         long orderId = orderDAO.addOrder(order);
         for (OrderItem orderItem : order.getOrderItems()) {
             orderItem.setOrderId(orderId);

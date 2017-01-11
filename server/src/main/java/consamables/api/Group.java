@@ -1,5 +1,6 @@
 package consamables.api;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class Group {
     private Long organizerId;
 
     @JsonProperty
+    private BigDecimal overheadPercentage;
+
+    @JsonProperty
     private Timestamp timeCreated;
 
     @JsonProperty
@@ -45,7 +49,8 @@ public class Group {
     public Group() { }
 
     public Group(Long groupId, Long restaurantId, String type,
-                 String phase, Integer minPeople, Integer durationMinutes, Long organizerId,
+                 String phase, Integer minPeople, Integer durationMinutes,
+                 Long organizerId, BigDecimal overheadPercentage,
                  Timestamp timeCreated, Timestamp timeStarted, Timestamp timeOrdered) {
         this.groupId = groupId;
         this.restaurantId = restaurantId;
@@ -54,6 +59,7 @@ public class Group {
         this.minPeople = minPeople;
         this.durationMinutes = durationMinutes;
         this.organizerId = organizerId;
+        this.overheadPercentage = overheadPercentage;
         this.timeCreated = timeCreated;
         this.timeStarted = timeStarted;
         this.timeOrdered = timeOrdered;
@@ -113,6 +119,14 @@ public class Group {
 
     public void setOrganizerId(Long organizerId) {
         this.organizerId = organizerId;
+    }
+
+    public BigDecimal getOverheadPercentage() {
+        return overheadPercentage;
+    }
+
+    public void setOverheadPercentage(BigDecimal overheadPercentage) {
+        this.overheadPercentage = overheadPercentage;
     }
 
     public Timestamp getTimeCreated() {

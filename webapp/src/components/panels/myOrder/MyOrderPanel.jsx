@@ -2,6 +2,7 @@ import '../../../styles/panels/my-order-panel.scss';
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { List } from 'immutable';
 
 import CloseButton from '../CloseButton';
 import OrderItem from '../OrderItem';
@@ -29,12 +30,11 @@ class MyOrderPanel extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    const orderId = state.centerColumn.myOrderDetails.get('orderId');
-    const order = state.myOrders.get(orderId);
+const mapStateToProps = (state, ownProps) => {
+    const order = state.myOrders.get(ownProps.id);
     return {
-        orderItems: order.get('orderItems'),
-        restaurantName: getGroupRestaurant(state, order.get('groupId'))
+        orderItems: order ? order.get('orderItems') : List(),
+        restaurantName: order ? getGroupRestaurant(state, order.get('groupId')) : null
     };
 };
 

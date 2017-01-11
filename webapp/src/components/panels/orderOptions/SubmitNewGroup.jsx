@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
             restaurantId: state.centerColumn.currentOrder.get('restaurantId'),
             type: state.centerColumn.currentOrder.getIn(['options', 'type']),
             durationMinutes: state.centerColumn.currentOrder.getIn(['options', 'duration']),
-            organizerId: state.currentUser.get('userId')
+            organizerId: state.currentUser.get('userId'),
+            overheadPercentage: state.centerColumn.currentOrder.getIn(['options', 'overhead'])
         },
         order: {
             userId: state.currentUser.get('userId'),

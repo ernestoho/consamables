@@ -2,6 +2,8 @@ package consamables.payment;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -14,8 +16,10 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
+import consamables.api.OrderItem;
 import consamables.api.SplitwiseUser;
 import consamables.api.SplitwiseVerifier;
+import consamables.jdbi.ItemDAO;
 import consamables.jdbi.SplitwiseTokenDAO;
 import consamables.jdbi.SplitwiseUserDAO;
 
@@ -27,20 +31,25 @@ public class PaymentManager {
 
     private OAuth10aService service;
     private long splitwiseGroupId;
+    private BigDecimal localMealTax;
     private SplitwiseTokenDAO tokenDAO;
     private SplitwiseUserDAO userDAO;
+    private ItemDAO itemDAO;
     private ObjectMapper objectMapper;
 
     public PaymentManager(String consumerKey, String consumerSecret,
-                           long splitwiseGroupId,
-                           SplitwiseTokenDAO tokenDAO, SplitwiseUserDAO userDAO) {
+                           long splitwiseGroupId, BigDecimal localMealTax,
+                           SplitwiseTokenDAO tokenDAO, SplitwiseUserDAO userDAO,
+                           ItemDAO itemDAO) {
         this.service = new ServiceBuilder()
                 .apiKey(consumerKey)
                 .apiSecret(consumerSecret)
                 .build(SplitwiseApi.instance());
         this.splitwiseGroupId = splitwiseGroupId;
+        this.localMealTax = localMealTax;
         this.tokenDAO = tokenDAO;
         this.userDAO = userDAO;
+        this.itemDAO = itemDAO;
         this.objectMapper = new ObjectMapper();
     }
 
@@ -95,6 +104,20 @@ public class PaymentManager {
                 amount, description);
         final OAuthRequest request = createPostRequest(CREATE_EXPENSE, body, accessToken);
         request.send();
+    }
+
+    public BigDecimal calculateOrderCost(List<OrderItem> orderItems, BigDecimal overhead) {
+        BigDecimal total = new BigDecimal("0");
+        for (OrderItem orderItem : orderItems) {
+            BigDecimal price = itemDAO.getItemPrice(orderItem.getItemId());
+            total = total.add(price.multiply(new BigDecimal(orderItem.getQuantity())));
+        }
+        BigDecimal newTotal = total.multiply(localMealTax.add(BigDecimal.ONE))
+                .multiply(overhead.add(BigDecimal.ONE));
+        BigDecimal roundedTotal = newTotal.multiply(new BigDecimal("2"))
+                .setScale(0, RoundingMode.CEILING)
+                .multiply(new BigDecimal("0.5"));
+        return roundedTotal;
     }
 
     private OAuthRequest createGetRequest(String url, OAuth1AccessToken accessToken) {

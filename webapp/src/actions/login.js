@@ -90,8 +90,11 @@ export const verifyUser = () => {
                 .then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            dispatch(loadUserInfo(json.userId, json.email));
-                            dispatch(push('/'));
+                            if (!json.splitwiseAuthenticated) {
+                                dispatch(redirectToSplitwise());
+                            } else {
+                                dispatch(loadUserInfo(json.userId, json.email));
+                            }
                         });
                     } else {
                         dispatch(push('/login'));

@@ -1,5 +1,6 @@
 package consamables.jdbi;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
@@ -28,6 +29,13 @@ public interface GroupDAO {
     @SqlQuery("SELECT organizer_id FROM \"group\" WHERE group_id = :groupId")
     long getOrganizerId(@Bind("groupId") long groupId);
 
+    @SqlQuery("SELECT overhead_percentage FROM \"group\" WHERE group_id = :groupId")
+    BigDecimal getOverheadPercentage(@Bind("groupId") long groupId);
+
+    @SqlQuery("SELECT name FROM restaurant WHERE restaurant_id = " +
+              "(SELECT restaurant_id FROM \"group\" WHERE group_id = :groupId)")
+    String getRestaurantName(@Bind("groupId") long groupId);
+
     @SqlQuery("SELECT * FROM \"group\" WHERE organizer_id = :organizerId " +
               "AND (phase = 'active' OR phase = 'ordered')")
     List<Group> getGroupsByOrganizer(@Bind("organizerId") long organizerId);
@@ -40,15 +48,15 @@ public interface GroupDAO {
     long addPendingGroup(@BindBean Group group);
 
     @SqlUpdate("INSERT INTO \"group\" " +
-               "(restaurant_id, type, phase, duration_minutes, organizer_id, time_started) " +
+               "(restaurant_id, type, phase, duration_minutes, organizer_id, overhead_percentage, time_started) " +
                "VALUES " +
-               "(:restaurantId, CAST(:type AS group_type), 'active', :durationMinutes, :organizerId, now())")
+               "(:restaurantId, CAST(:type AS group_type), 'active', :durationMinutes, :organizerId, :overheadPercentage, now())")
     @GetGeneratedKeys
     long addActiveGroup(@BindBean Group group);
 
     @SqlUpdate("UPDATE \"group\" SET " +
-               "(type, phase, duration_minutes, organizer_id, time_started) = " +
-               "(:type::group_type, 'active', :durationMinutes, :organizerId, now()) " +
+               "(type, phase, duration_minutes, organizer_id, overhead_percentage, time_started) = " +
+               "(:type::group_type, 'active', :durationMinutes, :organizerId, :overheadPercentage, now()) " +
                "WHERE group_id = :groupId")
     void activatePendingGroup(@BindBean Group group);
 

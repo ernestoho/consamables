@@ -66,7 +66,7 @@ public class UserResource {
     public User getInfo(@Auth User user) {
         return user;
     }
-    
+
     @PermitAll
     @Path("/{id}/name")
     @GET

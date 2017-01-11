@@ -3,6 +3,9 @@ package consamables;
 import io.dropwizard.Configuration;
 import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.db.DataSourceFactory;
+
+import java.math.BigDecimal;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,6 +33,11 @@ public class ConsamablesConfiguration extends Configuration {
     @NotNull
     @JsonProperty
     private long splitwiseGroupId;
+    
+    @Valid
+    @NotNull
+    @JsonProperty
+    private BigDecimal localMealTax;
 
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory factory) {
@@ -73,5 +81,13 @@ public class ConsamablesConfiguration extends Configuration {
 
     public void setSplitwiseGroupId(long splitwiseGroupId) {
         this.splitwiseGroupId = splitwiseGroupId;
+    }
+
+    public BigDecimal getLocalMealTax() {
+        return localMealTax;
+    }
+
+    public void setLocalMealTax(BigDecimal localMealTax) {
+        this.localMealTax = localMealTax;
     }
 }

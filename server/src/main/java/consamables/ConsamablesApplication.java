@@ -59,7 +59,8 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
                 config.getSplitwiseConsumerKey(),
                 config.getSplitwiseConsumerSecret(),
                 config.getSplitwiseGroupId(),
-                splitwiseTokenDAO, splitwiseUserDAO);
+                config.getLocalMealTax(),
+                splitwiseTokenDAO, splitwiseUserDAO, itemDAO);
 
         environment.jersey().register(new RestaurantResource(restaurantDAO, menuSectionDAO, itemDAO));
         environment.jersey().register(new GroupResource(
