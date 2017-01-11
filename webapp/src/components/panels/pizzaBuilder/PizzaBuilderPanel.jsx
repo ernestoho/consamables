@@ -2,8 +2,10 @@ import '../../../styles/panels/pizza-builder-panel.scss';
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Map } from 'immutable';
 
 import PanelHeader from '../PanelHeader';
+import CloseButton from '../CloseButton';
 import PizzaSizeSelection from './PizzaSizeSelection';
 import ToppingsSection from './ToppingsSection';
 import CheeseSelection from './CheeseSelection';
@@ -58,13 +60,12 @@ class PizzaBuilderPanel extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    const restaurantId = state.centerColumn.currentOrder.get('restaurantId');
-    const options = state.restaurants.getIn([restaurantId, 'data', 'pizza']);
+const mapStateToProps = (state, ownProps) => {
+    const options = state.restaurants.getIn([ownProps.id, 'data', 'pizza']);
     const itemId = state.centerColumn.pizzaBuilder.get('itemId');
     return {
-        toppings: options.get('toppings'),
-        sauces: options.get('sauces'),
+        toppings: options ? options.get('toppings') : Map(),
+        sauces: options ? options.get('sauces') : Map(),
         maxToppings: state.items.getIn([itemId, 'data', 'pizza', 'maxToppings']),
         hasToppings: state.centerColumn.pizzaBuilder.get('toppings').size > 0,
         whole: state.centerColumn.pizzaBuilder.get('size') == 'whole'

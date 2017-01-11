@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
 
 import SubmitButton from '../SubmitButton';
+import { getGroupRestaurantId } from '../../../selectors';
 import { submitNewGroup } from '../../../actions';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     text: 'Start Order',
     data: {
         activeGroup: {
-            restaurantId: state.centerColumn.currentOrder.get('restaurantId'),
+            restaurantId: parseInt(ownProps.id),
             type: state.centerColumn.currentOrder.getIn(['options', 'type']),
             durationMinutes: state.centerColumn.currentOrder.getIn(['options', 'duration']),
             organizerId: state.currentUser.get('userId'),
-            overheadPercentage: state.centerColumn.currentOrder.getIn(['options', 'overhead'])
+            overheadPercentage: state.centerColumn.currentOrder.getIn(['options', 'overhead']) * 0.01
         },
         order: {
             userId: state.currentUser.get('userId'),

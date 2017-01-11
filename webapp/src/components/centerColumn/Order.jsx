@@ -20,7 +20,7 @@ class Order extends React.Component {
                     : null}
                 {stage != 'pizza' ?
                     <CurrentOrderPanel/>
-                    : <PizzaBuilderPanel/>}
+                    : <PizzaBuilderPanel id={menuId}/>}
                 {stage == 'confirm' ?
                     (mode == 'join' ?
                         <NewOrderConfirmPanel id={params.id}/>

@@ -1,4 +1,5 @@
 import { Map, List } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router';
 
 import {
     START_ORDER, JOIN_ORDER, ACTIVATE_ORDER,
@@ -6,7 +7,7 @@ import {
     INCREMENT_ITEM, DECREMENT_ITEM, SET_QUANTITY,
     CONTINUE_ORDER, GO_BACK_TO_MENU,
     OPEN_PIZZA_BUILDER, CLOSE_PIZZA_BUILDER,
-    SET_ORDER_TYPE, SET_ORDER_DURATION,
+    SET_ORDER_TYPE, SET_ORDER_DURATION, SET_OVERHEAD,
     SEND_NEW_GROUP, NEW_GROUP_FAILURE, NEW_GROUP_SUCCESS,
     SEND_NEW_ORDER, NEW_ORDER_FAILURE, NEW_ORDER_SUCCESS,
     SEND_ACTIVATED_GROUP, ACTIVATED_GROUP_FAILURE, ACTIVATED_GROUP_SUCCESS
@@ -64,7 +65,7 @@ const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) =>
             return state.set('stage', 'pizza');
 
         case CLOSE_PIZZA_BUILDER:
-            return state.set('stage, choose');
+            return state.set('stage', 'choose');
 
         case GO_BACK_TO_MENU:
             return state.set('stage', 'choose');
@@ -74,6 +75,9 @@ const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) =>
 
         case SET_ORDER_DURATION:
             return state.setIn(['options', 'duration'], action.value);
+
+        case SET_OVERHEAD:
+            return state.setIn(['options', 'overhead'], action.value);
 
         case SEND_NEW_GROUP:
         case SEND_NEW_ORDER:
@@ -91,6 +95,12 @@ const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) =>
             return state.set('items', Map())
                         .set('loading', false)
                         .set('stage', 'choose');
+
+        case LOCATION_CHANGE:
+            if (action.payload.pathname == '/') {
+                return state.set('stage', 'choose');
+            }
+            return state;
 
         default:
             return state;

@@ -22,6 +22,15 @@
                 color: $title-color;
             }
 
+            input[type="range"] {
+                max-width: 20em;
+            }
+
+            .range-label {
+                margin-top: -0.2em;
+                margin-bottom: 0.4em;
+            }
+
             .order-option-choices {
                 margin: 0.4em;
                 display: flex;
