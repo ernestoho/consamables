@@ -5,12 +5,9 @@ import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
-import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.jdbi.DBIFactory;
-
-import javax.ws.rs.client.Client;
 
 import org.skife.jdbi.v2.DBI;
 import consamables.ConsamablesConfiguration;
@@ -23,6 +20,7 @@ import consamables.jdbi.MenuSectionDAO;
 import consamables.jdbi.OrderDAO;
 import consamables.jdbi.OrderItemDAO;
 import consamables.jdbi.RestaurantDAO;
+import consamables.jdbi.SplitwiseDAO;
 import consamables.jdbi.UserDAO;
 import consamables.jdbi.VoteDAO;
 import consamables.resources.GroupResource;
@@ -52,17 +50,16 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
         final VoteDAO voteDAO = jdbi.onDemand(VoteDAO.class);
         final AccessTokenDAO accessTokenDAO = jdbi.onDemand(AccessTokenDAO.class);
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
-        
-        final Client client = new JerseyClientBuilder(environment).using(config.getJerseyClientConfiguration())
-                .build(getName());
+        final SplitwiseDAO splitwiseTokenDAO = jdbi.onDemand(SplitwiseDAO.class);
 
         environment.jersey().register(new RestaurantResource(restaurantDAO, menuSectionDAO, itemDAO));
         environment.jersey().register(new GroupResource(groupDAO, voteDAO, orderDAO, orderItemDAO));
         environment.jersey().register(new OrderResource(orderDAO, orderItemDAO));
         environment.jersey().register(new UserResource(userDAO, accessTokenDAO));
-        environment.jersey().register(new PaymentResource(client,
+        environment.jersey().register(new PaymentResource(
                 config.getSplitwiseConsumerKey(),
-                config.getSplitwiseConsumerSecret()));
+                config.getSplitwiseConsumerSecret(),
+                splitwiseTokenDAO));
 
         environment.jersey().register(new AuthDynamicFeature(
                 new OAuthCredentialAuthFilter.Builder<User>()

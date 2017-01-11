@@ -38,6 +38,6 @@ public interface UserDAO {
               "(email, password_hash, password_salt) " +
               "VALUES " +
               "(:username, :hash, :salt) " +
-              "RETURNING user_id, email")
+              "RETURNING user_id, email, FALSE AS auth")
     User addUser(@Bind("username") String username, @Bind("hash") byte[] hash, @Bind("salt") byte[] salt);
 }

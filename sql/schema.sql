@@ -16,7 +16,10 @@ CREATE TABLE "user"
     email text UNIQUE NOT NULL,
     password_hash bytea NOT NULL,
     password_salt bytea NOT NULL,
+    splitwise_request_token_secret text,
     splitwise_token text,
+    splitwise_token_secret text,
+    splitwise_user_id bigint,
     CONSTRAINT user_pk
         PRIMARY KEY (user_id)
 );

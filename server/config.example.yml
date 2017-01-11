@@ -71,7 +71,8 @@ jerseyClient:
   chunkedEncodingEnabled: true
 
 
-splitwiseConsumerKey: Bsv9XxSw2SzW6nQPX7HJgIux240bjVl7xhhQ88C1
+splitwiseConsumerKey: foo
 
-splitwiseConsumerSecret: odaP848LkkM7yTjIUAAKx7vUXkq48lRjHLs02Gdt
+splitwiseConsumerSecret: bar
 
+splitwiseGroupId: -1
