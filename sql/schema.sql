@@ -20,6 +20,10 @@ CREATE TABLE "user"
     splitwise_token text,
     splitwise_token_secret text,
     splitwise_user_id bigint,
+    splitwise_first_name text,
+    splitwise_last_name text,
+    splitwise_email text,
+    splitwise_group_id bigint,
     CONSTRAINT user_pk
         PRIMARY KEY (user_id)
 );
@@ -44,6 +48,7 @@ CREATE TABLE restaurant
     hours json NOT NULL,
     url text,
     has_delivery boolean NOT NULL DEFAULT FALSE,
+    delivery_charge decimal(4, 2) DEFAULT 0,
     data json,
     CONSTRAINT restaurant_pk
         PRIMARY KEY (restaurant_id)
@@ -86,6 +91,7 @@ CREATE TABLE "group"
     min_people int,
     duration_minutes int,
     organizer_id bigint,
+    overhead_percentage decimal(3, 2),
     time_created timestamp with time zone NOT NULL DEFAULT now(),
     time_started timestamp with time zone,
     time_ordered timestamp with time zone,

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import SubmitButton from '../SubmitButton';
 import { submitNewOrder } from '../../../actions';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     text: 'Join Order',
     data: {
         userId: state.currentUser.get('userId'),
-        groupId: state.centerColumn.currentOrder.get('groupId'),
+        groupId: ownProps.id,
         orderItems: state.centerColumn.currentOrder.get('items')
             .map((item, itemId) => ({
                 itemId,

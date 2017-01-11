@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 export default class MyOrderPreview extends React.Component {
     render() {
         const {
-            restaurantName, orderItems,
+            id, restaurantName, orderItems,
             onClick
         } = this.props;
         return (
@@ -15,7 +16,7 @@ export default class MyOrderPreview extends React.Component {
                         {orderItems.size} item{orderItems.size > 1 ? 's' : null}
                     </div>
                 </div>
-                <button className="button" onClick={onClick}>View Details</button>
+                <Link to={`/order-details/${id}`} className="button">View Details</Link>
             </div>
         );
     }

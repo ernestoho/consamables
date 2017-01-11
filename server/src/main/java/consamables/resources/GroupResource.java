@@ -1,5 +1,6 @@
 package consamables.resources;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,8 +14,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import consamables.api.Group;
 import consamables.api.NewGroup;
+import consamables.api.Order;
 import consamables.api.OrderItem;
 import consamables.api.Suggestion;
 import consamables.api.User;
@@ -22,6 +26,7 @@ import consamables.jdbi.GroupDAO;
 import consamables.jdbi.OrderDAO;
 import consamables.jdbi.OrderItemDAO;
 import consamables.jdbi.VoteDAO;
+import consamables.payment.PaymentManager;
 import io.dropwizard.auth.Auth;
 
 import javax.annotation.security.PermitAll;
@@ -33,13 +38,16 @@ public class GroupResource {
     private VoteDAO voteDAO;
     private OrderDAO orderDAO;
     private OrderItemDAO orderItemDAO;
+    private PaymentManager paymentManager;
 
     public GroupResource(GroupDAO groupDAO, VoteDAO voteDAO,
-                         OrderDAO orderDAO, OrderItemDAO orderItemDAO) {
+                         OrderDAO orderDAO, OrderItemDAO orderItemDAO,
+                         PaymentManager paymentManager) {
         this.groupDAO = groupDAO;
         this.voteDAO = voteDAO;
         this.orderDAO = orderDAO;
         this.orderItemDAO = orderItemDAO;
+        this.paymentManager = paymentManager;
     }
 
     @Path("/active")
@@ -53,7 +61,7 @@ public class GroupResource {
     public List<Group> getPendingGroups() {
         return groupDAO.getPending();
     }
-    
+
     @Path("/{id}/count-orders")
     @GET
     public int getNumOrders(@PathParam("id") String id) {
@@ -91,6 +99,29 @@ public class GroupResource {
         newGroup.getOrder().setGroupId(groupId);
         long orderId = orderDAO.addOrder(newGroup.getOrder());
         for (OrderItem orderItem : newGroup.getOrder().getOrderItems()) {
+            orderItem.setOrderId(orderId);
+            orderItemDAO.addOrderItem(orderItem);
+        }
+        return Response.ok().build();
+    }
+
+    @PermitAll
+    @Path("/join")
+    @POST
+    public Response placeOrder(@Auth User user, @Valid Order order) throws JsonProcessingException {
+        if (!user.getUserId().equals(order.getUserId())) {
+            throw new NotAuthorizedException("You can only join orders on behalf of yourself.", Response.status(401).build());
+        }
+        long payerId = order.getUserId();
+        long payeeId = groupDAO.getOrganizerId(order.getGroupId());
+        BigDecimal amount = paymentManager.calculateOrderCost(
+                order.getOrderItems(),
+                groupDAO.getOverheadPercentage(order.getGroupId()));
+        String description = groupDAO.getRestaurantName(order.getGroupId());
+        paymentManager.createCharge(payerId, payeeId, amount, description);
+
+        long orderId = orderDAO.addOrder(order);
+        for (OrderItem orderItem : order.getOrderItems()) {
             orderItem.setOrderId(orderId);
             orderItemDAO.addOrderItem(orderItem);
         }

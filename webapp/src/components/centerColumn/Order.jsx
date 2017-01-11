@@ -11,7 +11,7 @@ import { getGroupRestaurantId } from '../../selectors';
 
 class Order extends React.Component {
     render() {
-        const { mode, stage, menuId } = this.props;
+        const { mode, stage, menuId, params } = this.props;
 
         return (
             <CenterColumn>
@@ -20,11 +20,11 @@ class Order extends React.Component {
                     : null}
                 {stage != 'pizza' ?
                     <CurrentOrderPanel/>
-                    : <PizzaBuilderPanel/>}
+                    : <PizzaBuilderPanel id={menuId}/>}
                 {stage == 'confirm' ?
                     (mode == 'join' ?
-                        <NewOrderConfirmPanel/>
-                        : <NewGroupOptionsPanel mode={mode}/>)
+                        <NewOrderConfirmPanel id={params.id}/>
+                        : <NewGroupOptionsPanel mode={mode} id={params.id}/>)
                     : null}
             </CenterColumn>
         );

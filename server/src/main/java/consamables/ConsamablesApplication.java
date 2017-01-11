@@ -20,9 +20,11 @@ import consamables.jdbi.MenuSectionDAO;
 import consamables.jdbi.OrderDAO;
 import consamables.jdbi.OrderItemDAO;
 import consamables.jdbi.RestaurantDAO;
-import consamables.jdbi.SplitwiseDAO;
+import consamables.jdbi.SplitwiseTokenDAO;
+import consamables.jdbi.SplitwiseUserDAO;
 import consamables.jdbi.UserDAO;
 import consamables.jdbi.VoteDAO;
+import consamables.payment.PaymentManager;
 import consamables.resources.GroupResource;
 import consamables.resources.OrderResource;
 import consamables.resources.PaymentResource;
@@ -50,16 +52,23 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
         final VoteDAO voteDAO = jdbi.onDemand(VoteDAO.class);
         final AccessTokenDAO accessTokenDAO = jdbi.onDemand(AccessTokenDAO.class);
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
-        final SplitwiseDAO splitwiseTokenDAO = jdbi.onDemand(SplitwiseDAO.class);
+        final SplitwiseTokenDAO splitwiseTokenDAO = jdbi.onDemand(SplitwiseTokenDAO.class);
+        final SplitwiseUserDAO splitwiseUserDAO = jdbi.onDemand(SplitwiseUserDAO.class);
 
-        environment.jersey().register(new RestaurantResource(restaurantDAO, menuSectionDAO, itemDAO));
-        environment.jersey().register(new GroupResource(groupDAO, voteDAO, orderDAO, orderItemDAO));
-        environment.jersey().register(new OrderResource(orderDAO, orderItemDAO));
-        environment.jersey().register(new UserResource(userDAO, accessTokenDAO));
-        environment.jersey().register(new PaymentResource(
+        final PaymentManager paymentManager = new PaymentManager(
                 config.getSplitwiseConsumerKey(),
                 config.getSplitwiseConsumerSecret(),
-                splitwiseTokenDAO));
+                config.getSplitwiseGroupId(),
+                config.getLocalMealTax(),
+                splitwiseTokenDAO, splitwiseUserDAO, itemDAO);
+
+        environment.jersey().register(new RestaurantResource(restaurantDAO, menuSectionDAO, itemDAO));
+        environment.jersey().register(new GroupResource(
+                groupDAO, voteDAO, orderDAO, orderItemDAO,
+                paymentManager));
+        environment.jersey().register(new OrderResource(orderDAO, orderItemDAO));
+        environment.jersey().register(new UserResource(userDAO, accessTokenDAO));
+        environment.jersey().register(new PaymentResource(paymentManager));
 
         environment.jersey().register(new AuthDynamicFeature(
                 new OAuthCredentialAuthFilter.Builder<User>()

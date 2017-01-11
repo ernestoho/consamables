@@ -8,7 +8,7 @@ import {
     ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER,
     INCREMENT_ITEM, DECREMENT_ITEM, SET_QUANTITY,
     CONTINUE_ORDER, GO_BACK_TO_MENU,
-    SET_ORDER_TYPE, SET_ORDER_DURATION,
+    SET_ORDER_TYPE, SET_ORDER_DURATION, SET_OVERHEAD,
     SEND_NEW_GROUP, NEW_GROUP_SUCCESS, NEW_GROUP_FAILURE,
     SEND_NEW_ORDER, NEW_ORDER_SUCCESS, NEW_ORDER_FAILURE,
     SEND_ACTIVATED_GROUP, ACTIVATED_GROUP_SUCCESS, ACTIVATED_GROUP_FAILURE,
@@ -79,6 +79,11 @@ export const setOrderDuration = numMinutes => ({
     value: numMinutes
 });
 
+export const setOverhead = percent => ({
+    type: SET_OVERHEAD,
+    value: percent
+});
+
 const sendNewGroup = () => ({ type: SEND_NEW_GROUP });
 
 const newGroupSuccess = () => ({ type: NEW_GROUP_SUCCESS });
@@ -119,7 +124,7 @@ const newOrderFailure = error => ({
 export const submitNewOrder = data => {
     return dispatch => {
         dispatch(sendNewOrder());
-        fetch('/api/orders/place', buildPostInit(data))
+        fetch('/api/groups/join', buildPostInit(data))
             .then(response => {
                 if (response.ok) {
                     dispatch(newOrderSuccess());

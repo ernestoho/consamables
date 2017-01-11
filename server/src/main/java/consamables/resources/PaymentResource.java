@@ -12,46 +12,25 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.OAuth1AccessToken;
-import com.github.scribejava.core.model.OAuth1RequestToken;
-import com.github.scribejava.core.model.OAuthRequest;
-import com.github.scribejava.core.model.Verb;
-import com.github.scribejava.core.oauth.OAuth10aService;
-
 import consamables.api.SplitwiseVerifier;
 import consamables.api.User;
-import consamables.auth.SplitwiseApi;
-import consamables.jdbi.SplitwiseDAO;
+import consamables.payment.PaymentManager;
 import io.dropwizard.auth.Auth;
 
 @Path("/payment")
 @Produces(MediaType.APPLICATION_JSON)
 public class PaymentResource {
-    private static final String GET_USER = "https://secure.splitwise.com/api/v3.0/get_current_user";
+    private PaymentManager paymentManager;
 
-    private OAuth10aService service;
-    private SplitwiseDAO dao;
-    private ObjectMapper objectMapper;
-
-    public PaymentResource(String consumerKey, String consumerSecret, SplitwiseDAO dao) {
-        this.service = new ServiceBuilder()
-                .apiKey(consumerKey)
-                .apiSecret(consumerSecret)
-                .build(SplitwiseApi.instance());
-        this.dao = dao;
-        this.objectMapper = new ObjectMapper();
+    public PaymentResource(PaymentManager paymentManager) {
+        this.paymentManager = paymentManager;
     }
 
     @Path("/authorize-url")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getAuthorizationUrl(@Auth User user) throws IOException {
-        final OAuth1RequestToken requestToken = service.getRequestToken();
-        dao.setRequestTokenSecret(requestToken.getTokenSecret(), user.getUserId());
-        return service.getAuthorizationUrl(requestToken);
+        return paymentManager.getAuthUrl(user.getUserId());
     }
     
     @Path("/authenticate-user")
@@ -61,17 +40,7 @@ public class PaymentResource {
         if (!user.getUserId().equals(verifier.getUserId())) {
             throw new NotAuthorizedException("You don't have permission to do this.", Response.status(401).build());
         }
-        final OAuth1AccessToken accessToken = service.getAccessToken(
-                new OAuth1RequestToken(verifier.getRequestToken(), dao.getRequestTokenSecret(verifier.getUserId())),
-                verifier.getVerifier());
-        dao.updateToken(accessToken, verifier.getUserId());
-
-        final OAuthRequest request = new OAuthRequest(Verb.GET, GET_USER, service);
-        service.signRequest(accessToken, request);
-        final com.github.scribejava.core.model.Response response = request.send();
-        JsonNode userData = objectMapper.readTree(response.getBody());
-        Long splitwiseUserId = userData.get("user").get("id").asLong();
-        dao.setSplitwiseUserId(splitwiseUserId, verifier.getUserId());
+        paymentManager.authenticateUser(verifier);
 
         return Response.ok().build();
     }

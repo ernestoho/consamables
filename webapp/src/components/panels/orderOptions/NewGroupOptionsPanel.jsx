@@ -6,13 +6,14 @@ import { connect } from 'react-redux';
 import PanelHeader from '../PanelHeader';
 import OrderTypePreference from './OrderTypePreference';
 import OrderDurationPreference from './OrderDurationPreference';
+import OverheadPreference from './OverheadPreference';
 import SubmitNewGroup from './SubmitNewGroup';
 import SubmitActivatedGroup from './SubmitActivatedGroup';
 import Spinner from '../Spinner';
 
 class NewGroupOptionsPanel extends React.Component {
     render() {
-        const { loading, mode } = this.props;
+        const { loading, mode, id } = this.props;
 
         return (
             <div className="new-group-options-panel">
@@ -20,12 +21,13 @@ class NewGroupOptionsPanel extends React.Component {
                 <div className="order-options">
                     <OrderTypePreference/>
                     <OrderDurationPreference/>
+                    <OverheadPreference/>
                 </div>
                 {loading ?
                     <Spinner/>
                     : (mode == 'start' ?
-                        <SubmitNewGroup/>
-                        : <SubmitActivatedGroup/>)}
+                        <SubmitNewGroup id={id}/>
+                        : <SubmitActivatedGroup id={id}/>)}
             </div>
         );
     }

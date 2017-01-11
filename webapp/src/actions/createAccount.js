@@ -8,6 +8,7 @@ import {
     GOTO_LOGIN
 } from './actionTypes';
 
+import { redirectToSplitwise } from './login';
 import { TokenManager } from '../helpers';
 
 export const updateConfirmPasswordField = text => ({

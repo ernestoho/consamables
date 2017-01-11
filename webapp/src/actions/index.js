@@ -16,7 +16,7 @@ import {
     addItemToOrder, removeItemFromOrder,
     incrementItem, decrementItem, setQuantity,
     continueOrder, goBackToMenu,
-    setOrderType, setOrderDuration,
+    setOrderType, setOrderDuration, setOverhead,
     submitNewGroup, submitNewOrder, submitActivatedGroup,
     showOrderDetails, hideOrderDetails
 } from './order';
@@ -73,6 +73,7 @@ export {
     goBackToMenu,
     setOrderType,
     setOrderDuration,
+    setOverhead,
     submitNewGroup,
     submitNewOrder,
     submitActivatedGroup,

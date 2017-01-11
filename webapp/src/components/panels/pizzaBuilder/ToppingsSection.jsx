@@ -9,9 +9,9 @@ export default class ToppingsSection extends React.Component {
             <div className="toppings-section">
                 <div className="toppings-section-name">{name}</div>
                 <div className="toppings-section-list">
-                    {toppings.map((topping, i) =>
+                    {toppings ? toppings.map((topping, i) =>
                         <ToppingOption key={i} name={topping}/>
-                    )}
+                    ) : null}
                 </div>
             </div>
         );

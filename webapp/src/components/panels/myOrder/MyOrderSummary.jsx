@@ -6,11 +6,10 @@ import { connect } from 'react-redux';
 import PanelHeader from '../PanelHeader';
 import MyOrderPreview from './MyOrderPreview';
 import { getGroupRestaurant } from '../../../selectors';
-import { showOrderDetails } from '../../../actions';
 
 class MyOrderSummary extends React.Component {
     render() {
-        const { orders, showOrderDetails } = this.props;
+        const { orders } = this.props;
 
         return (
             <div className="my-order-summary">
@@ -18,7 +17,6 @@ class MyOrderSummary extends React.Component {
                 {orders.map(order =>
                     <MyOrderPreview key={order.get('id')}
                         {...order.toObject()}
-                        onClick={() => showOrderDetails(order.get('id'))}
                     />
                 )}
             </div>
@@ -34,11 +32,6 @@ const mapStateToProps = state => ({
     ).toList()
 });
 
-const mapDispatchToProps = dispatch => ({
-    showOrderDetails: id => dispatch(showOrderDetails(id))
-});
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(MyOrderSummary)

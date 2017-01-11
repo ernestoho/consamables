@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import SubmitButton from '../SubmitButton';
 import { submitActivatedGroup } from '../../../actions';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     text: 'Start Order',
     data: {
         activeGroup: {
-            groupId: state.centerColumn.currentOrder.get('groupId'),
+            groupId: ownProps.id,
             type: state.centerColumn.currentOrder.getIn(['options', 'type']),
             durationMinutes: state.centerColumn.currentOrder.getIn(['options', 'duration']),
             organizerId: state.currentUser.get('userId')

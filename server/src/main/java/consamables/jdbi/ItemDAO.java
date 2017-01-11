@@ -1,5 +1,6 @@
 package consamables.jdbi;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
@@ -20,6 +21,9 @@ public interface ItemDAO {
 
     @SqlQuery("SELECT * FROM item WHERE item_id = :itemId")
     Item getItem(@Bind("itemId") long itemId);
+
+    @SqlQuery("SELECT price FROM item WHERE item_id = :itemId")
+    BigDecimal getItemPrice(@Bind("itemId") long itemId);
 
     @SqlUpdate("INSERT INTO item " +
                "(menu_section_id, name, description, price, data) " +
