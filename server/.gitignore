@@ -3,4 +3,5 @@ dependency-reduced-pom.xml
 .project
 .classpath
 .settings
+config.yml
 *.log

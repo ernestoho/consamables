@@ -56,16 +56,28 @@ export const submitLogin = data => {
                 response.json().then(json => {
                     if (response.ok) {
                         TokenManager.storeAccessToken(json.accessTokenId);
-                        dispatch(loginSuccess(json.userId, json.username));
-                        dispatch(push('/'));
-                        dispatch(fetchOrganizedOrders());
-                        dispatch(fetchMyOrders());
+                        if (!json.splitwiseAuthenticated) {
+                            dispatch(redirectToSplitwise());
+                        } else {
+                            dispatch(loginSuccess(json.userId, json.username));
+                            dispatch(push('/'));
+                            dispatch(fetchOrganizedOrders());
+                            dispatch(fetchMyOrders());
+                        }
                     } else {
                         dispatch(loginFailure(json.message));
                     }
                 });
             })
             .catch( error => dispatch(loginFailure('Network Error.')) );
+    };
+};
+
+const loadUserInfo = (userId, email) => {
+    return dispatch => {
+        dispatch(setUserInfo(userId, email));
+        dispatch(fetchOrganizedOrders());
+        dispatch(fetchMyOrders());
     };
 };
 
@@ -78,17 +90,39 @@ export const verifyUser = () => {
                 .then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            dispatch(setUserInfo(json.userId, json.email));
-                            dispatch(fetchOrganizedOrders());
-                            dispatch(fetchMyOrders());
+                            dispatch(loadUserInfo(json.userId, json.email));
                         });
                     } else {
                         dispatch(push('/login'));
                     }
                 });
         }
-    }
-}
+    };
+};
+
+export const verifyAndAuthenticateWithSplitwise = (token, verifier) => {
+    return dispatch => {
+        if (!TokenManager.retrieveAccessToken()) {
+            dispatch(push('/login'));
+        } else {
+            fetch('/api/user/get-info', buildGetInit())
+                .then(response => {
+                    if (response.ok) {
+                        response.json().then(json => {
+                            dispatch(loadUserInfo(json.userId, json.email));
+                            dispatch(authenticateWithSplitwise({
+                                requestToken: token,
+                                verifier: verifier,
+                                userId: json.userId
+                            }));
+                        });
+                    } else {
+                        dispatch(push('/login'));
+                    }
+                });
+        }
+    };
+};
 
 export const logOut = () => {
     return dispatch => {
@@ -97,4 +131,25 @@ export const logOut = () => {
     }
 }
 
-export const goToCreateAccount = () => ({ type: GOTO_CREATE_ACCOUNT });
+const redirectToSplitwise = () => {
+    return dispatch => {
+        fetch('/api/payment/authorize-url', buildGetInit())
+            .then( response => response.text() )
+            .then(text => {
+                window.location.assign(text);
+            });
+    };
+};
+
+const authenticateWithSplitwise = params => {
+    return dispatch => {
+        fetch('/api/payment/authenticate-user', buildPostInit(params))
+            .then(response => {
+                if (response.ok) {
+                    dispatch(push('/'));
+                } else {
+                    dispatch(push('/login'));
+                }
+            });
+    };
+};

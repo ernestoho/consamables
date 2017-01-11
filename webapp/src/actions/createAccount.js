@@ -49,8 +49,12 @@ export const submitNewAccount = data => {
                     response.json().then(json => {
                         if (response.ok) {
                             TokenManager.storeAccessToken(json.accessTokenId);
-                            dispatch(newAccountSuccess(json.userId, json.username));
-                            dispatch(push('/'));
+                            if (!json.splitwiseAuthenticated) {
+                                dispatch(redirectToSplitwise());
+                            } else {
+                                dispatch(newAccountSuccess(json.userId, json.username));
+                                dispatch(push('/'));
+                            }
                         } else {
                             dispatch(newAccountFailure(json.message));
                         }

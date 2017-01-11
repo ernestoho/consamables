@@ -13,6 +13,7 @@ import CenterColumn from './components/centerColumn/CenterColumn';
 import Dashboard from './components/centerColumn/Dashboard';
 import Login from './components/centerColumn/Login';
 import CreateAccount from './components/centerColumn/CreateAccount';
+import SplitwiseAuthenticate from './components/centerColumn/SplitwiseAuthenticate';
 import Menu from './components/centerColumn/Menu';
 import Order from './components/centerColumn/Order';
 import Suggest from './components/centerColumn/Suggest';
@@ -31,6 +32,7 @@ ReactDOM.render(
                 <Route path="login">
                     <IndexRoute component={Login}/>
                     <Route path="create" component={CreateAccount}/>
+                    <Route path="splitwise-auth" component={SplitwiseAuthenticate}/>
                 </Route>
                 <Route path="menu/:id" component={Menu}/>
                 <Route path="join/:id" component={Order}/>

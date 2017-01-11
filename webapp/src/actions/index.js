@@ -4,7 +4,7 @@ import { fetchRestaurants, updateRestaurantHours } from './restaurants';
 import { showMenu, hideMenu } from './menus';
 
 import {
-    verifyUser,
+    verifyUser, verifyAndAuthenticateWithSplitwise,
     updateUsernameField, updatePasswordField,
     submitLogin, logOut, goToCreateAccount
 } from './login';
@@ -88,6 +88,7 @@ export {
     submitSuggestion,
 
     verifyUser,
+    verifyAndAuthenticateWithSplitwise,
     updateUsernameField,
     updatePasswordField,
     submitLogin,
