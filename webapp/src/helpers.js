@@ -109,3 +109,6 @@ export const formatOrderItemData = data => {
                `with ${data.getIn(['pizza', 'toppings']).size} toppings`;
     }
 };
+
+
+export const calculateOrderTotal = () => {};

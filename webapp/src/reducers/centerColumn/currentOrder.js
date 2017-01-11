@@ -89,7 +89,8 @@ const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) =>
         case NEW_ORDER_SUCCESS:
         case ACTIVATED_GROUP_SUCCESS:
             return state.set('items', Map())
-                        .set('loading', false);
+                        .set('loading', false)
+                        .set('stage', 'choose');
 
         default:
             return state;

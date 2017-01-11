@@ -12,7 +12,7 @@ import Spinner from '../Spinner';
 
 class NewGroupOptionsPanel extends React.Component {
     render() {
-        const { loading, mode } = this.props;
+        const { loading, mode, id } = this.props;
 
         return (
             <div className="new-group-options-panel">
@@ -25,7 +25,7 @@ class NewGroupOptionsPanel extends React.Component {
                     <Spinner/>
                     : (mode == 'start' ?
                         <SubmitNewGroup/>
-                        : <SubmitActivatedGroup/>)}
+                        : <SubmitActivatedGroup id={id}/>)}
             </div>
         );
     }
