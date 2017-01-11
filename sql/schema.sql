@@ -20,6 +20,10 @@ CREATE TABLE "user"
     splitwise_token text,
     splitwise_token_secret text,
     splitwise_user_id bigint,
+    splitwise_first_name text,
+    splitwise_last_name text,
+    splitwise_email text,
+    splitwise_group_id bigint,
     CONSTRAINT user_pk
         PRIMARY KEY (user_id)
 );

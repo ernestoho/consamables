@@ -25,6 +25,11 @@ public class ConsamablesConfiguration extends Configuration {
     @NotNull
     @JsonProperty
     private String splitwiseConsumerSecret;
+    
+    @Valid
+    @NotNull
+    @JsonProperty
+    private long splitwiseGroupId;
 
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory factory) {
@@ -60,5 +65,13 @@ public class ConsamablesConfiguration extends Configuration {
 
     public void setSplitwiseConsumerSecret(String splitwiseConsumerSecret) {
         this.splitwiseConsumerSecret = splitwiseConsumerSecret;
+    }
+
+    public long getSplitwiseGroupId() {
+        return splitwiseGroupId;
+    }
+
+    public void setSplitwiseGroupId(long splitwiseGroupId) {
+        this.splitwiseGroupId = splitwiseGroupId;
     }
 }

@@ -91,6 +91,7 @@ export const verifyUser = () => {
                     if (response.ok) {
                         response.json().then(json => {
                             dispatch(loadUserInfo(json.userId, json.email));
+                            dispatch(push('/'));
                         });
                     } else {
                         dispatch(push('/login'));
