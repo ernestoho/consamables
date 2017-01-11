@@ -14,7 +14,7 @@ public interface SplitwiseUserDAO {
     @SqlQuery("SELECT splitwise_first_name, splitwise_last_name, splitwise_email " +
               "FROM \"user\" WHERE user_id = :userId")
     SplitwiseUser getUserInfo(@Bind("userId") long userId);
-    
+
     @SqlUpdate("UPDATE \"user\" SET (splitwise_user_id, splitwise_first_name, splitwise_last_name, splitwise_email) = " +
                "(:id, :firstName, :lastName, :email) WHERE user_id = :userId")
     void updateUserInfo(@BindBean SplitwiseUser user, @Bind("userId") long userId);

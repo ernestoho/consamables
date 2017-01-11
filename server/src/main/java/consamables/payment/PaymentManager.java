@@ -1,6 +1,7 @@
 package consamables.payment;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -83,6 +84,17 @@ public class PaymentManager {
         if (response.isSuccessful()) {
             userDAO.setGroupForUser(groupId, userId);
         }
+    }
+
+    public void createCharge(long payerId, long payeeId, BigDecimal amount, String description) throws JsonProcessingException {
+        long splitwisePayerId = userDAO.getSplitwiseUserId(payerId);
+        long splitwisePayeeId = userDAO.getSplitwiseUserId(payeeId);
+        final OAuth1AccessToken accessToken = tokenDAO.getToken(payerId);
+        final CreateChargeBody body = new CreateChargeBody(
+                splitwisePayerId, splitwisePayeeId, splitwiseGroupId,
+                amount, description);
+        final OAuthRequest request = createPostRequest(CREATE_EXPENSE, body, accessToken);
+        request.send();
     }
 
     private OAuthRequest createGetRequest(String url, OAuth1AccessToken accessToken) {

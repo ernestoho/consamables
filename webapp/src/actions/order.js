@@ -119,7 +119,7 @@ const newOrderFailure = error => ({
 export const submitNewOrder = data => {
     return dispatch => {
         dispatch(sendNewOrder());
-        fetch('/api/orders/place', buildPostInit(data))
+        fetch('/api/groups/join', buildPostInit(data))
             .then(response => {
                 if (response.ok) {
                     dispatch(newOrderSuccess());

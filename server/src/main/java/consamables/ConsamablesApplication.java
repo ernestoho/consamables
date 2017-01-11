@@ -62,7 +62,9 @@ public class ConsamablesApplication extends Application<ConsamablesConfiguration
                 splitwiseTokenDAO, splitwiseUserDAO);
 
         environment.jersey().register(new RestaurantResource(restaurantDAO, menuSectionDAO, itemDAO));
-        environment.jersey().register(new GroupResource(groupDAO, voteDAO, orderDAO, orderItemDAO));
+        environment.jersey().register(new GroupResource(
+                groupDAO, voteDAO, orderDAO, orderItemDAO,
+                paymentManager));
         environment.jersey().register(new OrderResource(orderDAO, orderItemDAO));
         environment.jersey().register(new UserResource(userDAO, accessTokenDAO));
         environment.jersey().register(new PaymentResource(paymentManager));
