@@ -11,8 +11,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import consamables.api.AccessToken;
-import consamables.api.LoginCredentials;
 import consamables.api.User;
 import consamables.jdbi.AccessTokenDAO;
 import consamables.jdbi.UserDAO;

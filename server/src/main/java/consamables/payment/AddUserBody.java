@@ -2,8 +2,6 @@ package consamables.payment;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import consamables.api.SplitwiseUser;
-
 public class AddUserBody {
     private long groupId;
     private String firstName;

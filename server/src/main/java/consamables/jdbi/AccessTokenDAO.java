@@ -5,7 +5,7 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
-import consamables.api.AccessToken;
+import consamables.auth.AccessToken;
 import consamables.jdbi.binders.BindAccessToken;
 import consamables.jdbi.mappers.AccessTokenMapper;
 

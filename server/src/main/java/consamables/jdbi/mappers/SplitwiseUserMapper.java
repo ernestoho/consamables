@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
-import consamables.api.SplitwiseUser;
+import consamables.payment.SplitwiseUser;
 
 public class SplitwiseUserMapper implements ResultSetMapper<SplitwiseUser> {
 

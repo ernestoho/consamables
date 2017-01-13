@@ -12,9 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import consamables.api.SplitwiseVerifier;
 import consamables.api.User;
 import consamables.payment.PaymentManager;
+import consamables.payment.SplitwiseVerifier;
 import io.dropwizard.auth.Auth;
 
 @Path("/payment")

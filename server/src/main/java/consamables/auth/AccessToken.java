@@ -1,4 +1,4 @@
-package consamables.api;
+package consamables.auth;
 
 import java.sql.Timestamp;
 import java.util.UUID;
