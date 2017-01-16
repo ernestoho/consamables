@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import Link from '../Link';
 import TimeDisplay from './TimeDisplay';
 import RestaurantToolbar from './RestaurantToolbar';
-import { showMenu, startOrder, openSuggestOrder } from '../../../actions';
+import { startOrder, openSuggestOrder } from '../../../actions';
 
 class RestaurantBox extends React.Component {
     render() {
         const {
             loggedIn, restaurantId, name, location, url, open, openTime, closeTime,
-            onMenuClick, onStartClick, onSuggestClick
+            onStartClick, onSuggestClick
         } = this.props;
 
         return (
@@ -25,7 +25,6 @@ class RestaurantBox extends React.Component {
                     id={restaurantId}
                     loggedIn={loggedIn}
                     open={open}
-                    onMenuClick={() => onMenuClick(restaurantId)}
                     onStartClick={() => onStartClick(restaurantId)}
                     onSuggestClick={() => onSuggestClick(restaurantId)}
                 />
@@ -39,7 +38,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onMenuClick: id => dispatch(showMenu(id)),
     onStartClick: id => dispatch(startOrder(id)),
     onSuggestClick: id => dispatch(openSuggestOrder(id))
 });

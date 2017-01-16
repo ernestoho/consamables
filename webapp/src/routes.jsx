@@ -10,6 +10,7 @@ import SplitwiseAuthenticate from './components/centerColumn/SplitwiseAuthentica
 import Menu from './components/centerColumn/Menu';
 import Order from './components/centerColumn/Order';
 import Suggest from './components/centerColumn/Suggest';
+import Vote from './components/centerColumn/Vote';
 import GroupDetails from './components/centerColumn/GroupDetails';
 import OrderDetails from './components/centerColumn/OrderDetails';
 
@@ -26,6 +27,7 @@ const routes = (
         <Route path="start/:id" component={Order}/>
         <Route path="activate/:id" component={Order}/>
         <Route path="suggest/:id" component={Suggest}/>
+        <Route path="vote/:id" component={Vote}/>
         <Route path="group-details/:id" component={GroupDetails}/>
         <Route path="order-details/:id" component={OrderDetails}/>
     </Route>

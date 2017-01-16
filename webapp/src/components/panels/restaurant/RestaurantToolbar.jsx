@@ -5,15 +5,17 @@ export default class RestaurantToolbar extends React.Component {
     render() {
         const {
             id, loggedIn, open,
-            onMenuClick, onStartClick, onSuggestClick
+            onStartClick, onSuggestClick
         } = this.props;
+
+        const menuButton = (
+            <Link to={`/menu/${id}`} className="button">View Menu</Link>
+        );
 
         if (loggedIn && open) {
             return (
                 <div className="toolbar">
-                    <Link to={`/menu/${id}`} className="button" onClick={onMenuClick}>
-                        View Menu
-                    </Link>
+                    {menuButton}
                     <Link to={`/start/${id}`} className="button" onClick={onStartClick}>
                         Start Order
                     </Link>
@@ -25,9 +27,7 @@ export default class RestaurantToolbar extends React.Component {
         } else {
             return (
                 <div className="toolbar">
-                    <Link to={`/menu/${id}`} className="button" onClick={onMenuClick}>
-                        View Menu
-                    </Link>
+                    {menuButton}
                 </div>
             );
         }

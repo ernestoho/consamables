@@ -37,7 +37,7 @@ export const calculateHours = (currentTime, hours) => {
         }
     }
 
-    const open = now.isBefore(closeTime);
+    const open = now.isBefore(closeTime) && now.isAfter(openTime);
     openTime = openTime.valueOf();
     closeTime = closeTime.valueOf();
 
