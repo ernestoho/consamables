@@ -11,6 +11,7 @@
     margin-top: $margin / 2.5;
     margin-bottom: auto;
     z-index: 2;
+    pointer-events: none;
 
     .heading {
         vertical-align: middle;

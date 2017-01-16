@@ -27,6 +27,10 @@ export const calculateHours = (currentTime, hours) => {
             closeTime.subtract(1, 'days');
         }
 
+        if (closeTime.isAfter(now)) {
+            openTime.subtract(1, 'days');
+        }
+
     } else {
         if (afterMidnight(closeTime)) {
             closeTime.add(1, 'days');

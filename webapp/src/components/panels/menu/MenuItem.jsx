@@ -11,29 +11,27 @@ class MenuItem extends React.Component {
             onAddClick, onBuildClick
         } = this.props;
 
+        const pizza = data && 'pizza' in data;
+        const onClick = pizza ? onBuildClick : onAddClick;
+
         return (
-            <div className="menu-item">
-                {!viewOnly ?
-                    <div className="menu-item-overlay">
-                        {data && 'pizza' in data ?
-                            <button
-                                className="menu-item-button"
-                                onClick={() => onBuildClick(itemId)}
-                            >
-                                Build
-                            </button>
-                            : <button
-                                className="menu-item-button"
-                                onClick={() => onAddClick(itemId)}
-                            >
-                                Add to Order
-                            </button>}
-                    </div>
-                    : null}
+            <div
+                className={`menu-item${!viewOnly ? ' order' : ''}`}
+                onClick={!viewOnly ? () => onClick(itemId) : null}
+            >
                 <div className="menu-item-info">
-                    <div className="menu-item-price">${price.toFixed(2)}</div>
                     <div className="menu-item-name">{name}</div>
                     <div className="menu-item-description">{description}</div>
+                </div>
+                <div className="menu-item-action">
+                    <div className="menu-item-price">${price.toFixed(2)}</div>
+                    {!viewOnly ?
+                        <div className="menu-item-click-label-container">
+                            <div className="menu-item-click-label">
+                                {pizza ? 'Build' : 'Add'}
+                            </div>
+                        </div>
+                        : null}
                 </div>
             </div>
         );
