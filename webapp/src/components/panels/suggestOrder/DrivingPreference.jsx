@@ -1,14 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { setDrivingPreference } from '../../../actions';
-
-class DrivingPreference extends React.Component {
+export default class DrivingPreference extends React.Component {
     render() {
-        const {
-            checked,
-            drivingYes, drivingNo
-        } = this.props;
+        const { checked, changeValue } = this.props;
 
         return (
             <div className="suggest-option">
@@ -18,7 +12,7 @@ class DrivingPreference extends React.Component {
                         <input 
                             type="radio"
                             checked={checked}
-                            onChange={drivingYes}
+                            onChange={() => changeValue(true)}
                         />
                         Yes
                     </label>
@@ -26,7 +20,7 @@ class DrivingPreference extends React.Component {
                         <input
                             type="radio"
                             checked={!checked}
-                            onChange={drivingNo}
+                            onChange={() => changeValue(false)}
                         />
                         No
                     </label>
@@ -35,17 +29,3 @@ class DrivingPreference extends React.Component {
         );
     }
 }
-
-const mapStateToProps = state => ({
-    checked: state.centerColumn.suggestOrder.get('driving')
-});
-
-const mapDispatchToProps = dispatch => ({
-    drivingYes: value => dispatch(setDrivingPreference(true)),
-    drivingNo: () => dispatch(setDrivingPreference(false))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DrivingPreference)

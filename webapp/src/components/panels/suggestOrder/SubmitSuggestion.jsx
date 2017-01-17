@@ -4,11 +4,11 @@ import SubmitButton from '../SubmitButton';
 import { submitSuggestion } from '../../../actions';
 import { buildOrderType } from '../../../helpers';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     text: 'Submit Suggestion',
     data: {
         pendingGroup: {
-            restaurantId: state.centerColumn.suggestOrder.get('restaurantId'),
+            restaurantId: ownProps.id,
             type: buildOrderType(state.centerColumn.suggestOrder.get('orderType')),
             minPeople: state.centerColumn.suggestOrder.get('minPeople') + 1
         },

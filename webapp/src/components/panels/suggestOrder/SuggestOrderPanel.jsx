@@ -11,10 +11,14 @@ import WaitTimePreference from './WaitTimePreference';
 import MinPeoplePreference from './MinPeoplePreference';
 import SubmitSuggestion from './SubmitSuggestion';
 import { getRestaurantName } from '../../../selectors';
+import { setDrivingPreference, setWaitTime } from '../../../actions';
 
 class SuggestOrderPanel extends React.Component {
     render() {
-        const { name, askDriving, valid } = this.props;
+        const {
+           id, name, askDriving, valid, drivingValue, waitTimeValue,
+            changeDriving, changeWaitTime
+        } = this.props;
 
         return (
             <div className="suggest-order-panel">
@@ -26,29 +30,37 @@ class SuggestOrderPanel extends React.Component {
                 <div className="suggest-options">
                     <OrderTypePreference/>
                     {askDriving ?
-                        <DrivingPreference/>
+                        <DrivingPreference checked={drivingValue} changeValue={changeDriving}/>
                         : null}
-                    <WaitTimePreference/>
+                    <WaitTimePreference value={waitTimeValue} changeValue={changeWaitTime}/>
                     <MinPeoplePreference/>
                 </div>
                 {valid ?
-                    <SubmitSuggestion/>
+                    <SubmitSuggestion id={id}/>
                     : null}
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     const orderType = state.centerColumn.suggestOrder.get('orderType');
 
     return {
-        name: getRestaurantName(state, state.centerColumn.suggestOrder.get('restaurantId')),
+        name: getRestaurantName(state, ownProps.id),
         askDriving: orderType.get('carryout') || orderType.get('outing'),
-        valid: orderType.includes(true)
+        valid: orderType.includes(true),
+        drivingValue: state.centerColumn.suggestOrder.get('driving'),
+        waitTimeValue: state.centerColumn.suggestOrder.get('waitTime')
     };
 };
 
+const mapDispatchToProps = dispatch => ({
+    changeWaitTime: e => dispatch(setWaitTime(parseInt(e.currentTarget.value), 'suggest')),
+    changeDriving: value => dispatch(setDrivingPreference(value, 'suggest'))
+});
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(SuggestOrderPanel)
