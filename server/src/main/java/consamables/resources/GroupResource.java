@@ -22,6 +22,7 @@ import consamables.api.Order;
 import consamables.api.OrderItem;
 import consamables.api.Suggestion;
 import consamables.api.User;
+import consamables.api.Vote;
 import consamables.jdbi.GroupDAO;
 import consamables.jdbi.OrderDAO;
 import consamables.jdbi.OrderItemDAO;
@@ -141,6 +142,17 @@ public class GroupResource {
             orderItem.setOrderId(orderId);
             orderItemDAO.addOrderItem(orderItem);
         }
+        return Response.ok().build();
+    }
+
+    @PermitAll
+    @Path("/vote")
+    @POST
+    public Response voteForPendingGroup(@Auth User user, @Valid Vote vote) {
+        if (!user.getUserId().equals(vote.getUserId())) {
+            throw new NotAuthorizedException("You can only vote on behalf of yourself.", Response.status(401).build());
+        }
+        voteDAO.addVote(vote);
         return Response.ok().build();
     }
 

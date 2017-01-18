@@ -1,4 +1,4 @@
-package consamables.api;
+package consamables.auth;
 
 import javax.validation.constraints.NotNull;
 

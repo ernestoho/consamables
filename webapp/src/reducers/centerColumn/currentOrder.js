@@ -1,5 +1,5 @@
 import { Map, List } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
     START_ORDER, JOIN_ORDER, ACTIVATE_ORDER,
@@ -42,7 +42,11 @@ const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) =>
                         .setIn(['items', action.id, 'data'], action.data);
 
         case REMOVE_ITEM_FROM_ORDER:
-            return state.deleteIn(['items', action.id]);
+            let newState = state.deleteIn(['items', action.id]);
+            if (newState.get('items').size == 0) {
+                return newState.set('stage', 'choose');
+            }
+            return newState;
 
         case INCREMENT_ITEM:
             return state.updateIn(['items', action.id, 'quantity'], q => q + 1);

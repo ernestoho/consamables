@@ -6,8 +6,8 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
-import consamables.api.SplitwiseUser;
 import consamables.jdbi.mappers.SplitwiseUserMapper;
+import consamables.payment.SplitwiseUser;
 
 @RegisterMapper(SplitwiseUserMapper.class)
 public interface SplitwiseUserDAO {

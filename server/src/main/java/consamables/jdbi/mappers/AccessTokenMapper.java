@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
-import consamables.api.AccessToken;
+import consamables.auth.AccessToken;
 
 public class AccessTokenMapper implements ResultSetMapper<AccessToken> {
 

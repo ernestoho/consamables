@@ -18,7 +18,9 @@ public interface VoteDAO {
     @SqlQuery("SELECT user_id FROM vote WHERE group_id = :groupId")
     List<Integer> getVotingUsersByGroup(@Bind("groupId") long groupId);
 
-    @SqlQuery("SELECT count(*) FROM vote WHERE group_id = :groupId")
+    @SqlQuery("SELECT count(*) FROM vote JOIN \"group\" USING (group_id) " +
+              "WHERE group_id = :groupId " +
+              "AND time_placed + (minutes_interested || ' minutes')::interval > now()")
     int countVotesForGroup(@Bind("groupId") long groupId);
 
     @SqlUpdate("INSERT INTO vote " +

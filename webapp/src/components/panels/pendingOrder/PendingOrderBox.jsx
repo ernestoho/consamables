@@ -69,7 +69,7 @@ class PendingOrderToolbar extends React.Component {
 
         return (
             <div className="toolbar">
-                <Link to="" className="button" onClick={onJoinClick}>Join Queue</Link>
+                <Link to={`/vote/${id}`} className="button" onClick={onJoinClick}>Join Queue</Link>
                 <Link to={`/activate/${id}`} className="button" onClick={onStartClick}>Start Order</Link>
             </div>
         );

@@ -17,8 +17,6 @@ import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
 import consamables.api.OrderItem;
-import consamables.api.SplitwiseUser;
-import consamables.api.SplitwiseVerifier;
 import consamables.jdbi.ItemDAO;
 import consamables.jdbi.SplitwiseTokenDAO;
 import consamables.jdbi.SplitwiseUserDAO;

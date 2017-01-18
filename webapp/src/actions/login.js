@@ -135,12 +135,12 @@ export const logOut = () => {
     }
 }
 
-const redirectToSplitwise = () => {
+export const redirectToSplitwise = () => {
     return dispatch => {
         fetch('/api/payment/authorize-url', buildGetInit())
             .then( response => response.text() )
-            .then(text => {
-                window.location.assign(text);
+            .then(url => {
+                window.location.assign(url);
             });
     };
 };

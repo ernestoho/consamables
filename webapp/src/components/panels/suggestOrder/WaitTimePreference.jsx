@@ -1,9 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { setWaitTime } from '../../../actions';
-
-class WaitTimePreference extends React.Component {
+export default class WaitTimePreference extends React.Component {
     render() {
         const { value, changeValue } = this.props;
 
@@ -19,16 +16,3 @@ class WaitTimePreference extends React.Component {
         );
     }
 }
-
-const mapStateToProps = state => ({
-    value: state.centerColumn.suggestOrder.get('waitTime')
-});
-
-const mapDispatchToProps = dispatch => ({
-    changeValue: e => dispatch(setWaitTime(parseInt(e.currentTarget.value)))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(WaitTimePreference)

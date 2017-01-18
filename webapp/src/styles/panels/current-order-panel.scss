@@ -18,6 +18,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            user-select: none;
 
             .remove-item {
                 @include xbutton;
@@ -46,7 +47,6 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                width: 5em;
 
                 .order-item-decrement,.order-item-increment {
                     color: white;
@@ -58,7 +58,7 @@
                     line-height: 1em;
                     text-align: center;
                     cursor: pointer;
-                    user-select: none;
+                    margin: 0.3em 0.6em;
                 }
 
                 input {
@@ -70,7 +70,6 @@
 
                 input:first-child {
                     margin-left: auto;
-                    margin-right: 0.65em;
                 }
 
                 input::-webkit-inner-spin-button,
@@ -87,6 +86,8 @@
             .order-item-price {
                 width: 3.5em;
                 text-align: right;
+                user-select: none;
+                cursor: default;
             }
         }
 

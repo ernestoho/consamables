@@ -4,13 +4,13 @@ export const getRestaurantName = (state, id) => state.restaurants.has(id) ?
                                                 state.restaurants.get(id).get('name')
                                                 : '';
 
-export const getGroupRestaurant = (state, id) => {
-    const restaurantId = state.activeOrders.getIn([id, 'restaurantId']);
-    return state.restaurants.getIn([restaurantId, 'name']);
-};
-
 export const getGroupRestaurantId = (state, id) => {
     return state.pendingOrders.getIn([id, 'restaurantId']) || state.activeOrders.getIn([id, 'restaurantId']);
+};
+
+export const getGroupRestaurant = (state, id) => {
+    const restaurantId = getGroupRestaurantId(state, id);
+    return state.restaurants.getIn([restaurantId, 'name']);
 };
 
 export const getMenu = (state, id) => state.menus.has(id) ?

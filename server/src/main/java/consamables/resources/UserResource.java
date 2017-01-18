@@ -15,9 +15,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import consamables.api.AccessToken;
-import consamables.api.LoginCredentials;
 import consamables.api.User;
+import consamables.auth.AccessToken;
+import consamables.auth.LoginCredentials;
 import consamables.auth.LoginManager;
 import consamables.jdbi.AccessTokenDAO;
 import consamables.jdbi.UserDAO;

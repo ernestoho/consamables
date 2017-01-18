@@ -2,6 +2,7 @@ import '../styles/overlay.scss';
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import { DISPLAY_DEFAULT, DISPLAY_MENU_VIEWING } from '../constants';
 
@@ -17,16 +18,33 @@ const overlayStyles = {
     }
 }
 
-export default class Overlay extends React.Component {
+class Overlay extends React.Component {
     render() {
-        const { centerFocus, onClick } = this.props;
+        const {
+            centerFocus, loggedIn,
+            onClick
+        } = this.props;
+
         return (
             <div
                 className="overlay"
                 style={centerFocus ? overlayStyles.visible : overlayStyles.hidden}
-                onClick={onClick}
+                onClick={loggedIn ? onClick : null}
             >
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    loggedIn: state.currentUser.get('loggedIn')
+});
+
+const mapDispatchToProps = dispatch => ({
+    onClick: () => dispatch(push('/'))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Overlay)

@@ -42,8 +42,14 @@
         .menu-item {
             padding: 0.6em;
             position: relative;
+            transition-duration: 0.2s;
+            cursor: default;
+            display: flex;
 
             .menu-item-info {
+                flex: 1 1 auto;
+                display: flex;
+                flex-direction: column;
                 transition-duration: 0.2s;
 
                 .menu-item-name {
@@ -51,59 +57,53 @@
                     color: $title-color;
                     margin-bottom: 0.2em;
                 }
+            }
+
+            .menu-item-action {
+                flex: 0 0 auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-end;
+                margin-left: 0.5em;
 
                 .menu-item-price {
-                    float: right;
+                    flex: 0 0 auto;
                     font-weight: bold;
-                    text-align: right;
+                    user-select: none;
+                    margin-bottom: auto;
                 }
             }
+        }
 
-            .menu-item-overlay {
-                z-index: 3;
-                filter: none;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+        .menu-item.order {
+            &:hover {
                 background-color: $menu-item-overlay;
-                visibility: hidden;
-                opacity: 0;
-                transition: visibility 0s linear 0.2s, opacity 0.2s linear;
-                text-align: center;
-                // box-shadow: 0 0 1px 1px $menu-item-overlay;
-
-                .menu-item-button {
-                    font-size: 1.2em;
-                    font-weight: bold;
-                    color: white;
-                    background-color: $menu-item-overlay-button;
-                    text-decoration: none;
-                    cursor: pointer;
-                    border: 2px solid;
-                    border-color: white;
-                    border-radius: 4px;
-                    position: relative;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    transition-duration: 0.2s;
-                }
-
-                .menu-item-button:hover {
-                    background-color: $menu-item-overlay-hover;
-                }
+                cursor: pointer;
             }
+
+            .menu-item-click-label-container {
+                    flex: 1 0 auto;
+                    width: 100%;
+                    display: flex;
+                    visibility: hidden;
+                    opacity: 0;
+                    transition-duration: 0.2em;
+                    align-items: center;
+                    justify-content: center;
+
+                    .menu-item-click-label {
+                        flex: 0 1 auto;
+                        font-weight: bold;
+                        color: green;
+                    }
+                }
         }
 
-        .menu-item:hover .menu-item-info:nth-child(2) {
-            filter: blur(1.1px);
-        }
-
-        .menu-item:hover .menu-item-overlay {
+        .menu-item.order:hover .menu-item-click-label-container {
             visibility: visible;
             opacity: 1;
-            transition-delay: 0s;
+            transition-duration: 0.2s;
         }
 
         .menu-item+.menu-item {

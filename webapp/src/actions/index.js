@@ -33,7 +33,7 @@ import {
     openSuggestOrder, closeSuggestOrder,
     toggleDelivery, toggleCarryout, toggleOuting,
     setDrivingPreference, setWaitTime, setMinPeople,
-    submitSuggestion
+    submitSuggestion, submitVote
 } from './suggestOrder';
 
 import {
@@ -87,6 +87,7 @@ export {
     setWaitTime,
     setMinPeople,
     submitSuggestion,
+    submitVote,
 
     verifyUser,
     verifyAndAuthenticateWithSplitwise,

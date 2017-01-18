@@ -90,6 +90,7 @@
     transition-duration: 0.2s;
     text-decoration: none;
     color: $text-color;
+    user-select: none;
 
     &:hover {
         color: red;

@@ -10,7 +10,7 @@ import org.skife.jdbi.v2.sqlobject.Binder;
 import org.skife.jdbi.v2.sqlobject.BinderFactory;
 import org.skife.jdbi.v2.sqlobject.BindingAnnotation;
 
-import consamables.api.AccessToken;
+import consamables.auth.AccessToken;
 
 @BindingAnnotation(BindAccessToken.AccessTokenBinderFactory.class)
 @Retention(RetentionPolicy.RUNTIME)

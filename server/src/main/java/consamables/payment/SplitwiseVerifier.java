@@ -1,4 +1,4 @@
-package consamables.api;
+package consamables.payment;
 
 import javax.validation.constraints.NotNull;
 
