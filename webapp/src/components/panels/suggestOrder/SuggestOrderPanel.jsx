@@ -16,7 +16,7 @@ import { setDrivingPreference, setWaitTime } from '../../../actions';
 class SuggestOrderPanel extends React.Component {
     render() {
         const {
-           id, name, askDriving, valid, drivingValue, waitTimeValue,
+            id, name, askDriving, valid, drivingValue, waitTimeValue,
             changeDriving, changeWaitTime
         } = this.props;
 
