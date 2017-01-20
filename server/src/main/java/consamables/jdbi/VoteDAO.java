@@ -23,6 +23,10 @@ public interface VoteDAO {
               "AND time_placed + (minutes_interested || ' minutes')::interval > now()")
     int countVotesForGroup(@Bind("groupId") long groupId);
 
+    @SqlQuery("SELECT EXISTS (SELECT 1 FROM vote " +
+              "WHERE user_id = :userId AND group_id = :groupId)")
+    boolean hasVoted(@Bind("userId") long userId, @Bind("groupId") long groupId);
+
     @SqlUpdate("INSERT INTO vote " +
                "(user_id, group_id, minutes_interested, can_drive) " +
                "VALUES " +

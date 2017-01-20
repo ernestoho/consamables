@@ -11,6 +11,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -152,6 +153,9 @@ public class GroupResource {
         if (!user.getUserId().equals(vote.getUserId())) {
             throw new NotAuthorizedException("You can only vote on behalf of yourself.", Response.status(401).build());
         }
+        if (voteDAO.hasVoted(vote.getUserId(), vote.getGroupId())) {
+            throw new WebApplicationException("You've already voted for this order.", Response.status(409).build());
+        }
         voteDAO.addVote(vote);
         return Response.ok().build();
     }
@@ -165,6 +169,12 @@ public class GroupResource {
             group.loadOrders(orderDAO, orderItemDAO);
         }
         return groups;
+    }
+
+    @Path("/{id}/has-voted-for")
+    @GET
+    public Boolean checkVotedFor(@Auth User user, @PathParam("id") String id) {
+        return voteDAO.hasVoted(user.getUserId(), Long.parseLong(id));
     }
     
     @Path("/{id}/mark-ordered")

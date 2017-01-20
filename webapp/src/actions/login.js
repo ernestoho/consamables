@@ -12,11 +12,13 @@ import {
 import { TokenManager, buildPostInit, buildGetInit } from '../helpers';
 import { fetchOrganizedOrders } from './organizer';
 import { fetchMyOrders } from './order';
+import fetchPendingOrders from './pendingOrders';
 
-export const setUserInfo = (userId, username) => ({
+export const setUserInfo = (userId, username, auth) => ({
     type: SET_USER_INFO,
     id: userId,
-    username: username
+    username: username,
+    splitwiseAuth: auth
 });
 
 export const updateUsernameField = text => ({
@@ -31,10 +33,11 @@ export const updatePasswordField = text => ({
 
 const sendLogin = () => ({ type: SEND_LOGIN });
 
-const loginSuccess = (userId, username) => ({
+const loginSuccess = (userId, username, auth) => ({
     type: LOGIN_SUCCESS,
     id: userId,
-    username: username
+    username: username,
+    splitwiseAuth: auth
 });
 
 const loginFailure = error => ({
@@ -59,10 +62,12 @@ export const submitLogin = data => {
                         if (!json.splitwiseAuthenticated) {
                             dispatch(redirectToSplitwise());
                         } else {
-                            dispatch(loginSuccess(json.userId, json.username));
+                            dispatch(loadUserInfo(
+                                json.userId,
+                                json.username,
+                                json.splitwiseAuthenticated
+                            ));
                             dispatch(push('/'));
-                            dispatch(fetchOrganizedOrders());
-                            dispatch(fetchMyOrders());
                         }
                     } else {
                         dispatch(loginFailure(json.message));
@@ -73,11 +78,12 @@ export const submitLogin = data => {
     };
 };
 
-const loadUserInfo = (userId, email) => {
+const loadUserInfo = (userId, email, auth) => {
     return dispatch => {
-        dispatch(setUserInfo(userId, email));
+        dispatch(setUserInfo(userId, email, auth));
         dispatch(fetchOrganizedOrders());
         dispatch(fetchMyOrders());
+        dispatch(fetchPendingOrders(true));
     };
 };
 
@@ -90,11 +96,11 @@ export const verifyUser = () => {
                 .then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            if (!json.splitwiseAuthenticated) {
-                                dispatch(redirectToSplitwise());
-                            } else {
-                                dispatch(loadUserInfo(json.userId, json.email));
-                            }
+                            dispatch(loadUserInfo(
+                                json.userId,
+                                json.email,
+                                json.splitwiseAuthenticated
+                            ));
                         });
                     } else {
                         dispatch(push('/login'));
@@ -113,7 +119,11 @@ export const verifyAndAuthenticateWithSplitwise = (token, verifier) => {
                 .then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            dispatch(loadUserInfo(json.userId, json.email));
+                            dispatch(loadUserInfo(
+                                json.userId,
+                                json.email,
+                                json.splitwiseAuthenticated
+                            ));
                             dispatch(authenticateWithSplitwise({
                                 requestToken: token,
                                 verifier: verifier,

@@ -68,7 +68,7 @@ export const submitSuggestion = data => {
                 if (response.ok) {
                     dispatch(suggestionSuccess());
                     dispatch(push('/'));
-                    dispatch(fetchPendingOrders());
+                    dispatch(fetchPendingOrders(true));
                 } else if (response.status == 401) {
                     dispatch(suggestionFailure('Logged out.'));
                     dispatch(push('/login'));
@@ -94,7 +94,7 @@ export const submitVote = data => {
                 if (response.ok) {
                     dispatch(voteSuccess());
                     dispatch(push('/'));
-                    dispatch(fetchPendingOrders());
+                    dispatch(fetchPendingOrders(true));
                 } else if (response.status == 401) {
                     dispatch(voteFailure('Logged out.'));
                     dispatch(push('/login'));
