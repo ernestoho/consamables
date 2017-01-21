@@ -24,6 +24,4 @@ export const getItemPrice = (state, id) => state.items.has(id) ?
                                            state.items.get(id).get('price')
                                            : 0;
 
-export const getItemData = (state, id) => state.centerColumn.currentOrder.getIn(['items', id, 'data']);
-
 export const getOverheadPercentage = (state, id) => state.activeOrders.getIn([id, 'overheadPercentage']);

@@ -14,7 +14,7 @@ import { DISPLAY_DEFAULT, DISPLAY_MENU_VIEWING } from '../constants';
 class App extends React.Component {
     componentDidMount() {
         const {
-            location,
+            location, loggedIn,
             splitwiseLoad, loadUserInfo, loadRestaurants, loadActiveOrders, loadPendingOrders,
             updateRestaurantHours
         } = this.props;
@@ -27,7 +27,7 @@ class App extends React.Component {
         }
         loadRestaurants();
         loadActiveOrders();
-        loadPendingOrders();
+        loadPendingOrders(loggedIn);
 
         this.restaurantUpdate = setInterval(this.props.updateRestaurantHours, 10000);
     }
@@ -51,14 +51,16 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    loggedIn: state.currentUser.get('loggedIn')
+});
 
 const mapDispatchToProps = dispatch => ({
     splitwiseLoad: (token, verifier) => dispatch(verifyAndAuthenticateWithSplitwise(token, verifier)),
     loadUserInfo: () => dispatch(verifyUser()),
     loadRestaurants: () => dispatch(fetchRestaurants()),
     loadActiveOrders: () => dispatch(fetchActiveOrders()),
-    loadPendingOrders: () => dispatch(fetchPendingOrders()),
+    loadPendingOrders: loggedIn => dispatch(fetchPendingOrders(loggedIn)),
     updateRestaurantHours: () => dispatch(updateRestaurantHours())
 });
 

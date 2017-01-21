@@ -10,13 +10,15 @@ const currentUser = (state = Map({ loggedIn: false }), action) => {
         case SET_USER_INFO:
             return state.set('loggedIn', true)
                         .set('userId', action.id)
-                        .set('username', action.username);
+                        .set('username', action.username)
+                        .set('splitwiseAuth', action.splitwiseAuth);
 
         case LOCATION_CHANGE:
             if (action.payload.pathname == '/login') {
                 return state.set('loggedIn', false)
                             .delete('userId')
-                            .delete('username');
+                            .delete('username')
+                            .delete('splitwiseAuth');
             }
             return state;
 

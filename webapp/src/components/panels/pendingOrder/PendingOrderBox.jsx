@@ -30,7 +30,7 @@ class PendingOrderBox extends React.Component {
 
     render() {
         const {
-            groupId, loggedIn, restaurantName, type, timeCreated, minPeople, votes,
+            groupId, loggedIn, restaurantName, type, timeCreated, minPeople, votes, hasVoted,
             onJoinClick, onStartClick
         } = this.props;
         const { timeElapsed } = this.state;
@@ -50,6 +50,7 @@ class PendingOrderBox extends React.Component {
                 {loggedIn ?
                     <PendingOrderToolbar
                         id={groupId}
+                        hasVoted={hasVoted}
                         onStartClick={onStartClick}
                         onJoinClick={onJoinClick}
                     />
@@ -63,13 +64,15 @@ class PendingOrderBox extends React.Component {
 class PendingOrderToolbar extends React.Component {
     render() {
         const {
-            id,
+            id, hasVoted,
             onJoinClick, onStartClick
         } = this.props;
 
         return (
             <div className="toolbar">
-                <Link to={`/vote/${id}`} className="button" onClick={onJoinClick}>Join Queue</Link>
+                {!hasVoted ?
+                    <Link to={`/vote/${id}`} className="button" onClick={onJoinClick}>Join Queue</Link>
+                    : <div className="already-voted">Joined</div>}
                 <Link to={`/activate/${id}`} className="button" onClick={onStartClick}>Start Order</Link>
             </div>
         );

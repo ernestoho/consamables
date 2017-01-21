@@ -44,24 +44,24 @@ export const addItemToOrder = (itemId, data) => ({
     data: data
 });
 
-export const removeItemFromOrder = itemId => ({
+export const removeItemFromOrder = index => ({
     type: REMOVE_ITEM_FROM_ORDER,
-    id: itemId
+    index: index
 });
 
-export const incrementItem = itemId => ({
+export const incrementItem = index => ({
     type: INCREMENT_ITEM,
-    id: itemId
+    index: index
 });
 
-export const decrementItem = itemId => ({
+export const decrementItem = index => ({
     type: DECREMENT_ITEM,
-    id: itemId
+    index: index
 });
 
-export const setQuantity = (itemId, quantity) => ({
+export const setQuantity = (index, quantity) => ({
     type: SET_QUANTITY,
-    id: itemId,
+    index: index,
     quantity: quantity
 });
 

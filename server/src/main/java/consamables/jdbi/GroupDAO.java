@@ -21,7 +21,7 @@ public interface GroupDAO {
     List<Group> getActive();
 
     @SqlQuery("SELECT * FROM \"group\" WHERE phase = 'pending' " +
-              "AND EXISTS (SELECT 1 FROM vote WHERE group_id = group_id " +
+              "AND EXISTS (SELECT 1 FROM vote WHERE vote.group_id = \"group\".group_id " +
               "AND time_placed + (minutes_interested || ' minutes')::interval > now())")
     List<Group> getPending();
 
