@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import OrderItemQuantity from './OrderItemQuantity';
-import { getItemName, getItemPrice, getItemData } from '../../../selectors';
+import { getItemName, getItemPrice } from '../../../selectors';
 import {
     removeItemFromOrder,
     incrementItem, decrementItem,
@@ -44,15 +44,14 @@ class OrderItem extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
     name: getItemName(state, ownProps.id),
-    price: getItemPrice(state, ownProps.id),
-    data: getItemData(state, ownProps.id)
+    price: getItemPrice(state, ownProps.id)
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onValueChange: event => dispatch(setQuantity(ownProps.id, Math.round(event.target.value))),
-    onRemoveClick: () => dispatch(removeItemFromOrder(ownProps.id)),
-    onIncrementClick: () => dispatch(incrementItem(ownProps.id)),
-    onDecrementClick: () => dispatch(decrementItem(ownProps.id))
+    onValueChange: event => dispatch(setQuantity(ownProps.index, Math.round(event.target.value))),
+    onRemoveClick: () => dispatch(removeItemFromOrder(ownProps.index)),
+    onIncrementClick: () => dispatch(incrementItem(ownProps.index)),
+    onDecrementClick: () => dispatch(decrementItem(ownProps.index))
 });
 
 export default connect(

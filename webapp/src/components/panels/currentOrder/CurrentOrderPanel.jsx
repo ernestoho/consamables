@@ -7,12 +7,11 @@ import PanelHeader from '../PanelHeader';
 import OrderItem from './OrderItem';
 import { continueOrder, goBackToMenu } from '../../../actions';
 import { getItemPrice } from '../../../selectors';
-import { DISPLAY_MENU_ORDERING, DISPLAY_NEW_ORDER_OPTIONS } from '../../../constants';
 
 class CurrentOrderPanel extends React.Component {
     render() {
         const {
-            orderStarted, items, stage, totalCost, displayMode,
+            orderStarted, items, stage, totalCost,
             onContinueClick, onBackClick
         } = this.props;
 
@@ -21,8 +20,8 @@ class CurrentOrderPanel extends React.Component {
                 <div className="current-order-panel">
                     <PanelHeader name="Your Order"></PanelHeader>
                     <div className="scrollable">
-                        {items.map(item => 
-                            <OrderItem key={item.get('id')} id={item.get('id')} quantity={item.get('quantity')}/>
+                        {items.map((item, index) => 
+                            <OrderItem key={index} index={index} {...item.toObject()}/>
                         )}
                     </div>
                     <div className="continue">
@@ -42,9 +41,9 @@ class CurrentOrderPanel extends React.Component {
 
 const mapStateToProps = state => ({
     orderStarted: !!state.centerColumn.currentOrder.get('items').size,
-    items: state.centerColumn.currentOrder.get('items').map((item, id) => item.set('id', id)).toList(),
-    totalCost: state.centerColumn.currentOrder.get('items').reduce((total, item, id) => {
-        return total += getItemPrice(state, id) * item.get('quantity');
+    items: state.centerColumn.currentOrder.get('items'),
+    totalCost: state.centerColumn.currentOrder.get('items').reduce((total, item) => {
+        return total += getItemPrice(state, item.get('id')) * item.get('quantity');
     }, 0),
     stage: state.centerColumn.currentOrder.get('stage')
 });

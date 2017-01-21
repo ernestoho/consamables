@@ -26,7 +26,7 @@ const startOrder = (state, action, orderType) => {
                    .set('restaurantId', action.restaurantId);
 };
 
-const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) => {
+const currentOrder = (state = Map({ items: List(), stage: 'choose' }), action) => {
     switch (action.type) {
         case START_ORDER:
             return startOrder(state, action, 'start').delete('groupId');
@@ -38,24 +38,39 @@ const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) =>
             return startOrder(state, action, 'activate').set('groupId', action.groupId);
 
         case ADD_ITEM_TO_ORDER:
-            return state.updateIn(['items', action.id, 'quantity'], 0, q => q + 1)
-                        .setIn(['items', action.id, 'data'], action.data);
+            let items = state.get('items');
+            let [index, match] = items.findEntry(
+                item => item.get('id') == action.id && item.get('data').equals(Map(action.data)),
+                null,
+                [null, null]
+            );
+            if (!match) {
+                return state.set('items', items.push(
+                    Map({
+                        id: action.id,
+                        quantity: 1,
+                        data: action.data
+                    })
+                ));
+            } else {
+                return state.updateIn(['items', index, 'quantity'], q => q + 1);
+            }
 
         case REMOVE_ITEM_FROM_ORDER:
-            let newState = state.deleteIn(['items', action.id]);
+            let newState = state.deleteIn(['items', action.index]);
             if (newState.get('items').size == 0) {
                 return newState.set('stage', 'choose');
             }
             return newState;
 
         case INCREMENT_ITEM:
-            return state.updateIn(['items', action.id, 'quantity'], q => q + 1);
+            return state.updateIn(['items', action.index, 'quantity'], q => q + 1);
 
         case DECREMENT_ITEM:
-            return state.updateIn(['items', action.id, 'quantity'], q => q - 1);
+            return state.updateIn(['items', action.index, 'quantity'], q => q - 1);
 
         case SET_QUANTITY:
-            return state.setIn(['items', action.id, 'quantity'], action.quantity);
+            return state.setIn(['items', action.index, 'quantity'], action.quantity);
 
         case CONTINUE_ORDER:
             return state.set('stage', 'confirm')
@@ -96,7 +111,7 @@ const currentOrder = (state = Map({ items: Map(), stage: 'choose' }), action) =>
         case NEW_GROUP_SUCCESS:
         case NEW_ORDER_SUCCESS:
         case ACTIVATED_GROUP_SUCCESS:
-            return state.set('items', Map())
+            return state.set('items', List())
                         .set('loading', false)
                         .set('stage', 'choose');
 
