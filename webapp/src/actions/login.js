@@ -33,6 +33,7 @@ export const updatePasswordField = text => ({
 
 const sendLogin = () => ({ type: SEND_LOGIN });
 
+// This might be deprecated
 const loginSuccess = (userId, username, auth) => ({
     type: LOGIN_SUCCESS,
     id: userId,

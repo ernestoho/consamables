@@ -4,7 +4,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
     UPDATE_USERNAME_FIELD, UPDATE_PASSWORD_FIELD,
-    SEND_LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS,
+    SEND_LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS, SET_USER_INFO,
     SEND_NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS, NEW_ACCOUNT_FAILURE,
     UPDATE_CONFIRM_PASSWORD_FIELD,
     GOTO_LOGIN, GOTO_CREATE_ACCOUNT
@@ -36,6 +36,7 @@ const login = (state = Map({ username: '', password: '', confirmPassword: '' }),
 
         case LOGIN_SUCCESS:
         case NEW_ACCOUNT_SUCCESS:
+        case SET_USER_INFO:
             return state.set('loading', false)
                         .set('username', '')
                         .set('password', '')

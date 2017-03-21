@@ -38,7 +38,7 @@ const mapStateToProps = (state, ownProps) => ({
     loading: state.centerColumn.currentOrder.get('loading'),
     orderTotal: (Math.ceil(
         state.centerColumn.currentOrder.get('items').reduce(
-            (total, item, itemId) => total + (getItemPrice(state, itemId) * item.get('quantity')),
+            (total, item) => total + (getItemPrice(state, item.get('id')) * item.get('quantity')),
             0
         ) * 1.07 * (getOverheadPercentage(state, parseInt(ownProps.id)) + 1) * 2
         // TODO: make tax not a magic number
