@@ -9,8 +9,8 @@ const mapStateToProps = (state, ownProps) => ({
         userId: state.currentUser.get('userId'),
         groupId: ownProps.id,
         orderItems: state.centerColumn.currentOrder.get('items')
-            .map((item, itemId) => ({
-                itemId,
+            .map(item => ({
+                itemId: item.get('id'),
                 quantity: item.get('quantity'),
                 data: item.get('data')
             }))
