@@ -17,7 +17,7 @@ const startOrder = (state, action, orderType) => {
     let newState;
     // Clear items if switching restaurants
     if (state.get('items').size > 0 && state.get('restaurantId') != action.restaurantId) {
-        newState = state.set('items', Map())
+        newState = state.set('items', List())
                         .set('loading', false);
     } else {
         newState = state;
@@ -40,7 +40,15 @@ const currentOrder = (state = Map({ items: List(), stage: 'choose' }), action) =
         case ADD_ITEM_TO_ORDER:
             let items = state.get('items');
             let [index, match] = items.findEntry(
-                item => item.get('id') == action.id && item.get('data').equals(Map(action.data)),
+                item => {
+                    let dataMatch;
+                    if (item.get('data')) {
+                        dataMatch = item.get('data').equals(Map(action.data));
+                    } else {
+                        dataMatch = !action.data;
+                    }
+                    return item.get('id') == action.id && dataMatch;
+                },
                 null,
                 [null, null]
             );
