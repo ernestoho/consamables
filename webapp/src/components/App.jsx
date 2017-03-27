@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import LeftColumn from './LeftColumn';
@@ -9,9 +9,8 @@ import {
     fetchActiveOrders, fetchPendingOrders,
     fetchRestaurants, updateRestaurantHours,
 } from '../actions';
-import { DISPLAY_DEFAULT, DISPLAY_MENU_VIEWING } from '../constants';
 
-class App extends React.Component {
+class App extends Component {
     componentDidMount() {
         const {
             location, loggedIn,
@@ -29,7 +28,7 @@ class App extends React.Component {
         loadActiveOrders();
         loadPendingOrders(loggedIn);
 
-        this.restaurantUpdate = setInterval(this.props.updateRestaurantHours, 10000);
+        this.restaurantUpdate = setInterval(updateRestaurantHours, 10000);
     }
 
     componentWillUnmount() {
@@ -67,4 +66,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(App)
+)(App);

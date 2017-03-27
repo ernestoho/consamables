@@ -27,4 +27,4 @@ const fetchActiveOrders = () => {
     };
 };
 
-export default fetchActiveOrders
+export default fetchActiveOrders;
