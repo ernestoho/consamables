@@ -36,19 +36,35 @@ class App extends Component {
     }
 
     render() {
-        const centerFocus = !/^\/(menu\/[0-9]+)?$/.test(this.props.location.pathname);
+        const { location, children } = this.props;
+
+        const centerFocus = !/^\/(menu\/[0-9]+)?$/.test(location.pathname);
         const style = centerFocus ? { minWidth: '30em', padding: '0 15em' } : null;
 
         return (
             <div style={style}>
                 <LeftColumn/>
-                {this.props.children}
+                {children}
                 <RightColumn/>
                 <Overlay centerFocus={centerFocus}/>
             </div>
         );
     }
 }
+
+App.propTypes = {
+    location: PropTypes.shape({
+        pathname: PropTypes.string.isRequired
+    }),
+    loggedIn: PropTypes.bool.isRequired,
+    splitwiseLoad: PropTypes.func.isRequired,
+    loadUserInfo: PropTypes.func.isRequired,
+    loadRestaurants:PropTypes.func.isRequired,
+    loadActiveOrders:PropTypes.func.isRequired,
+    loadPendingOrders:PropTypes.func.isRequired,
+    updateRestaurantHours:PropTypes.func.isRequired,
+    children: PropTypes.element.isRequired
+};
 
 const mapStateToProps = state => ({
     loggedIn: state.currentUser.get('loggedIn')

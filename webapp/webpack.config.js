@@ -1,59 +1,46 @@
 var webpack = require('webpack');
-var path = require('path');
-var autoprefixer = require('autoprefixer');
+var { resolve } = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, './build');
-var APP_DIR = path.resolve(__dirname, './src');
+var BUILD_DIR = resolve(__dirname, 'dist');
+var APP_DIR = resolve(__dirname, 'src');
 
-var config = {
-    devtool: 'eval',
+module.exports = {
     entry: [
         'webpack-dev-server/client?http://localhost:9090',
         'webpack/hot/only-dev-server',
-        APP_DIR + '/index'
-    ],
-    output: {
-        path: BUILD_DIR,
-        filename: 'bundle.js',
-        publicPath: '/static/'
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        APP_DIR + '/index.jsx'
     ],
     module: {
         loaders: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                include: APP_DIR,
-                loader: 'babel'
+                loader: 'react-hot-loader/webpack!babel-loader'
             },
             {
                 test: /\.scss$/,
-                include: APP_DIR,
-                loaders: [
-                    'style',
-                    'css',
-                    'postcss',
-                    'sass?outputStyle=expanded'
-                ]
+                loader: 'style-loader!css-loader!postcss-loader!sass-loader'
             }
         ]
     },
     resolve: {
-        extensions: [
-            '',
-            '.webpack.js',
-            '.js',
-            '.jsx',
-            '.scss'
-        ]
+        extensions: ['*', '.js', '.jsx', '.scss']
     },
-    postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
+    output: {
+        path: BUILD_DIR,
+        filename: 'bundle.js',
+        publicPath: '/'
+    },
     devServer: {
         hot: true,
-        contentBase: BUILD_DIR
-    }
+        contentBase: BUILD_DIR,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8081'
+            }
+        }
+    },
+    plugins: [
+        new webpack.NamedModulesPlugin()
+    ],
 };
-
-module.exports = config;

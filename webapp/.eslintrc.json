@@ -14,23 +14,14 @@
     "plugins": [
         "react"
     ],
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
-        "react/jsx-uses-vars": "error"
+        "indent": ["error", 4],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"]
+    },
+    "globals": {
+        "module": false
     }
 }
