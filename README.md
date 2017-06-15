@@ -15,7 +15,7 @@ If you want to let people know you're hungry for something but don't want to com
 ### Integrated Payments
 Often the most complicated part of ordering in a group is settling up afterward. Consamables keeps track of what each person owes, and uses the Splitwise API to let fellow orderers resolve debts.
 
-##Technologies
+## Technologies
 
 ### [Dropwizard](http://www.dropwizard.io/1.0.5/docs/)
 Consamables uses Dropwizard for its API backend. Dropwizard packages a bunch of useful Java libraries (Jetty, Jersey, Jackson, JDBI, etc.) into a robust toolset for creating web services.
