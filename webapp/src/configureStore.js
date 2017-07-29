@@ -8,15 +8,13 @@ import rootReducer from './reducers';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const configureStore = () => {
-    const store = createStore(
+    return createStore(
         rootReducer,
         composeEnhancers(applyMiddleware(
             thunkMiddleware,
             routerMiddleware(browserHistory)
         ))
     );
-
-    return store;
 };
 
-export default configureStore
+export default configureStore;

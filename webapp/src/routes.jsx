@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './components/App';
-import CenterColumn from './components/centerColumn/CenterColumn';
 import Dashboard from './components/centerColumn/Dashboard';
 import Login from './components/centerColumn/Login';
 import CreateAccount from './components/centerColumn/CreateAccount';
@@ -33,4 +32,4 @@ const routes = (
     </Route>
 );
 
-export default routes
+export default routes;

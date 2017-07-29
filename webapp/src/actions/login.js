@@ -143,8 +143,8 @@ export const logOut = () => {
     return dispatch => {
         TokenManager.clearAccessToken();
         dispatch(push('/login'));
-    }
-}
+    };
+};
 
 export const redirectToSplitwise = () => {
     return dispatch => {

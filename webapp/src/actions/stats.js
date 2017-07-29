@@ -26,7 +26,7 @@ export const fetchVotes = groupId => {
 };
 
 const requestNumOrders = groupId => ({
-    type: RECEIVE_NUM_ORDERS,
+    type: REQUEST_NUM_ORDERS,
     id: groupId
 });
 

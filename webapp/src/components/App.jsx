@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import LeftColumn from './LeftColumn';
@@ -9,9 +9,8 @@ import {
     fetchActiveOrders, fetchPendingOrders,
     fetchRestaurants, updateRestaurantHours,
 } from '../actions';
-import { DISPLAY_DEFAULT, DISPLAY_MENU_VIEWING } from '../constants';
 
-class App extends React.Component {
+class App extends Component {
     componentDidMount() {
         const {
             location, loggedIn,
@@ -29,7 +28,7 @@ class App extends React.Component {
         loadActiveOrders();
         loadPendingOrders(loggedIn);
 
-        this.restaurantUpdate = setInterval(this.props.updateRestaurantHours, 10000);
+        this.restaurantUpdate = setInterval(updateRestaurantHours, 10000);
     }
 
     componentWillUnmount() {
@@ -37,19 +36,35 @@ class App extends React.Component {
     }
 
     render() {
-        const centerFocus = !/^\/(menu\/[0-9]+)?$/.test(this.props.location.pathname);
+        const { location, children } = this.props;
+
+        const centerFocus = !/^\/(menu\/[0-9]+)?$/.test(location.pathname);
         const style = centerFocus ? { minWidth: '30em', padding: '0 15em' } : null;
 
         return (
             <div style={style}>
                 <LeftColumn/>
-                {this.props.children}
+                {children}
                 <RightColumn/>
                 <Overlay centerFocus={centerFocus}/>
             </div>
         );
     }
 }
+
+App.propTypes = {
+    location: PropTypes.shape({
+        pathname: PropTypes.string.isRequired
+    }),
+    loggedIn: PropTypes.bool.isRequired,
+    splitwiseLoad: PropTypes.func.isRequired,
+    loadUserInfo: PropTypes.func.isRequired,
+    loadRestaurants:PropTypes.func.isRequired,
+    loadActiveOrders:PropTypes.func.isRequired,
+    loadPendingOrders:PropTypes.func.isRequired,
+    updateRestaurantHours:PropTypes.func.isRequired,
+    children: PropTypes.element.isRequired
+};
 
 const mapStateToProps = state => ({
     loggedIn: state.currentUser.get('loggedIn')
@@ -67,4 +82,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(App)
+)(App);

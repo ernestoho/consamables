@@ -40,8 +40,8 @@ export const fetchOrganizedOrders = () => {
                     }
                 });
             });
-    }
-}
+    };
+};
 
 export const showGroupDetails = groupId => ({
     type: SHOW_GROUP_DETAILS,
@@ -69,7 +69,7 @@ export const markGroupComplete = groupId => {
                     dispatch(push('/'));
                     dispatch(fetchOrganizedOrders());
                     dispatch(fetchActiveOrders());
-                    dispatch(fetchMyOrders())
+                    dispatch(fetchMyOrders());
                     dispatch(hideGroupDetails());
                 }
             });

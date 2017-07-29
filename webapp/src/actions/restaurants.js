@@ -31,8 +31,8 @@ export const fetchRestaurants = () => {
                 dispatch(updateRestaurantHours());
                 json.forEach(restaurant => dispatch(fetchMenu(restaurant.restaurantId)));
             });
-    }
-}
+    };
+};
 
 export const updateRestaurantHours = () => ({
     type: UPDATE_RESTAURANT_HOURS,

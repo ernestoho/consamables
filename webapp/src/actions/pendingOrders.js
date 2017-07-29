@@ -31,8 +31,8 @@ const fetchPendingOrders = (loggedIn) => {
                     json.forEach(group => dispatch(checkVoted(group.groupId)));
                 }
             });
-    }
-}
+    };
+};
 
 const requestHasVoted = () => ({ type: REQUEST_HAS_VOTED });
 
@@ -44,6 +44,7 @@ const receiveHasVoted = (groupId, json) => ({
 
 const checkVoted = groupId => {
     return dispatch => {
+        dispatch(requestHasVoted());
         fetch(`/api/groups/${groupId}/has-voted-for`, buildGetInit())
             .then( response => response.json() )
             .then(json => {
@@ -52,4 +53,4 @@ const checkVoted = groupId => {
     };
 };
 
-export default fetchPendingOrders
+export default fetchPendingOrders;
