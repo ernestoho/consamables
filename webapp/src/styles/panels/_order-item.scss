@@ -1,51 +1,51 @@
 .order-items {
-    padding-left: 0.8em;
-    padding-right: 0.2em;
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    border-left: 1px solid $title-color;
+  padding-left: 0.8em;
+  padding-right: 0.2em;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid $title-color;
 
-    .order-item {
-        padding: 0.1em;
+  .order-item {
+    padding: 0.1em;
 
-        &+.order-item {
-            margin-top: 0.2em;
-        }
-
-        .order-item-name {
-            font-weight: bold;
-        }
-
-        .item-data {
-            color: $title-color;
-            margin-top: 0.2em;
-            padding: 0.4em;
-            font-size: 0.9em;
-            background-color: $background-color;
-            border-radius: 4px;
-            display: flex;
-            flex-direction: column;
-
-            .toppings {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-
-                .topping:after {
-                    content: ", ";
-                    margin-right: 0.2em;
-                }
-
-                .topping:last-child:after {
-                    content: "";
-                    margin-right: 0;
-                }
-            }
-
-            .toppings+.other {
-                margin-top: 0.4em;
-            }
-        }
+    & + .order-item {
+      margin-top: 0.2em;
     }
+
+    .order-item-name {
+      font-weight: bold;
+    }
+
+    .item-data {
+      color: $title-color;
+      margin-top: 0.2em;
+      padding: 0.4em;
+      font-size: 0.9em;
+      background-color: $background-color;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+
+      .toppings {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .topping:after {
+          content: ", ";
+          margin-right: 0.2em;
+        }
+
+        .topping:last-child:after {
+          content: "";
+          margin-right: 0;
+        }
+      }
+
+      .toppings+.other {
+        margin-top: 0.4em;
+      }
+    }
+  }
 }

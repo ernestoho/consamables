@@ -20,93 +20,93 @@ $track-radius: 0.4em;
 $contrast: 5%;
 
 @mixin range-track {
-    animation-duration: 0.2s;
-    cursor: pointer;
-    width: $track-width;
-    height: $track-height;
+  animation-duration: 0.2s;
+  cursor: pointer;
+  width: $track-width;
+  height: $track-height;
 }
 
 @mixin range-thumb {
-    border: $thumb-border-width solid $thumb-border-color;
-    height: $thumb-height;
-    width: $thumb-width;
-    border-radius: $thumb-radius;
-    background: $thumb-color;
-    cursor: pointer;
-    box-shadow: 0 0 $shadow-blur $shadow-color;
-    transition-duration: 0.2s;
+  border: $thumb-border-width solid $thumb-border-color;
+  height: $thumb-height;
+  width: $thumb-width;
+  border-radius: $thumb-radius;
+  background: $thumb-color;
+  cursor: pointer;
+  box-shadow: 0 0 $shadow-blur $shadow-color;
+  transition-duration: 0.2s;
 
-    &:hover {
-        background: $hover-color;
-    }
+  &:hover {
+    background: $hover-color;
+  }
 }
 
 input[type="range"] {
+  -webkit-appearance: none;
+  margin: $thumb-height/2 0;
+  width: $track-width;
+  
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-slider-runnable-track {
+    @include range-track;
+    background: $track-color;
+    border-radius: $track-radius;
+    border: $track-border-width solid $track-border-color;
+  }
+
+  &::-webkit-slider-thumb {
+    @include range-thumb;
     -webkit-appearance: none;
-    margin: $thumb-height/2 0;
-    width: $track-width;
-    
-    &:focus {
-        outline: none;
-    }
+    margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+  }
 
-    &::-webkit-slider-runnable-track {
-        @include range-track;
-        background: $track-color;
-        border-radius: $track-radius;
-        border: $track-border-width solid $track-border-color;
-    }
+  &:focus::-webkit-slider-runnable-track {
+    background: lighten($track-color, $contrast);
+  }
 
-    &::-webkit-slider-thumb {
-        @include range-thumb;
-        -webkit-appearance: none;
-        margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
-    }
+  &::-moz-range-track {
+    @include range-track;
+    background: $track-color;
+    border-radius: $track-radius;
+    border: $track-border-width solid $track-border-color;
+  }
 
-    &:focus::-webkit-slider-runnable-track {
-        background: lighten($track-color, $contrast);
-    }
+  &::-moz-range-thumb {
+     @include range-thumb;
+  }
 
-    &::-moz-range-track {
-        @include range-track;
-        background: $track-color;
-        border-radius: $track-radius;
-        border: $track-border-width solid $track-border-color;
-    }
+  &::-ms-track {
+    @include range-track; 
+    background: transparent;
+    border-color: transparent;
+    border-width: $thumb-width 0;
+    color: transparent;
+  }
 
-    &::-moz-range-thumb {
-         @include range-thumb;
-    }
+  &::-ms-fill-lower {
+    background: darken($track-color, $contrast);
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius*2;
+  }
 
-    &::-ms-track {
-        @include range-track; 
-        background: transparent;
-        border-color: transparent;
-        border-width: $thumb-width 0;
-        color: transparent;
-    }
+  &::-ms-fill-upper {
+    background: $track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius*2;
+  }
 
-    &::-ms-fill-lower {
-        background: darken($track-color, $contrast);
-        border: $track-border-width solid $track-border-color;
-        border-radius: $track-radius*2;
-    }
+  &::-ms-thumb {
+    @include range-thumb;
+  }
 
-    &::-ms-fill-upper {
-        background: $track-color;
-        border: $track-border-width solid $track-border-color;
-        border-radius: $track-radius*2;
-    }
+  &:focus::-ms-fill-lower {
+    background: $track-color;
+  }
 
-    &::-ms-thumb {
-        @include range-thumb;
-    }
-
-    &:focus::-ms-fill-lower {
-        background: $track-color;
-    }
-
-    &:focus::-ms-fill-upper {
-        background: lighten($track-color, $contrast);
-    }
+  &:focus::-ms-fill-upper {
+    background: lighten($track-color, $contrast);
+  }
 }

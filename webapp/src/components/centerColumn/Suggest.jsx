@@ -4,13 +4,13 @@ import CenterColumn from './CenterColumn';
 import SuggestOrderPanel from '../panels/suggestOrder/SuggestOrderPanel';
 
 export default class Suggest extends React.Component {
-    render() {
-        const { params } = this.props;
+  render() {
+    const { params } = this.props;
 
-        return (
-            <CenterColumn>
-                <SuggestOrderPanel id={parseInt(params.id)}/>
-            </CenterColumn>
-        );
-    }
+    return (
+      <CenterColumn>
+        <SuggestOrderPanel id={parseInt(params.id)}/>
+      </CenterColumn>
+    );
+  }
 }

@@ -9,13 +9,13 @@ import myOrderDetails from './myOrderDetails';
 import vote from './vote';
 
 const centerColumn = combineReducers({
-    currentOrder,
-    suggestOrder,
-    login,
-    pizzaBuilder,
-    organizer,
-    myOrderDetails,
-    vote
+  currentOrder,
+  suggestOrder,
+  login,
+  pizzaBuilder,
+  organizer,
+  myOrderDetails,
+  vote
 });
 
-export default centerColumn
+export default centerColumn;

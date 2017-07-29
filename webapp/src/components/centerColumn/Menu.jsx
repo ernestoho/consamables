@@ -5,13 +5,13 @@ import CenterColumn from './CenterColumn';
 import MenuPanel from '../panels/menu/MenuPanel';
 
 export default class Menu extends React.Component {
-    render() {
-        const { params } = this.props;
+  render() {
+    const { params } = this.props;
 
-        return (
-            <CenterColumn>
-                <MenuPanel id={parseInt(params.id)} viewOnly={true}/>
-            </CenterColumn>
-        );
-    }
+    return (
+      <CenterColumn>
+        <MenuPanel id={parseInt(params.id)} viewOnly={true}/>
+      </CenterColumn>
+    );
+  }
 }

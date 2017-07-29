@@ -5,11 +5,11 @@ import CenterColumn from './CenterColumn';
 import LoginPanel from '../panels/login/LoginPanel';
 
 export default class Login extends React.Component {
-    render() {
-        return (
-            <CenterColumn>
-                <LoginPanel/>
-            </CenterColumn>
-        );
-    }
+  render() {
+    return (
+      <CenterColumn>
+        <LoginPanel/>
+      </CenterColumn>
+    );
+  }
 }

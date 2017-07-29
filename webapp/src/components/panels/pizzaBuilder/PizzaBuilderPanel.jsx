@@ -16,69 +16,69 @@ import { closePizzaBuilder, setInitialSauce, setMaxToppings } from '../../../act
 import { pizzaAtCapacity } from '../../../helpers';
 
 class PizzaBuilderPanel extends React.Component {
-    componentDidMount() {
-        const {
-            sauces, maxToppings,
-            setSauce, setMaxToppings
-        } = this.props;
-        setSauce(sauces.get('default'));
-        setMaxToppings(maxToppings);
-    }
+  componentDidMount() {
+    const {
+      sauces, maxToppings,
+      setSauce, setMaxToppings
+    } = this.props;
+    setSauce(sauces.get('default'));
+    setMaxToppings(maxToppings);
+  }
 
-    render() {
-        const {
-            toppings, sauces, maxToppings, hasToppings, whole,
-            close
-        } = this.props;
+  render() {
+    const {
+      toppings, sauces, maxToppings, hasToppings, whole,
+      close
+    } = this.props;
 
-        return (
-            <div className="pizza-builder-panel">
-                <PanelHeader name="Pizza Builder"/>
-                <PizzaSizeSelection/>
-                <div className="toppings">
-                    <ToppingsSection name="Meats" toppings={toppings.get('meats')}/>
-                    <ToppingsSection name="Non-Meats" toppings={toppings.get('non-meats')}/>
-                </div>
-                <CheeseSelection options={['No Cheese', 'Normal Cheese', 'Extra Cheese']}/>
-                {whole ?
-                    <SauceSelection options={['No Sauce', sauces.get('default'), ...sauces.get('other').toArray()]}/>
-                    : null}
-                {whole ?
-                    (hasToppings ?
-                    <div className="choice-display">
-                        <SideToppings side="left"/>
-                        <SideToppings side="whole"/>
-                        <SideToppings side="right"/>
-                    </div>
-                    : <div className="no-toppings">No Toppings</div>) : null}
-                <div className="toolbar">
-                    <button className="button" onClick={close}>Cancel</button>
-                    <AddPizzaButton/>
-                </div>
-            </div>
-        );
-    }
+    return (
+      <div className="pizza-builder-panel">
+        <PanelHeader name="Pizza Builder"/>
+        <PizzaSizeSelection/>
+        <div className="toppings">
+          <ToppingsSection name="Meats" toppings={toppings.get('meats')}/>
+          <ToppingsSection name="Non-Meats" toppings={toppings.get('non-meats')}/>
+        </div>
+        <CheeseSelection options={['No Cheese', 'Normal Cheese', 'Extra Cheese']}/>
+        {whole ?
+          <SauceSelection options={['No Sauce', sauces.get('default'), ...sauces.get('other').toArray()]}/>
+          : null}
+        {whole ?
+          (hasToppings ?
+          <div className="choice-display">
+            <SideToppings side="left"/>
+            <SideToppings side="whole"/>
+            <SideToppings side="right"/>
+          </div>
+          : <div className="no-toppings">No Toppings</div>) : null}
+        <div className="toolbar">
+          <button className="button" onClick={close}>Cancel</button>
+          <AddPizzaButton/>
+        </div>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const options = state.restaurants.getIn([ownProps.id, 'data', 'pizza']);
-    const itemId = state.centerColumn.pizzaBuilder.get('itemId');
-    return {
-        toppings: options ? options.get('toppings') : Map(),
-        sauces: options ? options.get('sauces') : Map(),
-        maxToppings: state.items.getIn([itemId, 'data', 'pizza', 'maxToppings']),
-        hasToppings: state.centerColumn.pizzaBuilder.get('toppings').size > 0,
-        whole: state.centerColumn.pizzaBuilder.get('size') == 'whole'
-    };
+  const options = state.restaurants.getIn([ownProps.id, 'data', 'pizza']);
+  const itemId = state.centerColumn.pizzaBuilder.get('itemId');
+  return {
+    toppings: options ? options.get('toppings') : Map(),
+    sauces: options ? options.get('sauces') : Map(),
+    maxToppings: state.items.getIn([itemId, 'data', 'pizza', 'maxToppings']),
+    hasToppings: state.centerColumn.pizzaBuilder.get('toppings').size > 0,
+    whole: state.centerColumn.pizzaBuilder.get('size') == 'whole'
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
-    close: () => dispatch(closePizzaBuilder()),
-    setSauce: sauce => dispatch(setInitialSauce(sauce)),
-    setMaxToppings: value => dispatch(setMaxToppings(value))
+  close: () => dispatch(closePizzaBuilder()),
+  setSauce: sauce => dispatch(setInitialSauce(sauce)),
+  setMaxToppings: value => dispatch(setMaxToppings(value))
 });
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PizzaBuilderPanel)
+  mapStateToProps,
+  mapDispatchToProps
+)(PizzaBuilderPanel);

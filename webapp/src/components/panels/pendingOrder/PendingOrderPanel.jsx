@@ -8,44 +8,44 @@ import PendingOrderBox from './PendingOrderBox';
 import { getRestaurantName } from '../../../selectors';
 
 class PendingOrderPanel extends React.Component {
-    render() {
-        const { groups } = this.props;
+  render() {
+    const { groups } = this.props;
 
-        return (
-            <div className="pending-order-panel">
-                <PanelHeader name="Pending Orders"/>
-                {groups.size > 0 ?
-                    <div className="scrollable">
-                        {groups.map(result =>
-                            <PendingOrderBox key={result.get('groupId')} {...result.toJS()}/>
-                        )}
-                    </div>
-                    :
-                    <div className="empty-text-container">
-                        <div className="empty-text">
-                            No pending orders right now!
-                        </div>
-                        <div className="empty-text">
-                            Feel free to suggest one of your own.
-                        </div>
-                    </div>}
+    return (
+      <div className="pending-order-panel">
+        <PanelHeader name="Pending Orders"/>
+        {groups.size > 0 ?
+          <div className="scrollable">
+            {groups.map(result =>
+              <PendingOrderBox key={result.get('groupId')} {...result.toJS()}/>
+            )}
+          </div>
+          :
+          <div className="empty-text-container">
+            <div className="empty-text">
+              No pending orders right now!
             </div>
-        );
-    }
+            <div className="empty-text">
+              Feel free to suggest one of your own.
+            </div>
+          </div>}
+      </div>
+    );
+  }
 }
 
 
 const mapStateToProps = state => {
-    return { 
-        groups: state.pendingOrders.toList().map(
-            group => group.set('restaurantName', getRestaurantName(
-                state, 
-                group.get('restaurantId')
-            ))
-        )
-    };
+  return { 
+    groups: state.pendingOrders.toList().map(
+      group => group.set('restaurantName', getRestaurantName(
+        state, 
+        group.get('restaurantId')
+      ))
+    )
+  };
 };
 
 export default connect(
-    mapStateToProps
-)(PendingOrderPanel)
+  mapStateToProps
+)(PendingOrderPanel);

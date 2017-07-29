@@ -14,10 +14,10 @@ const history = syncHistoryWithStore(browserHistory, store);
 const container = document.getElementById('container');
 
 render(
-    <Provider store={store}>
-        <Router history={history} routes={routes}/>
-    </Provider>,
-    container
+  <Provider store={store}>
+    <Router history={history} routes={routes}/>
+  </Provider>,
+  container
 );
 
 module.hot.accept();

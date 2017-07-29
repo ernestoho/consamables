@@ -1,46 +1,46 @@
 @mixin vertical-container {
-    margin-top: auto;
-    margin-bottom: auto;
-    vertical-align: top;
-    float: left;
-    height: 100vh;
-    min-height: 36.5em;
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: top;
+  float: left;
+  height: 100vh;
+  min-height: 36.5em;
 }
 
 .column-side {
-    @include vertical-container;
-    width: 20em;
-    position: relative;
+  @include vertical-container;
+  width: 20em;
+  position: relative;
 }
 
 
 .column-left {
-    @extend .column-side;
-    margin-left: -20em;
-    display: flex;
-    flex-direction: column;
+  @extend .column-side;
+  margin-left: -20em;
+  display: flex;
+  flex-direction: column;
 }
 
 .column-right {
-    @extend .column-side;
-    margin-right: -20em;
-    display: flex;
-    flex-direction: column;
+  @extend .column-side;
+  margin-right: -20em;
+  display: flex;
+  flex-direction: column;
 }
 
 .column-center {
-    @include vertical-container;
-    width: 100%;
-    min-width: 20em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  @include vertical-container;
+  width: 100%;
+  min-width: 20em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .padding {
-    width: 100%;
-    height: calc(49vh - 11.5em);
-    min-height: 0em;
+  width: 100%;
+  height: calc(49vh - 11.5em);
+  min-height: 0em;
 }

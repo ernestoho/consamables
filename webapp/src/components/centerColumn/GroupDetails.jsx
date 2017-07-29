@@ -5,13 +5,13 @@ import CenterColumn from './CenterColumn';
 import OrganizedOrderPanel from '../panels/organizedOrder/OrganizedOrderPanel';
 
 export default class GroupDetails extends React.Component {
-    render() {
-        const { params } = this.props;
+  render() {
+    const { params } = this.props;
 
-        return (
-            <CenterColumn>
-                <OrganizedOrderPanel id={parseInt(params.id)}/>
-            </CenterColumn>
-        );
-    }
+    return (
+      <CenterColumn>
+        <OrganizedOrderPanel id={parseInt(params.id)}/>
+      </CenterColumn>
+    );
+  }
 }

@@ -5,11 +5,11 @@ import CenterColumn from './CenterColumn';
 import CreateAccountPanel from '../panels/createAccount/CreateAccountPanel';
 
 export default class CreateAccount extends React.Component {
-    render() {
-        return (
-            <CenterColumn>
-                <CreateAccountPanel/>
-            </CenterColumn>
-        );
-    }
+  render() {
+    return (
+      <CenterColumn>
+        <CreateAccountPanel/>
+      </CenterColumn>
+    );
+  }
 }

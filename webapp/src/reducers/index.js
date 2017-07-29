@@ -13,17 +13,17 @@ import currentUser from './currentUser';
 import users from './users';
 
 const rootReducer = combineReducers({
-    activeOrders,
-    pendingOrders,
-    organizedOrders,
-    myOrders,
-    restaurants,
-    menus,
-    items,
-    centerColumn,
-    currentUser,
-    users,
-    routing: routerReducer
+  activeOrders,
+  pendingOrders,
+  organizedOrders,
+  myOrders,
+  restaurants,
+  menus,
+  items,
+  centerColumn,
+  currentUser,
+  users,
+  routing: routerReducer
 });
 
-export default rootReducer
+export default rootReducer;

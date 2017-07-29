@@ -5,28 +5,28 @@ import { submitSuggestion } from '../../../actions';
 import { buildOrderType } from '../../../helpers';
 
 const mapStateToProps = (state, ownProps) => ({
-    text: 'Submit Suggestion',
-    data: {
-        pendingGroup: {
-            restaurantId: ownProps.id,
-            type: buildOrderType(state.centerColumn.suggestOrder.get('orderType')),
-            minPeople: state.centerColumn.suggestOrder.get('minPeople') + 1
-        },
-        vote: {
-            userId: state.currentUser.get('userId'),
-            minutesInterested: state.centerColumn.suggestOrder.get('waitTime'),
-            canDrive: state.centerColumn.suggestOrder.get('driving')
-        }
+  text: 'Submit Suggestion',
+  data: {
+    pendingGroup: {
+      restaurantId: ownProps.id,
+      type: buildOrderType(state.centerColumn.suggestOrder.get('orderType')),
+      minPeople: state.centerColumn.suggestOrder.get('minPeople') + 1
+    },
+    vote: {
+      userId: state.currentUser.get('userId'),
+      minutesInterested: state.centerColumn.suggestOrder.get('waitTime'),
+      canDrive: state.centerColumn.suggestOrder.get('driving')
     }
+  }
 });
 
 const mapDispatchToProps = dispatch => ({
-    submit: data => dispatch(submitSuggestion(data))
+  submit: data => dispatch(submitSuggestion(data))
 });
 
 const SubmitSuggestion = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SubmitButton)
+  mapStateToProps,
+  mapDispatchToProps
+)(SubmitButton);
 
-export default SubmitSuggestion
+export default SubmitSuggestion;
