@@ -184,6 +184,7 @@ const receiveMyOrders = json => ({
 
 export const fetchMyOrders = () => {
     return dispatch => {
+        fetch(requestMyOrders());
         fetch('/api/orders/my-orders', buildGetInit())
             .then(response => {
                 response.json().then(json => {
@@ -192,7 +193,7 @@ export const fetchMyOrders = () => {
                     } else if (response.status == 401) {
                         dispatch(push('/login'));
                     }
-                })
+                });
             });
     };
 };

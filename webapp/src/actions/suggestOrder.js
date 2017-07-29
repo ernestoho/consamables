@@ -75,7 +75,7 @@ export const submitSuggestion = data => {
                 }
             })
             .catch( error => dispatch(suggestionFailure(error)) );
-    }
+    };
 };
 
 const sendVote = () => ({ type: SEND_VOTE });
@@ -89,6 +89,7 @@ const voteFailure = error => ({
 
 export const submitVote = data => {
     return dispatch => {
+        dispatch(sendVote());
         fetch('/api/groups/vote', buildPostInit(data))
             .then(response => {
                 if (response.ok) {
@@ -101,5 +102,5 @@ export const submitVote = data => {
                 }
             })
             .catch( error => dispatch(voteFailure(error)));
-    }
+    };
 };

@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 import { fromJS } from 'immutable';
 
-import { REQUEST_MENU, RECEIVE_MENU, SHOW_MENU, HIDE_MENU } from './actionTypes';
+import { REQUEST_MENU, RECEIVE_MENU } from './actionTypes';
 
 const requestMenu = restaurantId => ({
     type: REQUEST_MENU,
