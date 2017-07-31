@@ -3,7 +3,12 @@
     "browser": true,
     "es6": true
   },
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:react/recommended"
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
@@ -12,16 +17,20 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "import"
   ],
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "arrow-parens": ["error", "as-needed"]
   },
   "globals": {
     "module": false
+  },
+  "settings": {
+    "import/resolver": "webpack"
   }
 }

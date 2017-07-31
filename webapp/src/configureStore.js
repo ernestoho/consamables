@@ -1,20 +1,15 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { browserHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import rootReducer from './reducers';
+import rootReducer from 'data/rootReducer';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const configureStore = () => {
-  return createStore(
-    rootReducer,
-    composeEnhancers(applyMiddleware(
-      thunkMiddleware,
-      routerMiddleware(browserHistory)
-    ))
-  );
-};
-
-export default configureStore;
+export default () => createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(
+    thunkMiddleware,
+    routerMiddleware(browserHistory),
+  )),
+);

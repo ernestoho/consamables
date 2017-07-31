@@ -25,37 +25,37 @@ class OrganizedOrderPanel extends React.Component {
           <div className="group-details-heading">
             Group Order from {restaurantName}
           </div>
-        <div className="group-details-toolbar">
-          <div className="info">
-            <div className="group-type">
-              {type.charAt(0).toUpperCase()}{type.slice(1)}
+          <div className="group-details-toolbar">
+            <div className="info">
+              <div className="group-type">
+                {type.charAt(0).toUpperCase()}{type.slice(1)}
+              </div>
+              <OrderTimer timeStarted={timeStarted} duration={duration}/>
             </div>
-            <OrderTimer timeStarted={timeStarted} duration={duration}/>
-          </div>
-          <div className="status-container">
-            <div className={`status${phase == 'active' ? ' not-ordered' : ' ordered'}`}>
-              {phase == 'active' ? 'Not Ordered' : 'Ordered'}
+            <div className="status-container">
+              <div className={`status${phase == 'active' ? ' not-ordered' : ' ordered'}`}>
+                {phase == 'active' ? 'Not Ordered' : 'Ordered'}
+              </div>
+            </div>
+            <div className="controls">
+              <div className="buttons">
+                {ended ?
+                  (phase == 'active' ?
+                    <button className="button"
+                      onClick={() => markGroupOrdered(groupId)}
+                    >
+                      Mark as ordered
+                    </button>
+                    : <button className="button"
+                      onClick={() => markGroupComplete(groupId)}
+                    >
+                      Mark complete
+                    </button>)
+                  : null}
+                <button className="button">Message group members</button>
+              </div>
             </div>
           </div>
-          <div className="controls">
-            <div className="buttons">
-              {ended ?
-                (phase == 'active' ?
-                  <button className="button"
-                    onClick={() => markGroupOrdered(groupId)}
-                  >
-                    Mark as ordered
-                  </button>
-                  : <button className="button"
-                    onClick={() => markGroupComplete(groupId)}
-                  >
-                    Mark complete
-                  </button>)
-                : null}
-              <button className="button">Message group members</button>
-            </div>
-          </div>
-        </div>
         </div>
         <div className="orders">
           <div className="orders-heading">Individual Orders</div>

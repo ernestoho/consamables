@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   centerColumn,
   currentUser,
   users,
-  routing: routerReducer
+  routing: routerReducer,
 });
 
 export default rootReducer;
