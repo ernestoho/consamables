@@ -1,24 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import { loginActions } from 'data/login';
+import { groupActions } from 'data/groups';
+import { restaurantActions } from 'data/restaurants';
+import { currentUserSelectors } from 'data/currentUser';
+
 import LeftColumn from './LeftColumn';
 import RightColumn from './RightColumn';
 import Overlay from './Overlay';
-import {
-  verifyUser, verifyAndAuthenticateWithSplitwise,
-  fetchActiveOrders, fetchPendingOrders,
-  fetchRestaurants, updateRestaurantHours,
-} from '../actions';
 
 class App extends Component {
   componentDidMount() {
     const {
       location, loggedIn,
       splitwiseLoad, loadUserInfo, loadRestaurants, loadActiveOrders, loadPendingOrders,
-      updateRestaurantHours
+      updateRestaurantHours,
     } = this.props;
 
-    if (location.pathname == '/login/splitwise-auth') {
+    if (location.pathname === '/login/splitwise-auth') {
       const { oauth_token, oauth_verifier } = location.query;
       splitwiseLoad(oauth_token, oauth_verifier);
     } else {
@@ -43,10 +43,10 @@ class App extends Component {
 
     return (
       <div style={style}>
-        <LeftColumn/>
+        <LeftColumn />
         {children}
-        <RightColumn/>
-        <Overlay centerFocus={centerFocus}/>
+        <RightColumn />
+        <Overlay centerFocus={centerFocus} />
       </div>
     );
   }
@@ -54,32 +54,37 @@ class App extends Component {
 
 App.propTypes = {
   location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }),
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
   loggedIn: PropTypes.bool.isRequired,
   splitwiseLoad: PropTypes.func.isRequired,
   loadUserInfo: PropTypes.func.isRequired,
-  loadRestaurants:PropTypes.func.isRequired,
-  loadActiveOrders:PropTypes.func.isRequired,
-  loadPendingOrders:PropTypes.func.isRequired,
-  updateRestaurantHours:PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired
+  loadRestaurants: PropTypes.func.isRequired,
+  loadActiveOrders: PropTypes.func.isRequired,
+  loadPendingOrders: PropTypes.func.isRequired,
+  updateRestaurantHours: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
+const { verifyUser, verifyAndAuthenticateWithSplitwise } = loginActions;
+const { fetchActiveGroups, fetchPendingGroups } = groupActions;
+const { fetchRestaurants, updateRestaurantHours } = restaurantActions;
+const { isCurrentUserLoggedIn } = currentUserSelectors;
+
 const mapStateToProps = state => ({
-  loggedIn: state.currentUser.get('loggedIn')
+  loggedIn: isCurrentUserLoggedIn(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   splitwiseLoad: (token, verifier) => dispatch(verifyAndAuthenticateWithSplitwise(token, verifier)),
   loadUserInfo: () => dispatch(verifyUser()),
   loadRestaurants: () => dispatch(fetchRestaurants()),
-  loadActiveOrders: () => dispatch(fetchActiveOrders()),
-  loadPendingOrders: loggedIn => dispatch(fetchPendingOrders(loggedIn)),
-  updateRestaurantHours: () => dispatch(updateRestaurantHours())
+  loadActiveOrders: () => dispatch(fetchActiveGroups()),
+  loadPendingOrders: loggedIn => dispatch(fetchPendingGroups(loggedIn)),
+  updateRestaurantHours: () => dispatch(updateRestaurantHours()),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App);

@@ -3,6 +3,7 @@ import '../../../styles/panels/active-order-panel.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { Map } from 'immutable';
 
 import PanelHeader from '../PanelHeader';
 import ActiveOrderBox from './ActiveOrderBox';
@@ -42,7 +43,7 @@ class ActiveOrderPanel extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  groups: state.activeOrders
+  groups: state.getIn(['groups', 'active'], Map())
     .toList()
     .filter(group => {
       return group.get('phase') == 'active'
@@ -58,8 +59,8 @@ const mapStateToProps = state => ({
         group.get('restaurantId')
       ))
     ),
-  anyPendingOrders: state.pendingOrders.size > 0,
-  yourGroups: state.organizedOrders.size
+  anyPendingOrders: state.getIn(['groups', 'pending'], Map()).size > 0,
+  yourGroups: state.getIn(['groups', 'organized'], Map()).size
 });
 
 export default connect(

@@ -13,6 +13,9 @@ export const types = createActionTypes([
   'LOGIN_SUCCESS',
   'LOGIN_FAILURE',
   'GOTO_CREATE_ACCOUNT',
+  'SEND_NEW_ACCOUNT',
+  'NEW_ACCOUNT_SUCCESS',
+  'NEW_ACCOUNT_FAILURE',
 ], prefix);
 
 export const actions = {
@@ -150,4 +153,55 @@ export const actions = {
         }
       });
   },
+
+  updateConfirmPasswordField: text => ({
+    type: types.UPDATE_CONFIRM_PASSWORD_FIELD,
+    value: text,
+  }),
+
+  sendNewAccount: () => ({ type: types.SEND_NEW_ACCOUNT }),
+
+  newAccountSuccess: (userId, username) => ({
+    type: types.NEW_ACCOUNT_SUCCESS,
+    id: userId,
+    username,
+  }),
+
+  newAccountFailure: error => ({
+    type: types.NEW_ACCOUNT_FAILURE,
+    error,
+  }),
+
+  submitNewAccount: data => dispatch => {
+    const { usernameValid, passwordValid, passwordMatches, username, password } = data;
+
+    if (!usernameValid) {
+      dispatch(actions.newAccountFailure('Invalid email address.'));
+    } else if (!passwordValid) {
+      dispatch(actions.newAccountFailure('Invalid password.'));
+    } else if (!passwordMatches) {
+      dispatch(actions.newAccountFailure('Passwords must match.'));
+    } else {
+      dispatch(actions.sendNewAccount());
+      fetch('/api/user/new', buildPostRequest({ username, password }, false))
+        .then(response => {
+          response.json().then(json => {
+            if (response.ok) {
+              TokenManager.storeAccessToken(json.accessTokenId);
+              if (!json.splitwiseAuthenticated) {
+                dispatch(actions.redirectToSplitwise());
+              } else {
+                dispatch(actions.newAccountSuccess(json.userId, json.username));
+                dispatch(push('/'));
+              }
+            } else {
+              dispatch(actions.newAccountFailure(json.message));
+            }
+          });
+        })
+        .catch(() => dispatch(actions.newAccountFailure('Network Error.')));
+    }
+  },
+
+  goToLogin: () => ({ type: types.GOTO_LOGIN }),
 };

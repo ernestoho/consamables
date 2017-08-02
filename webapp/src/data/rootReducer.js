@@ -1,7 +1,8 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux-immutable';
 import { routerReducer } from 'react-router-redux';
 
 import currentOrder from './currentOrder';
+import currentUser from './currentUser';
 import groups from './groups';
 import items from './items';
 import login from './login';
@@ -11,9 +12,11 @@ import restaurants from './restaurants';
 import suggestedOrder from './suggestedOrder';
 import users from './users';
 import vote from './vote';
+import routing from './routing';
 
 export default combineReducers({
   currentOrder,
+  currentUser,
   groups,
   items,
   login,
@@ -23,5 +26,5 @@ export default combineReducers({
   suggestedOrder,
   users,
   vote,
-  routing: routerReducer,
+  routing,
 });
