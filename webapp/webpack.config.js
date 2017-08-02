@@ -43,6 +43,7 @@ module.exports = {
         target: 'http://localhost:8081',
       },
     },
+    historyApiFallback: true,
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
