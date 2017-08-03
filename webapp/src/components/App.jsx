@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { loginActions } from 'data/login';
@@ -13,13 +14,12 @@ import Overlay from './Overlay';
 class App extends Component {
   componentDidMount() {
     const {
-      location, loggedIn,
+      location: { pathname, query: { oauth_token, oauth_verifier } }, loggedIn,
       splitwiseLoad, loadUserInfo, loadRestaurants, loadActiveOrders, loadPendingOrders,
       updateRestaurantHours,
     } = this.props;
 
-    if (location.pathname === '/login/splitwise-auth') {
-      const { oauth_token, oauth_verifier } = location.query;
+    if (pathname === '/login/splitwise-auth') {
       splitwiseLoad(oauth_token, oauth_verifier);
     } else {
       loadUserInfo();

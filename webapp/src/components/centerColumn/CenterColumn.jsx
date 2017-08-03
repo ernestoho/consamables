@@ -1,17 +1,19 @@
-import '../../styles/column.scss';
-
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Title from '../Title';
 
-export default class CenterColumn extends React.Component {
-  render() {
-    return (
-      <div className="column-center">
-        <Title/>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+import '../../styles/column.scss';
+
+const CenterColumn = ({ children }) => (
+  <div className="column-center">
+    <Title />
+    {children}
+  </div>
+);
+
+CenterColumn.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default CenterColumn;

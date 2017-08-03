@@ -1,17 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import { parseId } from 'common/utils';
 
 import CenterColumn from './CenterColumn';
 import MenuPanel from '../panels/menu/MenuPanel';
 
-export default class Menu extends React.Component {
-  render() {
-    const { params } = this.props;
+const Menu = ({ id }) => (
+  <CenterColumn>
+    <MenuPanel id={id} viewOnly />
+  </CenterColumn>
+);
 
-    return (
-      <CenterColumn>
-        <MenuPanel id={parseInt(params.id)} viewOnly={true}/>
-      </CenterColumn>
-    );
-  }
-}
+Menu.propTypes = { id: PropTypes.number.isRequired };
+
+export default parseId(Menu);

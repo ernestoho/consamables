@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { parseId } from 'common/utils';
 
 import CenterColumn from './CenterColumn';
 import VotingPanel from '../panels/voting/VotingPanel';
 
-export default class Vote extends React.Component {
-  render() {
-    const { params } = this.props;
+const Vote = ({ id }) => (
+  <CenterColumn>
+    <VotingPanel id={id} />
+  </CenterColumn>
+);
 
-    return (
-      <CenterColumn>
-        <VotingPanel id={parseInt(params.id)}/>
-      </CenterColumn>
-    );
-  }
-}
+Vote.propTypes = { id: PropTypes.number.isRequired };
+
+export default parseId(Vote);

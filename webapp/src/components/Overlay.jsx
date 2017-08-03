@@ -1,50 +1,49 @@
-import '../styles/overlay.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import { DISPLAY_DEFAULT, DISPLAY_MENU_VIEWING } from '../constants';
+import { currentUserSelectors } from 'data/currentUser';
+
+import '../styles/overlay.scss';
 
 const overlayStyles = {
   visible: {
     visibility: 'visible',
     opacity: 1,
-    transitionDelay: '0s'
+    transitionDelay: '0s',
   },
   hidden: {
     visibility: 'hidden',
-    opacity: 0
-  }
+    opacity: 0,
+  },
 };
 
-class Overlay extends React.Component {
-  render() {
-    const {
-      centerFocus, loggedIn,
-      onClick
-    } = this.props;
+const Overlay = ({ centerFocus, loggedIn, onClick }) => (
+  <div
+    className="overlay"
+    style={centerFocus ? overlayStyles.visible : overlayStyles.hidden}
+    onClick={loggedIn ? onClick : null}
+  />
+);
 
-    return (
-      <div
-        className="overlay"
-        style={centerFocus ? overlayStyles.visible : overlayStyles.hidden}
-        onClick={loggedIn ? onClick : null}
-      >
-      </div>
-    );
-  }
-}
+Overlay.propTypes = {
+  centerFocus: PropTypes.bool.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+const { isCurrentUserLoggedIn } = currentUserSelectors;
 
 const mapStateToProps = state => ({
-  loggedIn: state.currentUser.get('loggedIn')
+  loggedIn: isCurrentUserLoggedIn(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onClick: () => dispatch(push('/'))
+  onClick: () => dispatch(push('/')),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Overlay);

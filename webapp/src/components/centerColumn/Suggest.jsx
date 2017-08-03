@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { parseId } from 'common/utils';
 
 import CenterColumn from './CenterColumn';
 import SuggestOrderPanel from '../panels/suggestOrder/SuggestOrderPanel';
 
-export default class Suggest extends React.Component {
-  render() {
-    const { params } = this.props;
+const Suggest = ({ id }) => (
+  <CenterColumn>
+    <SuggestOrderPanel id={id} />
+  </CenterColumn>
+);
 
-    return (
-      <CenterColumn>
-        <SuggestOrderPanel id={parseInt(params.id)}/>
-      </CenterColumn>
-    );
-  }
-}
+Suggest.propTypes = { id: PropTypes.number.isRequired };
+
+export default parseId(Suggest);

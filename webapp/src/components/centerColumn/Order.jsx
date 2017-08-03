@@ -1,5 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { parseId } from 'common/utils';
+
+import { currentOrderSelectors } from 'data/currentOrder';
 
 import CenterColumn from './CenterColumn';
 import MenuPanel from '../panels/menu/MenuPanel';
@@ -9,39 +14,54 @@ import NewGroupOptionsPanel from '../panels/orderOptions/NewGroupOptionsPanel';
 import NewOrderConfirmPanel from '../panels/orderOptions/NewOrderConfirmPanel';
 import { getGroupRestaurantId } from '../../selectors';
 
-class Order extends React.Component {
-  render() {
-    const { mode, stage, menuId, params } = this.props;
-
-    return (
+const Order = ({ mode, stage, menuId, id }) => {
+  switch (stage) {
+    case 'choose': return (
       <CenterColumn>
-        {stage == 'choose' ?
-          <MenuPanel id={menuId} viewOnly={false}/>
-          : null}
-        {stage != 'pizza' ?
-          <CurrentOrderPanel/>
-          : <PizzaBuilderPanel id={menuId}/>}
-        {stage == 'confirm' ?
-          (mode == 'join' ?
-            <NewOrderConfirmPanel id={params.id}/>
-            : <NewGroupOptionsPanel mode={mode} id={params.id}/>)
-          : null}
+        <MenuPanel id={menuId} viewOnly={false} />
+        <CurrentOrderPanel />
       </CenterColumn>
     );
-  }
-}
 
-const mapStateToProps = (state, ownProps) => {
-  const mode = ownProps.route.path.split('/')[0];
+    case 'confirm': return (
+      <CenterColumn>
+        <CurrentOrderPanel />
+        {mode === 'join' ?
+          <NewOrderConfirmPanel id={id} />
+          :
+          <NewGroupOptionsPanel mode={mode} id={id} />
+        }
+      </CenterColumn>
+    );
+
+    case 'pizza': return (
+      <CenterColumn>
+        <PizzaBuilderPanel id={menuId} />
+      </CenterColumn>
+    );
+
+    default: return null;
+  }
+};
+
+Order.propTypes = {
+  mode: PropTypes.oneOf(['start', 'join', 'activate']).isRequired,
+  stage: PropTypes.oneOf(['choose', 'confirm', 'pizza']).isRequired,
+  menuId: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+};
+
+const { getCurrentOrderStage } = currentOrderSelectors;
+
+const mapStateToProps = (state, { route: { path }, id }) => {
+  const mode = path.split('/')[0];
   return {
     mode,
-    stage: state.centerColumn.currentOrder.get('stage'),
-    menuId: mode == 'start' ?
-      parseInt(ownProps.params.id)
-      : getGroupRestaurantId(state, parseInt(ownProps.params.id))
+    stage: getCurrentOrderStage(state),
+    menuId: mode === 'start' ? id : getGroupRestaurantId(state, id),
   };
 };
 
-export default connect(
-  mapStateToProps
-)(Order);
+export default parseId(connect(
+  mapStateToProps,
+)(Order));

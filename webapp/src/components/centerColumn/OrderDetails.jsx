@@ -1,17 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import { parseId } from 'common/utils';
 
 import CenterColumn from './CenterColumn';
 import MyOrderPanel from '../panels/myOrder/MyOrderPanel';
 
-export default class OrderDetails extends React.Component {
-  render() {
-    const { params } = this.props;
+const OrderDetails = ({ id }) => (
+  <CenterColumn>
+    <MyOrderPanel id={id} />
+  </CenterColumn>
+);
 
-    return (
-      <CenterColumn>
-        <MyOrderPanel id={parseInt(params.id)}/>
-      </CenterColumn>
-    );
-  }
-}
+OrderDetails.propTypes = { id: PropTypes.number.isRequired };
+
+export default parseId(OrderDetails);

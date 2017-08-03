@@ -1,30 +1,33 @@
-import '../styles/column.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { currentUserSelectors } from 'data/currentUser';
 
 import RestaurantPanel from './panels/restaurant/RestaurantPanel';
 import CredentialsPanel from './panels/credentials/CredentialsPanel';
 
-class RightColumn extends React.Component {
-  render() {
-    const { loggedIn } = this.props;
+import '../styles/column.scss';
 
-    return (
-      <div className="column-right">
-        <RestaurantPanel/>
-        {loggedIn ?
-          <CredentialsPanel/>
-          : null}
-      </div>
-    );
-  }
-}
+const RightColumn = ({ loggedIn }) => (
+  <div className="column-right">
+    <RestaurantPanel />
+    {loggedIn ?
+      <CredentialsPanel />
+      : null}
+  </div>
+);
+
+RightColumn.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+};
+
+const { isCurrentUserLoggedIn } = currentUserSelectors;
 
 const mapStateToProps = state => ({
-  loggedIn: state.currentUser.get('loggedIn')
+  loggedIn: isCurrentUserLoggedIn(state),
 });
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
 )(RightColumn);

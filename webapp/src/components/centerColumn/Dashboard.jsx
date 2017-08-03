@@ -1,35 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { groupSelectors } from 'data/groups';
 
 import CenterColumn from './CenterColumn';
 import Helper from '../Helper';
 import MyOrderSummary from '../panels/myOrder/MyOrderSummary';
 import OrganizedOrderSummary from '../panels/organizedOrder/OrganizedOrderSummary';
 
-class Dashboard extends React.Component {
-  render() {
-    const { organizer, joinedOrders } = this.props;
+const Dashboard = ({ hasJoinedGroup, hasOrganizedGroup }) => (
+  <CenterColumn>
+    {hasJoinedGroup ?
+      <MyOrderSummary />
+      : null}
+    <Helper />
+    {hasOrganizedGroup ?
+      <OrganizedOrderSummary />
+      : null}
+  </CenterColumn>
+);
 
-    return (
-      <CenterColumn>
-        {joinedOrders ?
-          <MyOrderSummary/>
-          : null}
-        <Helper/>
-        {organizer ?
-          <OrganizedOrderSummary/>
-          : null}
-      </CenterColumn>
-    );
-  }
-}
+Dashboard.propTypes = {
+  hasJoinedGroup: PropTypes.bool.isRequired,
+  hasOrganizedGroup: PropTypes.bool.isRequired,
+};
+
+const { hasUserJoinedGroup, hasUserOrganizedGroup } = groupSelectors;
 
 const mapStateToProps = state => ({
-  organizer: state.organizedOrders.size > 0,
-  joinedOrders: state.myOrders.size > 0
-    && state.myOrders.filter(order => !state.organizedOrders.has(order.get('groupId'))).size > 0
+  hasJoinedGroup: hasUserJoinedGroup(state),
+  hasOrganizedGroup: hasUserOrganizedGroup(state),
 });
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
 )(Dashboard);

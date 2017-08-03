@@ -24,7 +24,8 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "arrow-parens": ["error", "as-needed"]
+    "arrow-parens": ["error", "as-needed"],
+    "jsx-a11y/no-static-element-interactions": 0
   },
   "globals": {
     "module": false
