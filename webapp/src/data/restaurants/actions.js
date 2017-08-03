@@ -3,6 +3,8 @@ import moment from 'moment';
 
 import { createActionTypes } from 'common/utils';
 
+import { restaurantActions } from '../restaurants';
+
 const prefix = 'RESTAURANTS';
 
 export const types = createActionTypes([
@@ -29,7 +31,7 @@ export const actions = {
       .then(json => {
         dispatch(actions.receiveRestaurants(json));
         dispatch(actions.updateRestaurantHours());
-        json.forEach(restaurant => dispatch(fetchMenu(restaurant.restaurantId)));
+        json.forEach(restaurant => dispatch(restaurantActions.fetchMenu(restaurant.restaurantId)));
       });
   },
 

@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux-immutable';
-import { routerReducer } from 'react-router-redux';
 
 import currentOrder from './currentOrder';
 import currentUser from './currentUser';

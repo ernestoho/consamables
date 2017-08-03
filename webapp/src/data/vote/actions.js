@@ -2,6 +2,8 @@ import { push } from 'react-router-redux';
 
 import { createActionTypes, buildPostRequest } from 'common/utils';
 
+import { groupActions } from '../groups';
+
 const prefix = 'VOTE';
 
 export const types = createActionTypes([
@@ -27,7 +29,7 @@ export const actions = {
         if (response.ok) {
           dispatch(actions.voteSuccess());
           dispatch(push('/'));
-          dispatch(fetchPendingGroups(true));
+          dispatch(groupActions.fetchPendingGroups(true));
         } else if (response.status === 401) {
           dispatch(actions.voteFailure('Logged out.'));
           dispatch(push('/login'));

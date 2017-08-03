@@ -1,6 +1,5 @@
 import { Map } from 'immutable';
 
-import { types } from './actions';
 import { suggestedOrderActionTypes } from '../suggestedOrder';
 
 export default (state = Map(), action) => {

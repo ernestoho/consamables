@@ -3,6 +3,8 @@ import { push } from 'react-router-redux';
 
 import { createActionTypes, buildGetRequest } from 'common/utils';
 
+import { userActions } from '../users';
+
 const prefix = 'GROUPS';
 
 export const types = createActionTypes([
@@ -85,7 +87,7 @@ export const actions = {
             dispatch(actions.receiveOrganizedGroups(json));
             json.forEach(group => {
               group.orders.forEach(order => {
-                dispatch(fetchUsername(order.userId));
+                dispatch(userActions.fetchUsername(order.userId));
               });
             });
           } else {
