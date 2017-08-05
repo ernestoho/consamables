@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class PanelHeader extends React.Component {
-  render() {
-    return (
-      <div className="panel-header">{this.props.name}</div>
-    );
-  }
-}
+const PanelHeader = ({ name }) => (
+  <div className="panel-header">{name}</div>
+);
+
+PanelHeader.propTypes = { name: PropTypes.string.isRequired };
+
+export default PanelHeader;

@@ -19,7 +19,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  submit: data => dispatch(submitNewOrder(data))
+  onSubmit: data => dispatch(submitNewOrder(data))
 });
 
 const SubmitNewOrder = connect(

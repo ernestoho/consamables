@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  submit: data => dispatch(submitActivatedGroup(data))
+  onSubmit: data => dispatch(submitActivatedGroup(data))
 });
 
 const SubmitActivatedGroup = connect(

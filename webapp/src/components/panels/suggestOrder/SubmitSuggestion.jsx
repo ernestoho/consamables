@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  submit: data => dispatch(submitSuggestion(data))
+  onSubmit: data => dispatch(submitSuggestion(data))
 });
 
 const SubmitSuggestion = connect(

@@ -17,7 +17,7 @@ public interface GroupDAO {
     @SqlQuery("SELECT * FROM \"group\"")
     List<Group> getAll();
 
-    @SqlQuery("SELECT * FROM \"group\" WHERE phase = 'active' OR phase = 'ordered'")
+    @SqlQuery("SELECT * FROM \"group\" WHERE phase = 'active'")
     List<Group> getActive();
 
     @SqlQuery("SELECT * FROM \"group\" WHERE phase = 'pending' " +
@@ -41,6 +41,9 @@ public interface GroupDAO {
     @SqlQuery("SELECT * FROM \"group\" WHERE organizer_id = :organizerId " +
               "AND (phase = 'active' OR phase = 'ordered')")
     List<Group> getGroupsByOrganizer(@Bind("organizerId") long organizerId);
+    
+    @SqlQuery("SELECT * FROM \"group\" JOIN \"order\" USING (group_id) WHERE user_id = :userId")
+    List<Group> getGroupsByMember(@Bind("userId") long userId);
 
     @SqlUpdate("INSERT INTO \"group\" " +
                "(restaurant_id, type, phase, min_people) " +

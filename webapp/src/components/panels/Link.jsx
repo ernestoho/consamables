@@ -1,20 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Link extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
+const Link = ({ url }) => (
+  <div className="link" onClick={() => { window.open(`http://${url}`); }}>
+    {url.startsWith('www.') ? url.slice(4) : url}
+  </div>
+);
 
-  handleClick() {
-    window.open('http://' + this.props.url);
-  }
+Link.propTypes = {
+  url: PropTypes.string.isRequired,
+};
 
-  render() {
-    return (
-      <div className="link" onClick={this.handleClick}>
-        {this.props.url.slice(4)}
-      </div>
-    );
-  }
-}
+export default Link;

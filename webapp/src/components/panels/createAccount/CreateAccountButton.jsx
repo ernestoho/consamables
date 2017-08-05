@@ -1,32 +1,20 @@
 import { connect } from 'react-redux';
 
-import SubmitButton from '../SubmitButton';
-import { submitNewAccount } from '../../../actions';
-import { testUsername, testPassword } from '../../../helpers';
+import { loginActions } from 'data/login';
 
-const mapStateToProps = state => {
-  const username = state.centerColumn.login.get('username');
-  const password = state.centerColumn.login.get('password');
-  const confirmPassword = state.centerColumn.login.get('confirmPassword');
-  return {
-    text: 'Create account',
-    data: {
-      username: username,
-      password: password,
-      usernameValid: testUsername(username),
-      passwordValid: testPassword(password), 
-      passwordMatches: password == confirmPassword
-    }
-  };
-};
+import SubmitButton from '../SubmitButton';
+
+const { submitNewAccount } = loginActions;
+
+const mapStateToProps = () => ({ text: 'Create account' });
 
 const mapDispatchToProps = dispatch => ({
-  submit: data => dispatch(submitNewAccount(data))
+  onSubmit: data => dispatch(submitNewAccount(data)),
 });
 
 const CreateAccountButton = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SubmitButton);
 
 export default CreateAccountButton;

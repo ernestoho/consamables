@@ -160,9 +160,17 @@ public class Group {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
-    
+
     public Group loadOrders(OrderDAO orderDAO, OrderItemDAO orderItemDAO) {
         setOrders(orderDAO.getOrdersForGroup(groupId));
+        for (Order order : orders) {
+            order.loadOrderItems(orderItemDAO);
+        }
+        return this;
+    }
+
+    public Group loadOrdersForUser(OrderDAO orderDAO, OrderItemDAO orderItemDAO, Long userId) {
+        setOrders(orderDAO.getOrdersForUserInGroup(userId, groupId));
         for (Order order : orders) {
             order.loadOrderItems(orderItemDAO);
         }

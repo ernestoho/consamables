@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  submit: data => dispatch(submitVote(data))
+  onSubmit: data => dispatch(submitVote(data))
 });
 
 const SubmitVote = connect(

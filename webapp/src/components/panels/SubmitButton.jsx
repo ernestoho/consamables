@@ -1,14 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class SubmitButton extends React.Component {
-  render() {
-    const {
-      text, data,
-      submit
-    } = this.props;
+const SubmitButton = ({ text, data, onSubmit }) => (
+  <button className="button" onClick={() => onSubmit(data)}>{text}</button>
+);
 
-    return (
-      <button className="button" onClick={() => submit(data)}>{text}</button>
-    );
-  }
-}
+SubmitButton.propTypes = {
+  text: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default SubmitButton;

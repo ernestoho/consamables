@@ -1,59 +1,70 @@
-import '../../../styles/panels/current-order-panel.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { toJS } from 'common/utils';
+
+import { currentOrderSelectors, currentOrderActions } from 'data/currentOrder';
 
 import PanelHeader from '../PanelHeader';
 import OrderItem from './OrderItem';
-import { continueOrder, goBackToMenu } from '../../../actions';
-import { getItemPrice } from '../../../selectors';
 
-class CurrentOrderPanel extends React.Component {
-  render() {
-    const {
-      orderStarted, items, stage, totalCost,
-      onContinueClick, onBackClick
-    } = this.props;
+import '../../../styles/panels/current-order-panel.scss';
 
-    if (orderStarted) {
-      return (
-        <div className="current-order-panel">
-          <PanelHeader name="Your Order"></PanelHeader>
-          <div className="scrollable">
-            {items.map((item, index) => 
-              <OrderItem key={index} index={index} {...item.toObject()}/>
-            )}
-          </div>
-          <div className="continue">
-            {stage == 'choose' ?
-              <button className="button" onClick={onContinueClick}>Continue</button>
-              :
-              <button className="button" onClick={onBackClick}>Return to Menu</button>}
-            <div className="order-total">Total: ${totalCost.toFixed(2)}</div>
-          </div>
+function CurrentOrderPanel({
+  orderStarted, items, stage, totalCost,
+  onContinueClick, onBackClick,
+}) {
+  if (orderStarted) {
+    return (
+      <div className="current-order-panel">
+        <PanelHeader name="Your Order" />
+        <div className="scrollable">
+          {items.map((item, index) => <OrderItem key={item.id} index={index} {...item} />)}
         </div>
-      );
-    } else {
-      return null;
-    }
+        <div className="continue">
+          {stage === 'choose' ?
+            <button className="button" onClick={onContinueClick}>Continue</button>
+            :
+            <button className="button" onClick={onBackClick}>Return to Menu</button>}
+          <div className="order-total">Total: ${totalCost.toFixed(2)}</div>
+        </div>
+      </div>
+    );
   }
+  return null;
 }
 
+CurrentOrderPanel.propTypes = {
+  orderStarted: PropTypes.bool.isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+  })).isRequired,
+  stage: PropTypes.string.isRequired,
+  totalCost: PropTypes.number.isRequired,
+  onContinueClick: PropTypes.func.isRequired,
+  onBackClick: PropTypes.func.isRequired,
+};
+
+const { isOrderStarted, getOrderItems, getTotalCost, getOrderStage } = currentOrderSelectors;
+const { continueOrder, goBackToMenu } = currentOrderActions;
+
 const mapStateToProps = state => ({
-  orderStarted: !!state.centerColumn.currentOrder.get('items').size,
-  items: state.centerColumn.currentOrder.get('items'),
-  totalCost: state.centerColumn.currentOrder.get('items').reduce((total, item) => {
-    return total += getItemPrice(state, item.get('id')) * item.get('quantity');
-  }, 0),
-  stage: state.centerColumn.currentOrder.get('stage')
+  orderStarted: isOrderStarted(state),
+  items: getOrderItems(state),
+  totalCost: getTotalCost(state),
+  stage: getOrderStage(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   onContinueClick: () => dispatch(continueOrder()),
-  onBackClick: () => dispatch(goBackToMenu())
+  onBackClick: () => dispatch(goBackToMenu()),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(CurrentOrderPanel);
+  mapDispatchToProps,
+)(toJS(CurrentOrderPanel));

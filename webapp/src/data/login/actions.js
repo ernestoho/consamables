@@ -1,6 +1,12 @@
 import { push } from 'react-router-redux';
 
-import { createActionTypes, TokenManager, buildGetRequest, buildPostRequest } from 'common/utils';
+import {
+  createActionTypes,
+  TokenManager, buildGetRequest, buildPostRequest,
+  usernameValid, passwordValid,
+} from 'common/utils';
+
+import { getUsername, getPassword, getConfirmPassword } from './selectors';
 
 const prefix = 'LOGIN';
 
@@ -172,14 +178,16 @@ export const actions = {
     error,
   }),
 
-  submitNewAccount: data => dispatch => {
-    const { usernameValid, passwordValid, passwordMatches, username, password } = data;
+  submitNewAccount: () => (dispatch, getState) => {
+    const username = getUsername(getState());
+    const password = getPassword(getState());
+    const confirmPassword = getConfirmPassword(getState());
 
-    if (!usernameValid) {
+    if (!usernameValid(username)) {
       dispatch(actions.newAccountFailure('Invalid email address.'));
-    } else if (!passwordValid) {
+    } else if (!passwordValid(password)) {
       dispatch(actions.newAccountFailure('Invalid password.'));
-    } else if (!passwordMatches) {
+    } else if (password === confirmPassword) {
       dispatch(actions.newAccountFailure('Passwords must match.'));
     } else {
       dispatch(actions.sendNewAccount());

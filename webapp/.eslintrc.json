@@ -25,7 +25,8 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "arrow-parens": ["error", "as-needed"],
-    "jsx-a11y/no-static-element-interactions": 0
+    "jsx-a11y/no-static-element-interactions": 0,
+    "max-len": [2, 100, { "ignoreComments": true }]
   },
   "globals": {
     "module": false

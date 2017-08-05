@@ -1,4 +1,4 @@
-import { Map, List, fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import { push } from 'react-router-redux';
 
 import { createActionTypes, buildGetRequest } from 'common/utils';
@@ -101,18 +101,15 @@ export const actions = {
 
   receiveMyGroups: json => ({
     type: types.RECEIVE_MY_GROUPS,
-    myGroups: json.reduce((all, { orderId, groupId, orderItems }) => all
-      .set(orderId, Map({ groupId }))
-      .updateIn(
-        [orderId, 'orderItems'],
-        List(),
-        items => items.concat(fromJS(orderItems)),
-      ), Map()),
+    myGroups: json.reduce(
+      (all, order) => all.set(order.groupId, fromJS(order)),
+      Map(),
+    ),
   }),
 
   fetchMyGroups: () => dispatch => {
     fetch(types.requestMyGroups());
-    fetch('/api/orders/my-orders', buildGetRequest())
+    fetch('/api/groups/joined', buildGetRequest())
       .then(response => {
         response.json().then(json => {
           if (response.ok) {

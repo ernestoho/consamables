@@ -22,6 +22,10 @@ public interface OrderDAO {
     @SqlQuery("SELECT \"order\".* FROM \"order\" JOIN \"group\" USING (group_id) " +
               "WHERE user_id = :userId AND phase != 'complete'")
     List<Order> getOrdersForUser(@Bind("userId") long userId);
+    
+    @SqlQuery("SELECT \"order\".* FROM \"order\" JOIN \"group\" USING (group_id) " +
+              "WHERE user_id = :userId AND phase != 'complete' AND group_id = :groupId")
+    List<Order> getOrdersForUserInGroup(@Bind("userId") long userId, @Bind("groupId") long groupId);
 
     @SqlQuery("SELECT * FROM \"order\" WHERE order_id = :orderId")
     Order getOrder(@Bind("orderId") long orderId);

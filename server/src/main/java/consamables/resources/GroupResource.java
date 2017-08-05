@@ -171,6 +171,17 @@ public class GroupResource {
         return groups;
     }
 
+    @PermitAll
+    @Path("/joined")
+    @GET
+    public List<Group> getJoinedGroups(@Auth User user) {
+        List<Group> groups = groupDAO.getGroupsByMember(user.getUserId());
+        for (Group group : groups) {
+            group.loadOrdersForUser(orderDAO, orderItemDAO, user.getUserId());
+        }
+        return groups;
+    }
+
     @Path("/{id}/has-voted-for")
     @GET
     public Boolean checkVotedFor(@Auth User user, @PathParam("id") String id) {

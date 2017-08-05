@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  submit: data => dispatch(submitLogin(data))
+  onSubmit: data => dispatch(submitLogin(data))
 });
 
 const LoginButton = connect(

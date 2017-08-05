@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 export default class OrderTimer extends React.Component {
@@ -7,7 +8,7 @@ export default class OrderTimer extends React.Component {
     this.state = {
       finalTime: moment(props.timeStarted).add(props.duration, 'minutes'),
       minutes: 0,
-      seconds: 0
+      seconds: 0,
     };
     this.tick = this.tick.bind(this);
   }
@@ -22,14 +23,14 @@ export default class OrderTimer extends React.Component {
   }
 
   tick() {
-    const diff = this.state.finalTime.diff( moment() );
-    const hours = Math.floor( (diff / 3600000) % 60 );
-    const minutes = Math.floor( (diff / 60000) % 60 );
-    const seconds = Math.floor( (diff / 1000) % 60 );
+    const diff = this.state.finalTime.diff(moment());
+    const hours = Math.floor((diff / 3600000) % 60);
+    const minutes = Math.floor((diff / 60000) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
     this.setState({
       hours: hours > 0 ? hours : 0,
       minutes: minutes > 0 ? minutes : 0,
-      seconds: seconds > 0 ? seconds : 0
+      seconds: seconds > 0 ? seconds : 0,
     });
   }
 
@@ -39,9 +40,9 @@ export default class OrderTimer extends React.Component {
     const { concise } = this.props;
     const { hours, minutes, seconds } = this.state;
 
-    if (minutes < 5 && hours == 0) {
+    if (minutes < 5 && hours === 0) {
       style.color = 'red';
-    } else if (minutes < 10 && hours == 0) {
+    } else if (minutes < 10 && hours === 0) {
       style.color = 'darkorange';
     } else {
       style.color = 'green';
@@ -51,7 +52,7 @@ export default class OrderTimer extends React.Component {
       const displayHours = hours > 0 ? `${hours}:` : '';
       const displayMinutes = hours > 0 && minutes < 10 ? `0${minutes}` : minutes.toString();
       const displaySeconds = seconds < 10 ? `0${seconds}` : seconds.toString();
-      
+
       message = `${displayHours}${displayMinutes}:${displaySeconds}`;
       if (!concise) {
         message += ' remaining';
@@ -65,3 +66,9 @@ export default class OrderTimer extends React.Component {
     );
   }
 }
+
+OrderTimer.propTypes = {
+  concise: PropTypes.bool.isRequired,
+  timeStarted: PropTypes.number.isRequired,
+  duration: PropTypes.number.isRequired,
+};
