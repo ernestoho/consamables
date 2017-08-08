@@ -1,23 +1,20 @@
 import { connect } from 'react-redux';
 
-import SubmitButton from '../SubmitButton';
-import { submitLogin } from '../../../actions';
+import { loginActions } from 'data/login';
 
-const mapStateToProps = state => ({
-  text: 'Sign in',
-  data: {
-    username: state.centerColumn.login.get('username'),
-    password: state.centerColumn.login.get('password')
-  }
-});
+import SubmitButton from '../SubmitButton';
+
+const { submitLogin } = loginActions;
+
+const mapStateToProps = () => ({ text: 'Sign in' });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(submitLogin(data))
+  onSubmit: data => dispatch(submitLogin(data)),
 });
 
 const LoginButton = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SubmitButton);
 
 export default LoginButton;

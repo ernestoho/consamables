@@ -1,43 +1,46 @@
-import '../../../styles/panels/my-order-panel.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { List } from 'immutable';
+
+import { toJS } from 'common/utils';
+
+import { groupSelectors } from 'data/groups';
 
 import CloseButton from '../CloseButton';
 import OrderItem from '../OrderItem';
-import { getGroupRestaurant } from '../../../selectors';
 
-class MyOrderPanel extends React.Component {
-  render() {
-    const { restaurantName, orderItems } = this.props;
+import '../../../styles/panels/my-order-panel.scss';
 
-    return (
-      <div className="my-order-panel">
-        <div className="order-details-header">
-          <CloseButton/>
-          <div className="order-details-heading">
-            Your Order from {restaurantName}
-          </div>
-        </div>
-        <div className="order-items">
-          {orderItems.map(orderItem =>
-            <OrderItem key={orderItem.get('orderItemId')}{...orderItem.toObject()}/>
-          )}
-        </div>
+const MyOrderPanel = ({ restaurantName, orderItems }) => (
+  <div className="my-order-panel">
+    <div className="order-details-header">
+      <CloseButton />
+      <div className="order-details-heading">
+        Your Order from {restaurantName}
       </div>
-    );
-  }
-}
+    </div>
+    <div className="order-items">
+      {orderItems.map(orderItem => <OrderItem key={orderItem.orderItemId}{...orderItem} />)}
+    </div>
+  </div>
+);
 
-const mapStateToProps = (state, ownProps) => {
-  const order = state.myOrders.get(ownProps.id);
-  return {
-    orderItems: order ? order.get('orderItems') : List(),
-    restaurantName: order ? getGroupRestaurant(state, order.get('groupId')) : null
-  };
+MyOrderPanel.propTypes = {
+  restaurantName: PropTypes.string.isRequired,
+  orderItems: PropTypes.arrayOf(PropTypes.shape({
+    orderItemId: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+  })).isRequired,
 };
 
+const { getMyOrderItems, getMyOrderRestaurantName } = groupSelectors;
+
+const mapStateToProps = (state, { id }) => ({
+  orderItems: getMyOrderItems(state, id),
+  restaurantName: getMyOrderRestaurantName(state, id),
+});
+
 export default connect(
-  mapStateToProps
-)(MyOrderPanel);
+  mapStateToProps,
+)(toJS(MyOrderPanel));

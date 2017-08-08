@@ -57,9 +57,12 @@ export const actions = {
     error,
   }),
 
-  submitLogin: data => dispatch => {
+  submitLogin: () => (dispatch, getState) => {
     dispatch(actions.sendLogin());
-    fetch('/api/user/login', buildPostRequest(data, false))
+    fetch('/api/user/login', buildPostRequest({
+      username: getUsername(getState()),
+      password: getPassword(getState()),
+    }, false))
       .then(response => {
         response.json().then(
           ({ accessTokenId, splitwiseAuthenticated, userId, username, message }) => {

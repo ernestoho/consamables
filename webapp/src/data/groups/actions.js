@@ -1,7 +1,7 @@
 import { Map, fromJS } from 'immutable';
 import { push } from 'react-router-redux';
 
-import { createActionTypes, buildGetRequest } from 'common/utils';
+import { createActionTypes, buildGetRequest, buildPostRequest } from 'common/utils';
 
 import { userActions } from '../users';
 
@@ -171,6 +171,27 @@ export const actions = {
       .then(response => response.json())
       .then(json => {
         dispatch(actions.receiveHasVoted(groupId, json));
+      });
+  },
+
+  markGroupOrdered: groupId => dispatch => {
+    fetch(`/api/groups/${groupId}/mark-ordered`, buildPostRequest())
+      .then(response => {
+        if (response.ok) {
+          dispatch(actions.fetchOrganizedGroups());
+        }
+      });
+  },
+
+  markGroupComplete: groupId => dispatch => {
+    fetch(`/api/groups/${groupId}/mark-complete`, buildPostRequest())
+      .then(response => {
+        if (response.ok) {
+          dispatch(push('/'));
+          dispatch(actions.fetchOrganizedGroups());
+          dispatch(actions.fetchActiveGroups());
+          dispatch(actions.fetchMyGroups());
+        }
       });
   },
 };

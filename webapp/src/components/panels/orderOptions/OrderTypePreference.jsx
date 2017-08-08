@@ -1,47 +1,54 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { setOrderType } from '../../../actions';
+import { currentOrderSelectors, currentOrderActions } from 'data/currentOrder';
 
-class OrderTypePreference extends React.Component {
-  render() {
-    const { value, changeValue } = this.props;
+const OrderTypePreference = ({ value, onChange }) => (
+  <div className="order-option">
+    <div className="order-option-heading">How do you want to get food?</div>
+    <div className="order-option-choices">
+      <label htmlFor="delivery">
+        <input
+          id="delivery"
+          type="radio"
+          value="delivery"
+          checked={value === 'delivery'}
+          onChange={onChange}
+        />
+        Delivery
+      </label>
+      <label htmlFor="carryout">
+        <input
+          id="carryout"
+          type="radio"
+          value="carryout"
+          checked={value === 'carryout'}
+          onChange={onChange}
+        />
+        Carryout
+      </label>
+    </div>
+  </div>
+);
 
-    return (
-      <div className="order-option">
-        <div className="order-option-heading">How do you want to get food?</div>
-        <div className="order-option-choices">
-          <label>
-            <input
-              type="radio" value="delivery"
-              checked={value == 'delivery'}
-              onChange={changeValue}
-            />
-            Delivery
-          </label>
-          <label>
-            <input
-              type="radio" value="carryout"
-              checked={value == 'carryout'}
-              onChange={changeValue}
-            />
-            Carryout
-          </label>
-        </div>
-      </div>
-    );
-  }
-}
+OrderTypePreference.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const { getOrderType } = currentOrderSelectors;
+const { setOrderType } = currentOrderActions;
 
 const mapStateToProps = state => ({
-  value: state.centerColumn.currentOrder.getIn(['options', 'type'])
+  value: getOrderType(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  changeValue: e => dispatch(setOrderType(e.currentTarget.value))
+  changeValue: e => dispatch(setOrderType(e.currentTarget.value)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(OrderTypePreference);

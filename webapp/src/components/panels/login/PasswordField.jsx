@@ -1,30 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { updatePasswordField } from '../../../actions';
+import { loginSelectors, loginActions } from 'data/login';
 
-class PasswordField extends React.Component {
-  render() {
-    const { value, onChange } = this.props;
+const PasswordField = ({ value, onChange }) => (
+  <div className="login-field">
+    <div className="credential-label">Password</div>
+    <input type="password" name="password" value={value} onChange={onChange} />
+  </div>
+);
 
-    return (
-      <div className="login-field">
-        <div className="credential-label">Password</div>
-        <input type="password" name="password" value={value} onChange={onChange}/>
-      </div>
-    );
-  }
-}
+PasswordField.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const { getPassword } = loginSelectors;
+const { updatePasswordField } = loginActions;
 
 const mapStateToProps = state => ({
-  value: state.centerColumn.login.get('password')
+  value: getPassword(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChange: e => dispatch(updatePasswordField(e.currentTarget.value))
+  onChange: e => dispatch(updatePasswordField(e.currentTarget.value)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(PasswordField);

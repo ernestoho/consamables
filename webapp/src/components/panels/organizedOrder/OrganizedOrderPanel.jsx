@@ -1,107 +1,113 @@
-import '../../../styles/panels/organized-order-panel.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Map, List } from 'immutable';
 import moment from 'moment';
+import _ from 'lodash';
+
+import { parseId } from 'common/utils';
+
+import { groupSelectors, groupActions } from 'data/groups';
 
 import CloseButton from '../CloseButton';
 import OrderTimer from '../OrderTimer';
 import IndividualOrder from './IndividualOrder';
-import { getRestaurantName } from '../../../selectors';
-import { markGroupOrdered, markGroupComplete } from '../../../actions';
 
-class OrganizedOrderPanel extends React.Component {
-  render() {
-    const {
-      groupId, orders, restaurantName, type, phase, timeStarted, duration, ended,
-      markGroupOrdered, markGroupComplete
-    } = this.props;
+import '../../../styles/panels/organized-order-panel.scss';
 
-    return (
-      <div className="organized-order-panel">
-        <div className="group-details-header">
-          <CloseButton/>
-          <div className="group-details-heading">
-            Group Order from {restaurantName}
-          </div>
-          <div className="group-details-toolbar">
-            <div className="info">
-              <div className="group-type">
-                {type.charAt(0).toUpperCase()}{type.slice(1)}
-              </div>
-              <OrderTimer timeStarted={timeStarted} duration={duration}/>
-            </div>
-            <div className="status-container">
-              <div className={`status${phase == 'active' ? ' not-ordered' : ' ordered'}`}>
-                {phase == 'active' ? 'Not Ordered' : 'Ordered'}
-              </div>
-            </div>
-            <div className="controls">
-              <div className="buttons">
-                {ended ?
-                  (phase == 'active' ?
-                    <button className="button"
-                      onClick={() => markGroupOrdered(groupId)}
-                    >
-                      Mark as ordered
-                    </button>
-                    : <button className="button"
-                      onClick={() => markGroupComplete(groupId)}
-                    >
-                      Mark complete
-                    </button>)
-                  : null}
-                <button className="button">Message group members</button>
-              </div>
-            </div>
-          </div>
+function OrganizedOrderPanel({
+  groupId, orders, restaurantName, type, active, timeStarted, duration, ended,
+  markGroupOrdered, markGroupComplete,
+}) {
+  return (
+    <div className="organized-order-panel">
+      <div className="group-details-header">
+        <CloseButton />
+        <div className="group-details-heading">
+          Group Order from {restaurantName}
         </div>
-        <div className="orders">
-          <div className="orders-heading">Individual Orders</div>
-          {orders ? orders.map(order =>
-            <IndividualOrder key={order.get('userId')} {...order.toObject()}/>
-          ) : null}
+        <div className="group-details-toolbar">
+          <div className="info">
+            <div className="group-type">
+              {_.startCase(type)}
+            </div>
+            <OrderTimer timeStarted={timeStarted} duration={duration} />
+          </div>
+          <div className="status-container">
+            <div className={`status${active ? ' not-ordered' : ' ordered'}`}>
+              {active ? 'Not Ordered' : 'Ordered'}
+            </div>
+          </div>
+          <div className="controls">
+            <div className="buttons">
+              {ended ?
+                <button
+                  className="button"
+                  onClick={active ?
+                    () => markGroupOrdered(groupId) :
+                    () => markGroupComplete(groupId)
+                  }
+                >
+                  {active ? 'Mark as ordered' : 'Mark complete'}
+                </button>
+                : null}
+              <button className="button">Message group members</button>
+            </div>
+          </div>
         </div>
       </div>
-    );
-  }
+      <div className="orders">
+        <div className="orders-heading">Individual Orders</div>
+        {orders.map(order => <IndividualOrder key={order.userId} {...order} />)}
+      </div>
+    </div>
+  );
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const groupId = ownProps.id;
-  const group = state.organizedOrders.get(groupId);
-  return {
-    groupId: groupId,
-    // Merge order items, in case people have placed multiple orders
-    orders: group ? group.get('orders').reduce((orders, order) => {
-      const id = order.get('userId');
-      return orders.setIn([id, 'userId'], id)
-        .updateIn(
-          [id, 'orderItems'],
-          List(),
-          orderItems => orderItems.concat(order.get('orderItems'))
-        );
-    }, Map())
-      .toList()
-      .map( order => order.set('username', state.users.get(order.get('userId'))) ) : null,
-    restaurantName: getRestaurantName(state, group.get('restaurantId')),
-    type: group ? group.get('type') : null,
-    phase: group ? group.get('phase') : null,
-    timeStarted: group ? group.get('timeStarted') : null,
-    duration: group ? group.get('durationMinutes') : null,
-    ended: group ? moment(group.get('timeStarted'))
-      .add(group.get('durationMinutes'), 'minutes')
-      .isBefore(moment()) : null
-  };
+const {
+  getOrganizedOrders,
+  getGroupRestaurantName,
+  getGroupAttribute,
+  hasGroupClosed,
+} = groupSelectors;
+
+const { markGroupOrdered, markGroupComplete } = groupActions;
+
+const mapStateToProps = (state, { id }) => ({
+  groupId: id,
+  orders: getOrganizedOrders(state, id),
+  restaurantName: getGroupRestaurantName(state, id),
+  type: getGroupAttribute(state, id, 'organized', 'type'),
+  phase: getGroupAttribute(state, id, 'organized', 'phase'),
+  timeStarted: getGroupAttribute(state, id, 'organized', 'timeStarted'),
+  duration: getGroupAttribute(state, id, 'organized', 'duration'),
+  ended: hasGroupClosed(state, id, 'organized', moment()),
+});
+
+OrganizedOrderPanel.propTypes = {
+  groupId: PropTypes.number.isRequired,
+  orders: PropTypes.arrayOf(PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    orderItems: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
+    })).isRequired,
+  })).isRequired,
+  restaurantName: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  timeStarted: PropTypes.number.isRequired,
+  duration: PropTypes.number.isRequired,
+  ended: PropTypes.bool.isRequired,
+  markGroupOrdered: PropTypes.func.isRequired,
+  markGroupComplete: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
   markGroupOrdered: id => dispatch(markGroupOrdered(id)),
-  markGroupComplete: id => dispatch(markGroupComplete(id))
+  markGroupComplete: id => dispatch(markGroupComplete(id)),
 });
 
-export default connect(
+export default parseId(connect(
   mapStateToProps,
-  mapDispatchToProps
-)(OrganizedOrderPanel);
+  mapDispatchToProps,
+)(OrganizedOrderPanel));

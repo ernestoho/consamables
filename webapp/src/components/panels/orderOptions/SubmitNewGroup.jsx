@@ -1,39 +1,22 @@
 import { connect } from 'react-redux';
 
+import { parseId } from 'common/utils';
+
+import { currentOrderActions } from 'data/currentOrder';
+
 import SubmitButton from '../SubmitButton';
-import { getGroupRestaurantId } from '../../../selectors';
-import { submitNewGroup } from '../../../actions';
 
-const mapStateToProps = (state, ownProps) => ({
-  text: 'Start Order',
-  data: {
-    activeGroup: {
-      restaurantId: parseInt(ownProps.id),
-      type: state.centerColumn.currentOrder.getIn(['options', 'type']),
-      durationMinutes: state.centerColumn.currentOrder.getIn(['options', 'duration']),
-      organizerId: state.currentUser.get('userId'),
-      overheadPercentage: state.centerColumn.currentOrder.getIn(['options', 'overhead']) * 0.01
-    },
-    order: {
-      userId: state.currentUser.get('userId'),
-      orderItems: state.centerColumn.currentOrder.get('items')
-        .map(item => ({
-          itemId: item.get('id'),
-          quantity: item.get('quantity'),
-          data: item.get('data')
-        }))
-        .toList().toJS()
-    }
-  }
+const mapStateToProps = () => ({ text: 'Start Order' });
+
+const { submitNewGroup } = currentOrderActions;
+
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onSubmit: () => dispatch(submitNewGroup(id)),
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(submitNewGroup(data))
-});
-
-const SubmitNewGroup = connect(
+const SubmitNewGroup = parseId(connect(
   mapStateToProps,
-  mapDispatchToProps
-)(SubmitButton);
+  mapDispatchToProps,
+)(SubmitButton));
 
 export default SubmitNewGroup;

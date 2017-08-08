@@ -1,50 +1,50 @@
-import '../../../styles/panels/new-order-confirm-panel.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { parseId } from 'common/utils';
+
+import { currentOrderSelectors } from 'data/currentOrder';
 
 import PanelHeader from '../PanelHeader';
 import SubmitNewOrder from './SubmitNewOrder';
 import Spinner from '../Spinner';
-import { getItemPrice, getOverheadPercentage } from '../../../selectors';
 
-class NewOrderConfirmPanel extends React.Component {
-  render() {
-    const { loading, orderTotal, id } = this.props;
+import '../../../styles/panels/new-order-confirm-panel.scss';
 
-    return (
-      <div className="new-order-confirm-panel">
-        <PanelHeader name="Confirm Order"/>
-        <div className="confirm-message">
-          Are you sure you want to add your order to this group?
-        </div>
-        <div className="confirm-message">
-          You'll be charged
-          <span className="order-total"> ${orderTotal} </span>
-          on Splitwise.
-        </div>
-        <div className="reminder-text">
-          (This includes overhead for tax, delivery, etc.)
-        </div>
-        {loading ?
-          <Spinner/>
-          : <SubmitNewOrder id={id}/>}
-      </div>
-    );
-  }
-}
+const NewOrderConfirmPanel = ({ loading, orderTotal, id }) => (
+  <div className="new-order-confirm-panel">
+    <PanelHeader name="Confirm Order" />
+    <div className="confirm-message">
+      Are you sure you want to add your order to this group?
+    </div>
+    <div className="confirm-message">
+      You&apos;ll be charged
+      <span className="order-total"> ${orderTotal} </span>
+      on Splitwise.
+    </div>
+    <div className="reminder-text">
+      (This includes overhead for tax, delivery, etc.)
+    </div>
+    {loading ?
+      <Spinner />
+      : <SubmitNewOrder id={id} />}
+  </div>
+);
 
-const mapStateToProps = (state, ownProps) => ({
-  loading: state.centerColumn.currentOrder.get('loading'),
-  orderTotal: (Math.ceil(
-    state.centerColumn.currentOrder.get('items').reduce(
-      (total, item) => total + (getItemPrice(state, item.get('id')) * item.get('quantity')),
-      0
-    ) * 1.07 * (getOverheadPercentage(state, parseInt(ownProps.id)) + 1) * 2
-    // TODO: make tax not a magic number
-  ) * 0.5).toFixed(2)
+NewOrderConfirmPanel.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  orderTotal: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+};
+
+const { isLoading, getAdjustedOrderTotal } = currentOrderSelectors;
+
+const mapStateToProps = (state, { id }) => ({
+  loading: isLoading(state),
+  orderTotal: getAdjustedOrderTotal(state, id),
 });
 
-export default connect(
-  mapStateToProps
-)(NewOrderConfirmPanel);
+export default parseId(connect(
+  mapStateToProps,
+)(NewOrderConfirmPanel));

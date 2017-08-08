@@ -1,30 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { updateUsernameField } from '../../../actions';
+import { loginSelectors, loginActions } from 'data/login';
 
-class UsernameField extends React.Component {
-  render() {
-    const { value, onChange } = this.props;
+const UsernameField = ({ value, onChange }) => (
+  <div className="login-field">
+    <div className="credential-label">Email</div>
+    <input type="text" name="username" value={value} onChange={onChange} />
+  </div>
+);
 
-    return (
-      <div className="login-field">
-        <div className="credential-label">Email</div>
-        <input type="text" name="username" value={value} onChange={onChange}/>
-      </div>
-    );
-  }
-}
+UsernameField.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const { getUsername } = loginSelectors;
+const { updateUsernameField } = loginActions;
 
 const mapStateToProps = state => ({
-  value: state.centerColumn.login.get('username')
+  value: getUsername(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChange: e => dispatch(updateUsernameField(e.currentTarget.value))
+  onChange: e => dispatch(updateUsernameField(e.currentTarget.value)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UsernameField);

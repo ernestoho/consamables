@@ -1,23 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-export default class MyOrderPreview extends React.Component {
-  render() {
-    const {
-      id, restaurantName, orderItems,
-      onClick
-    } = this.props;
-    return (
-      <div className="my-order-preview">
-        <div className="info">
-          <div className="restaurant-name">{restaurantName}</div>
-          <div className="num-items">
-            {orderItems.size} item{orderItems.size > 1 ? 's' : null}
-          </div>
-        </div>
-        <Link to={`/order-details/${id}`} className="button">View Details</Link>
+import { groupSelectors } from 'data/groups';
+
+const MyOrderPreview = ({ orderId, restaurantName, orderItems }) => (
+  <div className="my-order-preview">
+    <div className="info">
+      <div className="restaurant-name">{restaurantName}</div>
+      <div className="num-items">
+        {orderItems.length} item{orderItems.length > 1 ? 's' : null}
       </div>
-    );
-  }
-}
+    </div>
+    <Link to={`/order-details/${orderId}`} className="button">View Details</Link>
+  </div>
+);
+
+MyOrderPreview.propTypes = {
+  orderId: PropTypes.number.isRequired,
+  restaurantName: PropTypes.string.isRequired,
+  orderItems: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+};
+
+const { getGroupRestaurantName } = groupSelectors;
+
+const mapStateToProps = (state, { groupId }) => ({
+  restaurantName: getGroupRestaurantName(state, 'my', groupId),
+});
+
+export default connect(
+  mapStateToProps,
+)(MyOrderPreview);

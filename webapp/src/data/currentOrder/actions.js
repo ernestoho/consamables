@@ -4,12 +4,23 @@ import { createActionTypes, buildPostRequest } from 'common/utils';
 
 import { groupActions } from '../groups';
 
+import {
+  getOrderType,
+  getOrderDuration,
+  getOrderOverhead,
+  getOrderItemsToSubmit,
+} from './selectors';
+
+import { currentUserSelectors } from '../currentUser';
+
 const {
   fetchActiveGroups,
   fetchPendingGroups,
   fetchMyGroups,
   fetchOrganizedGroups,
 } = groupActions;
+
+const { getCurrentUserId } = currentUserSelectors;
 
 const prefix = 'CURRENT_ORDER';
 
@@ -99,7 +110,7 @@ export const actions = {
     value: numMinutes,
   }),
 
-  setOverhead: percent => ({
+  setOrderOverhead: percent => ({
     type: types.SET_OVERHEAD,
     value: percent,
   }),
@@ -113,9 +124,21 @@ export const actions = {
     error,
   }),
 
-  submitNewGroup: data => dispatch => {
+  submitNewGroup: restaurantId => (dispatch, getState) => {
     dispatch(actions.sendNewGroup());
-    fetch('/api/groups/start', buildPostRequest(data))
+    fetch('/api/groups/start', buildPostRequest({
+      activeGroup: {
+        restaurantId,
+        type: getOrderType(getState()),
+        durationMinutes: getOrderDuration(getState()),
+        organizerId: getCurrentUserId(getState()),
+        overheadPercentage: getOrderOverhead(getState()) * 0.01,
+      },
+      order: {
+        userId: getCurrentUserId(getState()),
+        orderItems: getOrderItemsToSubmit(getState()).toJS(),
+      },
+    }))
       .then(response => {
         if (response.ok) {
           dispatch(actions.newGroupSuccess());
@@ -139,9 +162,13 @@ export const actions = {
     error,
   }),
 
-  exportsubmitNewOrder: data => dispatch => {
+  submitNewOrder: groupId => (dispatch, getState) => {
     dispatch(actions.sendNewOrder());
-    fetch('/api/groups/join', buildPostRequest(data))
+    fetch('/api/groups/join', buildPostRequest({
+      groupId,
+      userId: getCurrentUserId(getState()),
+      orderItems: getOrderItemsToSubmit(getState()).toJS(),
+    }))
       .then(response => {
         if (response.ok) {
           dispatch(actions.newOrderSuccess());
@@ -164,9 +191,21 @@ export const actions = {
     error,
   }),
 
-  submitActivatedGroup: data => dispatch => {
+  submitActivatedGroup: groupId => (dispatch, getState) => {
     dispatch(actions.sendActivatedGroup());
-    fetch('/api/groups/activate', buildPostRequest(data))
+    fetch('/api/groups/activate', buildPostRequest({
+      activeGroup: {
+        groupId,
+        type: getOrderType(getState()),
+        durationMinutes: getOrderDuration(getState()),
+        organizerId: getCurrentUserId(getState()),
+      },
+      order: {
+        groupId,
+        userId: getCurrentUserId(getState()),
+        orderItems: getOrderItemsToSubmit(getState()).toJS(),
+      },
+    }))
       .then(response => {
         if (response.ok) {
           dispatch(actions.activatedGroupSuccess());

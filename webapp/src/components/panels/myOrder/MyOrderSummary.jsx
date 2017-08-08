@@ -1,37 +1,35 @@
-import '../../../styles/panels/my-order-summary.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { toJS } from 'common/utils';
+
+import { groupSelectors } from 'data/groups';
 
 import PanelHeader from '../PanelHeader';
 import MyOrderPreview from './MyOrderPreview';
-import { getGroupRestaurant } from '../../../selectors';
 
-class MyOrderSummary extends React.Component {
-  render() {
-    const { orders } = this.props;
+import '../../../styles/panels/my-order-summary.scss';
 
-    return (
-      <div className="my-order-summary">
-        <PanelHeader name={`My Order${orders.size > 1 ? 's' : ''}`}/>
-        {orders.map(order =>
-          <MyOrderPreview key={order.get('id')}
-            {...order.toObject()}
-          />
-        )}
-      </div>
-    );
-  }
-}
+const MyOrderSummary = ({ orders }) => (
+  <div className="my-order-summary">
+    <PanelHeader name={`My Order${orders.size > 1 ? 's' : ''}`} />
+    {orders.map(order => <MyOrderPreview key={order.orderId} {...order} />)}
+  </div>
+);
+
+MyOrderSummary.propTypes = {
+  orders: PropTypes.arrayOf(PropTypes.shape({
+    orderId: PropTypes.number.isRequired,
+  })).isRequired,
+};
+
+const { getMyOrders } = groupSelectors;
 
 const mapStateToProps = state => ({
-  orders: state.myOrders.map(
-    (order, id) => order.set('id', id).set('restaurantName',
-      getGroupRestaurant(state, order.get('groupId'))
-    )
-  ).toList()
+  orders: getMyOrders(state),
 });
 
 export default connect(
-  mapStateToProps
-)(MyOrderSummary);
+  mapStateToProps,
+)(toJS(MyOrderSummary));

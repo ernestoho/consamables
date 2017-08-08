@@ -1,30 +1,22 @@
 import { connect } from 'react-redux';
 
+import { parseId } from 'common/utils';
+
+import { currentOrderActions } from 'data/currentOrder';
+
 import SubmitButton from '../SubmitButton';
-import { submitNewOrder } from '../../../actions';
 
-const mapStateToProps = (state, ownProps) => ({
-  text: 'Join Order',
-  data: {
-    userId: state.currentUser.get('userId'),
-    groupId: ownProps.id,
-    orderItems: state.centerColumn.currentOrder.get('items')
-      .map(item => ({
-        itemId: item.get('id'),
-        quantity: item.get('quantity'),
-        data: item.get('data')
-      }))
-      .toList().toJS()
-  }
+const mapStateToProps = () => ({ text: 'Join Order' });
+
+const { submitNewOrder } = currentOrderActions;
+
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onSubmit: () => dispatch(submitNewOrder(id)),
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(submitNewOrder(data))
-});
-
-const SubmitNewOrder = connect(
+const SubmitNewOrder = parseId(connect(
   mapStateToProps,
-  mapDispatchToProps
-)(SubmitButton);
+  mapDispatchToProps,
+)(SubmitButton));
 
 export default SubmitNewOrder;

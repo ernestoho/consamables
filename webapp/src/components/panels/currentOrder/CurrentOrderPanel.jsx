@@ -12,7 +12,7 @@ import OrderItem from './OrderItem';
 import '../../../styles/panels/current-order-panel.scss';
 
 function CurrentOrderPanel({
-  orderStarted, items, stage, totalCost,
+  orderStarted, items, stage, orderTotal,
   onContinueClick, onBackClick,
 }) {
   if (orderStarted) {
@@ -27,7 +27,7 @@ function CurrentOrderPanel({
             <button className="button" onClick={onContinueClick}>Continue</button>
             :
             <button className="button" onClick={onBackClick}>Return to Menu</button>}
-          <div className="order-total">Total: ${totalCost.toFixed(2)}</div>
+          <div className="order-total">Total: ${orderTotal.toFixed(2)}</div>
         </div>
       </div>
     );
@@ -44,18 +44,18 @@ CurrentOrderPanel.propTypes = {
     price: PropTypes.number.isRequired,
   })).isRequired,
   stage: PropTypes.string.isRequired,
-  totalCost: PropTypes.number.isRequired,
+  orderTotal: PropTypes.number.isRequired,
   onContinueClick: PropTypes.func.isRequired,
   onBackClick: PropTypes.func.isRequired,
 };
 
-const { isOrderStarted, getOrderItems, getTotalCost, getOrderStage } = currentOrderSelectors;
+const { isOrderStarted, getOrderItems, getOrderTotal, getOrderStage } = currentOrderSelectors;
 const { continueOrder, goBackToMenu } = currentOrderActions;
 
 const mapStateToProps = state => ({
   orderStarted: isOrderStarted(state),
   items: getOrderItems(state),
-  totalCost: getTotalCost(state),
+  orderTotal: getOrderTotal(state),
   stage: getOrderStage(state),
 });
 

@@ -1,16 +1,19 @@
-import '../../../styles/panels/login-panel.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
+
+import { loginSelectors } from 'data/login';
+import { currentUserSelectors } from 'data/currentUser';
 
 import PanelHeader from '../PanelHeader';
 import UsernameField from './UsernameField';
 import PasswordField from './PasswordField';
 import LoginButton from './LoginButton';
 import Spinner from '../Spinner';
-import { goToCreateAccount } from '../../../actions';
+
+import '../../../styles/panels/login-panel.scss';
 
 class LoginPanel extends React.Component {
   componentDidMount() {
@@ -21,35 +24,32 @@ class LoginPanel extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.loggedIn) {
+  componentWillReceiveProps({ loggedIn }) {
+    if (loggedIn) {
       this.props.exitLogin();
     }
   }
 
   render() {
-    const {
-      loading, error,
-      createAccount
-    } = this.props;
+    const { loading, error } = this.props;
 
     return (
       <div className="login-panel">
-        <PanelHeader name="Log into Consamables"/>
+        <PanelHeader name="Log into Consamables" />
         <div className="login">
           <div className="login-fields">
-            <UsernameField/>
-            <PasswordField/>
+            <UsernameField />
+            <PasswordField />
           </div>
           {loading ?
-            <Spinner/>
-            : <LoginButton/>}
+            <Spinner />
+            : <LoginButton />}
           {error ?
             <div className="error">{error}</div>
             : null}
         </div>
         <div className="create-account">
-          <div>Don't have an account yet?</div>
+          <div>Don&apos;t have an account yet?</div>
           <Link to="/login/create" className="button">Get started</Link>
         </div>
       </div>
@@ -57,18 +57,29 @@ class LoginPanel extends React.Component {
   }
 }
 
+LoginPanel.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+  loggedIn: PropTypes.bool.isRequired,
+  exitLogin: PropTypes.func.isRequired,
+};
+
+LoginPanel.defaultProps = { error: '' };
+
+const { isLoading, getError } = loginSelectors;
+const { isCurrentUserLoggedIn } = currentUserSelectors;
+
 const mapStateToProps = state => ({
-  loading: state.centerColumn.login.get('loading'),
-  error: state.centerColumn.login.get('error'),
-  loggedIn: state.currentUser.get('loggedIn')
+  loading: isLoading(state),
+  error: getError(state),
+  loggedIn: isCurrentUserLoggedIn(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  createAccount: () => dispatch(goToCreateAccount()),
-  exitLogin: () => dispatch(push('/'))
+  exitLogin: () => dispatch(push('/')),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(LoginPanel);
