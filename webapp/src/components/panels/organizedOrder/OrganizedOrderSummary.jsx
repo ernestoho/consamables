@@ -1,45 +1,38 @@
-import '../../../styles/panels/organized-order-summary.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { toJS } from 'common/utils';
+
+import { groupSelectors } from 'data/groups';
 
 import PanelHeader from '../PanelHeader';
 import OrganizedOrderPreview from './OrganizedOrderPreview';
-import { showGroupDetails } from '../../../actions';
-import { getRestaurantName } from '../../../selectors';
 
-class OrganizedOrderSummary extends React.Component {
-  render() {
-    const { groups, viewDetails } = this.props;
-    return (
-      <div className="organized-order-summary">
-        <PanelHeader name="Groups You're Ordering For"/>
-        {groups.map(group =>
-          <OrganizedOrderPreview key={group.id}
-            {...group}
-            onClick={() => viewDetails(group.id)}
-          />
-        )}
-      </div>
-    );
-  }
-}
+import '../../../styles/panels/organized-order-summary.scss';
+
+const OrganizedOrderSummary = ({ groups }) => (
+  <div className="organized-order-summary">
+    <PanelHeader name="Groups You're Ordering For" />
+    {groups.map(group => <OrganizedOrderPreview key={group.groupId} {...group} />)}
+  </div>
+);
+
+OrganizedOrderSummary.propTypes = {
+  groups: PropTypes.arrayOf(PropTypes.shape({
+    restaurantName: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    timeStarted: PropTypes.number.isRequired,
+    durationMinutes: PropTypes.number.isRequired,
+  })).isRequired,
+};
+
+const { getOrganizedGroupSummary } = groupSelectors;
 
 const mapStateToProps = state => ({
-  groups: state.organizedOrders.map(group => ({
-    id: group.get('groupId'),
-    restaurantName: getRestaurantName(state, group.get('restaurantId')),
-    type: group.get('type'),
-    timeStarted: group.get('timeStarted'),
-    duration: group.get('durationMinutes')
-  })).toList()
-});
-
-const mapDispatchToProps = dispatch => ({
-  viewDetails: id => dispatch(showGroupDetails(id))
+  groups: getOrganizedGroupSummary(state),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(OrganizedOrderSummary);
+)(toJS(OrganizedOrderSummary));

@@ -7,11 +7,28 @@ import { userSelectors } from '../users';
 const { getRestaurantName } = restaurantSelectors;
 const { getUsername } = userSelectors;
 
+export const getGroupRestaurantId = (state, groupId, groupType) => (groupType ?
+  state.getIn(['groups', groupType, groupId, 'restaurantId']) :
+  (
+    state.getIn(['groups', 'pending', groupId, 'restaurantId'])
+    ||
+    state.getIn(['groups', 'active', groupId, 'restaurantId'])
+  )
+);
+
+export const getGroupRestaurantName = (state, groupId, groupType) => (
+  getRestaurantName(state, getGroupRestaurantId(state, groupId, groupType))
+);
+
 export const getGroup = (state, groupId, groupType) => (
   state.getIn(['groups', groupType, groupId], Map())
 );
 
-export const getPendingGroups = state => state.getIn(['groups', 'pending']);
+export const getPendingGroups = state => state.getIn(['groups', 'pending'])
+  .map(group => group.set(
+    'restaurantName',
+    getGroupRestaurantName(state, group.get('groupId'), 'pending')),
+  ).toList();
 
 export const anyPendingGroups = state => !!getPendingGroups(state).size;
 
@@ -27,6 +44,12 @@ export const getMyOrderItems = (state, orderId) => getMyOrder(state, orderId)
   .get('orderItems', List());
 
 export const getOrganizedGroups = state => state.getIn(['groups', 'organized']);
+
+export const getOrganizedGroupSummary = state => getOrganizedGroups(state)
+  .map(group => group
+    .set('restaurantName', getRestaurantName(state, group.get('restaurantId'), 'organized'))
+    .delete('orders'),
+  ).toList();
 
 export const anyOrganizedGroups = state => !!getOrganizedGroups(state).size;
 
@@ -52,21 +75,8 @@ export const hasUserJoinedGroup = state => (
 
 export const hasUserOrganizedGroup = state => !!state.getIn(['groups', 'organized']).size;
 
-export const getGroupRestaurantId = (state, groupId, groupType) => (groupType ?
-  state.getIn(['groups', groupType, groupId, 'restaurantId']) :
-  (
-    getPendingGroups(state).getIn([groupId, 'restaurantId'])
-    ||
-    getActiveGroups(state).getIn([groupId, 'restaurantId'])
-  )
-);
-
 export const getOverheadPercentage = (state, groupId) => getActiveGroups(state)
   .getIn([groupId, 'overheadPercentage']);
-
-export const getGroupRestaurantName = (state, groupId, groupType) => (
-  getRestaurantName(state, getGroupRestaurantId(state, groupId, groupType))
-);
 
 export const getMyOrderRestaurantName = (state, orderId) => (
   getGroupRestaurantName(state, getMyOrder(state, orderId).get('groupId'), 'my')
