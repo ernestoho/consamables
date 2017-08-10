@@ -1,4 +1,17 @@
+import { fromJS } from 'immutable';
+
 import { createActionTypes } from 'common/utils';
+
+import { currentOrderActions } from '../currentOrder';
+
+import {
+  getItemId,
+  getCurrentCheese,
+  getCurrentSauce,
+  getDefaultSauce,
+  getPizzaSize,
+  getCurrentToppings,
+} from './selectors';
 
 const prefix = 'PIZZA_BUILDER';
 
@@ -57,4 +70,23 @@ export const actions = {
     type: types.CHANGE_CHEESE,
     value: cheese,
   }),
+
+  addPizzaToOrder: () => (dispatch, getState) => {
+    const cheese = getCurrentCheese(getState());
+    const sauce = getCurrentSauce(getState());
+    const toppings = getCurrentToppings(getState());
+    const size = getPizzaSize(getState());
+    const whole = size === 'whole';
+    dispatch(currentOrderActions.addItemToOrder(getItemId(getState()), fromJS({
+      data: {
+        pizza: {
+          cheese: cheese !== 'Normal Cheese' ? cheese : undefined,
+          sauce: whole && sauce !== getDefaultSauce(getState()) ? sauce : undefined,
+          toppings: whole ? toppings : toppings.keySeq().toList(),
+          size,
+        },
+      },
+    })));
+    dispatch(actions.closePizzaBuilder());
+  },
 };

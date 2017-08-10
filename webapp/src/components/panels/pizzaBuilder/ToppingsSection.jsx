@@ -1,19 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ToppingOption from './ToppingOption';
 
-export default class ToppingsSection extends React.Component {
-  render() {
-    const { name, toppings } = this.props;
-    return (
-      <div className="toppings-section">
-        <div className="toppings-section-name">{name}</div>
-        <div className="toppings-section-list">
-          {toppings ? toppings.map((topping, i) =>
-            <ToppingOption key={i} name={topping}/>
-          ) : null}
-        </div>
-      </div>
-    );
-  }
-}
+const ToppingsSection = ({ name, toppings }) => (
+  <div className="toppings-section">
+    <div className="toppings-section-name">{name}</div>
+    <div className="toppings-section-list">
+      {toppings ?
+        toppings.map(topping => <ToppingOption key={topping} name={topping} />)
+        : null}
+    </div>
+  </div>
+);
+
+ToppingsSection.propTypes = {
+  name: PropTypes.string.isRequired,
+  toppings: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+export default ToppingsSection;

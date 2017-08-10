@@ -1,42 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
-import { setPizzaSize } from '../../../actions';
+import { pizzaBuilderSelectors, pizzaBuilderActions } from 'data/pizzaBuilder';
 
-class PizzaSize extends React.Component {
-  render() {
-    const { size, selected, onClick } = this.props;
-    return (
-      <div
-        className={`size-option${selected ? ' selected' : ''}`}
-        onClick={onClick}
-      >
-        {size.charAt(0).toUpperCase()}{size.slice(1)}
-      </div>
-    );
-  }
-}
+const PizzaSize = ({ size, selected, onClick }) => (
+  <div className={`size-option${selected ? ' selected' : ''}`} onClick={onClick}>
+    {_.startCase(size)}
+  </div>
+);
 
-const mapStateToProps = (state, ownProps) => ({
-  selected: state.centerColumn.pizzaBuilder.get('size') == ownProps.size
+PizzaSize.propTypes = {
+  size: PropTypes.oneOf(['half', 'whole']).isRequired,
+  selected: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+const { getPizzaSize } = pizzaBuilderSelectors;
+const { setPizzaSize } = pizzaBuilderActions;
+
+const mapStateToProps = (state, { size }) => ({
+  selected: getPizzaSize(state) === size,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onClick: () => dispatch(setPizzaSize(ownProps.size))
+  onClick: () => dispatch(setPizzaSize(ownProps.size)),
 });
 
-const LivePizzaSize = connect(
+const ConnectedPizzaSize = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(PizzaSize);
 
-export default class PizzaSizeSelection extends React.Component {
-  render() {
-    return (
-      <div className="pizza-size">
-        <LivePizzaSize size="half"/>
-        <LivePizzaSize size="whole"/>
-      </div>
-    );
-  }
-}
+const PizzaSizeSelection = () => (
+  <div className="pizza-size">
+    <ConnectedPizzaSize size="half" />
+    <ConnectedPizzaSize size="whole" />
+  </div>
+);
+
+export default PizzaSizeSelection;

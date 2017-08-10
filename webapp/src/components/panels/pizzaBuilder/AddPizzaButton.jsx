@@ -1,46 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
 
-import { addItemToOrder, closePizzaBuilder } from '../../../actions';
+import { pizzaBuilderActions } from 'data/pizzaBuilder';
 
-class AddPizzaButton extends React.Component {
-  render() {
-    const { itemId, data, submit } = this.props;
+const AddPizzaButton = ({ onAdd }) => (
+  <button className="button" onClick={onAdd}>Add to Order</button>
+);
 
-    return (
-      <button className="button" onClick={() => submit(itemId, data)}>Add to Order</button>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  const builder = state.centerColumn.pizzaBuilder;
-  const cheese = builder.get('cheese');
-  const sauce = builder.get('sauce');
-  const toppings = builder.get('toppings');
-  const size = builder.get('size');
-  return {
-    itemId: builder.get('itemId'),
-    data: Map({
-      pizza: Map({
-        cheese: cheese != 'Normal Cheese' ? cheese : undefined,
-        sauce: sauce != builder.get('defaultSauce') && size =='whole' ? sauce : undefined,
-        toppings: size == 'whole' ? toppings : toppings.keySeq().toList(),
-        size: size
-      })
-    })
-  };
+AddPizzaButton.propTypes = {
+  onAdd: PropTypes.func.isRequired,
 };
 
+const { addPizzaToOrder } = pizzaBuilderActions;
+
 const mapDispatchToProps = dispatch => ({
-  submit: (itemId, data) => {
-    dispatch(addItemToOrder(itemId, data));
-    dispatch(closePizzaBuilder());
-  }
+  onAdd: () => dispatch(addPizzaToOrder()),
 });
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  () => ({}),
+  mapDispatchToProps,
 )(AddPizzaButton);

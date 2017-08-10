@@ -81,7 +81,7 @@ PizzaBuilderPanel.propTypes = {
   close: PropTypes.func.isRequired,
 };
 
-const { getItemId, getPizzaSize, getCurrentPizzaToppings } = pizzaBuilderSelectors;
+const { getItemId, getPizzaSize, getCurrentToppings } = pizzaBuilderSelectors;
 const { getPizzaToppings, getPizzaSauces } = restaurantSelectors;
 const { getMaxPizzaToppings } = itemSelectors;
 
@@ -89,7 +89,7 @@ const mapStateToProps = (state, { id }) => ({
   toppings: getPizzaToppings(state, id),
   sauces: getPizzaSauces(state, id),
   maxToppings: getMaxPizzaToppings(state, getItemId(state)),
-  hasToppings: !!getCurrentPizzaToppings(state).size,
+  hasToppings: !!getCurrentToppings(state).size,
   whole: getPizzaSize(state) === 'whole',
 });
 
