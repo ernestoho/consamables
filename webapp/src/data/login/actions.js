@@ -8,6 +8,8 @@ import {
 
 import { getUsername, getPassword, getConfirmPassword } from './selectors';
 
+import { groupActions } from '../groups';
+
 const prefix = 'LOGIN';
 
 export const types = createActionTypes([
@@ -89,9 +91,9 @@ export const actions = {
 
   loadUserInfo: (userId, email, auth) => dispatch => {
     dispatch(actions.setUserInfo(userId, email, auth));
-    dispatch(actions.fetchOrganizedOrders());
-    dispatch(actions.fetchMyOrders());
-    dispatch(actions.fetchPendingOrders(true));
+    dispatch(groupActions.fetchOrganizedGroups());
+    dispatch(groupActions.fetchMyGroups());
+    dispatch(groupActions.fetchPendingGroups(true));
   },
 
   verifyUser: () => dispatch => {
