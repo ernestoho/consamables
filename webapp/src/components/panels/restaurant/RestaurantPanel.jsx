@@ -1,37 +1,38 @@
-import '../../../styles/panels/restaurant-panel.scss';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { toJS } from 'common/utils';
+
+import { restaurantSelectors } from 'data/restaurants';
+
 import PanelHeader from '../PanelHeader';
 import RestaurantBox from './RestaurantBox';
 
-class RestaurantPanel extends React.Component {
-  render() {
-    const {
-      restaurants,
-      onMenuClick, onStartClick
-    } = this.props;
+import '../../../styles/panels/restaurant-panel.scss';
 
-    return (
-      <div className="restaurant-panel">
-        <PanelHeader name="Restaurants Nearby"></PanelHeader>
-        <div className="scrollable">
-          {restaurants.map(result =>
-            <RestaurantBox
-              key={result.get('restaurantId')}
-              {...result.toJS()}
-            />
-          )}
-        </div>
-      </div>
-    );
-  }
-}
+const RestaurantPanel = ({ restaurants }) => (
+  <div className="restaurant-panel">
+    <PanelHeader name="Restaurants Nearby" />
+    <div className="scrollable">
+      {restaurants.map(result => <RestaurantBox key={result.restaurantId} {...result} />)}
+    </div>
+  </div>
+);
+
+RestaurantPanel.propTypes = {
+  restaurants: PropTypes.arrayOf(PropTypes.shape({
+    restaurantId: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+};
+
+const { getRestaurants } = restaurantSelectors;
 
 const mapStateToProps = state => ({
-  restaurants: state.restaurants.toList().sortBy(r => r.get('name'))
+  restaurants: getRestaurants(state),
 });
 
 export default connect(
-  mapStateToProps
-)(RestaurantPanel);
+  mapStateToProps,
+)(toJS(RestaurantPanel));
