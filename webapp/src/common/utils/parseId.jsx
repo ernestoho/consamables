@@ -1,11 +1,11 @@
 import React from 'react';
 
 export default WrappedComponent => {
+  const withIntId = props => (
   // eslint-disable-next-line
-  const withIntId = ({ params: { id } }) => (
-    <WrappedComponent id={parseInt(id, 10)} />
+    <WrappedComponent {...props} id={parseInt(props.params.id, 10)} />
   );
 
-  withIntId.displayName = `ParsedId(${WrappedComponent.displayName})`;
+  withIntId.displayName = `ParsedId(${WrappedComponent.displayName || WrappedComponent.name})`;
   return withIntId;
 };

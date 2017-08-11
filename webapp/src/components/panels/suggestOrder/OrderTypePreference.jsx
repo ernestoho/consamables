@@ -1,60 +1,63 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
-import { toggleDelivery, toggleCarryout, toggleOuting } from '../../../actions';
+import { toJS } from 'common/utils';
 
-class OrderTypePreference extends React.Component {
-  render() {
-    const {
-      delivery, carryout, outing,
-      toggleDelivery, toggleCarryout, toggleOuting
-    } = this.props;
+import { suggestedOrderSelectors, suggestedOrderActions } from 'data/suggestedOrder';
 
-    return (
-      <div className="suggest-option">
-        <div className="suggest-option-heading">What works for you?</div>
-        <div className="suggest-option-choices">
-          <label>
-            <input
-              type="checkbox"
-              checked={delivery}
-              onChange={toggleDelivery}
-            />
-            Delivery
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={carryout}
-              onChange={toggleCarryout}
-            />
-            Carryout
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={outing}
-              onChange={toggleOuting}
-            />
-            Outing
-          </label>
-        </div>
-      </div>
-    );
-  }
-}
+const OrderTypeOption = ({ type, checked, onToggle }) => (
+  <label htmlFor={type}>
+    <input
+      id={type}
+      type="checkbox"
+      checked={checked}
+      onChange={onToggle}
+    />
+    {_.startCase(type)}
+  </label>
+);
+
+OrderTypeOption.propTypes = {
+  type: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired,
+};
+
+const OrderTypePreference = ({ orderTypes, onToggle }) => (
+  <div className="suggest-option">
+    <div className="suggest-option-heading">What works for you?</div>
+    <div className="suggest-option-choices">
+      {['delivery', 'carryout', 'outing'].map(type => (
+        <OrderTypeOption
+          key={type}
+          type={type}
+          checked={orderTypes[type]}
+          onToggle={() => onToggle(type)}
+        />
+      ))}
+    </div>
+  </div>
+);
+
+OrderTypePreference.propTypes = {
+  orderTypes: PropTypes.objectOf(PropTypes.bool).isRequired,
+  onToggle: PropTypes.func.isRequired,
+};
+
+const { getOrderTypePreferences } = suggestedOrderSelectors;
+const { toggleOrderTypePreference } = suggestedOrderActions;
 
 const mapStateToProps = state => ({
-  ...state.centerColumn.suggestOrder.get('orderType').toJS()
+  orderTypes: getOrderTypePreferences(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleDelivery: () => dispatch(toggleDelivery()),
-  toggleCarryout: () => dispatch(toggleCarryout()),
-  toggleOuting: () => dispatch(toggleOuting())
+  onToggle: type => dispatch(toggleOrderTypePreference(type)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(OrderTypePreference);
+  mapDispatchToProps,
+)(toJS(OrderTypePreference));

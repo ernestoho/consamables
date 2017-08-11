@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -20,17 +21,30 @@ const OrderItem = ({ name, quantity, data }) => {
   );
 };
 
+OrderItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  data: PropTypes.shape({
+    pizza: PropTypes.shape({
+      toppings: PropTypes.objectOf(PropTypes.string),
+      sauce: PropTypes.string.isRequired,
+      cheese: PropTypes.string.isRequired,
+      size: PropTypes.string.isRequired,
+    }),
+  }),
+};
+
+OrderItem.defaultProps = { data: null };
+
 const PizzaDetails = ({ toppings, sauce, cheese, size }) => (
   <div className="item-data pizza">
     {toppings.size > 0 ?
       <div className="toppings">
         {size === 'half' ?
-          toppings.map(topping =>
-            <div className="topping" key={topping}>{topping}</div>
-          )
-          : toppings.map((side, topping) =>
+          toppings.map(topping => <div className="topping" key={topping}>{topping}</div>)
+          : _.toPairs(toppings).map(([topping, side]) => (
             <div className="topping" key={topping}>{topping} ({side})</div>
-          ).toList()}
+          ))}
       </div>
       : null}
     {cheese || sauce ?
@@ -42,6 +56,13 @@ const PizzaDetails = ({ toppings, sauce, cheese, size }) => (
   </div>
 );
 
+PizzaDetails.propTypes = {
+  toppings: PropTypes.objectOf(PropTypes.string).isRequired,
+  sauce: PropTypes.string.isRequired,
+  cheese: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
+};
+
 const OrderItemData = ({ data }) => {
   if (data.pizza) {
     return <PizzaDetails {...data.pizza} />;
@@ -50,6 +71,9 @@ const OrderItemData = ({ data }) => {
     <div className="item-data" />
   );
 };
+
+// eslint-disable-next-line react/forbid-prop-types
+OrderItemData.propTypes = { data: PropTypes.object.isRequired };
 
 const { getItemName } = itemSelectors;
 

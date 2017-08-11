@@ -1,31 +1,56 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class DrivingPreference extends React.Component {
-  render() {
-    const { checked, changeValue } = this.props;
+import { suggestedOrderSelectors, suggestedOrderActions } from 'data/suggestedOrder';
 
-    return (
-      <div className="suggest-option">
-        <div className="suggest-option-heading">Willing to drive?</div>
-        <div className="suggest-option-choices">
-          <label>
-            <input 
-              type="radio"
-              checked={checked}
-              onChange={() => changeValue(true)}
-            />
-            Yes
-          </label>
-          <label>
-            <input
-              type="radio"
-              checked={!checked}
-              onChange={() => changeValue(false)}
-            />
-            No
-          </label>
-        </div>
-      </div>
-    );
-  }
-}
+const DrivingPreference = ({ checked, onChange }) => (
+  <div className="suggest-option">
+    <div className="suggest-option-heading">Willing to drive?</div>
+    <div className="suggest-option-choices">
+      <label
+        htmlFor="yes"
+      >
+        <input
+          id="yes"
+          type="radio"
+          checked={checked}
+          onChange={() => onChange(true)}
+        />
+        Yes
+      </label>
+      <label
+        htmlFor="no"
+      >
+        <input
+          id="no"
+          type="radio"
+          checked={!checked}
+          onChange={() => onChange(false)}
+        />
+        No
+      </label>
+    </div>
+  </div>
+);
+
+DrivingPreference.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const { getDrivingPreference } = suggestedOrderSelectors;
+const { setDrivingPreference } = suggestedOrderActions;
+
+const mapStateToProps = state => ({
+  checked: getDrivingPreference(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  onChange: value => dispatch(setDrivingPreference(value)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DrivingPreference);

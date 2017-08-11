@@ -11,6 +11,7 @@ export default (state = Map(), action) => {
       return state
         .set('itemId', action.id)
         .set('size', 'half')
+        .set('toppings', Map())
         .set('cheese', 'Normal Cheese');
 
     case types.SET_PIZZA_SIZE:

@@ -8,7 +8,7 @@ export const getDefaultSauce = state => state.getIn(['pizzaBuilder', 'defaultSau
 
 export const getCurrentSauce = state => state.getIn(['pizzaBuilder', 'sauce']);
 
-export const getCurrentCheese = state => state.getIn(['pizzaBuidler', 'cheese']);
+export const getCurrentCheese = state => state.getIn(['pizzaBuilder', 'cheese']);
 
 export const isToppingSelected = (state, topping) => state
   .hasIn(['pizzaBuilder', 'toppings', topping]);

@@ -2,6 +2,7 @@ import { Map, List } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { types } from './actions';
+import { types as pizzaBuilderActionTypes } from '../pizzaBuilder/actions';
 
 const startOrder = (state, action, orderType) => {
   let newState;
@@ -76,10 +77,10 @@ export default (state = Map({ items: List(), stage: 'choose' }), action) => {
           overhead: 0,
         }));
 
-    case types.OPEN_PIZZA_BUILDER:
+    case pizzaBuilderActionTypes.OPEN_PIZZA_BUILDER:
       return state.set('stage', 'pizza');
 
-    case types.CLOSE_PIZZA_BUILDER:
+    case pizzaBuilderActionTypes.CLOSE_PIZZA_BUILDER:
       return state.set('stage', 'choose');
 
     case types.GO_BACK_TO_MENU:

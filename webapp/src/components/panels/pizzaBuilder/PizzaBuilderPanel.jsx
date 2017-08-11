@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { toJS } from 'common/utils';
 
-import { pizzaBuilderSelectors } from 'data/pizzaBuilder';
+import { pizzaBuilderSelectors, pizzaBuilderActions } from 'data/pizzaBuilder';
 import { restaurantSelectors } from 'data/restaurants';
 import { itemSelectors } from 'data/items';
 
@@ -15,7 +15,6 @@ import CheeseSelection from './CheeseSelection';
 import SauceSelection from './SauceSelection';
 import SideToppings from './SideToppings';
 import AddPizzaButton from './AddPizzaButton';
-import { closePizzaBuilder, setInitialSauce, setMaxToppings } from '../../../actions';
 
 import '../../../styles/panels/pizza-builder-panel.scss';
 
@@ -82,6 +81,7 @@ PizzaBuilderPanel.propTypes = {
 };
 
 const { getItemId, getPizzaSize, getCurrentToppings } = pizzaBuilderSelectors;
+const { closePizzaBuilder, setInitialSauce, setMaxToppings } = pizzaBuilderActions;
 const { getPizzaToppings, getPizzaSauces } = restaurantSelectors;
 const { getMaxPizzaToppings } = itemSelectors;
 

@@ -60,7 +60,7 @@ const mapStateToProps = (state, { id }) => ({
 
 const mapDispatchToProps = (dispatch, { index }) => ({
   onValueChange: event => dispatch(setQuantity(index, Math.round(event.target.value))),
-  onRemoveClick: () => dispatch(removeItemFromOrder(index)),
+  onRemove: () => dispatch(removeItemFromOrder(index)),
   onIncrement: () => dispatch(incrementItem(index)),
   onDecrement: () => dispatch(decrementItem(index)),
 });

@@ -24,7 +24,7 @@ export const getGroup = (state, groupId, groupType) => (
   state.getIn(['groups', groupType, groupId], Map())
 );
 
-export const getPendingGroups = state => state.getIn(['groups', 'pending'], Map())
+export const getPendingGroups = state => state.getIn(['groups', 'pending'])
   .map(group => group.set(
     'restaurantName',
     getGroupRestaurantName(state, group.get('groupId'), 'pending')),
@@ -32,7 +32,7 @@ export const getPendingGroups = state => state.getIn(['groups', 'pending'], Map(
 
 export const anyPendingGroups = state => !!getPendingGroups(state).size;
 
-export const getMyGroups = state => state.getIn(['groups', 'my'], Map());
+export const getMyGroups = state => state.getIn(['groups', 'my']);
 
 export const getMyOrders = state => getMyGroups(state)
   .reduce((orders, group) => orders.concat(group.get('orders')), List());
@@ -43,7 +43,7 @@ export const getMyOrder = (state, orderId) => getMyOrders(state)
 export const getMyOrderItems = (state, orderId) => getMyOrder(state, orderId)
   .get('orderItems', List());
 
-export const getOrganizedGroups = state => state.getIn(['groups', 'organized'], Map());
+export const getOrganizedGroups = state => state.getIn(['groups', 'organized']);
 
 export const getOrganizedGroupSummary = state => getOrganizedGroups(state)
   .map(group => group
@@ -58,7 +58,7 @@ export const getOrganizedOrders = (state, groupId) => getOrganizedGroups(state)
   .map(order => order.set('username', getUsername(state, order.get('userId'))));
 
 export const getActiveGroups = state => state
-  .getIn(['groups', 'active'], Map())
+  .getIn(['groups', 'active'])
   .filter(group => !getOrganizedGroups(state).has(group.get('groupId')))
   .toList()
   .sortBy(group => group.get('timeStarted'));
@@ -73,7 +73,7 @@ export const hasUserJoinedGroup = state => (
   !!getMyGroups(state).some((group, groupId) => !getOrganizedGroups(state).has(groupId))
 );
 
-export const hasUserOrganizedGroup = state => !!state.getIn(['groups', 'organized'], Map()).size;
+export const hasUserOrganizedGroup = state => !!state.getIn(['groups', 'organized']).size;
 
 export const getOverheadPercentage = (state, groupId) => getActiveGroups(state)
   .getIn([groupId, 'overheadPercentage']);

@@ -1,13 +1,13 @@
-import { Map } from 'immutable';
+import { fromJS } from 'immutable';
 
 import { types } from './actions';
 
-const initialState = Map({
-  orderType: Map({
+const initialState = fromJS({
+  orderType: {
     delivery: false,
     carryout: false,
     outing: false,
-  }),
+  },
   driving: false,
   waitTime: 30,
   minPeople: 3,
@@ -15,14 +15,8 @@ const initialState = Map({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.TOGGLE_DELIVERY:
-      return state.updateIn(['orderType', 'delivery'], v => !v);
-
-    case types.TOGGLE_CARRYOUT:
-      return state.updateIn(['orderType', 'carryout'], v => !v);
-
-    case types.TOGGLE_OUTING:
-      return state.updateIn(['orderType', 'outing'], v => !v);
+    case types.TOGGLE_ORDER_TYPE_PREFERENCE:
+      return state.updateIn(['orderType', action.orderType], v => !v);
 
     case types.SET_DRIVING_PREFERENCE:
       if (action.mode === 'suggest') {
@@ -30,13 +24,13 @@ export default (state = initialState, action) => {
       }
       return state;
 
-    case types.SET_WAIT_TIME:
+    case types.SET_WAIT_TIME_PREFERENCE:
       if (action.mode === 'suggest') {
         return state.set('waitTime', action.value);
       }
       return state;
 
-    case types.SET_MIN_PEOPLE:
+    case types.SET_MIN_PEOPLE_PREFERENCE:
       return state.set('minPeople', action.value);
 
     default:

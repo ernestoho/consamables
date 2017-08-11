@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { currentOrderActions } from 'data/currentOrder';
+import { pizzaBuilderActions } from 'data/pizzaBuilder';
 
 function MenuItem({
   price, name, description, viewOnly, itemId, data,
@@ -34,7 +35,8 @@ function MenuItem({
   );
 }
 
-const { addItemToOrder, openPizzaBuilder } = currentOrderActions;
+const { addItemToOrder } = currentOrderActions;
+const { openPizzaBuilder } = pizzaBuilderActions;
 
 MenuItem.propTypes = {
   price: PropTypes.number.isRequired,

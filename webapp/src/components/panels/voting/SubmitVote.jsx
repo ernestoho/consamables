@@ -1,25 +1,20 @@
 import { connect } from 'react-redux';
 
+import { suggestedOrderActions } from 'data/suggestedOrder';
+
 import SubmitButton from '../SubmitButton';
-import { submitVote } from '../../../actions';
 
-const mapStateToProps = (state, ownProps) => ({
-  text: 'Submit Vote',
-  data: {
-    groupId: ownProps.id,
-    userId: state.currentUser.get('userId'),
-    minutesInterested: state.centerColumn.vote.get('waitTime'),
-    canDrive: state.centerColumn.vote.get('driving')
-  },
-});
+const { submitVote } = suggestedOrderActions;
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(submitVote(data))
+const mapStateToProps = () => ({ text: 'Submit Vote' });
+
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onSubmit: () => dispatch(submitVote(id)),
 });
 
 const SubmitVote = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SubmitButton);
 
 export default SubmitVote;

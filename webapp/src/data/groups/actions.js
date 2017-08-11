@@ -61,7 +61,7 @@ export const actions = {
       .then(response => response.json())
       .then(json => {
         dispatch(actions.receivePendingGroups(json));
-        json.forEach(group => dispatch(actions.fetchVotes(group.groupId)));
+        json.forEach(group => dispatch(actions.fetchNumVotes(group.groupId)));
         if (loggedIn) {
           json.forEach(group => dispatch(actions.checkVoted(group.groupId)));
         }
@@ -86,8 +86,8 @@ export const actions = {
           if (response.ok) {
             dispatch(actions.receiveOrganizedGroups(json));
             json.forEach(group => {
-              group.orders.forEach(order => {
-                dispatch(userActions.fetchUsername(order.userId));
+              group.orders.forEach(({ userId }) => {
+                dispatch(userActions.fetchUsername(userId));
               });
             });
           } else {
@@ -108,12 +108,12 @@ export const actions = {
   }),
 
   fetchMyGroups: () => dispatch => {
-    fetch(types.requestMyGroups());
+    dispatch(actions.requestMyGroups());
     fetch('/api/groups/joined', buildGetRequest())
       .then(response => {
         response.json().then(json => {
           if (response.ok) {
-            dispatch(types.receiveMyGroups(json));
+            dispatch(actions.receiveMyGroups(json));
           } else if (response.status === 401) {
             dispatch(push('/login'));
           }

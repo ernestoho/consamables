@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SubmitButton = ({ text, data, onSubmit }) => (
-  <button className="button" onClick={() => onSubmit(data)}>{text}</button>
+const SubmitButton = ({ text, onSubmit }) => (
+  <button className="button" onClick={onSubmit}>{text}</button>
 );
 
 SubmitButton.propTypes = {
   text: PropTypes.string.isRequired,
-  data: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   onSubmit: PropTypes.func.isRequired,
 };
 

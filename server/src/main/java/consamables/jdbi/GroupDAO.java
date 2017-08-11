@@ -42,7 +42,8 @@ public interface GroupDAO {
               "AND (phase = 'active' OR phase = 'ordered')")
     List<Group> getGroupsByOrganizer(@Bind("organizerId") long organizerId);
     
-    @SqlQuery("SELECT * FROM \"group\" JOIN \"order\" USING (group_id) WHERE user_id = :userId")
+    @SqlQuery("SELECT * FROM \"group\" JOIN \"order\" USING (group_id) " +
+              "WHERE user_id = :userId AND phase != 'complete'")
     List<Group> getGroupsByMember(@Bind("userId") long userId);
 
     @SqlUpdate("INSERT INTO \"group\" " +

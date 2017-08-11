@@ -10,7 +10,6 @@ import pizzaBuilder from './pizzaBuilder';
 import restaurants from './restaurants';
 import suggestedOrder from './suggestedOrder';
 import users from './users';
-import vote from './vote';
 import routing from './routing';
 
 export default combineReducers({
@@ -24,6 +23,5 @@ export default combineReducers({
   restaurants,
   suggestedOrder,
   users,
-  vote,
   routing,
 });

@@ -52,7 +52,7 @@ class PendingOrderBox extends React.Component {
         <div className="info">{votes} of {minPeople} people in queue</div>
         <div className="time-elapsed" style={{ color: timeColor }}>
           Suggested
-          {timeElapsed > 0 ? timeElapsed : ' less than a '}
+          {timeElapsed > 0 ? ` ${timeElapsed} ` : ' less than a '}
           {timeElapsed <= 1 ? 'minute ' : 'minutes '}
           ago
         </div>

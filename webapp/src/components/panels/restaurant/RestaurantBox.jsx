@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Link from '../Link';
+import Spinner from '../Spinner';
 import TimeDisplay from './TimeDisplay';
 import RestaurantToolbar from './RestaurantToolbar';
 
@@ -12,7 +13,10 @@ const RestaurantBox = ({ restaurantId, name, location, url, open, openTime, clos
       {location.address.street}, {location.address.city}
     </div>
     <Link url={url} />
-    <TimeDisplay open={open} openTime={openTime} closeTime={closeTime} />
+    {openTime && closeTime ?
+      <TimeDisplay open={open} openTime={openTime} closeTime={closeTime} />
+      : <Spinner />
+    }
     <RestaurantToolbar id={restaurantId} open={open} />
   </div>
 );
@@ -27,9 +31,15 @@ RestaurantBox.propTypes = {
     }).isRequired,
   }).isRequired,
   url: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
-  openTime: PropTypes.number.isRequired,
-  closeTime: PropTypes.number.isRequired,
+  open: PropTypes.bool,
+  openTime: PropTypes.number,
+  closeTime: PropTypes.number,
+};
+
+RestaurantBox.defaultProps = {
+  open: false,
+  openTime: null,
+  closeTime: null,
 };
 
 export default RestaurantBox;

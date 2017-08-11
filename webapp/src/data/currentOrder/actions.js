@@ -35,8 +35,6 @@ export const types = createActionTypes([
   'SET_QUANTITY',
   'CONTINUE_ORDER',
   'GO_BACK_TO_MENU',
-  'OPEN_PIZZA_BUILDER',
-  'CLOSE_PIZZA_BUILDER',
   'SET_ORDER_TYPE',
   'SET_ORDER_DURATION',
   'SET_OVERHEAD',

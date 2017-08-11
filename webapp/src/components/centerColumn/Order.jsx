@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { parseId } from 'common/utils';
 
 import { currentOrderSelectors } from 'data/currentOrder';
+import { groupSelectors } from 'data/groups';
 
 import CenterColumn from './CenterColumn';
 import MenuPanel from '../panels/menu/MenuPanel';
@@ -12,7 +13,6 @@ import CurrentOrderPanel from '../panels/currentOrder/CurrentOrderPanel';
 import PizzaBuilderPanel from '../panels/pizzaBuilder/PizzaBuilderPanel';
 import NewGroupOptionsPanel from '../panels/orderOptions/NewGroupOptionsPanel';
 import NewOrderConfirmPanel from '../panels/orderOptions/NewOrderConfirmPanel';
-import { getGroupRestaurantId } from '../../selectors';
 
 const Order = ({ mode, stage, menuId, id }) => {
   switch (stage) {
@@ -52,6 +52,7 @@ Order.propTypes = {
 };
 
 const { getCurrentOrderStage } = currentOrderSelectors;
+const { getGroupRestaurantId } = groupSelectors;
 
 const mapStateToProps = (state, { route: { path }, id }) => {
   const mode = path.split('/')[0];
