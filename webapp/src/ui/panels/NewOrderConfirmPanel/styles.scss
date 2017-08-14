@@ -1,0 +1,24 @@
+@import '~common/styles/panel';
+
+.new-order-confirm-panel {
+  @include centerpanel;
+  padding: 0 0.5em 0.5em;
+
+  .confirm-message {
+    text-align: center;
+    color: $title-color;
+    margin: 0.4em 0.4em 0.4em;
+
+    .order-total {
+      color: green;
+      font-weight: bold;
+    }
+  }
+
+  .reminder-text {
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+    margin: -0.2em 0.4em 0.8em;
+  }
+}

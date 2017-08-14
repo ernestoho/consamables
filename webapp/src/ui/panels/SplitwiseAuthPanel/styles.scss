@@ -1,0 +1,11 @@
+@import '~common/styles/panel';
+
+.splitwise-auth-panel {
+  @include centerpanel;
+  max-width: 25em;
+  padding: 0 0.4em 0.4em;
+
+  .panel-header {
+    font-size: 1.2em;
+  }
+}

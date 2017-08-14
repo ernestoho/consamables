@@ -1,0 +1,14 @@
+@import '~common/styles/colors';
+@import '~common/styles/panel';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: auto;
+  background-color: $modal-background;
+  transition: visibility 0s linear 0.3s, opacity 0.3s linear;
+}

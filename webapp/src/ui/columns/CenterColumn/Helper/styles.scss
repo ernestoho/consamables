@@ -1,0 +1,61 @@
+@import '~common/styles/panel-measurements';
+@import '~common/styles/colors';
+
+.helper {
+  width: 100%;
+  height: 15em;
+  white-space: nowrap;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+
+  .left-helper {
+    float: left;
+    transform: rotate(90deg);
+    transform-origin: left bottom;
+    left: 0;
+  }
+
+  .right-helper {
+    float: right;
+    transform: rotate(-90deg);
+    transform-origin: right bottom;
+    right: 0;
+  }
+
+  .left-helper, .right-helper {
+    position: absolute;
+    top: -25%;
+    display: inline-block;
+    width: 11em;
+    height: 2.5em;
+    font-size: 140%;
+    font-weight: bold;
+    text-shadow: 0 0.1em 0.2em $text-shadow;
+
+    .helper-text {
+      width: 100%;
+      text-align: center;
+    }
+
+    .arrows {
+      width: 100%;
+      height: 2em;
+      margin-top: -1em;
+      box-sizing: border-box;
+      padding: 0.5em;
+
+      .left-arrow, .right-arrow {
+        margin: 5%;
+      }
+
+      .left-arrow {
+        float: left;
+      }
+
+      .right-arrow {
+        float: right;
+      }
+    }
+  }
+}

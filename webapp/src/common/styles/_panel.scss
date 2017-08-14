@@ -1,0 +1,107 @@
+@import 'panel-measurements';
+@import '~common/styles/colors';
+
+@mixin panel {
+  background-color: white;
+  box-shadow: 0 0.1em 0.2em #E0E0E0;
+  box-sizing: border-box;
+  border: 0.1em $border-color solid;
+  overflow: auto;
+  margin: $margin;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .toolbar {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.25em;
+
+    .button {
+      flex: 1 1 auto;
+    }
+  }
+
+  .empty-text-container {
+    color: $title-color;
+    margin: 1em 3em 2em;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@mixin centerpanel {
+  @include panel;
+  width: 100%;
+  min-width: 20em;
+  max-width: 50em;
+  margin-left: 0;
+  margin-right: 0;
+  z-index: 2;
+}
+
+@mixin panelbox {
+  padding: 1em 0 0.5em;
+  font-size: 0.8em;
+  text-align: center;
+
+  .box-title, .info, .link, .toolbar {
+    margin-bottom: 0.25em;
+  }
+
+  .box-title {
+    font-weight: bold;
+    color: $title-color;
+  }
+
+  .info {
+
+  }
+
+  .link {
+    font-style: italic;
+    color: $title-color;
+    text-decoration: underline;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .link:hover {
+    color: $hover-color;
+  }  
+}
+
+.panel-header {
+  font-weight: bold;
+  padding: 0.4em;
+  text-align: center;
+  box-shadow: 0px 2px 4px white;
+  z-index: 1;
+}
+
+@mixin xbutton {
+  cursor: pointer;
+  transition-duration: 0.2s;
+  text-decoration: none;
+  color: $text-color;
+  user-select: none;
+
+  &:hover {
+    color: red;
+  }
+}
+
+.close-button {
+  @include xbutton;
+  position: absolute;
+  right: 0;
+  font-size: 1.5em;
+  margin-top: -0.25em;
+  margin-right: 0.35em;
+}

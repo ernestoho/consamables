@@ -1,0 +1,71 @@
+@import '~common/styles/panel';
+
+.suggestion-panel {
+  @include centerpanel;
+  max-width: 25em;
+  text-align: center;
+  padding-bottom: 0.5em;
+
+  .suggestion-header {
+    padding: 0.4em;
+
+    .panel-header {
+      padding: 0;
+      color: $title-color;
+    }
+  }
+
+  .restaurant-name {
+    margin-top: 0.4em;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+
+  .suggestion-options {
+    padding: 0.4em;
+    font-size: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .suggestion-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .suggestion-option-heading {
+        font-weight: bold;
+        color: $title-color;
+      }
+
+      .suggestion-option-choices {
+        margin: 0.4em;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        input {
+          margin-right: 0.4em;
+        }
+      }
+
+      .wait-time {
+        width: 180%;
+      }
+
+      .min-people {
+        width: 60%;
+      }
+
+      .range-label {
+        margin-top: -0.2em;
+        padding-bottom: 0.4em;
+      }
+    }
+  }
+
+  .button {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+}

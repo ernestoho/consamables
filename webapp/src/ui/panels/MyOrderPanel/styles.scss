@@ -1,0 +1,20 @@
+@import '~common/styles/panel';
+
+.my-order-panel {
+  @include centerpanel;
+  text-align: center;
+
+  .order-details-header {
+    padding: 0.4em;
+    font-weight: bold;
+
+    .order-details-heading {
+      color: $title-color;
+    }
+  }
+
+  .order-items {
+    border-left: none;
+    padding: 0 0.5em 0.5em;
+  }
+}

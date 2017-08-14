@@ -1,0 +1,27 @@
+@import '~common/styles/colors';
+@import '~common/styles/panel-measurements';
+
+.title {
+  position: absolute;
+  top: 0;
+  font-size: 2.8em;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  margin-top: $margin / 2.5;
+  margin-bottom: auto;
+  z-index: 2;
+  pointer-events: none;
+
+  .heading {
+    vertical-align: middle;
+    color: $title-color;
+    text-shadow: 0 0.05em 0.1em $text-shadow;
+  }
+
+  .subheading {
+    margin-top: 0.2em;
+    font-size: 0.35em;
+    text-shadow: 0 0.1em 0.2em $text-shadow;
+  }
+}

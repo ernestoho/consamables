@@ -1,0 +1,40 @@
+@import '~common/styles/panel';
+
+.pending-group-panel {
+  @include panel;
+  flex: 1 1 auto;
+  min-height: 15em;
+
+  .scrollable {
+    padding: 0 0.5em 0.5em;
+    overflow: auto;
+
+    .pending-group-box+.pending-group-box {
+      border-top: 1px solid $title-color;
+    }
+
+    .pending-group-box {
+      @include panelbox;
+
+      .group-type {
+        font-weight: bold;
+        font-style: italic;
+      }
+
+      .time-elapsed {
+        font-weight: bold;
+      }
+
+      .already-voted {
+        flex: 1 0 auto;
+        color: $title-color;
+        font-size: 0.85em;
+        font-weight: bold;
+        border: 1px solid $title-color;
+        border-radius: 2px;
+        padding: 2px 12px 3px;
+        margin: 0.25em;
+      }
+    }
+  }
+}

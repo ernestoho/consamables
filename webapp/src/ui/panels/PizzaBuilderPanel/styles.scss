@@ -1,0 +1,230 @@
+@import '~common/styles/panel';
+
+@mixin item {
+  color: $title-color;
+  padding: 0.2em;
+  border: 2px solid $title-color;
+  border-radius: 3px;
+  transition-duration: 0.2s;
+  user-select: none;
+
+  &:hover {
+    cursor: default;
+    background-color: $background-color;
+  }
+}
+
+@mixin selected {
+  color: white;
+  background-color: $title-color;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+}
+
+.pizza-builder-panel {
+  @include centerpanel;
+  padding: 0 0 0.5em;
+  flex: 0 1 auto;
+  margin-top: 6em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  .panel-header {
+    color: $title-color;
+    box-shadow: none;
+  }
+
+  .pizza-size {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.4em;
+    margin: 0.2em 0.4em 0;
+    border-bottom: 1px solid $title-color;
+
+    .size-option {
+      @include item;
+      flex: 0 0 5em;
+      text-align: center;
+      margin: 0 0.5em;
+
+      &.selected {
+        @include selected;
+      }
+    }
+  }
+
+  .toppings {
+    flex: 1 1 auto;
+    font-size: 0.9em;
+    margin-top: 0.4em;
+    display: flex;
+
+    .toppings-section {
+      width: 45%;
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin-bottom: 0.4em;
+
+      .toppings-section-name {
+        margin: 0 0.2em;
+        padding-bottom: 0.2em;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0px 2px 4px white;
+        z-index: 3;
+      }
+
+      .toppings-section-list {
+        flex: 0 1 auto;
+        padding: 0 0.8em;
+        margin: 0 0 -0.4em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        overflow: auto;
+
+        .topping-option {
+          padding: 0.2em;
+          flex: 0 0 auto;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+
+          .topping-name {
+            @include item;
+            margin-bottom: 0.2em;
+
+            &.selected {
+              @include selected;
+            }
+          }
+
+          .topping-side-select {
+            font-size: 1.5em;
+            flex: 0 0 auto;
+            line-height: 1.1em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: default;
+
+            .topping-side {
+              width: 1em;
+              height: 1em;
+              user-select: none;
+              border-radius: 0.2em;
+              transition-duration: 0.2s;
+
+              &:hover {
+                background-color: $border-color;
+              }
+
+              &.selected {
+                @include selected;
+              }
+            }
+
+            .topping-side+.topping-side {
+              margin-left: 0.5em;
+            }
+          }
+        }
+      }
+    }
+
+    .toppings-section+.toppings-section {
+      border-left: 1px solid $title-color;
+    }
+  }
+
+  .pizza-attribute {
+    flex: 0 0 auto;
+    font-size: 0.9em;
+    border-top: 1px solid $title-color;
+    padding: 0.4em 0;
+    margin: 0 0.4em;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    z-index: 3;
+
+    .attribute-heading {
+      font-weight: bold;
+    }
+
+    .attribute-option {
+      @include item;
+      margin: 0.4em;
+
+      &.selected {
+        @include selected;
+      }
+    }
+  }
+
+  .choice-display {
+    flex: 0 0 auto;
+    font-size: 0.9em;
+    padding: 0.4em 0;
+    margin: 0 0.4em;
+    display: flex;
+    border-top: 1px solid $title-color;
+
+    .side-toppings {
+      flex: 1 0 0;
+      text-align: center;
+
+      .side-label {
+        font-weight: bold;
+      }
+
+      .side-list {
+        font-size: 0.9em;
+        margin-top: 0.5em;
+        padding: 0 0.3em;
+
+        .side-topping {
+          color: $title-color;
+          padding: 0.3em 0.1em;
+          line-height: 1.1em;
+        }
+
+        .side-topping+.side-topping {
+          border-top: 1px dotted $text-color;
+        }
+      }
+    }
+
+    .side-toppings+.side-toppings {
+      border-left: 1px solid $title-color;
+    }
+  }
+
+  .no-toppings {
+    margin: 0 0.4em 0.4em;
+    padding-top: 0.4em;
+    border-top: 1px solid $title-color;
+    text-align: center;
+    color: $title-color;
+    font-size: 0.9em;
+    font-style: italic;
+  }
+
+  .toolbar {
+    margin: 0 0.5em;
+  }
+
+  .pizza-attribute+.toolbar {
+    border-top: 1px solid $title-color;
+    padding-top: 0.4em;
+  }
+}

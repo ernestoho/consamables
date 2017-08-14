@@ -1,0 +1,51 @@
+@import '~common/styles/panel';
+
+.new-group-options-panel {
+  @include centerpanel;
+  flex: 0 0 auto;
+  padding-bottom: 0.5em;
+
+  .order-options {
+    padding: 0.4em;
+    font-size: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .order-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .order-option-heading {
+        font-weight: bold;
+        color: $title-color;
+      }
+
+      input[type="range"] {
+        max-width: 20em;
+      }
+
+      .range-label {
+        margin-top: -0.2em;
+        margin-bottom: 0.4em;
+      }
+
+      .order-option-choices {
+        margin: 0.4em;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        input {
+          margin-right: 0.4em;
+        }
+      }
+    }
+  }
+
+  .button {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+}

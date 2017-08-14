@@ -1,0 +1,24 @@
+@import '~common/styles/panel';
+
+.restaurant-panel {
+  @include panel;
+  margin-top: $margin;
+  flex: 1 1 auto;
+
+  .scrollable {
+    padding: 0 0.5em 0.5em;
+    overflow: auto;
+
+    .restaurant-box+.restaurant-box {
+      border-top: 1px solid $title-color;
+    }
+
+    .restaurant-box {
+      @include panelbox;
+
+      .time-display {
+        font-weight: bold;
+      }
+    }
+  }
+}

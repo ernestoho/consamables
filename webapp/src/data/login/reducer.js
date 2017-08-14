@@ -3,7 +3,12 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { types } from './actions';
 
-const initialState = Map({ username: '', password: '', confirmPassword: '' });
+const initialState = Map({
+  username: '',
+  password: '',
+  confirmPassword: '',
+  loading: false,
+});
 
 export default (state = initialState, action) => {
   switch (action.type) {

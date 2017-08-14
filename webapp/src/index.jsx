@@ -9,8 +9,6 @@ import { selectLocationState } from 'data/routing';
 import configureStore from './configureStore';
 import routes from './routes';
 
-import './styles/master.scss';
-
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store, { selectLocationState });
 const container = document.getElementById('container');

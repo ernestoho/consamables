@@ -1,0 +1,6 @@
+@import '~common/styles/panel';
+@import '../SuggestionPanel/styles';
+
+.voting-panel {
+  @include centerpanel;
+}

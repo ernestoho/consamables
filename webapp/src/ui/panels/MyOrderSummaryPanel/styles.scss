@@ -1,0 +1,43 @@
+@import '~common/styles/panel';
+
+.my-order-summary-panel {
+  @include centerpanel;
+  position: absolute;
+  top: 6em;
+  padding: 0 0.4em 0.2em;
+
+  .my-order-preview {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4em 0;
+
+    &+.my-order-preview {
+      border-top: 1px solid $title-color;
+    }
+
+    .info {
+      font-size: 0.9em;
+      font-weight: bold;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      margin-left: 0.4em;
+
+      .restaurant-name {
+        color: $title-color;
+      }
+
+      .num-items {
+        font-style: italic;
+      }
+    }
+
+    .button {
+      flex: 0 0 auto;
+      margin-right: 1em;
+      font-size: 0.7em;
+    }
+  }
+}

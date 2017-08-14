@@ -1,0 +1,44 @@
+@import '~common/styles/panel';
+
+.organized-group-summary {
+  @include centerpanel;
+  max-width: 25em;
+  padding: 0 0.4em 0.4em;
+  position: absolute;
+  top: 70%;
+
+  .organized-group-preview {
+    font-size: 0.9em;
+    display: flex;
+    padding: 0.4em;
+    align-items: center;
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      font-weight: bold;
+      flex: 1 0 auto;
+
+      .restaurant-name {
+        color: $title-color;
+      }
+
+      .type {
+        font-size: 0.9em;
+        margin-top: 0.2em;
+      }
+    }
+
+    .order-timer {
+      font-weight: bold;
+      flex: 0 0 auto;
+      padding: 0 0.5em;
+      margin-right: 0.5em;
+    }
+
+    .button {
+      flex: 0 0 auto;
+      font-size: 0.75em;
+    }
+  }
+}

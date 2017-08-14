@@ -1,0 +1,20 @@
+@import '~common/styles/reset';
+@import '~common/styles/colors';
+
+@import '~common/components/range';
+@import '~common/components/button';
+
+html {
+  body {
+    background-color: $background-color;
+
+    #container > div {
+      color: $text-color;
+      font-size: 100%;
+      min-width: 20em;
+      overflow: hidden;
+      padding: 0 20em;
+      transition-duration: .2s;
+    }
+  }
+}

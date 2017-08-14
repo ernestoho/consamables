@@ -1,0 +1,29 @@
+@import '~common/styles/colors';
+
+.button {
+  text-align: center;
+  margin: 0.25em;
+  padding: 2px 6px 3px;
+  font-weight: bold;
+  color: $background-color;
+  background-color: $title-color;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid;
+  border-color: $title-color;
+  border-radius: 2px;
+  transition-duration: 0.2s;
+  user-select: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: $hover-color;
+  }
+}
+
+a.button {
+  font-size: 0.85em;
+}

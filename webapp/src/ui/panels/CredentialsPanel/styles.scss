@@ -1,0 +1,31 @@
+@import '~common/styles/panel';
+
+.credentials-panel {
+  @include panel;
+  flex: 0 0 auto;
+  padding: 0.5em;
+  justify-content: center;
+  align-items: center;
+
+  .signed-in {
+    flex: 0 0 auto;
+    font-size: 0.8em;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+
+    .email {
+      flex: 0 0 auto;
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+      font-weight: normal;
+      font-style: italic;
+      color: $title-color;
+    }
+  }
+
+  .button {
+    align-self: stretch;
+  }
+}

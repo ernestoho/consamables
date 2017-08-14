@@ -1,0 +1,121 @@
+@import '~common/styles/panel';
+
+.organized-order-panel {
+  @include centerpanel;
+  text-align: center;
+  margin-top: 6em;
+  flex: 0 1 auto;
+
+  .group-details-header {
+    padding: 0.4em;
+    font-weight: bold;
+
+    .group-details-heading {
+      color: $title-color;
+    }
+  }
+
+  .group-details-toolbar {
+    margin: 0.5em 0.5em 0;
+    background-color: $background-color;
+    border-radius: 4px;
+    padding: 0.4em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .info {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding-left: 0.5em;
+
+      .group-type {
+        font-size: 0.9em;
+        font-style: italic;
+        padding: 0.2em;
+      }
+
+      .order-timer {
+        font-size: 0.9em;
+        padding: 0.2em;
+      }
+    }
+
+    .status-container {
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+
+      .status {
+        flex: 0 0 auto;
+        border-radius: 4px;
+        padding: 0.2em 0.6em;
+
+        &.ordered {
+          background-color: rgba(0, 255, 0, 0.2);
+        }
+
+        &.not-ordered {
+          background-color: rgba(255, 0, 0, 0.2);
+        }
+      }
+    }
+
+    .controls {
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      padding-right: 0.5em;
+
+      .buttons {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+
+        .button {
+          flex: 0 0 auto;
+
+          &+.button {
+            margin-top: 0.4em;
+          }
+        }
+      }
+    }
+  }
+
+  .orders {
+    padding: 0.2em 0.4em 0.4em;
+    display: flex;
+    flex-direction: column;
+
+    .orders-heading {
+      font-weight: bold;
+      color: $title-color;
+    }
+
+    .individual-order {
+      display: flex;
+      align-items: center;
+      padding: 0.4em;
+      font-size: 0.9em;
+
+      &+.individual-order {
+        border-top: 1px solid $title-color;
+      }
+
+      .username {
+        flex: 0 0 auto;
+        width: 40%;
+        text-align: left;
+        font-style: italic;
+        color: $title-color;
+        text-align: center;
+        padding-right: 0.5em;
+      }
+    }
+  }
+}
