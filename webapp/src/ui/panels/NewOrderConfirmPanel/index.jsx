@@ -33,7 +33,7 @@ const NewOrderConfirmPanel = ({ loading, orderTotal, id }) => (
 
 NewOrderConfirmPanel.propTypes = {
   loading: PropTypes.bool.isRequired,
-  orderTotal: PropTypes.number.isRequired,
+  orderTotal: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
 };
 

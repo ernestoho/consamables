@@ -41,7 +41,7 @@ const { openPizzaBuilder } = pizzaBuilderActions;
 MenuItem.propTypes = {
   price: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   viewOnly: PropTypes.bool.isRequired,
   itemId: PropTypes.number.isRequired,
   data: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -49,7 +49,7 @@ MenuItem.propTypes = {
   onBuildClick: PropTypes.func.isRequired,
 };
 
-MenuItem.defaultProps = { data: null };
+MenuItem.defaultProps = { data: null, description: '' };
 
 const mapStateToProps = () => ({});
 

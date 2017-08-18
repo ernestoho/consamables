@@ -68,7 +68,9 @@ export default class OrderTimer extends React.Component {
 }
 
 OrderTimer.propTypes = {
-  concise: PropTypes.bool.isRequired,
+  concise: PropTypes.bool,
   timeStarted: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
 };
+
+OrderTimer.defaultProps = { concise: false };

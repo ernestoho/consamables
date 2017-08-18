@@ -22,7 +22,7 @@ IndividualOrder.propTypes = {
   username: PropTypes.string.isRequired,
   isCurrentUser: PropTypes.bool.isRequired,
   orderItems: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    itemId: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
   })).isRequired,
 };

@@ -45,7 +45,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  changeValue: e => dispatch(setOrderType(e.currentTarget.value)),
+  onChange: e => dispatch(setOrderType(e.currentTarget.value)),
 });
 
 export default connect(

@@ -15,7 +15,7 @@ MenuSection.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     price: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
   })).isRequired,
   viewOnly: PropTypes.bool.isRequired,
 };

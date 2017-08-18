@@ -28,7 +28,7 @@ const ActiveGroupPanel = ({ groups }) => (
 
 ActiveGroupPanel.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.shape({
-    restaurantId: PropTypes.string.isRequired,
+    restaurantId: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     orders: PropTypes.number.isRequired,
     timeStarted: PropTypes.number.isRequired,

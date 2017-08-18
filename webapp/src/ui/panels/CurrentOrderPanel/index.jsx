@@ -39,9 +39,7 @@ CurrentOrderPanel.propTypes = {
   orderStarted: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
   })).isRequired,
   stage: PropTypes.string.isRequired,
   orderTotal: PropTypes.number.isRequired,

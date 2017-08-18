@@ -7,7 +7,7 @@ export default (state = Map(), action) => {
     case types.RECEIVE_ACTIVE_GROUPS:
       return action.activeGroups;
 
-    case types.RECEIVE_NUM_GROUPS:
+    case types.RECEIVE_NUM_ORDERS:
       return state.setIn([action.id, 'orders'], action.value);
 
     default:

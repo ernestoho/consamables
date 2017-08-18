@@ -26,7 +26,7 @@ MyOrderPreview.propTypes = {
 const { getGroupRestaurantName } = groupSelectors;
 
 const mapStateToProps = (state, { groupId }) => ({
-  restaurantName: getGroupRestaurantName(state, 'my', groupId),
+  restaurantName: getGroupRestaurantName(state, groupId, 'my'),
 });
 
 export default connect(

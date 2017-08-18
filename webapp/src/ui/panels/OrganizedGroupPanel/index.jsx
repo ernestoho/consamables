@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
 
-import { parseId } from 'common/utils';
+import { parseId, toJS } from 'common/utils';
 
 import { groupSelectors, groupActions } from 'data/groups';
 
@@ -62,6 +62,30 @@ function OrganizedGroupPanel({
   );
 }
 
+OrganizedGroupPanel.propTypes = {
+  groupId: PropTypes.number.isRequired,
+  orders: PropTypes.arrayOf(PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    orderItems: PropTypes.arrayOf(PropTypes.shape({
+      itemId: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
+    })).isRequired,
+  })).isRequired,
+  restaurantName: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  timeStarted: PropTypes.number.isRequired,
+  duration: PropTypes.number.isRequired,
+  ended: PropTypes.bool.isRequired,
+  markGroupOrdered: PropTypes.func.isRequired,
+  markGroupComplete: PropTypes.func.isRequired,
+};
+
+OrganizedGroupPanel.defaultProps = {
+  timeStarted: 0,
+  duration: 0,
+};
+
 const {
   getOrganizedOrders,
   getGroupRestaurantName,
@@ -76,30 +100,11 @@ const mapStateToProps = (state, { id }) => ({
   orders: getOrganizedOrders(state, id),
   restaurantName: getGroupRestaurantName(state, id),
   type: getGroupAttribute(state, id, 'organized', 'type'),
-  phase: getGroupAttribute(state, id, 'organized', 'phase'),
+  active: getGroupAttribute(state, id, 'organized', 'phase') === 'active',
   timeStarted: getGroupAttribute(state, id, 'organized', 'timeStarted'),
-  duration: getGroupAttribute(state, id, 'organized', 'duration'),
+  duration: getGroupAttribute(state, id, 'organized', 'durationMinutes'),
   ended: hasGroupClosed(state, id, 'organized', moment()),
 });
-
-OrganizedGroupPanel.propTypes = {
-  groupId: PropTypes.number.isRequired,
-  orders: PropTypes.arrayOf(PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    orderItems: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      quantity: PropTypes.number.isRequired,
-    })).isRequired,
-  })).isRequired,
-  restaurantName: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  active: PropTypes.bool.isRequired,
-  timeStarted: PropTypes.number.isRequired,
-  duration: PropTypes.number.isRequired,
-  ended: PropTypes.bool.isRequired,
-  markGroupOrdered: PropTypes.func.isRequired,
-  markGroupComplete: PropTypes.func.isRequired,
-};
 
 const mapDispatchToProps = dispatch => ({
   markGroupOrdered: id => dispatch(markGroupOrdered(id)),
@@ -109,4 +114,4 @@ const mapDispatchToProps = dispatch => ({
 export default parseId(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(OrganizedGroupPanel));
+)(toJS(OrganizedGroupPanel)));

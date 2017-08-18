@@ -8,11 +8,11 @@ const { getRestaurantName } = restaurantSelectors;
 const { getUsername } = userSelectors;
 
 export const getGroupRestaurantId = (state, groupId, groupType) => (groupType ?
-  state.getIn(['groups', groupType, groupId, 'restaurantId']) :
+  state.getIn(['groups', groupType, groupId, 'restaurantId'], 0) :
   (
-    state.getIn(['groups', 'pending', groupId, 'restaurantId'])
+    state.getIn(['groups', 'pending', groupId, 'restaurantId'], 0)
     ||
-    state.getIn(['groups', 'active', groupId, 'restaurantId'])
+    state.getIn(['groups', 'active', groupId, 'restaurantId'], 0)
   )
 );
 
@@ -54,7 +54,7 @@ export const getOrganizedGroupSummary = state => getOrganizedGroups(state)
 export const anyOrganizedGroups = state => !!getOrganizedGroups(state).size;
 
 export const getOrganizedOrders = (state, groupId) => getOrganizedGroups(state)
-  .getIn([groupId, 'orders'])
+  .getIn([groupId, 'orders'], List())
   .map(order => order.set('username', getUsername(state, order.get('userId'))));
 
 export const getActiveGroups = state => state
@@ -75,8 +75,8 @@ export const hasUserJoinedGroup = state => (
 
 export const hasUserOrganizedGroup = state => !!state.getIn(['groups', 'organized']).size;
 
-export const getOverheadPercentage = (state, groupId) => getActiveGroups(state)
-  .getIn([groupId, 'overheadPercentage']);
+export const getOverheadPercentage = (state, groupId) => state
+  .getIn(['groups', 'active', groupId, 'overheadPercentage']);
 
 export const getMyOrderRestaurantName = (state, orderId) => (
   getGroupRestaurantName(state, getMyOrder(state, orderId).get('groupId'), 'my')
@@ -89,5 +89,5 @@ export const getGroupAttribute = (state, groupId, groupType, attribute) => (
 export const hasGroupClosed = (state, groupId, groupType, currentMoment) => (
   moment(getGroupAttribute(state, groupId, groupType, 'timeStarted'))
     .add(getGroupAttribute(state, groupId, groupType, 'durationMinutes'), 'minutes')
-    .isAfter(currentMoment)
+    .isBefore(currentMoment)
 );
